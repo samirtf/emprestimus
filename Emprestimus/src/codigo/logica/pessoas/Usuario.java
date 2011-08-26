@@ -6,12 +6,22 @@ package codigo.logica.pessoas;
  * @version 2.0
  */
 public class Usuario implements PessoaIF {
+	
+	private String nome;
+	private String login;
+	private String endereco;
 
 	/**
 	 * 
 	 */
-	public Usuario() {
-		// TODO Auto-generated constructor stub
+	private Usuario() {
+		// Construtor padrao privado impede a construcao do objeto sem parametros.
+	}
+	
+	public Usuario(String nome, String login, String endereco){
+		this.nome = nome;
+		this.login = login;
+		this.endereco = endereco;
 	}
 
 	/* (non-Javadoc)
@@ -19,8 +29,7 @@ public class Usuario implements PessoaIF {
 	 */
 	@Override
 	public String getNome() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.nome;
 	}
 
 	/* (non-Javadoc)
@@ -28,8 +37,7 @@ public class Usuario implements PessoaIF {
 	 */
 	@Override
 	public String getLogin() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.login;
 	}
 
 	/* (non-Javadoc)
@@ -37,8 +45,7 @@ public class Usuario implements PessoaIF {
 	 */
 	@Override
 	public String getEndereco() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.endereco;
 	}
 
 	/* (non-Javadoc)
@@ -46,8 +53,7 @@ public class Usuario implements PessoaIF {
 	 */
 	@Override
 	public void setNome(String nome) {
-		// TODO Auto-generated method stub
-
+		this.nome = nome;
 	}
 
 	/* (non-Javadoc)
@@ -55,8 +61,7 @@ public class Usuario implements PessoaIF {
 	 */
 	@Override
 	public void setLogin(String login) {
-		// TODO Auto-generated method stub
-
+		this.login = login;
 	}
 
 	/* (non-Javadoc)
@@ -64,8 +69,7 @@ public class Usuario implements PessoaIF {
 	 */
 	@Override
 	public void setEndereco(String endereco) {
-		// TODO Auto-generated method stub
-
+		this.endereco = endereco;
 	}
 
 }
