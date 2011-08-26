@@ -1,0 +1,77 @@
+#labels Milestone1
+*_______________________________________*
+*=> Milestone 1 <=*
+
+
+O milestone 1 é uma versão funcional do sistema sem padrões de projeto e com interface apenas por linha de comando.
+
+A especificação do projeto segue abaixo. Além dela, publicaremos também uma lista de testes de aceitação que você usará pra saber quando seu sistema atende todos os requisitos do cliente (seu cliente é tão bacana que se dispôs a fazer testes de aceitação!).
+
+Outros artefatos que devem ser gerados no milestone 1 se encontram na página do projeto do período passado (enquanto nosso site está fora do ar).
+
+*Data de entrega: 12/09 (~1 mês)*
+Obs.1: Atente-se para o fato de que essa versão do sistema deve apresentar um interface via linha de comando. 
+Obs.2: Em breve, especificaremos os testes de aceitação juntamente com a linguagem de script para rodá-los com o EasyAccept e o nome dos arquivos que esperamos no M1.
+
+*Breve descrição do sistema*
+O sistema consiste em uma rede social na web para compartilhamento de objetos (itens) que as pessoas têm mas não usam sempre e que podem ser úteis pra outros: livros, dvds, ferramentas, etc. Os usuários desse sistema criam relações de amizade com outros usuários,  constróem uma base de itens pessoais que desejam compartilhar e pedem itens emprestados de outros usuários quando desejam. Por conveniência, os itens só podem ser emprestados dentro do círculo de amizade do usuário.
+
+*Contexto*
+Sistemas que facilitam a prática de compartilhamento de bens de consumo estão se tornando muito populares no exterior sob o nome de Collaborative Consumption (Consumo Colaborativo). Esse fenômeno vai na direção oposta do modelo tradicional de propriedade individual (privada), se baseando em algo mais próximo do modelo de propriedade “coletiva”. Nesse contexto, as pessoas facilitam o acesso a seus bens ao conceder temporariamente o direito a outras pessoas de possuí-los.
+
+*Exemplos*
+Neste link vocês encontrarão mais exemplos de sistemas baseados em Consumo Colaborativo. O site Neighborgoods é interessante e serve de inspiração, pois se assemelha à ideia deste projeto. Outros sistemas permitem que usuários aluguem seus bens, são exemplos: descolai e ecomodo.
+
+Ainda não existe no Brasil um sistema com as características do projeto da disciplina. Portanto, acreditamos que vocês terão a oportunidade de criar um sistema inovador e de impacto.
+User Stories
+US01 - Criação de conta. Para cadastrar um usuário no sistema é necessário informar o seu login, nome e endereço.
+
+*US02 -* Cadastro de itens. Permitir o cadastro de itens que o usuário deseja emprestar. Deve-se informar o nome, a descrição e a categoria – Livro, Filme ou Jogo – do item.
+
+*US03 -* Localizar usuário. Usuários podem localizar outros usuários cadastrados no sistema informando o nome ou um endereço. O resultado deve ser uma lista de usuários cadastrados que satisfazem a consulta. O usuário pode acessar qualquer perfil dessa lista.
+
+*US04 -* Adição de amigos. Permitir a criação de relacionamentos de amizade.  Este processo envolve os seguintes passos:
+1. Requisitar amizade. Um usuário pode solicitar amizade a qualquer outro usuário do sistema.
+2. Aprovar amizade. O usuário que recebeu a solicitação pode aprová-la ou não.
+
+*US05 -* Visualização de perfil. Em qualquer instante o usuário pode visualizar as informações do próprio perfil. Um perfil é composto pelas informações de cadastro, lista de amigos e lista de itens. O usuário pode acessar o perfil de qualquer usuário a partir da lista de amigos do perfil que ele está visualizando. Caso o usuário visualize um perfil de alguém que não é seu amigo, então os itens deste perfil não devem ser mostrados.
+
+*US06 -* Realização de empréstimo. Um empréstimo é concretizado ao passar pelas seguintes etapas:
+Requisitar o empréstimo. Um amigo do usuário solicita o empréstimo de um item disponível (não emprestado). Nesta solicitação o amigo deve fornecer uma estimativa da duração do empréstimo (em dias).
+Aprovar o empréstimo. O usuário que recebeu a solicitação pode aprová-la ou não.
+
+*US07 -* Devolução de um item. O usuário beneficiado pode indicar a devolução de um item. Em seguida, o dono do item deve confirmar a finalização do empréstimo.
+
+*US08 -* Troca de mensagens privadas entre usuários. Usuários podem trocar mensagens entre si. Há dois tipos: mensagens relativas à negociação de um empréstimo e mensagens off-topic. As mensagens devem ser agrupadas em tópicos (e.g. threads de email), onde o critério de agrupamento é o assunto da mensagem. O usuário pode visualizar a lista de tópicos, como também a lista de mensagens de um dado tópico, ambas devem ser ordenadas pela ordem de ocorrência. Na visualização dos tópicos, o usuário pode escolher em ver apenas tópicos de mensagens relativa à negociação, ver apenas mensagens off-topic ou ver todos. Uma mensagem default (padrão), relativa a uma negociação, é criada no momento em que o usuário requisita um empréstimo, essa mensagem tem o seguinte template (formato): “Assunto: Empréstimo do item "nome_do_item" a "nome_do_usuário"; Mensagem: "usuario_requisitante" solicitou o empréstimo do item "nome_do_item".”.
+
+*US09 -* Requisitar devolução. O usuário dono do item pode a qualquer momento requisitar a devolução. Após o recebimento do item (fora do sistema), o dono deve confirmar a finalização do empréstimo. Se a data da criação da requisição for inferior à data prevista para devolução, então o empréstimo deve ser marcado como cancelado antes do tempo. A data prevista para devolução é a data da aprovação do empréstimo mais a estimativa da duração.
+
+*US10 -* Registrar interesse em itens. Usuários só podem registrar interesse em itens emprestados. No momento que a devolução desse item for concluída, todos os usuários interessados nesse item devem ser notificados. Um usuário não pode registrar interesse no seu próprio item, nem em itens de um usuário que não é seu amigo.
+
+*US11 -* Pesquisa de itens. Usuários podem buscar itens cadastrados no sistema informando uma palavra-chave. A pesquisa só pode ser realizada na biblioteca dos seus amigos. O resultado da pesquisa pode ser ordenado crescentemente ou decrescentemente com base em uma dessas características: data de criação do item e reputação do usuário como emprestador (número de empréstimos completados).
+
+*US12 -* Desfazer amizade. Permitir que o usuário desfaça uma amizade.
+
+*US13 -* Apagar item. Permitir que o usuário remova um item do sistema. Se o item estiver emprestado, então o item não pode ser removido.
+
+*US14 -* Ranking dos usuários. Permitir que o usuário visualize rankings relativos à quantidade de empréstimos completados, na situação em que o usuário foi o emprestador. Além disso, há 2 categorias de rankings: global e entre amigos.
+
+*_Glossário_*
+
+_Perfil do usuário:_ Página pessoal do usuário contendo suas informações básicas.
+
+_Empréstimo:_ Contrato criado ao emprestar um objeto.  Neste sistema o ato de empréstimo não tem retorno financeiro.
+
+_Emprestador:_ Usuário que cedeu temporariamente um objeto em um empréstimo.
+
+_Beneficiado:_ Usuário que recebeu temporariamente um objeto em um empréstimo.
+
+_Tópico:_ Conjunto de mensagens sobre um mesmo assunto
+
+_Mensagens off-topic:_ Mensagens com assunto livre.
+
+_Ranking dos usuários:_ Lista de usuários ordenada decrescentemente dado um certo critério.
+
+_Empréstimo completado:_ Um empréstimo é considerado completado quando o beneficiado devolve o item e o emprestador confirma a finalização do empréstimo.
+
+_Empréstimo cancelado:_ Um empréstimo é considerado cancelado quando o emprestador requisita a devolução do item numa data inferior à data prevista para devolução.
