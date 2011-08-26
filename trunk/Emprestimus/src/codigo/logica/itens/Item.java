@@ -1,6 +1,9 @@
 package codigo.logica.itens;
 
 
+import java.util.GregorianCalendar;
+
+import codigo.logica.pessoas.Usuario;
 import codigo.utilitarios.ValidadorString;
 
 
@@ -14,6 +17,15 @@ public class Item implements ItemIF{
 	
 	private String nome, descricao;
 	private ItemCategoria categoria;
+	
+	private boolean estaDisponivel;
+	private Usuario emprestadoA;
+	private GregorianCalendar dataEmprestimo;
+	private int diasEmprestimo;
+	
+	private Item(){
+		// Construtor padrao privado impede a criacao do objeto sem parametros.
+	}
 	
 	public Item(String nome, String descricao, ItemCategoria categoria) throws IllegalArgumentException {
 		setDescricao(descricao);
@@ -43,6 +55,42 @@ public class Item implements ItemIF{
 	
 	public void setCategoria(ItemCategoria categoria) {
 		this.categoria = categoria;
+	}
+	
+	public boolean estaDisponivel(){
+		return this.estaDisponivel;
+	}
+	
+	public void setDisponivel(){
+		this.estaDisponivel = true;
+	}
+	
+	public void setIndisponivel(){
+		this.estaDisponivel = false;
+	}
+	
+	public Usuario getEmprestadoA(){
+		return this.emprestadoA;
+	}
+	
+	public void setEmprestadoA(Usuario login){
+		this.emprestadoA = login;
+	}
+	
+	public void setDiasEmprestimo(int dias){
+		this.diasEmprestimo = dias;
+	}
+	
+	public int getDiasEmprestimo(){
+		return this.diasEmprestimo;
+	}
+	
+	public GregorianCalendar getDataEmprestimo(){
+		return this.dataEmprestimo;
+	}
+	
+	public void setDataEmprestimo(GregorianCalendar dataEmp){
+		this.dataEmprestimo = dataEmp;
 	}
 	
 }
