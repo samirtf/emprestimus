@@ -71,5 +71,13 @@ public class Usuario implements PessoaIF {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
+	
+	@Override
+	public boolean equals(Object obj){
+		if(obj instanceof Usuario){
+			return this.login.equals(((Usuario)obj).login);
+		}
+		return false;
+	}
 
 }
