@@ -8,32 +8,35 @@ import codigo.enums.Mensagem;
  * 		(testar Strings nulas, vazias e compostas apenas por espacos).
  * 
  * @author Joeffison Silverio de Andrade, 21011853, joeffisonsa@gmail.com
- * @version 1.0
+ * @version 1.9
  * @since 1.0
  */
 public class ValidadorString {
-	private static String inicioPadraoMensagemErro = Mensagem.INICIO_PADRAO_MENSAGEM_ERRO.getMensagem();
+	private final static String [] mensagens_de_erro_padroes = {"Este dado nao pode ser nulo!",
+														  		"Este dado nao pode ser vazio!",
+														  		"Este dado nao pode conter apenas espacos!"};
 
 	/**
 	 * Submete a {@link String} apresentada a todos os testes desta classe, para verificar se ela eh nula, vazia ou se contem apenas caracteres de espaco.
 	 * 
-	 * @param inicioMensagemErro
-	 * 		Inicio desejado para a mensagem de erro, que sera substituido pelo padrao, caso nao atenda aos requisitos basicos necessarios (passar nos testes desta mesma classe)
+	 * @param MensagensDeErro
+	 * 		Array de {@link String} de tamanho 3,
+	 * 			onde os itens equivalem as mensagens de quando a String eh nula, vazia ou so contem espacos, respectivamente. 
 	 * @param StringParaTestar
 	 * 		{@link String} que devera ser checada
 	 * @return
 	 * 		OK, caso nenhum problema seja detectado, ou uma mensagem de erro especifica, caso necessario.
 	 */
-	public static String validaString(String inicioMensagemErro, String StringParaTestar) {
-		String mensagemErro = ehNull(inicioMensagemErro, StringParaTestar);
+	public static String validaString(String [] MensagensDeErro, String StringParaTestar) {
+		String mensagemErro = ehNull(MensagensDeErro[0], StringParaTestar);
 		if (!mensagemErro.equals(Mensagem.OK.getMensagem())) {
 			return mensagemErro;
 		}
-		mensagemErro = ehBranco(inicioMensagemErro, StringParaTestar);
+		mensagemErro = ehBranco(MensagensDeErro[1], StringParaTestar);
 		if (!mensagemErro.equals(Mensagem.OK.getMensagem())) {
 			return mensagemErro;
 		}
-		mensagemErro = somenteEspacos(inicioMensagemErro, StringParaTestar);
+		mensagemErro = somenteEspacos(MensagensDeErro[2], StringParaTestar);
 		if (!mensagemErro.equals(Mensagem.OK.getMensagem())) {
 			return mensagemErro;
 		}
@@ -49,25 +52,22 @@ public class ValidadorString {
 	 * 		OK, caso nenhum problema seja detectado, ou uma mensagem de erro especifica, caso necessario.
 	 */
 	public static String validaString(String StringParaTestar) {
-		return validaString(inicioPadraoMensagemErro, StringParaTestar);
+		return validaString(mensagens_de_erro_padroes, StringParaTestar);
 	}
 	
 	/**
 	 * Verifica se a {@link String} informada eh nula.
 	 * 
-	 * @param inicioMensagemErro
-	 * 		Inicio desejado para a mensagem de erro, que sera sera descartado caso nao passe nos testes desta classe
+	 * @param MensagemDeErro
+	 * 		Mensagem de erro, que podera ser retornada (no caso da palavra nao ser aceita).
 	 * @param StringParaTestar
 	 * 		{@link String} que sera analisada
 	 * @return
 	 * 		OK, caso nao seja nula, ou uma mensagem de erro, caso seja.
 	 */
-	public static String ehNull(String inicioMensagemErro, String StringParaTestar) {
-		if (!inicioPadraoMensagemErro.equals(inicioMensagemErro)) {
-			inicioMensagemErro = validaInicioMensagemErro(inicioMensagemErro);
-		}
+	public static String ehNull(String MensagemDeErro, String StringParaTestar) {
 		if (StringParaTestar == null) {
-			return inicioMensagemErro + " nao pode ser nul" + pegaArtigoDefinido(inicioMensagemErro) + "!";
+			return MensagemDeErro;
 		}
 		return Mensagem.OK.getMensagem();
 	}
@@ -75,32 +75,29 @@ public class ValidadorString {
 	/**
 	 * Verifica se a {@link String} informada eh nula.
 	 * 
-	 * @param inicioMensagemErro
-	 * 		Inicio desejado para a mensagem de erro, que sera sera descartado caso nao passe nos testes desta classe
 	 * @param StringParaTestar
 	 * 		{@link String} que sera analisada
 	 * @return
 	 * 		OK, caso nao seja nula, ou uma mensagem de erro, caso seja.
 	 */
 	public static String ehNull(String StringParaTestar) {
-		return ehNull(inicioPadraoMensagemErro, StringParaTestar);
+		return ehNull(mensagens_de_erro_padroes[0], StringParaTestar);
 	}
 	
 	
 	/**
 	 * Verifica se a string esta vazia
 	 * 
+	 * @param MensagemDeErro
+	 * 		Mensagem de erro retornada em caso da palavra ser rejeitada.
 	 * @param StringParaTestar
 	 * 		String que devera ser verificada
 	 * @return
 	 * 		OK, caso a string nao seja vazia, ou uma mensagem de erro, caso ela seja
 	 */
-	public static String ehBranco(String inicioMensagemErro, String StringParaTestar) {
-		if (!inicioPadraoMensagemErro.equals(inicioMensagemErro)) {
-			inicioMensagemErro = validaInicioMensagemErro(inicioMensagemErro);
-		}
+	public static String ehBranco(String MensagemDeErro, String StringParaTestar) {
 		if (StringParaTestar.isEmpty()) {
-			return inicioMensagemErro + " nao pode ser vazi" + pegaArtigoDefinido(inicioMensagemErro) + "!";
+			return MensagemDeErro;
 		}
 		return Mensagem.OK.getMensagem();
 	}
@@ -114,25 +111,24 @@ public class ValidadorString {
 	 * 		OK, caso a string nao seja vazia, ou uma mensagem de erro, caso ela seja
 	 */
 	public static String ehBranco(String StringParaTestar) {
-		return ehBranco(inicioPadraoMensagemErro, StringParaTestar);
+		return ehBranco(mensagens_de_erro_padroes[1], StringParaTestar);
 	}
 	
 	
 	/**
 	 * Verifica se a string contem exclusivamente espacos
 	 * 
+	 * @param MensagemDeErro
+	 * 		Mensagem de Erro a ser retornada em caso da string ser rejeitada nos testes
 	 * @param StringParaTestar
 	 * 		String que devera ser verificada
 	 * @return
 	 * 		OK, caso a string contenha algum caractere diferente de espaco,
 	 * 				ou uma mensagem de erro, caso ela apresente apenas espacos.
 	 */
-	public static String somenteEspacos(String inicioMensagemErro, String StringParaTestar) {
-		if (!inicioPadraoMensagemErro.equals(inicioMensagemErro)) {
-			inicioMensagemErro = validaInicioMensagemErro(inicioMensagemErro);
-		}
+	public static String somenteEspacos(String MensagemDeErro, String StringParaTestar) {
 		if (StringParaTestar.trim().isEmpty()) {
-			return inicioMensagemErro + " nao pode conter apenas espacos!";
+			return MensagemDeErro;
 		}
 		return Mensagem.OK.getMensagem();
 	}
@@ -147,77 +143,16 @@ public class ValidadorString {
 	 * 				ou uma mensagem de erro, caso ela apresente apenas espacos.
 	 */
 	public static String somenteEspacos(String StringParaTestar) {
-		return somenteEspacos(inicioPadraoMensagemErro, StringParaTestar);
-	}
-	
-	
-	// A partir deste ponto, os metodos sao de baixa importancia,
-	// sao usados por pura estetica da mensagem de erro retornada,
-	// portanto, podem ser ignorados, sem afetar o entendimento desta classe e seus metodos,
-	// rendendo, consequentemente, um bom tempo de leitura
-	
-	
-	//Este metodo nao tem muita importancia, podendo ser ignorado sem afetar o entendimento desta classe
-	/**
-	 * Verifica qual o artigo definido que deve ser associado a {@link String}.
-	 * 
-	 * @param s
-	 * 		String que devera ser analisada
-	 * 
-	 * @return
-	 * 		O artigo definido que se encaixa melhor com a String, o default e o artigo definido o
-	 */
-	private static Character pegaArtigoDefinido(String s) {
-		Character a = "a".charAt(0);
-		Character o = "o".charAt(0);
-		Character artDef = o;
-		String[] palavras = s.split(" ");
-		String primeiraPalavra = palavras[0].toLowerCase();
-		String ultimaPalavra = palavras[palavras.length - 1].toLowerCase();
-		Character ultimaLetra = primeiraPalavra.charAt(primeiraPalavra.length() - 1);
-		
-		if (primeiraPalavra.toLowerCase().equals("este")) {
-			ultimaLetra = o;
-		} else if (a.equals(ultimaLetra) || o.equals(ultimaLetra)) {
-			artDef = ultimaLetra;
-		} else if (!primeiraPalavra.equals(ultimaPalavra)) {
-			ultimaLetra = ultimaPalavra.charAt(ultimaPalavra.length() - 1);
-			if (a.equals(ultimaLetra) || o.equals(ultimaLetra)) {
-				artDef = ultimaLetra;
-			}
-		}
-		return artDef;
-	}
-
-	// Este metodo serve apenas para a estetica da String de saida, no caso da string testada seja invalida,
-	// podendo ser ignorado.
-	/**
-	 * Verifica a consistencia do inicio da mensagem de erro, podendo ser substituido pelo inicio padrao, caso necessario.
-	 * 
-	 * @param inicioMensagemErro
-	 * 		Inicio informado para a mensagem de erro, para ter sua consistencia analisada
-	 * 
-	 * @return
-	 * 		O parametro recebido, caso este seja um inicio valido para a mensagem de erro, ou o inicio padrao, caso contrario
-	 */
-	private static String validaInicioMensagemErro(String inicioMensagemErro) {
-		if (inicioMensagemErro == null) {
-			return inicioPadraoMensagemErro;
-		} else if (inicioMensagemErro.equals(inicioPadraoMensagemErro)) {
-			return inicioMensagemErro;
-		} else if (validaString(inicioMensagemErro).equals(Mensagem.OK.getMensagem())) {
-			return inicioMensagemErro;
-		}
-		return inicioPadraoMensagemErro;
+		return somenteEspacos(mensagens_de_erro_padroes[2], StringParaTestar);
 	}
 	
 	/**
 	 * Retorna a string passada como parametro, se esta for valida,
 	 * ou lanca uma excecao personalizada, caso a string passada seja invalida.
 	 * 
-	 * @param inicioMensagemErro
-	 * 			Este parametro serve, unicamente, diante da necessidade de se personalizar
-	 * a mensagem de erro retornada, com o nome do tipo de string passada para ser testada.
+	 * @param MensagensDeErro
+	 * 		Array de {@link String} de tamanho 3,
+	 * 	onde os itens equivalem as mensagens de quando a String eh nula, vazia ou so contem espacos, respectivamente. 
 	 * @param minhaString
 	 * 			String que deve ser validada
 	 * @return
@@ -225,8 +160,8 @@ public class ValidadorString {
 	 * @throws Exception
 	 * 			Lanca uma excecao, caso a string passada nao seja aprovada
 	 */
-	public static String pegaString(String inicioMensagemErro, String minhaString) throws IllegalArgumentException {
-        String teste = ValidadorString.validaString(inicioMensagemErro, minhaString);
+	public static String pegaString(String [] MensagensDeErro, String minhaString) throws IllegalArgumentException {
+        String teste = ValidadorString.validaString(MensagensDeErro, minhaString);
         if (!teste.equals(Mensagem.OK.getMensagem())) {
             throw new IllegalArgumentException(teste);
         }
@@ -245,7 +180,7 @@ public class ValidadorString {
 	 * 			Lanca uma excecao, caso a string passada nao seja aprovada
 	 */
 	public static String pegaString(String minhaString) throws IllegalArgumentException {
-        return pegaString(Mensagem.INICIO_PADRAO_MENSAGEM_ERRO.getMensagem(), minhaString);
+        return pegaString(mensagens_de_erro_padroes, minhaString);
     }
 	
 }
