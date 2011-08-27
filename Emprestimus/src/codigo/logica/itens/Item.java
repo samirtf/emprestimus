@@ -19,13 +19,12 @@ public class Item implements ItemIF{
 	private ItemCategoria categoria;
 	
 	private boolean estaDisponivel;
-	private Usuario emprestadoA;
-	private GregorianCalendar dataEmprestimo;
+	private Usuario emprestadoA; //item faz coisa que nao devia
+	private GregorianCalendar dataEmprestimo; // codigo fedido, cara de nova(s) classe(s)
 	private int diasEmprestimo;
 	
-	private Item(){
+	private Item() {}
 		// Construtor padrao privado impede a criacao do objeto sem parametros.
-	}
 	
 	public Item(String nome, String descricao, ItemCategoria categoria) throws IllegalArgumentException {
 		setDescricao(descricao);
@@ -61,7 +60,7 @@ public class Item implements ItemIF{
 		return this.estaDisponivel;
 	}
 	
-	public void setDisponivel(){
+	public void setDisponivel(){ // TODO public boolean setDisponibilidade
 		this.estaDisponivel = true;
 	}
 	
@@ -69,27 +68,27 @@ public class Item implements ItemIF{
 		this.estaDisponivel = false;
 	}
 	
-	public Usuario getEmprestadoA(){
+	public Usuario getEmprestadoA(){ // TODO ?
 		return this.emprestadoA;
 	}
 	
-	public void setEmprestadoA(Usuario login){
+	public void setEmprestadoA(Usuario login){ // TODO
 		this.emprestadoA = login;
 	}
 	
-	public void setDiasEmprestimo(int dias){
+	public void setDiasEmprestimo(int dias){ // TODO 
 		this.diasEmprestimo = dias;
 	}
 	
-	public int getDiasEmprestimo(){
+	public int getDiasEmprestimo(){ // TODO Isto fede!
 		return this.diasEmprestimo;
 	}
 	
-	public GregorianCalendar getDataEmprestimo(){
+	public GregorianCalendar getDataEmprestimo(){ //TODO
 		return this.dataEmprestimo;
 	}
 	
-	public void setDataEmprestimo(GregorianCalendar dataEmp){
+	public void setDataEmprestimo(GregorianCalendar dataEmp){ // TODO
 		this.dataEmprestimo = dataEmp;
 	}
 	
