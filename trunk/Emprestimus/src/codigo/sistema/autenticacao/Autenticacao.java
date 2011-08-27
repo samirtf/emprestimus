@@ -16,8 +16,8 @@ public class Autenticacao {
 	
 	private Set<Usuario> usuariosCadastrados = new TreeSet<Usuario>();
 	
-	public boolean cadastraUsuario(String nome, String login, String endereco){
-		Usuario usuario = new Usuario(nome, login, endereco);
+	public boolean cadastraUsuario(String nome, String login, String endereco, int id){
+		Usuario usuario = new Usuario(nome, login, endereco, id);
 		if(usuariosCadastrados.contains(usuario))
 			return false;
 		return usuariosCadastrados.add(usuario);
