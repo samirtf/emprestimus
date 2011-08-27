@@ -39,7 +39,7 @@ public class Usuario implements PessoaIF {
 	 * @param endereco
 	 * @param id
 	 */
-	public Usuario(String nome, String login, String endereco, int id) throws IllegalArgumentException {
+	public Usuario(String nome, String login, String endereco) throws IllegalArgumentException {
 		setNome(nome);
 		setLogin(login);
 		setEndereco(endereco);
