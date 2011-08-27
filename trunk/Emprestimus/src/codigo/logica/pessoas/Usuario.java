@@ -6,6 +6,9 @@ import java.util.List;
 import codigo.logica.itens.Item;
 
 /**
+ * Esta classe representa um usuario padrao do sistema 
+ * 
+ * @author Joeffison Silverio de Andrade, joeffisonsa@gmail.com
  * @author Nathaniel
  * @since 25/08/2011
  * @version 2.0
@@ -14,12 +17,18 @@ public class Usuario implements PessoaIF {
 	private String nome;
 	private String login;
 	private String endereco;
-	private final int id;
-
-	private List<Usuario> amigos;
-	private List<Usuario> solicitacoes;
-	private List<Item> itens;
-
+	
+	private final int id; // id (codigo unico) do usuario
+	private List<Usuario> amigos; // Grupo de amigos
+	private List<Usuario> solicitacoes; // solicitacoes de amizade
+	private List<Item> itens; //itens do usuario
+	
+	
+	private Usuario() {
+		id = 0;
+		// Construtor padrao privado impede a construcao do objeto sem parametros.
+	}
+	
 	/**
 	 * @param nome
 	 * @param login
@@ -27,17 +36,14 @@ public class Usuario implements PessoaIF {
 	 * @param id
 	 */
 	public Usuario(String nome, String login, String endereco, int id) throws IllegalArgumentException {
-		if (nome == null || login == null || endereco == null) {
-			throw new IllegalArgumentException("Parametro nullo");
-		}
-		this.nome = nome;
-		this.login = login;
-		this.endereco = endereco;
+		setNome(nome);
+		setLogin(login);
+		setEndereco(endereco);
+		
 		this.id = id;
-
-		this.amigos = new LinkedList<Usuario>();
-		this.solicitacoes = new LinkedList<Usuario>();
-		this.itens = new LinkedList<Item>();
+		this.amigos = new LinkedList<Usuario>(); // inicializando a lista de amigos
+		this.solicitacoes = new LinkedList<Usuario>(); // inicializando a lista de solicitacoes de amizade
+		this.itens = new LinkedList<Item>(); // inicializando a lista de itens
 	}
 
 	/**
@@ -52,22 +58,17 @@ public class Usuario implements PessoaIF {
 	 */
 	public boolean solicitarAmizade(Usuario outro) throws Exception {
 		if (amigos.contains(outro))
-			throw new Exception("Usuario jah existe nos amigos");
-		if (solicitacoes.contains(outro)) {
+			throw new Exception("Usuario jah existe nos amigos"); // TODO implementar excecao expecifica
+		if (solicitacoes.contains(outro)) { // TODO A logica nao esta errada aqui? Pra isso serve o TDD
 			return aceitarAmizade(outro);
-		} else if (outro.solicitacoes.contains(this)) {
+		} else if (outro.solicitacoes.contains(this)) { // TODO Isto quebra, solicitacoes eh private
 			return false;
 		} else {
 			outro.solicitacoes.add(this);
 			return true;
 		}
 	}
-		
-	private Usuario() {
-		id = 0;
-		// Construtor padrao privado impede a construcao do objeto sem parametros.
-	}
-
+	
 	/**
 	 * Aceita um pedido de amizade, caso este esteja entre as solicitacoes
 	 * 
@@ -79,11 +80,10 @@ public class Usuario implements PessoaIF {
 		if (solicitacoes.contains(outro)) {
 			solicitacoes.remove(outro);
 			amigos.add(outro);
-			outro.amigos.add(this);
+			outro.amigos.add(this);// TODO
 			return true;
-		} else {
-			return false;
 		}
+		return false;
 	}
 
 	/**
@@ -93,7 +93,7 @@ public class Usuario implements PessoaIF {
 	 *            Usuario que voce excluir de suas solicitacoes
 	 * @return False caso o outro nao esteja entre suas solicitacoes
 	 */
-	public boolean rejeitarAmizade(Usuario outro) {
+	public boolean rejeitarAmizade(Usuario outro) { // TODO
 		if (solicitacoes.contains(outro)) {
 			solicitacoes.remove(outro);
 			return true;
@@ -102,29 +102,29 @@ public class Usuario implements PessoaIF {
 		}
 	}
 
-	public boolean temAmigo(Usuario outro) {
-		return amigos.contains(outro);
+	public boolean temAmigo(Usuario outro) { // TODO poderia estar em uso
+		return this.amigos.contains(outro);
 	}
 	
-	public boolean temSolicitacao(Usuario outro) {
-		return solicitacoes.contains(outro);
+	public boolean temSolicitacao(Usuario outro) { // TODO poderia estar em uso
+		return this.solicitacoes.contains(outro);
 	}
 	
 	public int getNumAmigos() {
-		return amigos.size();
+		return this.amigos.size();
 	}
 	
 	public int getNumSolicitacoes() {
-		return solicitacoes.size();
+		return this.solicitacoes.size();
 	}
 	
 	public int getId() {
-		return id;
+		return this.id;
 	}
 
 	@Override
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
 	@Override
@@ -134,7 +134,7 @@ public class Usuario implements PessoaIF {
 	
 	@Override
 	public String getLogin() {
-		return login;
+		return this.login;
 	}
 
 	@Override
@@ -144,7 +144,7 @@ public class Usuario implements PessoaIF {
 	
 	@Override
 	public String getEndereco() {
-		return endereco;
+		return this.endereco;
 	}
 
 	@Override
@@ -154,15 +154,15 @@ public class Usuario implements PessoaIF {
 
 	@Override
 	public int hashCode() {
-		return getId();
+		return this.getId();
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Usuario) {
 			Usuario outro = (Usuario) obj;
-			return ((getId() == outro.getId()) && getLogin().equals(
-					outro.getLogin()));
+			return ( (getId() == outro.getId()) &&
+					    getLogin().equals(outro.getLogin()) );
 		}
 		return false;
 	}
