@@ -11,7 +11,8 @@ import codigo.utilitarios.ValidadorString;
  * Esta classe representa os itens que podem ser cadastrados pelo usuario
  * 
  * @author Joeffison Silverio de Andrade, joeffisonsa@gmail.com
- * @version 1.0
+ * @version 1.5
+ * @since 1.0
  */
 public class Item implements ItemIF{
 	
@@ -44,6 +45,22 @@ public class Item implements ItemIF{
 		return this.categoria;
 	}
 	
+	public Usuario getEmprestadoA(){ // TODO ?
+		return this.emprestadoA;
+	}
+	
+	public int getDiasEmprestimo(){ // TODO Isto fede!
+		return this.diasEmprestimo;
+	}
+	
+	public GregorianCalendar getDataEmprestimo(){ //TODO
+		return this.dataEmprestimo;
+	}
+	
+	public boolean estaDisponivel(){
+		return this.estaDisponivel;
+	}
+	
 	public void setNome(String nome) throws IllegalArgumentException {
 		this.nome = ValidadorString.pegaString(nome);
 	}
@@ -56,10 +73,6 @@ public class Item implements ItemIF{
 		this.categoria = categoria;
 	}
 	
-	public boolean estaDisponivel(){
-		return this.estaDisponivel;
-	}
-	
 	public void setDisponivel(){ // TODO public boolean setDisponibilidade
 		this.estaDisponivel = true;
 	}
@@ -68,24 +81,12 @@ public class Item implements ItemIF{
 		this.estaDisponivel = false;
 	}
 	
-	public Usuario getEmprestadoA(){ // TODO ?
-		return this.emprestadoA;
-	}
-	
 	public void setEmprestadoA(Usuario login){ // TODO
 		this.emprestadoA = login;
 	}
 	
 	public void setDiasEmprestimo(int dias){ // TODO 
 		this.diasEmprestimo = dias;
-	}
-	
-	public int getDiasEmprestimo(){ // TODO Isto fede!
-		return this.diasEmprestimo;
-	}
-	
-	public GregorianCalendar getDataEmprestimo(){ //TODO
-		return this.dataEmprestimo;
 	}
 	
 	public void setDataEmprestimo(GregorianCalendar dataEmp){ // TODO
