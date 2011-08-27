@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import codigo.logica.itens.ItemIF;
+import codigo.logica.pessoas.Usuario;
 
 
 /**
@@ -19,10 +20,16 @@ public class Emprestimo {
 	/* O q esta acima ajuda a imprimir a data, atraves de "sd.data_da_devolucao.getTime()"
 	 */
 	
+	// Referente a datas e prazos
 	private Calendar data_do_emprestimo;
 	private Calendar data_da_devolucao;
-	
 	private int duracao;
+	
+	// Outros atributos
+	private Usuario credor; // Aquele que empresta
+	private Usuario devedor; // Aquele que pega emprestado
+	private ItemIF item; // item pego emprestado
+	
 	
 	private Emprestimo() {}
 	
@@ -55,6 +62,14 @@ public class Emprestimo {
 	
 	public Calendar getData_da_devolucao() {
 		return data_da_devolucao;
+	}
+	
+	public ItemIF getItem() {
+		return item;
+	}
+	
+	private void encerrarEmprestimo() {
+		credor.receberItemQueEmprestou(devedor, item);
 	}
 	
 }

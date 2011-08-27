@@ -23,7 +23,7 @@ public class Usuario implements PessoaIF {
 	private final int id; // id (codigo unico) do usuario
 	private List<Usuario> amigos; // Grupo de amigos
 	private List<Usuario> solicitacoes; // solicitacoes de amizade
-	private List<Item> itens; //itens do usuario
+	private List<ItemIF> itens; //itens do usuario
 	private List<Emprestimo> emprestimos; // lista de emprestimos do usuario
 	private List<ItemIF> itens_emprestados; // lista de itens que o usuario emprestou e ainda nao recebeu
 	
@@ -46,7 +46,7 @@ public class Usuario implements PessoaIF {
 		this.id = id;
 		this.amigos = new LinkedList<Usuario>(); // inicializando a lista de amigos
 		this.solicitacoes = new LinkedList<Usuario>(); // inicializando a lista de solicitacoes de amizade
-		this.itens = new LinkedList<Item>(); // inicializando a lista de itens
+		this.itens = new LinkedList<ItemIF>(); // inicializando a lista de itens
 	}
 
 	/**
@@ -170,4 +170,16 @@ public class Usuario implements PessoaIF {
 		return false;
 	}
 
+	public boolean receberItemQueEmprestou(Usuario devedor, ItemIF item) {
+		for (ItemIF meuItem : this.itens_emprestados) {
+			if (meuItem.equals(item)) {
+				return this.itens_emprestados.remove(item) && this.itens.add(item);
+			}
+		}
+		return false;
+	}
+
 }
+
+
+
