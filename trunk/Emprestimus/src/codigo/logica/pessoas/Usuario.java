@@ -3,7 +3,9 @@ package codigo.logica.pessoas;
 import java.util.LinkedList;
 import java.util.List;
 
+import codigo.logica.emprestimos.Emprestimo;
 import codigo.logica.itens.Item;
+import codigo.logica.itens.ItemIF;
 
 /**
  * Esta classe representa um usuario padrao do sistema 
@@ -22,7 +24,8 @@ public class Usuario implements PessoaIF {
 	private List<Usuario> amigos; // Grupo de amigos
 	private List<Usuario> solicitacoes; // solicitacoes de amizade
 	private List<Item> itens; //itens do usuario
-	
+	private List<Emprestimo> emprestimos; // lista de emprestimos do usuario
+	private List<ItemIF> itens_emprestados; // lista de itens que o usuario emprestou e ainda nao recebeu
 	
 	private Usuario() {
 		id = 0;
@@ -59,9 +62,9 @@ public class Usuario implements PessoaIF {
 	public boolean solicitarAmizade(Usuario outro) throws Exception {
 		if (amigos.contains(outro))
 			throw new Exception("Usuario jah existe nos amigos"); // TODO implementar excecao expecifica
-		if (solicitacoes.contains(outro)) {
+		if (solicitacoes.contains(outro)) { // TODO A logica nao esta errada aqui? Pra isso serve o TDD
 			return aceitarAmizade(outro);
-		} else if (outro.solicitacoes.contains(this)) {
+		} else if (outro.solicitacoes.contains(this)) { // TODO Isto quebra, solicitacoes eh private
 			return false;
 		} else {
 			outro.solicitacoes.add(this);
@@ -80,7 +83,7 @@ public class Usuario implements PessoaIF {
 		if (solicitacoes.contains(outro)) {
 			solicitacoes.remove(outro);
 			amigos.add(outro);
-			outro.amigos.add(this);
+			outro.amigos.add(this);// TODO
 			return true;
 		}
 		return false;
@@ -93,7 +96,7 @@ public class Usuario implements PessoaIF {
 	 *            Usuario que voce excluir de suas solicitacoes
 	 * @return False caso o outro nao esteja entre suas solicitacoes
 	 */
-	public boolean rejeitarAmizade(Usuario outro) {
+	public boolean rejeitarAmizade(Usuario outro) { // TODO
 		if (solicitacoes.contains(outro)) {
 			solicitacoes.remove(outro);
 			return true;
@@ -102,11 +105,11 @@ public class Usuario implements PessoaIF {
 		}
 	}
 
-	public boolean temAmigo(Usuario outro) {
+	public boolean temAmigo(Usuario outro) { // TODO poderia estar em uso
 		return this.amigos.contains(outro);
 	}
 	
-	public boolean temSolicitacao(Usuario outro) {
+	public boolean temSolicitacao(Usuario outro) { // TODO poderia estar em uso
 		return this.solicitacoes.contains(outro);
 	}
 	
