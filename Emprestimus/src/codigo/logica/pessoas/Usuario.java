@@ -16,6 +16,7 @@ import codigo.logica.itens.ItemIF;
  * @version 2.0
  */
 public class Usuario implements PessoaIF {
+	private static int ID_Atual = 0; // ID do proximo usuario sera guardado nesta variavel estatica. 
 	private String nome;
 	private String login;
 	private String endereco;
@@ -43,7 +44,7 @@ public class Usuario implements PessoaIF {
 		setLogin(login);
 		setEndereco(endereco);
 		
-		this.id = id;
+		this.id = ID_Atual++; // ID comeca em zero
 		this.amigos = new LinkedList<Usuario>(); // inicializando a lista de amigos
 		this.solicitacoes = new LinkedList<Usuario>(); // inicializando a lista de solicitacoes de amizade
 		this.itens = new LinkedList<ItemIF>(); // inicializando a lista de itens
