@@ -9,12 +9,12 @@ package codigo.logica.pessoas;
  */
 public interface PessoaIF {
 	
-	String getNome();
-	String getLogin();
-	String getEndereco();
+	public String getNome();
+	public String getLogin();
+	public String getEndereco();
 	
-	void setNome(String nome);
-	void setLogin(String login);
-	void setEndereco(String endereco);
+	public void setNome(String nome);
+	public void setLogin(String login);
+	public void setEndereco(String endereco);
 
 }
