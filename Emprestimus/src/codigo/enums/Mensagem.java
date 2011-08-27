@@ -74,7 +74,8 @@ public enum Mensagem {
 	CARACTERES_INVALIDOS("Caracteres invalidos. "),
 	INICIO_PADRAO_MENSAGEM_ERRO("Este dado"),
 	OPERACAO_FALHOU("Ocorreu um problema na execucao desta operacao.");
-
+	
+	
 	private final String mensagem;
 
 	/**
