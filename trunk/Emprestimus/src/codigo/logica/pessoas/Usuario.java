@@ -12,7 +12,7 @@ import codigo.logica.itens.ItemIF;
  * 
  * @author Joeffison Silverio de Andrade, joeffisonsa@gmail.com
  * @author Nathaniel
- * @since 25/08/2011
+ * @since 1.0
  * @version 2.0
  */
 public class Usuario implements PessoaIF {

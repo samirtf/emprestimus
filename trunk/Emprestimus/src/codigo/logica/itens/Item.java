@@ -93,4 +93,14 @@ public class Item implements ItemIF{
 		this.dataEmprestimo = dataEmp;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Item) {
+			Item outro = (Item) obj;
+			return ( (getNome() == outro.getNome()) &&
+					    getCategoria().equals(outro.getCategoria()) );
+		}
+		return false;
+	}
+	
 }
