@@ -17,8 +17,11 @@ public class TestUserStorys {
 	
 	@Test
 	public void testUserStory01() {
-		this.autenticacao.cadastraUsuario("nome", "login", "endereco", 5);
 		
+		
+		
+		
+		this.autenticacao.cadastraUsuario("nome", "login", "endereco");
 		
 		
 		

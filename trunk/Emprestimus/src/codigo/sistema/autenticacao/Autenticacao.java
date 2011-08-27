@@ -7,6 +7,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 import codigo.logica.pessoas.Usuario;
+import codigo.utilitarios.ValidadorString;
 
 
 import excecoes.IDMalFormadoCAException;
@@ -50,8 +51,10 @@ public class Autenticacao {
 		sessoes = new TreeMap<Long, Usuario>();
 	}
 
-	public boolean cadastraUsuario(String nome, String login, String endereco, int id){
-		Usuario usuario = new Usuario(nome, login, endereco, id);
+	public boolean cadastraUsuario(String nome, String login, String endereco) throws IllegalArgumentException {
+		Usuario usuario = new Usuario(ValidadorString.pegaString(nome),
+									  ValidadorString.pegaString(login),
+									  ValidadorString.pegaString(endereco));
 		if(usuariosCadastrados.contains(usuario)) // Assegura que nao existirao dois usuarios iguais
 			return false;
 		return usuariosCadastrados.add(usuario);
