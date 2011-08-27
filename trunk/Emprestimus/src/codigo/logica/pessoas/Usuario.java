@@ -59,9 +59,9 @@ public class Usuario implements PessoaIF {
 	public boolean solicitarAmizade(Usuario outro) throws Exception {
 		if (amigos.contains(outro))
 			throw new Exception("Usuario jah existe nos amigos"); // TODO implementar excecao expecifica
-		if (solicitacoes.contains(outro)) { // TODO A logica nao esta errada aqui? Pra isso serve o TDD
+		if (solicitacoes.contains(outro)) {
 			return aceitarAmizade(outro);
-		} else if (outro.solicitacoes.contains(this)) { // TODO Isto quebra, solicitacoes eh private
+		} else if (outro.solicitacoes.contains(this)) {
 			return false;
 		} else {
 			outro.solicitacoes.add(this);
@@ -80,7 +80,7 @@ public class Usuario implements PessoaIF {
 		if (solicitacoes.contains(outro)) {
 			solicitacoes.remove(outro);
 			amigos.add(outro);
-			outro.amigos.add(this);// TODO
+			outro.amigos.add(this);
 			return true;
 		}
 		return false;
@@ -93,7 +93,7 @@ public class Usuario implements PessoaIF {
 	 *            Usuario que voce excluir de suas solicitacoes
 	 * @return False caso o outro nao esteja entre suas solicitacoes
 	 */
-	public boolean rejeitarAmizade(Usuario outro) { // TODO
+	public boolean rejeitarAmizade(Usuario outro) {
 		if (solicitacoes.contains(outro)) {
 			solicitacoes.remove(outro);
 			return true;
@@ -102,11 +102,11 @@ public class Usuario implements PessoaIF {
 		}
 	}
 
-	public boolean temAmigo(Usuario outro) { // TODO poderia estar em uso
+	public boolean temAmigo(Usuario outro) {
 		return this.amigos.contains(outro);
 	}
 	
-	public boolean temSolicitacao(Usuario outro) { // TODO poderia estar em uso
+	public boolean temSolicitacao(Usuario outro) {
 		return this.solicitacoes.contains(outro);
 	}
 	
