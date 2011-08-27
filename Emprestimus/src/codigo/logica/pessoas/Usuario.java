@@ -15,7 +15,7 @@ import codigo.logica.itens.ItemIF;
  * @since 1.0
  * @version 2.0
  */
-public class Usuario implements PessoaIF {
+public class Usuario implements PessoaIF, Comparable<Usuario> {
 	private static int ID_Atual = 0; // ID do proximo usuario sera guardado nesta variavel estatica. 
 	private String nome;
 	private String login;
@@ -178,6 +178,11 @@ public class Usuario implements PessoaIF {
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public int compareTo(Usuario o) {
+		return 0;
 	}
 
 }

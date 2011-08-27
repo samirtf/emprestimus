@@ -52,9 +52,12 @@ public class Autenticacao {
 	}
 
 	public boolean cadastraUsuario(String nome, String login, String endereco) throws IllegalArgumentException {
-		Usuario usuario = new Usuario(ValidadorString.pegaString(nome),
-									  ValidadorString.pegaString(login),
-									  ValidadorString.pegaString(endereco));
+		String [] nome_invalido = {"Nome inválido", "Nome inválido", "Nome inválido"};
+		String [] login_invalido = {"Login inválido", "Login inválido", "Login inválido"};
+		String [] endereco_invalido = {"Endereco inválido", "Endereco inválido", "Endereco inválido"};
+		Usuario usuario = new Usuario(ValidadorString.pegaString(nome_invalido, nome),
+									  ValidadorString.pegaString(login_invalido, login),
+									  ValidadorString.pegaString(endereco_invalido, endereco));
 		if(usuariosCadastrados.contains(usuario)) // Assegura que nao existirao dois usuarios iguais
 			return false;
 		return usuariosCadastrados.add(usuario);
