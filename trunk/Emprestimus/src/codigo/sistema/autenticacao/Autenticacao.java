@@ -15,15 +15,13 @@ import excecoes.LoginMalFormadoCAException;
 public class Autenticacao {
 	
 	private Set<Usuario> usuariosCadastrados = new TreeSet<Usuario>();
+	private Map<Long, Usuario> sessoes = new TreeMap<Long, Usuario>();
 	
 	public boolean cadastraUsuario(String nome, String login, String endereco, int id){
 		Usuario usuario = new Usuario(nome, login, endereco, id);
-		if(usuariosCadastrados.contains(usuario))
+		if(usuariosCadastrados.contains(usuario)) // Asegura que nao existirao dois usuarios iguais
 			return false;
 		return usuariosCadastrados.add(usuario);
 	}
 	
-	
-	private Map<Long, Usuario> sessoes = new TreeMap<Long, Usuario>();
-
 }
