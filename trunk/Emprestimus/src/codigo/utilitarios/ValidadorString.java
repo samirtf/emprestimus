@@ -15,7 +15,12 @@ public class ValidadorString {
 	private final static String [] mensagens_de_erro_padroes = {"Este dado nao pode ser nulo!",
 														  		"Este dado nao pode ser vazio!",
 														  		"Este dado nao pode conter apenas espacos!"};
-
+	
+	private final static String [] mensagens_de_erro_padroes_login = {"Este dado nao pode ser nulo!",
+  																	  "Este dado nao pode ser vazio!",
+  																	  "Este dado nao pode conter apenas espacos!," +
+  																	  "Este dado nao pode conter espacos!"};
+	
 	/**
 	 * Submete a {@link String} apresentada a todos os testes desta classe, para verificar se ela eh nula, vazia ou se contem apenas caracteres de espaco.
 	 * 
@@ -157,7 +162,7 @@ public class ValidadorString {
 	 * 			String que deve ser validada
 	 * @return
 	 * 			Retorna a string validada, desde que esta passe pelos testes
-	 * @throws Exception
+	 * @throws IllegalArgumentException
 	 * 			Lanca uma excecao, caso a string passada nao seja aprovada
 	 */
 	public static String pegaString(String [] MensagensDeErro, String minhaString) throws IllegalArgumentException {
@@ -176,11 +181,52 @@ public class ValidadorString {
 	 * 			String que deve ser validada
 	 * @return
 	 * 			Retorna a string validada, desde que esta passe pelos testes
-	 * @throws Exception
+	 * @throws IllegalArgumentException
 	 * 			Lanca uma excecao, caso a string passada nao seja aprovada
 	 */
 	public static String pegaString(String minhaString) throws IllegalArgumentException {
         return pegaString(mensagens_de_erro_padroes, minhaString);
+    }
+	
+	/**
+	 * Retorna a string passada como parametro, se este for valido,
+	 * ou lanca uma excecao personalizada, caso nao seja.
+	 * 
+	 * @param MensagensDeErro
+	 * 		Array de {@link String} de tamanho 4,
+	 * 	onde os itens equivalem as mensagens de quando a String eh nula, vazia, so contem espacos ou contem espacos, respectivamente. 
+	 * @param login
+	 * 			Login que deve ser validado
+	 * @return
+	 * 			Retorna o login validado, desde que este passe pelos testes
+	 * @throws IllegalArgumentException
+	 * 			Lanca uma excecao, caso o login passado nao seja aprovado
+	 */
+	public static String pegaLogin(String [] MensagensDeErro, String login) throws IllegalArgumentException {
+        try {
+        	pegaString(MensagensDeErro, login);
+        } catch (IllegalArgumentException e) {
+			throw e;
+		}
+        
+        if (login.contains(" ")) throw new IllegalArgumentException(MensagensDeErro[3]);
+        
+        return login;
+    }
+	
+	/**
+	 * Retorna o login passado como parametro, se este for valido,
+	 * ou lanca uma excecao padrao, caso nao seja.
+	 * 
+	 * @param login
+	 * 			Login que deve ser validado
+	 * @return
+	 * 			Retorna o login validado, desde que este passe pelos testes
+	 * @throws IllegalArgumentException
+	 * 			Lanca uma excecao, caso o login passado nao seja aprovado
+	 */
+	public static String pegaLogin(String login) throws IllegalArgumentException {
+        return pegaLogin(mensagens_de_erro_padroes_login, login);
     }
 	
 }
