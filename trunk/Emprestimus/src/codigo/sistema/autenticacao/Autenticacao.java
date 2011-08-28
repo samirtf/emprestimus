@@ -55,11 +55,12 @@ public class Autenticacao {
 		String [] nome_invalido = {"Nome inválido", "Nome inválido", "Nome inválido"};
 		String [] login_invalido = {"Login inválido", "Login inválido", "Login inválido"};
 		String [] endereco_invalido = {"Endereco inválido", "Endereco inválido", "Endereco inválido"};
+		if (login != null && login.contains(" ")) throw new IllegalArgumentException(login_invalido[0]);
 		Usuario usuario = new Usuario(ValidadorString.pegaString(nome_invalido, nome),
 									  ValidadorString.pegaString(login_invalido, login),
 									  ValidadorString.pegaString(endereco_invalido, endereco));
 		if(usuariosCadastrados.contains(usuario)) // Assegura que nao existirao dois usuarios iguais
-			return false;
+			throw new IllegalArgumentException("Já existe um usuário com este login");
 		return usuariosCadastrados.add(usuario);
 	}
 	
