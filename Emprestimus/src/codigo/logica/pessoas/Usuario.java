@@ -182,6 +182,7 @@ public class Usuario implements PessoaIF, Comparable<Usuario> {
 
 	@Override
 	public int compareTo(Usuario o) {
+		// TODO implemente-me
 		return 0;
 	}
 
