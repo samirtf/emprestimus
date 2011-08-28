@@ -48,7 +48,7 @@ public class TestUserStorys {
 				Assert.assertEquals("Login inválido", e.getMessage());
 			}
 		}
-		
+				
 		for (String endereco : entrada_invalida) {
 			try {
 				this.autenticacao.cadastraUsuario("nome", "login", endereco);
