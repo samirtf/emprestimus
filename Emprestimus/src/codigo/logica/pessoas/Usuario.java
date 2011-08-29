@@ -39,6 +39,9 @@ public class Usuario implements PessoaIF, Comparable<Usuario> {
 	 * @param id
 	 */
 	public Usuario(String nome, String login, String endereco) throws IllegalArgumentException {
+		if(nome == null || nome.equals("")) throw new IllegalArgumentException("Nome null ou vazio");
+		if(login == null || login.equals("")) throw new IllegalArgumentException("Login null ou vazio");
+		if(endereco == null || endereco.equals("")) throw new IllegalArgumentException("Endereco null ou vazio");
 		setNome(nome);
 		setLogin(login);
 		setEndereco(endereco);
