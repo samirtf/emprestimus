@@ -105,11 +105,20 @@ public class TestUserStorys {
 		}
 		
 		for (String login : logins_validos) {
+			for (String atributo : atributos_validos) {
+				try {
+					this.autenticacao.getAtributo(login + (Math.random()*21011853), atributo);
+				} catch (IllegalArgumentException e) {
+					Assert.assertEquals("Usuário inexistente", e.getMessage());
+				}
+			}
+		}
+		
+		for (String login : logins_validos) {
 			for (String atributo : atributos_invalidos) {
 				try {
 					this.autenticacao.getAtributo(login, atributo);
 				} catch (IllegalArgumentException e) {
-					System.out.println(e.getMessage());
 					Assert.assertEquals("Atributo inválido", e.getMessage());
 				}
 			}
@@ -124,6 +133,8 @@ public class TestUserStorys {
 				}
 			}
 		}
+		
+		
 		
 	}
 	
