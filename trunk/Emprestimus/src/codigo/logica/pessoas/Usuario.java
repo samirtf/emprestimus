@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import codigo.logica.emprestimos.Emprestimo;
-import codigo.logica.itens.Item;
 import codigo.logica.itens.ItemIF;
 
 /**
@@ -16,7 +15,7 @@ import codigo.logica.itens.ItemIF;
  * @version 2.0
  */
 public class Usuario implements PessoaIF, Comparable<Usuario> {
-	private static int ID_Atual = 0; // ID do proximo usuario sera guardado nesta variavel estatica. 
+	private static int ID_Atual = 1; // ID do proximo usuario sera guardado nesta variavel estatica. 
 	private String nome;
 	private String login;
 	private String endereco;
@@ -182,9 +181,8 @@ public class Usuario implements PessoaIF, Comparable<Usuario> {
 	}
 
 	@Override
-	public int compareTo(Usuario o) {
-		// TODO implemente-me
-		return 0;
+	public int compareTo(Usuario outro) {
+		return getId() - outro.getId();
 	}
 
 }
