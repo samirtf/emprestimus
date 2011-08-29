@@ -81,7 +81,7 @@ public class Autenticacao {
 	 * 		O Usuario com aquele login ou Null se nao existir o login.
 	 */
 	public Usuario getUsuario(String login) {
-		for (Usuario user : this.usuariosCadastrados) {
+		for (Usuario user : usuariosCadastrados) {
 			if (user.getLogin().equals(login)) {
 				return user;
 			}
@@ -106,7 +106,11 @@ public class Autenticacao {
 
 	public String getAtributo(String login, String atributo) throws IllegalArgumentException {
 		login = ValidadorString.pegaLogin(login_invalido, login);
-		atributo = ValidadorString.pegaLogin(endereco_invalido, atributo);
+		Usuario user = getUsuario(login);
+		if (user == null) {
+			throw new IllegalArgumentException("Usuário inexistente");
+		}
+		atributo = ValidadorString.pegaLogin(atributo_invalido, atributo);
 		
 		String [] atributos_validos = {"nome", "endereco"};
 		int indice_do_atributo = 0;
@@ -117,10 +121,10 @@ public class Autenticacao {
 		}
 		switch (indice_do_atributo) {
 		case 1:
-			return getUsuario(login).getNome();
+			return user.getNome();
 			
 		case 2:
-			return getUsuario(login).getEndereco();
+			return user.getEndereco();
 
 		default:
 			throw new IllegalArgumentException("Atributo inexistente");
@@ -130,6 +134,10 @@ public class Autenticacao {
 	public boolean zerarSistema() {
 		inicializaAtributos();
 		return (usuariosCadastrados.size() == 0 && sessoes.size() == 0);
+	}
+	
+	public void encerrarSistema() {
+		System.exit(1);
 	}
 	
 }
