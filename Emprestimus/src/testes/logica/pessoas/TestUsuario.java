@@ -10,62 +10,75 @@ import codigo.logica.pessoas.Usuario;
 
 public class TestUsuario {
 	private Usuario usuario;
-	private final int id = 10;
 
 	@Before
 	public void setUp() throws Exception {
-		usuario = new Usuario("nome", "login", "endereco", id);
+		usuario = new Usuario("nome", "login", "endereco");
 	}
 
 	@After
 	public void tearDown() throws Exception {
 		usuario = null;
 	}
+	
+	@Test
+	public void testGetId() {
+		assertEquals(1, usuario.getId());
+	}
+	
+	@Test
+	public void testCompareTo() {
+		Usuario usuario2 = new Usuario("nome", "login", "endereco");
+		Usuario usuario3 = new Usuario("nome", "login", "endereco");
+		
+		assertTrue(usuario.compareTo(usuario) == 0);
+		assertTrue(usuario2.compareTo(usuario2) == 0);
+		assertTrue(usuario3.compareTo(usuario3) == 0);
+		assertTrue(usuario.compareTo(usuario2) < 0);
+		assertTrue(usuario2.compareTo(usuario) > 0);
+		assertTrue(usuario.compareTo(usuario3) < 0);
+		assertTrue(usuario3.compareTo(usuario) > 0);
+		assertTrue(usuario2.compareTo(usuario3) < 0);
+		assertTrue(usuario3.compareTo(usuario2) > 0);
+	}
 
 	@Test
 	public void testEquals_HashCode() {
-		Usuario usuario2 = new Usuario("nome_diferente", "login_diferente", "endereco_diferente", id);
-		assertFalse(usuario.equals(usuario2));
-		assertEquals(usuario.hashCode(), usuario2.hashCode());
-		
-		usuario2 = new Usuario("nome_diferente", "login", "endereco_diferente", id);
-		assertTrue(usuario.equals(usuario2));
-		assertEquals(usuario.hashCode(), usuario2.hashCode());
-		
-		usuario2 = new Usuario("nome_diferente", "login", "endereco_diferente", id+1);
+		Usuario usuario2 = new Usuario("nome", "login", "endereco");
+		assertFalse(usuario.getId() == usuario2.getId());
 		assertFalse(usuario.equals(usuario2));
 		assertFalse(usuario.hashCode() == usuario2.hashCode());
 		
 	}
 
-	@Test
+	@Test //TODO Este teste esta quebrando, precisamos decidir se ele tem que ficar ou não! 
 	public void testUsuario() {
 		usuario = null;
 		try { //nome = null
-			usuario = new Usuario(null, "login", "endereco", id);
+			usuario = new Usuario(null, "login", "endereco");
 			fail("Deveria ter lancado uma excecao de argumentos ilegais");
 		} catch (IllegalArgumentException e) {
 			usuario = null;
 		}
 		try { //login = null
-			usuario = new Usuario("nome", null, "endereco", id);
+			usuario = new Usuario("nome", null, "endereco");
 			fail("Deveria ter lancado uma excecao de argumentos ilegais");
 		} catch (IllegalArgumentException e) {
 			usuario = null;
 		}
 		try { //endereco = null
-			usuario = new Usuario("nome", "login", null, id);
+			usuario = new Usuario("nome", "login", null);
 			fail("Deveria ter lancado uma excecao de argumentos ilegais");
 		} catch (IllegalArgumentException e) {
 			usuario = null;
 		}
-		try { //Strings vazias e ID zero [roda]
-			usuario = new Usuario("", "", "", 0);
+		try { //Strings vazias [roda]
+			usuario = new Usuario("", "", "");
 		} catch (IllegalArgumentException e) {
 			fail("Nao deveria ter lancado excecao alguma");
 		}
-		try { //Strings com simbolos e/ou espacos e ID negativa [roda]
-			usuario = new Usuario(" ", " .   ", "*@# $%¨&()!/? | ", -29);
+		try { //Strings com simbolos e/ou espacos [roda]
+			usuario = new Usuario(" ", " .   ", "*@# $%¨&()!/? | ");
 		} catch (IllegalArgumentException e) {
 			fail("Nao deveria ter lancado excecao alguma");
 		}
@@ -73,7 +86,7 @@ public class TestUsuario {
 
 	@Test
 	public void testSolicitarAmizade() {
-		Usuario amigo = new Usuario("nomeAmigo", "loginAmigo", "enderecoAmigo", id+1);
+		Usuario amigo = new Usuario("nomeAmigo", "loginAmigo", "enderecoAmigo");
 		
 		assertEquals(0, usuario.getNumSolicitacoes());
 		assertEquals(0, usuario.getNumAmigos());
@@ -125,8 +138,8 @@ public class TestUsuario {
 
 	@Test
 	public void testAceitarAmizade() {
-		Usuario amigo1 = new Usuario("nome1", "login1", "endereco1", id+1);
-		Usuario amigo2 = new Usuario("nome2", "login2", "endereco2", id+2);
+		Usuario amigo1 = new Usuario("nome1", "login1", "endereco1");
+		Usuario amigo2 = new Usuario("nome2", "login2", "endereco2");
 
 		assertEquals(0, usuario.getNumSolicitacoes());
 		assertEquals(0, usuario.getNumAmigos());
@@ -157,7 +170,7 @@ public class TestUsuario {
 		assertEquals(0, amigo2.getNumAmigos());
 
 		assertTrue(usuario.aceitarAmizade(amigo2));
-		assertFalse(usuario.aceitarAmizade(new Usuario("nomeNovo", "loginNovo", "enderecoNovo", 1)));
+		assertFalse(usuario.aceitarAmizade(new Usuario("nomeNovo", "loginNovo", "enderecoNovo")));
 		
 		assertEquals(0, usuario.getNumSolicitacoes());
 		assertEquals(2, usuario.getNumAmigos());
@@ -177,8 +190,8 @@ public class TestUsuario {
 
 	@Test
 	public void testRejeitarAmizade() {
-		Usuario amigo1 = new Usuario("nome1", "login1", "endereco1", id+1);
-		Usuario amigo2 = new Usuario("nome2", "login2", "endereco2", id+2);
+		Usuario amigo1 = new Usuario("nome1", "login1", "endereco1");
+		Usuario amigo2 = new Usuario("nome2", "login2", "endereco2");
 
 		assertEquals(0, usuario.getNumSolicitacoes());
 		assertEquals(0, usuario.getNumAmigos());
@@ -204,7 +217,7 @@ public class TestUsuario {
 		
 		assertTrue(usuario.rejeitarAmizade(amigo1));
 		assertTrue(usuario.rejeitarAmizade(amigo2));
-		assertFalse(usuario.rejeitarAmizade(new Usuario("nomeNovo", "loginNovo", "enderecoNovo", 1)));
+		assertFalse(usuario.rejeitarAmizade(new Usuario("nomeNovo", "loginNovo", "enderecoNovo")));
 
 		assertFalse(usuario.temSolicitacao(amigo1));
 		assertFalse(usuario.temSolicitacao(amigo2));
@@ -222,11 +235,6 @@ public class TestUsuario {
 		assertFalse(amigo2.temAmigo(usuario));
 		assertFalse(amigo1.temAmigo(amigo2));
 		assertFalse(amigo2.temAmigo(amigo1));
-	}
-
-	@Test
-	public void testGetId() {
-		assertEquals(id, usuario.getId());
 	}
 
 

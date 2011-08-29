@@ -1,9 +1,6 @@
 package codigo.logica.itens;
 
 
-import java.util.GregorianCalendar;
-
-import codigo.logica.pessoas.Usuario;
 import codigo.utilitarios.ValidadorString;
 
 
@@ -20,9 +17,9 @@ public class Item implements ItemIF{
 	private ItemCategoria categoria;
 	
 	private boolean estaDisponivel;
-	private Usuario emprestadoA; //item faz coisa que nao devia
-	private GregorianCalendar dataEmprestimo; // codigo fedido, cara de nova(s) classe(s)
-	private int diasEmprestimo;
+//	private Usuario emprestadoA; //item faz coisa que nao devia
+//	private GregorianCalendar dataEmprestimo; // codigo fedido, cara de nova(s) classe(s)
+//	private int diasEmprestimo;
 	
 	private Item() {}
 		// Construtor padrao privado impede a criacao do objeto sem parametros.
@@ -31,6 +28,8 @@ public class Item implements ItemIF{
 		setDescricao(descricao);
 		setNome(nome);
 		setCategoria(categoria);
+		
+		this.estaDisponivel = true;
 	}
 	
 	public String getNome() {
@@ -45,17 +44,17 @@ public class Item implements ItemIF{
 		return this.categoria;
 	}
 	
-	public Usuario getEmprestadoA(){ // TODO ?
-		return this.emprestadoA;
-	}
+//	public Usuario getEmprestadoA(){ // TODO ?
+//		return this.emprestadoA;
+//	}
 	
-	public int getDiasEmprestimo(){ // TODO Isto fede!
-		return this.diasEmprestimo;
-	}
+//	public int getDiasEmprestimo(){ // TODO Isto fede!
+//		return this.diasEmprestimo;
+//	}
 	
-	public GregorianCalendar getDataEmprestimo(){ //TODO
-		return this.dataEmprestimo;
-	}
+//	public GregorianCalendar getDataEmprestimo(){ //TODO
+//		return this.dataEmprestimo;
+//	}
 	
 	public boolean estaDisponivel(){
 		return this.estaDisponivel;
@@ -73,32 +72,35 @@ public class Item implements ItemIF{
 		this.categoria = categoria;
 	}
 	
-	public void setDisponivel(){ // TODO public boolean setDisponibilidade
-		this.estaDisponivel = true;
+//	public void setDisponivel(){ // TODO public boolean setDisponibilidade
+//		this.estaDisponivel = true;
+//	}
+//	
+//	public void setIndisponivel(){
+//		this.estaDisponivel = false;
+//	}
+	
+	public void setEstaDisponivel(boolean disponivel) {
+		this.estaDisponivel = disponivel;
 	}
 	
-	public void setIndisponivel(){
-		this.estaDisponivel = false;
-	}
+//	public void setEmprestadoA(Usuario login){ // TODO
+//		this.emprestadoA = login;
+//	}
 	
-	public void setEmprestadoA(Usuario login){ // TODO
-		this.emprestadoA = login;
-	}
+//	public void setDiasEmprestimo(int dias){ // TODO 
+//		this.diasEmprestimo = dias;
+//	}
 	
-	public void setDiasEmprestimo(int dias){ // TODO 
-		this.diasEmprestimo = dias;
-	}
-	
-	public void setDataEmprestimo(GregorianCalendar dataEmp){ // TODO
-		this.dataEmprestimo = dataEmp;
-	}
+//	public void setDataEmprestimo(GregorianCalendar dataEmp){ // TODO
+//		this.dataEmprestimo = dataEmp;
+//	}
 	
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Item) {
 			Item outro = (Item) obj;
-			return ( (getNome() == outro.getNome()) &&
-					    getCategoria().equals(outro.getCategoria()) );
+			return getNome().equals(outro.getNome()) && getCategoria().equals(outro.getCategoria());
 		}
 		return false;
 	}
