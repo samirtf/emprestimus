@@ -15,7 +15,7 @@ import codigo.logica.itens.ItemIF;
  * @version 2.0
  */
 public class Usuario implements PessoaIF, Comparable<Usuario> {
-	private static int ID_Atual = 1; // ID do proximo usuario sera guardado nesta variavel estatica. 
+	public static int ID_Prox_Usuario = 1; // ID do proximo usuario sera guardado nesta variavel estatica. 
 	private String nome;
 	private String login;
 	private String endereco;
@@ -39,14 +39,14 @@ public class Usuario implements PessoaIF, Comparable<Usuario> {
 	 * @param id
 	 */
 	public Usuario(String nome, String login, String endereco) throws IllegalArgumentException {
-		if(nome == null || nome.equals("")) throw new IllegalArgumentException("Nome null ou vazio");
-		if(login == null || login.equals("")) throw new IllegalArgumentException("Login null ou vazio");
-		if(endereco == null || endereco.equals("")) throw new IllegalArgumentException("Endereco null ou vazio");
+		if(nome == null || nome.trim().equals("")) throw new IllegalArgumentException("Nome null ou vazio");
+		if(login == null || login.trim().equals("")) throw new IllegalArgumentException("Login null ou vazio");
+		if(endereco == null || endereco.trim().equals("")) throw new IllegalArgumentException("Endereco null ou vazio");
 		setNome(nome);
 		setLogin(login);
 		setEndereco(endereco);
 		
-		this.id = ID_Atual++; // ID comeca em zero
+		this.id = ID_Prox_Usuario++; // ID comeca em zero
 		this.amigos = new LinkedList<Usuario>(); // inicializando a lista de amigos
 		this.solicitacoes = new LinkedList<Usuario>(); // inicializando a lista de solicitacoes de amizade
 		this.itens = new LinkedList<ItemIF>(); // inicializando a lista de itens
@@ -186,6 +186,10 @@ public class Usuario implements PessoaIF, Comparable<Usuario> {
 	@Override
 	public int compareTo(Usuario outro) {
 		return getId() - outro.getId();
+	}
+	
+	public static void resetIDClasse(){
+		ID_Prox_Usuario = 0;
 	}
 
 }

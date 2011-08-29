@@ -18,17 +18,32 @@ public class TestUsuario {
 
 	@After
 	public void tearDown() throws Exception {
+		Usuario.resetIDClasse(); //Zerar o contador estatico de ID da Classe Usuario.
 		usuario = null;
 	}
 	
 	@Test
-	public void testGetId() {
-		assertEquals(1, usuario.getId());
+	public void testGetId() throws Exception {
+		setUp();
+		
+		//Pois o primeiro usuario ja foi cadastrado no setUp().
+		assertTrue(2 == usuario.ID_Prox_Usuario);
+		assertTrue(1 == usuario.getId());
+		
+		Usuario usuario2 = new Usuario("nome2", "login3", "endereco");
+		assertTrue(2 == usuario2.getId());
+		
+		Usuario usuario3 = new Usuario("nome3", "login3", "endereco");
+		assertTrue(3 == usuario3.getId());
+		
+		tearDown();
 	}
 	
 	@Test
 	public void testCompareTo() {
 		Usuario usuario2 = new Usuario("nome", "login", "endereco");
+		System.out.println(usuario2.getId());
+		System.out.println(Usuario.ID_Prox_Usuario);
 		Usuario usuario3 = new Usuario("nome", "login", "endereco");
 		
 		assertTrue(usuario.compareTo(usuario) == 0);
@@ -72,15 +87,30 @@ public class TestUsuario {
 		} catch (IllegalArgumentException e) {
 			usuario = null;
 		}
-		try { //Strings vazias [roda]
+		try { //Strings vazias [não roda]
 			usuario = new Usuario("", "", "");
+			
 		} catch (IllegalArgumentException e) {
-			fail("Nao deveria ter lancado excecao alguma");
+			usuario = null;
 		}
-		try { //Strings com simbolos e/ou espacos [roda]
+		try { //Strings com simbolos e/ou espacos [ não roda]
 			usuario = new Usuario(" ", " .   ", "*@# $%¨&()!/? | ");
+			fail("Deveria ter lancado uma excecao de argumentos ilegais");
 		} catch (IllegalArgumentException e) {
-			fail("Nao deveria ter lancado excecao alguma");
+			usuario = null;
+		}
+		try { //Strings com simbolos e/ou espacos [ não roda]
+			usuario = new Usuario("usuario", " ", "*@# $%¨&()!/? | ");
+			fail("Deveria ter lancado uma excecao de argumentos ilegais");
+		} catch (IllegalArgumentException e) {
+			usuario = null;
+		}
+		try { //Strings com simbolos e/ou espacos [ não roda]
+			usuario = new Usuario("samir", " ops ", "*@# $%¨&()!/? | ");
+			
+		} catch (IllegalArgumentException e) {
+			usuario = null;
+			fail("Nao deveria ter lancado uma excecao de argumentos ilegais");
 		}
 	}
 
