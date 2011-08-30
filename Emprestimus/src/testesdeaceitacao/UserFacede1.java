@@ -16,7 +16,7 @@ import controlador.EmprestimusIF;
 
 public class UserFacede1 {
 	
-	private EmprestimusIF sistema = new Emprestimus();
+	public EmprestimusIF sistema = Emprestimus.getInstance();
 	
 	/**
 	 * Cria usuario a partir de um login, um nome e um endereco.
@@ -38,7 +38,7 @@ public class UserFacede1 {
 	 * @return
 	 *     O id de sessao para o usuario.
 	 */
-	public int abrirSessao(String login) {
+	public Long abrirSessao(String login) {
 		return sistema.abrirSessao(login);
 	}
 
