@@ -1,5 +1,6 @@
 package controlador;
 
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
@@ -79,6 +80,7 @@ public class Emprestimus implements EmprestimusIF {
 			while (sessoes.put(idSessao, user) == null) {
 				idSessao = geraIDSessao();
 			}
+			System.out.println(idSessao);
 			return idSessao;
 		} else {
 			throw new IllegalArgumentException("Usuário inexistente");
@@ -93,9 +95,12 @@ public class Emprestimus implements EmprestimusIF {
 	 * @return O Usuario com aquele login ou Null se nao existir o login.
 	 */
 	public Usuario getUsuario(String login) {
-		for (Usuario user : usuariosCadastrados) {
-			if (user.getLogin().equals(login)) {
-				return user;
+		Iterator<Usuario> iterador = usuariosCadastrados.iterator();
+		Usuario usuario = null;
+		while(iterador.hasNext()){
+			usuario = iterador.next();
+			if(usuario.getLogin().equals(login)){
+				return usuario;
 			}
 		}
 		return null;

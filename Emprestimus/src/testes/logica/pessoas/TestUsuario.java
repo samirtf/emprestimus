@@ -77,19 +77,19 @@ public class TestUsuario {
 		setUp();
 		usuario = null;
 		try { //nome = null
-			usuario = new Usuario(null, "login", "endereco");
+			usuario = new Usuario("login", null, "endereco");
 			fail("Deveria ter lancado uma excecao de argumentos ilegais");
 		} catch (IllegalArgumentException e) {
 			usuario = null;
 		}
 		try { //login = null
-			usuario = new Usuario("nome", null, "endereco");
+			usuario = new Usuario(null, "nome", "endereco");
 			fail("Deveria ter lancado uma excecao de argumentos ilegais");
 		} catch (IllegalArgumentException e) {
 			usuario = null;
 		}
 		try { //endereco = null
-			usuario = new Usuario("nome", "login", null);
+			usuario = new Usuario("login", "nome", null);
 			fail("Deveria ter lancado uma excecao de argumentos ilegais");
 		} catch (IllegalArgumentException e) {
 			usuario = null;
