@@ -151,7 +151,7 @@ public class Emprestimus implements EmprestimusIF {
 	}
 
 	public void encerrarSistema() {
-		System.exit(1);
+		//System.exit(1);
 	}
 
 
