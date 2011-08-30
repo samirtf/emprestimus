@@ -20,7 +20,21 @@ public class Emprestimus implements EmprestimusIF{
 		return null;
 	}
 	
-	
+	/**
+	 * Metodo que zera o Sistema.
+	 * 
+	 */
+	public void zerarSistema() {
+		//TODO zerar dados do sistema
+	}
+
+	/**
+	 * Metodo que encerra o Sistema.
+	 * 
+	 */
+	public void encerrarSistema() {
+		//TODO posteriormente deve-se salvar dados em DB.
+	}
 	
 
 }
