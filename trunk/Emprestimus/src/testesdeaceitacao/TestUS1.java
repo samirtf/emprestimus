@@ -26,7 +26,7 @@ public class TestUS1 {
 	public static void run() {
 		
 		List<String> files = new ArrayList<String>();
-		String file1 = System.getProperty("user.dir") + "/src/testesdeaceitacao/US1.txt";
+		String file1 = System.getProperty("user.dir") + "/src/testesdeaceitacao/US01.txt";
 		files.add(file1);
 
 		UserFacede1 UserFacede = new UserFacede1();
