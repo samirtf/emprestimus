@@ -8,5 +8,11 @@ public interface EmprestimusIF {
 	public int abrirSessao( String login );
 	
 	public String getAtributoUsuario( String login, String atributo );
+	
+	public void zerarSistema();
+	
+	public void encerrarSistema();
+	
+
 
 }
