@@ -54,98 +54,22 @@ public class UserFacede1 {
 	public String getAtributoUsuario(String login, String atributo) {
 		return sistema.getAtributoUsuario(login, atributo);
 	}
+	
+	/**
+	 * Metodo que zera o Sistema.
+	 * 
+	 */
+	public void zerarSistema() {
+		sistema.zerarSistema();
+	}
+
+	/**
+	 * Metodo que encerra o Sistema.
+	 * 
+	 */
+	public void encerrarSistema() {
+		sistema.encerrarSistema();
+	}
 
 }
 
-
-
-
-//package testes;
-//
-//import controller.GerenciadorDeSalas;
-//
-//public class UserFacede1 {
-//	public GerenciadorDeSalas gerenciadorSala =  GerenciadorDeSalas.getInstance();
-//
-//	/**
-//	 * Metodo adiciona a patir de dados fornecidos uma sala ao sistema.
-//	 * 
-//	 * @param id
-//	 * @param capacidade
-//	 * @param finalidade
-//	 * @param tipo
-//	 * @throws Exception
-//	 *             Caso algum parametro esteja incorreto.
-//	 */
-//	public void adicionarSala(String id, int capacidade, String finalidade,
-//			String tipo) throws Exception {
-//		gerenciadorSala.adicionarSala(id, capacidade, finalidade, tipo);
-//	}
-//
-//	/**
-//	 * Metodo adiciona a partir de dados fornecidos uma sala ao sistema.
-//	 * 
-//	 * @param id
-//	 * @param capacidade
-//	 * @param finalidade
-//	 * @param tipo
-//	 * @param apelido
-//	 * @throws Exception
-//	 *             Caso algum parametro esteja incorreto
-//	 */
-//	public void adicionarSala(String id, int capacidade, String finalidade,
-//			String tipo, String apelido) throws Exception {
-//		gerenciadorSala
-//				.adicionarSala(id, capacidade, finalidade, tipo, apelido);
-//	}
-//
-//	/**
-//	 * Metodo adiciona a partir de dados fornecidos uma sala ao sistema.
-//	 * 
-//	 * @param id
-//	 * @param capacidade
-//	 * @param finalidade
-//	 * @param tipo
-//	 * @param apelido
-//	 * @param aberto
-//	 * @throws Exception
-//	 *             Caso algum parametro esteja incorreto
-//	 */
-//	public void adicionarSala(String id, int capacidade, String finalidade,
-//			String tipo, String apelido, boolean aberto) throws Exception {
-//		gerenciadorSala.adicionarSala(id, capacidade, finalidade, tipo,
-//				apelido, aberto);
-//	}
-//
-//	/**
-//	 * Metodo que retorna o valor do atributo de uma sala apartir do seu id.
-//	 * 
-//	 * @param idSala
-//	 * @param atributo
-//	 * @return String valor do atributo
-//	 * @throws Exception
-//	 *             Caso algum parametro esteja incorreto ou nao existe sala
-//	 *             cadastrada com o id fornecido
-//	 */
-//	public String getAtributoSala(String idSala, String atributo)
-//			throws Exception {
-//		return gerenciadorSala.getAtributoSala(idSala, atributo);
-//	}
-//
-//	/**
-//	 * Metodo que zera o Sistema.
-//	 * 
-//	 */
-//	public void zerarSistema() {
-//		gerenciadorSala.zerarSistema();
-//	}
-//
-//	/**
-//	 * Metodo que encerra o Sistema.
-//	 * 
-//	 */
-//	public void encerrarSistema() {
-//		gerenciadorSala.encerrarSistema();
-//	}
-//
-//}
