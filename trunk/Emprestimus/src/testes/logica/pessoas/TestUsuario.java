@@ -13,6 +13,7 @@ public class TestUsuario {
 
 	@Before
 	public void setUp() throws Exception {
+		usuario.ID_Prox_Usuario = 1;
 		usuario = new Usuario("nome", "login", "endereco");
 	}
 
@@ -25,7 +26,8 @@ public class TestUsuario {
 	@Test
 	public void testGetId() throws Exception {
 		setUp();
-		
+		System.out.println("aqui");
+		System.out.println(usuario.ID_Prox_Usuario);
 		//Pois o primeiro usuario ja foi cadastrado no setUp().
 		assertTrue(2 == usuario.ID_Prox_Usuario);
 		assertTrue(1 == usuario.getId());
@@ -40,7 +42,8 @@ public class TestUsuario {
 	}
 	
 	@Test
-	public void testCompareTo() {
+	public void testCompareTo() throws Exception {
+		setUp();
 		Usuario usuario2 = new Usuario("nome", "login", "endereco");
 		System.out.println(usuario2.getId());
 		System.out.println(Usuario.ID_Prox_Usuario);
@@ -55,19 +58,23 @@ public class TestUsuario {
 		assertTrue(usuario3.compareTo(usuario) > 0);
 		assertTrue(usuario2.compareTo(usuario3) < 0);
 		assertTrue(usuario3.compareTo(usuario2) > 0);
+		tearDown();
 	}
 
 	@Test
-	public void testEquals_HashCode() {
+	public void testEquals_HashCode() throws Exception {
+		setUp();
 		Usuario usuario2 = new Usuario("nome", "login", "endereco");
 		assertFalse(usuario.getId() == usuario2.getId());
-		assertFalse(usuario.equals(usuario2));
+		assertTrue(usuario.equals(usuario2));
 		assertFalse(usuario.hashCode() == usuario2.hashCode());
 		
+		tearDown();
 	}
 
 	@Test //TODO Este teste esta quebrando, precisamos decidir se ele tem que ficar ou não! 
-	public void testUsuario() {
+	public void testUsuario() throws Exception {
+		setUp();
 		usuario = null;
 		try { //nome = null
 			usuario = new Usuario(null, "login", "endereco");
@@ -112,10 +119,12 @@ public class TestUsuario {
 			usuario = null;
 			fail("Nao deveria ter lancado uma excecao de argumentos ilegais");
 		}
+		tearDown();
 	}
 
 	@Test
-	public void testSolicitarAmizade() {
+	public void testSolicitarAmizade() throws Exception {
+		setUp();
 		Usuario amigo = new Usuario("nomeAmigo", "loginAmigo", "enderecoAmigo");
 		
 		assertEquals(0, usuario.getNumSolicitacoes());
@@ -163,11 +172,12 @@ public class TestUsuario {
 		} catch (Exception e) {
 			// Passe
 		}
-		
+		tearDown();
 	}
 
 	@Test
-	public void testAceitarAmizade() {
+	public void testAceitarAmizade() throws Exception {
+		setUp();
 		Usuario amigo1 = new Usuario("nome1", "login1", "endereco1");
 		Usuario amigo2 = new Usuario("nome2", "login2", "endereco2");
 
@@ -216,10 +226,12 @@ public class TestUsuario {
 		assertFalse(amigo1.temAmigo(amigo2));
 		assertFalse(amigo2.temAmigo(amigo1));
 		
+		tearDown();
 	}
 
 	@Test
-	public void testRejeitarAmizade() {
+	public void testRejeitarAmizade() throws Exception {
+		setUp();
 		Usuario amigo1 = new Usuario("nome1", "login1", "endereco1");
 		Usuario amigo2 = new Usuario("nome2", "login2", "endereco2");
 
@@ -265,6 +277,8 @@ public class TestUsuario {
 		assertFalse(amigo2.temAmigo(usuario));
 		assertFalse(amigo1.temAmigo(amigo2));
 		assertFalse(amigo2.temAmigo(amigo1));
+		
+		tearDown();
 	}
 
 

@@ -58,7 +58,7 @@ public class Emprestimus implements EmprestimusIF {
 
 	public void criarUsuario(String nome, String login, String endereco)
 			throws IllegalArgumentException {
-		if (login != null && login.contains(" "))
+		if (login == null || login.trim().equals(""))
 			throw new IllegalArgumentException(login_invalido[0]);
 		Usuario usuario = new Usuario(ValidadorString.pegaString(nome_invalido,
 				nome), ValidadorString.pegaString(login_invalido, login),

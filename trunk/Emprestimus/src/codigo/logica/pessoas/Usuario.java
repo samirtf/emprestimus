@@ -167,7 +167,7 @@ public class Usuario implements PessoaIF, Comparable<Usuario> {
 	public boolean equals(Object obj) {
 		if (obj instanceof Usuario) {
 			Usuario outro = (Usuario) obj;
-			return getLogin().equals(outro.getLogin());
+			return this.login.equals(outro.getLogin());
 			
 		}
 		return false;
