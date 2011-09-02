@@ -1,5 +1,56 @@
 package iu;
 
+/**
+ * Interface geral do sistema. Para os íntimos, chama-se Fachada =D.
+ * @author Radix
+ *
+ */
 public interface EmprestimusIF {
 
+	//US01
+	public String criarUsuario( String login, String nome, String endereco );
+	
+	public String abrirSessao( String login );
+	
+	public String getAtributo(String login, String atributo );
+	
+	//US02
+	public String cadastrarItem( String idSessao, String nome, String descricao, String categoria );
+	
+	public String getAtributoItem( String idItem, String atributo );
+	
+	//US03
+	public String localizarUsuario( String idSessao, String chave, String atributo );
+	
+	//US04
+	public void requisitarAmizade( String idSessao, String login );
+	
+	public String getRequisicoesDeAmizade( String idSessao );
+	
+	public void aprovarAmizade( String idSessao, String login );
+	
+	public String ehAmigo (String idSessao, String login );
+	
+	//US05
+	public String getAmigos( String idSessao );
+	
+	public String getAmigos( String idSessao, String login );
+	
+	public String getItens( String idSessao );
+	
+	public String getItens( String idSessao, String login );
+	
+	//US06
+	public String requisitarEmprestimo( String idSessao, String idItem, int duracao );
+	
+	public void aprovarEmprestimo( String idSessao, String idRequisicaoEmprestimo );
+	
+	public String getEmprestimos( String idSessao, String tipo );
+	
+	//Utils
+	public void zerarSistema();
+	
+	public void encerrarSistema();
+	
+	
 }
