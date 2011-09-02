@@ -74,6 +74,15 @@ public interface ItemIF {
 	public void setDescricao( String descricao );
 	
 	/**
+	 * Verifica se item estah disponivel.
+	 * 
+	 * @return
+	 * 		True - Se estiver disponivel.
+	 * 		False - Caso esteja emprestado.
+	 */
+	public boolean estahDisponivel();
+	
+	/**
 	 * Verifica se a igualdade dos item.
 	 * 
 	 * @param outroItem
