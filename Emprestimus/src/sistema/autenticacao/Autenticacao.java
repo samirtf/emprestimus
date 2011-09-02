@@ -1,6 +1,8 @@
 package sistema.autenticacao;
 
+import java.lang.reflect.Field;
 import java.util.Map;
+import java.util.Random;
 import java.util.TreeMap;
 
 import sistema.usuario.Usuario;
@@ -13,6 +15,8 @@ public class Autenticacao implements AutenticacaoIF{
 	
 	// Mapa das sessoes de usuarios logados no sistema
 	private Map<String, UsuarioIF> sessoes = new TreeMap<String, UsuarioIF>();
+	private final int qntMaxSessoes = Integer.MAX_VALUE - 1024; // Quantidade maxima de sessoes.
+	
 	
 	
 
@@ -29,23 +33,50 @@ public class Autenticacao implements AutenticacaoIF{
 	}
 
 	@Override
-	public boolean criarUsuario(String login, String nome, String endereco) throws Exception {
-		if( login != null && !existeUsuario(login) ){
-			usuariosCadastrados.put(login, new Usuario(login, nome, endereco));
-			return true;
+	public void criarUsuario(String login, String nome, String endereco) throws Exception {
+		
+		if( login == null || login.trim().equals("")) throw new Exception("Login inválido");
+		if( nome == null || nome.trim().equals("")) throw new Exception("Nome inválido");
+		if(endereco == null) endereco = "";
+		if( existeUsuario(login) ) throw new Exception("Já existe um usuário com este login");
+		// adiciona novo usuario no sistema
+		usuariosCadastrados.put(login, new Usuario(login, nome, endereco));
+		
+	}
+
+	
+	@Override
+	public String abrirSessao(String login) throws Exception {
+
+		if( login == null || login.trim().equals("")) throw new Exception("Login inválido");
+		if(!existeUsuario(login)) throw new Exception("Usuário inexistente");
+		String idSessao = gerarIdSessao();
+		while(existeIdSessao(idSessao)){
+			idSessao = gerarIdSessao();
 		}
-		return false;
+		sessoes.put(idSessao, getUsuario(login));
+		return idSessao;
+		
 	}
 
 	@Override
-	public String abrirSessao(String login) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getAtributoUsuario(String login, String aributo) {
-		// TODO Auto-generated method stub
+	public String getAtributoUsuario(String login, String atributo) throws Exception{
+		
+		if( login == null || login.trim().equals("")) throw new Exception("Login inválido");
+		if(!existeUsuario(login)) throw new Exception("Usuário inexistente");//Atributo inexistente
+		if(atributo == null || atributo.trim().equals("")) throw new Exception("Atributo inválido");
+		UsuarioIF usuario = getUsuario(login);
+		Class cls = usuario.getClass();
+		Field[] campos = cls.getDeclaredFields();
+		for( Field f : campos){
+			//if(f.toString().endsWith("."+atributo)) return usuario.
+			System.out.println(f.getName());
+			
+		}
+		
+		
+		
+		//if() throw new Exception("Atributo inexistente");//Atributo inexistente
 		return null;
 	}
 	
@@ -60,5 +91,40 @@ public class Autenticacao implements AutenticacaoIF{
 	private boolean existeUsuario( String login ){
 		return usuariosCadastrados.containsKey(login);
 	}
+	
+	private UsuarioIF getUsuario( String login ) throws Exception{
+		return usuariosCadastrados.get(login);
+	}
+	
+	/**
+	 * Gera um idSessao.
+	 * @return
+	 * 		Um idSessao.
+	 */
+	private String gerarIdSessao(){
+		Random rd = new Random();
+		return String.valueOf((rd.nextInt(Integer.MAX_VALUE - 1024 - 1) + 1));
+	}
+	
+	/**
+	 * Verifica se um idSessao ja existe.
+	 * @param idSessao
+	 * 		Um idSessao.
+	 * @return
+	 * 		True - Se existir o idSessao.
+	 * 		False - Se nao existir.
+	 */
+	private boolean existeIdSessao(String idSessao){
+		return sessoes.containsKey(idSessao);
+	}
+	
+	
+	public static void main( String[] args) throws Exception{
+		Autenticacao aut = new Autenticacao();
+		aut.criarUsuario("samirtf", "Samir", "meuEndereco");
+		
+		aut.getAtributoUsuario("samirtf", "login");
+	}
+	
 
 }

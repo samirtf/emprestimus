@@ -6,11 +6,11 @@ public interface AutenticacaoIF {
 	
 	public void encerrarSistema();
 	
-	public boolean criarUsuario( String login, String nome, String endereco ) throws Exception;
+	public void criarUsuario( String login, String nome, String endereco ) throws Exception;
 	
-	public String abrirSessao( String login );
+	public String abrirSessao( String login ) throws Exception;
 	
-	public String getAtributoUsuario( String login,  String aributo );
+	public String getAtributoUsuario( String login,  String atributo ) throws Exception;
 	
 
 }
