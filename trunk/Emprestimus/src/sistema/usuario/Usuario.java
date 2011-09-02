@@ -1,18 +1,38 @@
 package sistema.usuario;
 
+import java.util.List;
+
 import sistema.item.ItemIF;
 
+/**
+ * Esta classe representa um usuario padrao do sistema.
+ * 
+ * @author Joeffison Silverio de Andrade, 21011853, joeffisonsa@gmail.com
+ * @version 1.2.2
+ * @since 1.0
+ */
 public class Usuario implements UsuarioIF {
+	/* Atributos estaticos. */
+	private static int ID_Prox_Usuario = 1; // ID do proximo usuario sera guardado nesta variavel estatica. 
 	
+	/* Atributos do objeto. */
 	private String login, nome, endereco;
 	
+	private final int id = ID_Prox_Usuario++; // id (codigo unico) do usuario
+	
+	private List<UsuarioIF> amigos; // Grupo de amigos
+	private List<UsuarioIF> solicitacoes; // solicitacoes de amizade
+	private List<ItemIF> itens; //itens do usuario
+	private List<ItemIF> itens_emprestados; // lista de itens que o usuario emprestou e ainda nao recebeu
+	
 	/**
-	 * COntrutor padrao eh privado e nao oferece implementacao.
+	 * Construtor padrao eh privado e nao oferece implementacao.
 	 */
 	private Usuario(){}
 	
 	/**
 	 * Constroi um usuario a partir de um login, nome e endereco.
+	 * 
 	 * @param login
 	 * 		O login do usuario.
 	 * @param nome

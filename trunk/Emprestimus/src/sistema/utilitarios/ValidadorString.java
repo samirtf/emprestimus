@@ -1,5 +1,8 @@
 package sistema.utilitarios;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Esta classe eh utilizada para validar Strings,
  * 		possibilitando tanto a realizacao de testes especificos quanto completos
@@ -10,36 +13,46 @@ package sistema.utilitarios;
  * @since 1.0
  */
 public class ValidadorString {
-	private final static String [] mensagens_de_erro_padroes = {"Este dado nao pode ser nulo!",
-														  		"Este dado nao pode ser vazio!",
-														  		"Este dado nao pode conter apenas espacos!"};
+	private static List<String> mensagens_de_erro_padroes = null;
+	{
+		String [] array = {"Este dado nao pode ser nulo!", "Este dado nao pode ser vazio!", "Este dado nao pode conter apenas espacos!"};
+		if (mensagens_de_erro_padroes == null) mensagens_de_erro_padroes = toList(array);
+	}
 	
-	private final static String [] mensagens_de_erro_padroes_login = {"Este dado nao pode ser nulo!",
-  																	  "Este dado nao pode ser vazio!",
-  																	  "Este dado nao pode conter apenas espacos!," +
-  																	  "Este dado nao pode conter espacos!"};
+	private static List<String> mensagens_de_erro_padroes_login = null;
+	{
+		String [] array = {"Este dado nao pode ser nulo!",
+					 	   "Este dado nao pode ser vazio!",
+						   "Este dado nao pode conter apenas espacos!," +
+						   "Este dado nao pode conter espacos!"};
+		
+		if (mensagens_de_erro_padroes_login == null) mensagens_de_erro_padroes_login = toList(array);
+	}
+	
+	
 	
 	/**
 	 * Submete a {@link String} apresentada a todos os testes desta classe, para verificar se ela eh nula, vazia ou se contem apenas caracteres de espaco.
 	 * 
 	 * @param MensagensDeErro
-	 * 		Array de {@link String} de tamanho 3,
+	 * 		List de {@link String} de tamanho 3,
 	 * 			onde os itens equivalem as mensagens de quando a String eh nula, vazia ou so contem espacos, respectivamente. 
 	 * @param StringParaTestar
 	 * 		{@link String} que devera ser checada
 	 * @return
 	 * 		OK, caso nenhum problema seja detectado, ou uma mensagem de erro especifica, caso necessario.
 	 */
-	public static String validaString(String [] MensagensDeErro, String StringParaTestar) {
-		String mensagemErro = ehNull(MensagensDeErro[0], StringParaTestar);
+	public static String validaString(List<String> MensagensDeErro, String StringParaTestar) {
+		MensagensDeErro = povoaList(3, MensagensDeErro);
+		String mensagemErro = ehNull(MensagensDeErro.get(0), StringParaTestar);
 		if (!mensagemErro.equals(Mensagem.OK.getMensagem())) {
 			return mensagemErro;
 		}
-		mensagemErro = ehBranco(MensagensDeErro[1], StringParaTestar);
+		mensagemErro = ehBranco(MensagensDeErro.get(1), StringParaTestar);
 		if (!mensagemErro.equals(Mensagem.OK.getMensagem())) {
 			return mensagemErro;
 		}
-		mensagemErro = somenteEspacos(MensagensDeErro[2], StringParaTestar);
+		mensagemErro = somenteEspacos(MensagensDeErro.get(2), StringParaTestar);
 		if (!mensagemErro.equals(Mensagem.OK.getMensagem())) {
 			return mensagemErro;
 		}
@@ -56,6 +69,22 @@ public class ValidadorString {
 	 */
 	public static String validaString(String StringParaTestar) {
 		return validaString(mensagens_de_erro_padroes, StringParaTestar);
+	}
+	
+	/**
+	 * Submete a {@link String} apresentada a todos os testes desta classe, para verificar se ela eh nula, vazia ou se contem apenas caracteres de espaco.
+	 * 
+	 * @param MensagemDeErro
+	 * 		Mensagem de erro para o caso da string ser invalida. 
+	 * @param StringParaTestar
+	 * 		{@link String} que devera ser checada
+	 * @return
+	 * 		OK, caso nenhum problema seja detectado, ou uma mensagem de erro especifica, caso necessario.
+	 */
+	public static String validaString(String mensagemDeErro, String StringParaTestar) {
+		List<String> lista = new ArrayList<String>();
+        lista.add(mensagemDeErro);
+		return validaString(povoaList(4, lista), StringParaTestar);
 	}
 	
 	/**
@@ -84,7 +113,7 @@ public class ValidadorString {
 	 * 		OK, caso nao seja nula, ou uma mensagem de erro, caso seja.
 	 */
 	public static String ehNull(String StringParaTestar) {
-		return ehNull(mensagens_de_erro_padroes[0], StringParaTestar);
+		return ehNull(mensagens_de_erro_padroes.get(0), StringParaTestar);
 	}
 	
 	
@@ -114,7 +143,7 @@ public class ValidadorString {
 	 * 		OK, caso a string nao seja vazia, ou uma mensagem de erro, caso ela seja
 	 */
 	public static String ehBranco(String StringParaTestar) {
-		return ehBranco(mensagens_de_erro_padroes[1], StringParaTestar);
+		return ehBranco(mensagens_de_erro_padroes.get(1), StringParaTestar);
 	}
 	
 	
@@ -146,7 +175,7 @@ public class ValidadorString {
 	 * 				ou uma mensagem de erro, caso ela apresente apenas espacos.
 	 */
 	public static String somenteEspacos(String StringParaTestar) {
-		return somenteEspacos(mensagens_de_erro_padroes[2], StringParaTestar);
+		return somenteEspacos(mensagens_de_erro_padroes.get(2), StringParaTestar);
 	}
 	
 	/**
@@ -154,7 +183,7 @@ public class ValidadorString {
 	 * ou lanca uma excecao personalizada, caso a string passada seja invalida.
 	 * 
 	 * @param MensagensDeErro
-	 * 		Array de {@link String} de tamanho 3,
+	 * 		List de {@link String} de tamanho 3,
 	 * 	onde os itens equivalem as mensagens de quando a String eh nula, vazia ou so contem espacos, respectivamente. 
 	 * @param minhaString
 	 * 			String que deve ser validada
@@ -163,7 +192,7 @@ public class ValidadorString {
 	 * @throws IllegalArgumentException
 	 * 			Lanca uma excecao, caso a string passada nao seja aprovada
 	 */
-	public static String pegaString(String [] MensagensDeErro, String minhaString) throws IllegalArgumentException {
+	public static String pegaString(List<String> MensagensDeErro, String minhaString) throws IllegalArgumentException {
         String teste = ValidadorString.validaString(MensagensDeErro, minhaString);
         if (!teste.equals(Mensagem.OK.getMensagem())) {
             throw new IllegalArgumentException(teste);
@@ -187,11 +216,30 @@ public class ValidadorString {
     }
 	
 	/**
+	 * Retorna a string passada como parametro, se esta for valida,
+	 * ou lanca uma excecao personalizada, caso a string passada seja invalida.
+	 * 
+	 * @param MensagensDeErro
+	 * 		Mensagem de erro retornada em caso da string ser invalida. 
+	 * @param minhaString
+	 * 			String que deve ser validada
+	 * @return
+	 * 			Retorna a string validada, desde que esta passe pelos testes
+	 * @throws IllegalArgumentException
+	 * 			Lanca uma excecao, caso a string passada nao seja aprovada
+	 */
+	public static String pegaString(String mensagemDeErro, String minhaString) throws IllegalArgumentException {
+		List<String> lista = new ArrayList<String>();
+        lista.add(mensagemDeErro);
+        return pegaString(povoaList(4, lista), minhaString);
+    }
+	
+	/**
 	 * Retorna a string passada como parametro, se este for valido,
 	 * ou lanca uma excecao personalizada, caso nao seja.
 	 * 
 	 * @param MensagensDeErro
-	 * 		Array de {@link String} de tamanho 4,
+	 * 		List de {@link String} de tamanho 4,
 	 * 	onde os itens equivalem as mensagens de quando a String eh nula, vazia, so contem espacos ou contem espacos, respectivamente. 
 	 * @param login
 	 * 			Login que deve ser validado
@@ -200,14 +248,15 @@ public class ValidadorString {
 	 * @throws IllegalArgumentException
 	 * 			Lanca uma excecao, caso o login passado nao seja aprovado
 	 */
-	public static String pegaLogin(String [] MensagensDeErro, String login) throws IllegalArgumentException {
+	public static String pegaLogin(List<String> MensagensDeErro, String login) throws IllegalArgumentException {
+		MensagensDeErro = povoaList(4, MensagensDeErro);
         try {
         	pegaString(MensagensDeErro, login);
         } catch (IllegalArgumentException e) {
 			throw e;
 		}
         
-        if (login.contains(" ")) throw new IllegalArgumentException(MensagensDeErro[3]);
+        if (login.contains(" ")) throw new IllegalArgumentException(MensagensDeErro.get(3));
         
         return login;
     }
@@ -226,5 +275,46 @@ public class ValidadorString {
 	public static String pegaLogin(String login) throws IllegalArgumentException {
         return pegaLogin(mensagens_de_erro_padroes_login, login);
     }
+	
+	/**
+	 * Retorna a string passada como parametro, se este for valido,
+	 * ou lanca uma excecao personalizada, caso nao seja.
+	 * 
+	 * @param MensagemDeErro
+	 * 		Mensagem de erro a ser retornada em caso da string ser invalida. 
+	 * @param login
+	 * 			Login que deve ser validado
+	 * @return
+	 * 			Retorna o login validado, desde que este passe pelos testes
+	 * @throws IllegalArgumentException
+	 * 			Lanca uma excecao, caso o login passado nao seja aprovado
+	 */
+	public static String pegaLogin(String mensagemDeErro, String login) throws IllegalArgumentException {
+        List<String> lista = new ArrayList<String>();
+        lista.add(mensagemDeErro);
+		return pegaLogin(povoaList(4, lista), login);
+    }
+	
+	private static List<String> povoaList(int tamanho_desejado, List<String> list) {
+		
+		if (list == null || list.isEmpty()) return mensagens_de_erro_padroes_login;
+		
+		List <String> resposta = new ArrayList<String>();
+		resposta.addAll(list);
+		
+		
+		for (int i = 0; i < tamanho_desejado-list.size(); i++) {
+			resposta.add(list.get(0));
+		}
+		return resposta;
+	}
+	
+	private static List<String> toList(String [] array) {
+		List<String> resposta = new ArrayList<String>();
+		for (String c : array) {
+			resposta.add(c);
+		}
+		return resposta;
+	}
 	
 }
