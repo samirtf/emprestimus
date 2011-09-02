@@ -75,6 +75,12 @@ public class Item implements ItemIF{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public boolean estahDisponivel() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 	
 }
