@@ -6,7 +6,7 @@ public interface AutenticacaoIF {
 	
 	public void encerrarSistema();
 	
-	public boolean criarUsuario( String login, String nome, String endereco );
+	public boolean criarUsuario( String login, String nome, String endereco ) throws Exception;
 	
 	public String abrirSessao( String login );
 	
