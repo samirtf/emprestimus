@@ -1,86 +1,105 @@
 package sistema.item;
 
+import sistema.utilitarios.Mensagem;
+import sistema.utilitarios.ValidadorString;
+
+/**
+ * Esta classe representa os itens que podem ser cadastrados pelo usuario
+ * 
+ * @author Joeffison Silverio de Andrade, 21011853, joeffisonsa@gmail.com
+ * @version 1.5.2
+ * @since 1.0
+ */
 public class Item implements ItemIF{
 	
 	private String idItem, nome, descricao;
 	private ItemCategoria categoria;
+	private boolean estaDisponivel;
 	
 	/**
-	 * COntrutor padrao eh privado e nao oferece implementacao.
+	 * O construtor padrao eh privado e nao oferece implementacao.
 	 */
 	private Item(){}
 	
-	public Item( String idItem, String nome, String descricao, String categoria)throws Exception{
-		//TODO fazer com que a verificacao da string categoria valide o tipo fornecido.
+	public Item( String idItem, String nome, String descricao, String categoria) throws Exception{
+		this(idItem, nome, descricao, ItemCategoria.getCategoria(categoria));
 	}
 	
-    public Item( String idItem, String nome, String descricao, ItemCategoria categoria)throws Exception{
-		//TODO verifica aqui um monte de coisa e depois seta atributos se nao lancar excecao.
+    public Item( String idItem, String nome, String descricao, ItemCategoria categoria) throws Exception{
     	this.idItem = idItem;
-    	this.nome = nome;
-    	this.descricao = descricao;
-    	this.categoria = categoria;
+    	
+    	setNome(nome);
+    	setDescricao(descricao);
+		setCategoria(categoria);
+		
+		this.estaDisponivel = true;
 	}
-
+    
+    
 	@Override
 	public String getIdItem() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.nome;
 	}
 
 	@Override
 	public String getNome() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.nome;
 	}
 
 	@Override
 	public String getCategoria() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.categoria.getNome();
 	}
 
 	@Override
 	public ItemCategoria getCategoriaType() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.categoria;
 	}
 
 	@Override
 	public String getDescricao() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.descricao;
 	}
 
 	@Override
-	public void setNome(String nome) {
-		// TODO Auto-generated method stub
-		
+	public void setNome(String nome) throws Exception {
+		this.nome = ValidadorString.pegaString(nome);
 	}
-
+	
+	@Override
+	public void setCategoria(ItemCategoria categoria) throws Exception {
+		if (categoria == null) {
+			throw new Exception(Mensagem.CATEGORIA_INVALIDA.getMensagem());
+		}
+		this.categoria = categoria;
+	}
+	
 	@Override
 	public void setCategoria(String categoria) throws Exception {
-		// TODO Auto-generated method stub
-		
+		this.categoria = ItemCategoria.getCategoria(categoria);
 	}
 
 	@Override
-	public void setCategoria(ItemCategoria categoria) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setDescricao(String descricao) {
-		// TODO Auto-generated method stub
-		
+	public void setDescricao(String descricao) throws Exception {
+		this.descricao = ValidadorString.pegaString(descricao);
 	}
 
 	@Override
 	public boolean estahDisponivel() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.estaDisponivel;
 	}
 	
+	@Override
+	public void setDisponibilidade(boolean disponibilidade) {
+		this.estaDisponivel = disponibilidade;
+	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Item) {
+			Item outro = (Item) obj;
+			return getNome().equals(outro.getNome()) && getCategoria().equals(outro.getCategoria()) && this.idItem == outro.getIdItem();
+		}
+		return false;
+	}
 }
