@@ -54,25 +54,26 @@ public class Usuario implements UsuarioIF {
 		 * padronizada nos requisitos. Consultar testes de aceitacao.
 		 */
 		
-		this.login = login;
-		this.nome = nome;
-		this.endereco = endereco;
+		//Estes métodos podem lançar exceção
+		setLogin(login);
+		setNome(nome);
+		setEndereco(endereco);
 		
 		itens = new ArrayList<ItemIF>();
 	}
 
 	@Override
-	public void setLogin(String login) {
+	public void setLogin(String login) { //TODO: lançar uma exceção aqui!
 		this.login = login;
 	}
 
 	@Override
-	public void setNome(String nome) {
+	public void setNome(String nome) { //TODO: lançar uma exceção aqui!
 		this.nome = nome;
 	}
 
 	@Override
-	public void setEndereco(String endereco) {
+	public void setEndereco(String endereco) { //TODO: lançar uma exceção aqui!
 		this.endereco = endereco;
 	}
 
@@ -115,14 +116,14 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public String getListaIdItens() {
-		String listaIdItensString = "";
+		StringBuilder listaIdItensString = new StringBuilder();
 		
-		//TODO: confirmar formato da string.
+		//FIXME: confirmar formato da string. Nathaniel concorda!
 		for(ItemIF item: this.itens){
-			listaIdItensString = listaIdItensString+item.getIdItem()+" ";
+			listaIdItensString.append(item.getIdItem() + " ");
 		}
 		
-		return listaIdItensString.trim();
+		return listaIdItensString.toString().trim();
 	}
 
 	@Override
@@ -149,14 +150,14 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public String getListaIdItensEmprestados() {
-		String listaIdItensEmprestadosString = "";
+		StringBuilder listaIdItensEmprestadosString = new StringBuilder();
 		
-		//TODO: confirmar formato da string.
+		//FIXME: confirmar formato da string. Nathaniel concorda!
 		for(ItemIF itensEmprestados: this.itens_emprestados){
-			listaIdItensEmprestadosString = listaIdItensEmprestadosString+itensEmprestados.getIdItem()+" ";
+			listaIdItensEmprestadosString.append(itensEmprestados.getIdItem() + " ");
 		}
 		
-		return listaIdItensEmprestadosString.trim();
+		return listaIdItensEmprestadosString.toString().trim();
 	}
 
 	@Override
@@ -188,11 +189,12 @@ public class Usuario implements UsuarioIF {
 	}
 
 	@Override
-	public boolean equals(UsuarioIF outroUsuario) {
+	public boolean equals(UsuarioIF outroUsuario) { //FIXME: Este método deveria testar apenas o login, por que facilitria outras coisas adiante
 		  
 		return (this.getLogin() == outroUsuario.getLogin() &&
 				this.getNome() == outroUsuario.getNome() &&
 				this.getEndereco() == outroUsuario.getEndereco());
 	}
+	//TODO: fazer um método hashCode() que retorna o ID... pra facilitar o uso das listas e mapas... [quero opiniões]
 
 }
