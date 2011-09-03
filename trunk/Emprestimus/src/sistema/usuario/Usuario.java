@@ -179,14 +179,20 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public boolean estahItemDisponivel(String idItem) {
-		// TODO Auto-generated method stub
-		return false;
+		try{
+			return getInformacoesItem(idItem).estahDisponivel();
+			
+		}catch(Exception e){
+			return false;
+		}
 	}
 
 	@Override
 	public boolean equals(UsuarioIF outroUsuario) {
-		// TODO Auto-generated method stub
-		return false;
+		  
+		return (this.getLogin() == outroUsuario.getLogin() &&
+				this.getNome() == outroUsuario.getNome() &&
+				this.getEndereco() == outroUsuario.getEndereco());
 	}
 
 }
