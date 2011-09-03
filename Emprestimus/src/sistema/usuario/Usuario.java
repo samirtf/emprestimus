@@ -139,8 +139,7 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public int qntItens() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.itens.size();
 	}
 
 	@Override
