@@ -9,10 +9,10 @@ import sistema.item.ItemIF;
 /**
  * Esta classe representa um usuario padrao do sistema.
  * 
- * @author Jos� Nathaniel L. de Abrante, 21011091, nathaniel.una@gmail.com
- * @author Joeffison Silverio de Andrade, 21011853, joeffisonsa@gmail.com
- * @version 1.2.2
- * @since 1.0
+ * @author Jos� Nathaniel L. de Abrante, 21011091
+ * @author Joeffison Silverio de Andrade, 21011853
+ * @author José Ulisses de Brito Lira Filho, 20911806
+ * @version 1.2.3
  */
 public class Usuario implements UsuarioIF {
 	/* Atributos estaticos. */
@@ -98,7 +98,7 @@ public class Usuario implements UsuarioIF {
 			itens.add(item);
 			return item.getIdItem();
 		} catch (Exception e) {
-			return null;
+			return null; //TODO: lançar uma exceção aqui!
 		}
 	}
 
@@ -115,13 +115,25 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public String getListaIdItens() {
-		// TODO Auto-generated method stub
-		return null;
+		String listaIdItensString = "";
+		
+		//TODO: confirmar formato da string.
+		for(ItemIF item: this.itens){
+			listaIdItensString = listaIdItensString+item.getIdItem()+" ";
+		}
+		
+		return listaIdItensString.trim();
 	}
 
 	@Override
 	public ItemIF getInformacoesItem(String idItem) {
-		// TODO Auto-generated method stub
+		
+		for(ItemIF item: this.itens){
+			if(item.getIdItem() == idItem){
+				return item;
+			}
+		}
+		
 		return null;
 	}
 
