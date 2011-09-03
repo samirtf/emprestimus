@@ -85,6 +85,7 @@ public interface UsuarioIF {
 	 * @return
 	 * 		Uma lista de idItens ordenada.
 	 */
+	//FIXME: é realmente pra retornar uma lista na forma de STRING??
 	public String getListaIdItens();
 	
 	/**
@@ -94,12 +95,14 @@ public interface UsuarioIF {
 	 * @return
 	 * 		A instancia de ItemIF.
 	 */
+	//TODO: o que acontece se o item não for encontrado? : 
+	//ADICIONAR aqui na interface para que eu possa implementar
 	public ItemIF getInformacoesItem( String idItem );
 	
 	/**
 	 * Calcula a quantidade de itens cadastrados.
 	 * @return
-	 * 		Um valor inteiro da quantidade de itens cadastrados.
+	 * 		int: quantidade de itens cadastrados.
 	 */
 	public int qntItens();
 	
