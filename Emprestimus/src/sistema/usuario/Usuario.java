@@ -144,14 +144,19 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public int qntItensEmprestados() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.itens_emprestados.size();
 	}
 
 	@Override
 	public String getListaIdItensEmprestados() {
-		// TODO Auto-generated method stub
-		return null;
+		String listaIdItensEmprestadosString = "";
+		
+		//TODO: confirmar formato da string.
+		for(ItemIF itensEmprestados: this.itens_emprestados){
+			listaIdItensEmprestadosString = listaIdItensEmprestadosString+itensEmprestados.getIdItem()+" ";
+		}
+		
+		return listaIdItensEmprestadosString.trim();
 	}
 
 	@Override
