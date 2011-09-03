@@ -95,7 +95,7 @@ public interface UsuarioIF {
 	 * @return
 	 * 		A instancia de ItemIF.
 	 */
-	//TODO: o que acontece se o item não for encontrado? : 
+	//TODO: o que acontece se o item não for encontrado?
 	//ADICIONAR aqui na interface para que eu possa implementar
 	public ItemIF getInformacoesItem( String idItem );
 	
