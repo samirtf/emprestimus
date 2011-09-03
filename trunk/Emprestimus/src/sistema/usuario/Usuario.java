@@ -1,12 +1,15 @@
 package sistema.usuario;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import sistema.item.Item;
 import sistema.item.ItemIF;
 
 /**
  * Esta classe representa um usuario padrao do sistema.
  * 
+ * @author José Nathaniel L. de Abrante, 21011091, nathaniel.una@gmail.com
  * @author Joeffison Silverio de Andrade, 21011853, joeffisonsa@gmail.com
  * @version 1.2.2
  * @since 1.0
@@ -54,53 +57,59 @@ public class Usuario implements UsuarioIF {
 		this.login = login;
 		this.nome = nome;
 		this.endereco = endereco;
+		
+		itens = new ArrayList<ItemIF>();
 	}
 
 	@Override
 	public void setLogin(String login) {
-		// TODO Auto-generated method stub
-		
+		this.login = login;
 	}
 
 	@Override
 	public void setNome(String nome) {
-		// TODO Auto-generated method stub
-		
+		this.nome = nome;
 	}
 
 	@Override
 	public void setEndereco(String endereco) {
-		// TODO Auto-generated method stub
-		
+		this.endereco = endereco;
 	}
 
 	@Override
 	public String getLogin() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.login;
 	}
 
 	@Override
 	public String getNome() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.nome;
 	}
 
 	@Override
 	public String getEndereco() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.endereco;
 	}
 
 	@Override
 	public String cadastrarItem(String nome, String descricao, String categoria) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			ItemIF item = new Item(getLogin(), nome, descricao, categoria); //FIXME logica do IdItem ainda nao implementada
+			itens.add(item);
+			return item.getIdItem();
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	@Override
 	public boolean removerItem(String idItem) {
-		// TODO Auto-generated method stub
+		for (ItemIF item : itens) {
+			if (idItem.equals(item.getIdItem())) {
+				itens.remove(item);
+				return true;
+			}
+		}
 		return false;
 	}
 
