@@ -6,8 +6,9 @@ import sistema.item.ItemIF;
  * Representa um usuario do sistema. Esta interface assegura que os metodos exigidos serao implementados.
  * A instanciacao de classes que implementam esta interface deve ser feita com upcast para a interface.  
  * 
- * @author Joeffison Silverio de Andrade, 21011853, joeffisonsa@gmail.com
- * @version 1.0.2
+ * @author Joeffison Silverio de Andrade, 21011853
+ * @author José Ulisses de Brito Lira Filho, 20911806
+ * @version 1.0.2.1
  * @version 1.2
  */
 public interface UsuarioIF {
@@ -111,7 +112,7 @@ public interface UsuarioIF {
 	 * ou seja, a quantidade de livros nao disponiveis para emprestivo.
 	 *  
 	 * @return
-	 * 		Um valor inteiro da quantidade de itens atualmente emprestados.
+	 * 		int: quantidade de itens atualmente emprestados.
 	 */
 	public int qntItensEmprestados();
 	
