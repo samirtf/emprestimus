@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
 
+import sistema.excecoes.LoginJahExisteException;
 import sistema.usuario.Usuario;
 import sistema.usuario.UsuarioIF;
 
@@ -35,10 +36,10 @@ public class Autenticacao implements AutenticacaoIF{
 	@Override
 	public void criarUsuario(String login, String nome, String endereco) throws Exception {
 		
-		if( login == null || login.trim().equals("")) throw new Exception("Login inv·lido");
-		if( nome == null || nome.trim().equals("")) throw new Exception("Nome inv·lido");
+		if( login == null || login.trim().equals("")) throw new Exception("Login inv√°lido");
+		if( nome == null || nome.trim().equals("")) throw new Exception("Nome inv√°lido");
 		if(endereco == null) endereco = "";
-		if( existeUsuario(login) ) throw new Exception("J· existe um usu·rio com este login");
+		if( existeUsuario(login) ) throw new LoginJahExisteException(login);
 		// adiciona novo usuario no sistema
 		usuariosCadastrados.put(login, new Usuario(login, nome, endereco));
 		
@@ -48,8 +49,8 @@ public class Autenticacao implements AutenticacaoIF{
 	@Override
 	public String abrirSessao(String login) throws Exception {
 
-		if( login == null || login.trim().equals("")) throw new Exception("Login inv·lido");
-		if(!existeUsuario(login)) throw new Exception("Usu·rio inexistente");
+		if( login == null || login.trim().equals("")) throw new Exception("Login inv√°lido");
+		if(!existeUsuario(login)) throw new Exception("Usu√°rio inexistente");
 		String idSessao = gerarIdSessao();
 		while(existeIdSessao(idSessao)){
 			idSessao = gerarIdSessao();
@@ -62,9 +63,9 @@ public class Autenticacao implements AutenticacaoIF{
 	@Override
 	public String getAtributoUsuario(String login, String atributo) throws Exception{
 		
-		if( login == null || login.trim().equals("")) throw new Exception("Login inv·lido");
-		if(!existeUsuario(login)) throw new Exception("Usu·rio inexistente");//Atributo inexistente
-		if(atributo == null || atributo.trim().equals("")) throw new Exception("Atributo inv·lido");
+		if( login == null || login.trim().equals("")) throw new Exception("Login inv√°lido");
+		if(!existeUsuario(login)) throw new Exception("Usu√°rio inexistente");//Atributo inexistente
+		if(atributo == null || atributo.trim().equals("")) throw new Exception("Atributo inv√°lido");
 		UsuarioIF usuario = getUsuario(login);
 		Class cls = usuario.getClass();
 		Field[] campos = cls.getDeclaredFields();
