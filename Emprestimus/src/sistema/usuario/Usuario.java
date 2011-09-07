@@ -9,8 +9,8 @@ import sistema.item.ItemIF;
 /**
  * Esta classe representa um usuario padrao do sistema.
  * 
- * @author Jos� Nathaniel L. de Abrante, 21011091
  * @author Joeffison Silverio de Andrade, 21011853
+ * @author José Nathaniel L. de Abrante, 21011091
  * @author José Ulisses de Brito Lira Filho, 20911806
  * @version 1.2.3
  */
@@ -128,7 +128,7 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public ItemIF getInformacoesItem(String idItem) {
-		
+		// FIXME Não entendi a necessidade<->nome do metodo, Joeffison.
 		for(ItemIF item: this.itens){
 			if(item.getIdItem() == idItem){
 				return item;
@@ -138,7 +138,7 @@ public class Usuario implements UsuarioIF {
 		return null;
 	}
 
-	@Override
+	@Override // FIXME Quantidade de itens totais, disponiveis ou emprestados? Ass. Joeffison
 	public int qntItens() {
 		return this.itens.size();
 	}
