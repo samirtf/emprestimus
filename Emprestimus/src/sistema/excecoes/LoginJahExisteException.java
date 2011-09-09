@@ -17,6 +17,7 @@ public class LoginJahExisteException extends Exception {
 		super("O login " + login + " já existe");
 		this.login = login;
 	}
+	
 
 	public String getLogin() {
 		return login;

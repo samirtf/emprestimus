@@ -22,15 +22,10 @@ public class Emprestimus implements EmprestimusIF {
 	 * java.lang.String)
 	 */
 	@Override
-	public String criarUsuario(String login, String nome, String endereco) {
-		try {
-			autenticacao.criarUsuario(login, nome, endereco);
-			return null; //FIXME: O que eu vou retornar aqui?
-		} catch (Exception e) {
-			// TODO Tratar as exceções que podem ser lançadas aqui
-			e.printStackTrace();
-			return null;
-		}
+	public void criarUsuario(String login, String nome, String endereco) throws Exception{
+		
+        autenticacao.criarUsuario(login, nome, endereco);
+        
 	}
 
 	/*
@@ -39,14 +34,10 @@ public class Emprestimus implements EmprestimusIF {
 	 * @see iu.EmprestimusIF#abrirSessao(java.lang.String)
 	 */
 	@Override
-	public String abrirSessao(String login) {
-		try {
-			autenticacao.abrirSessao(login);
-		} catch (Exception e) {
-			// TODO Tratar as exceções que podem ser lançadas aqui
-			e.printStackTrace();
-		}
-		return null;
+	public String abrirSessao(String login) throws Exception{
+		
+	    return autenticacao.abrirSessao(login);
+		
 	}
 
 	/*
@@ -55,14 +46,12 @@ public class Emprestimus implements EmprestimusIF {
 	 * @see iu.EmprestimusIF#getAtributo(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public String getAtributoUsuario(String login, String atributo) {
-		try {
-			autenticacao.getAtributoUsuario(login, atributo);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+	public String getAtributoUsuario(String login, String atributo) throws Exception{
+		String valor = null;
+		
+			valor = autenticacao.getAtributoUsuario(login, atributo);
+		
+		return valor;
 	}
 
 	/*

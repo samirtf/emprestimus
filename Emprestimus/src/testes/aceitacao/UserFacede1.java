@@ -41,7 +41,7 @@ public class UserFacede1 {
 	 * @return
 	 *     O id de sessao para o usuario.
 	 */
-	public String abrirSessao(String login) {
+	public String abrirSessao(String login) throws Exception{
 		return sistema.abrirSessao(login);
 	}
 
@@ -54,7 +54,7 @@ public class UserFacede1 {
 	 * @return
 	 *     Uma representacao de um atributo do usuario.
 	 */
-	public String getAtributoUsuario(String login, String atributo) {
+	public String getAtributoUsuario(String login, String atributo) throws Exception{
 		return sistema.getAtributoUsuario(login, atributo);
 	}
 	
