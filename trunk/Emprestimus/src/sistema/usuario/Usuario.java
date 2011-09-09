@@ -93,7 +93,8 @@ public class Usuario implements UsuarioIF {
 	}
 
 	@Override
-	public String cadastrarItem(String nome, String descricao, String categoria) {
+	public String cadastrarItem(String nome, String descricao, String categoria) throws Exception{
+		
 		try {
 			ItemIF item = new Item(getLogin(), nome, descricao, categoria); //FIXME logica do IdItem ainda nao implementada
 			itens.add(item);
