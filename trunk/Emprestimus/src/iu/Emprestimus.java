@@ -62,8 +62,14 @@ public class Emprestimus implements EmprestimusIF {
 	 */
 	@Override
 	public String cadastrarItem(String idSessao, String nome, String descricao,
-			String categoria) {
-		// TODO Auto-generated method stub
+			String categoria) throws Exception {
+		if(idSessao == null || idSessao.trim().equals("")) throw new Exception("Sessão inválida");
+		if(!autenticacao.existeIdSessao(idSessao)) throw new Exception("Sessão inexistente");
+		if(nome == null || nome.trim().equals("")) throw new Exception("Nome inválido");
+		if(categoria == null || categoria.trim().equals("")) throw new Exception("Categoria inválida");
+		
+		
+		
 		return null;
 	}
 

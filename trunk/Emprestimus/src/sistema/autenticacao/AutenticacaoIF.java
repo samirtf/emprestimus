@@ -1,5 +1,7 @@
 package sistema.autenticacao;
 
+import sistema.usuario.UsuarioIF;
+
 public interface AutenticacaoIF {
 	
 	public void zerarSistema();
@@ -12,5 +14,8 @@ public interface AutenticacaoIF {
 	
 	public String getAtributoUsuario( String login,  String atributo ) throws Exception;
 	
+	public boolean existeIdSessao(String idSessao);
+	
+	public UsuarioIF getUsuarioPeloIDSessao( String idSessao ) throws Exception;
 
 }
