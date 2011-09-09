@@ -1,7 +1,7 @@
 package iu;
 
 /**
- * Interface geral do sistema. Para os íntimos, chama-se Fachada =D.
+ * Interface geral do sistema. Para os ï¿½ntimos, chama-se Fachada =D.
  * @author Radix
  *
  */
@@ -12,7 +12,7 @@ public interface EmprestimusIF {
 	
 	public String abrirSessao( String login );
 	
-	public String getAtributo(String login, String atributo );
+	public String getAtributoUsuario(String login, String atributo );
 	
 	//US02
 	public String cadastrarItem( String idSessao, String nome, String descricao, String categoria );
