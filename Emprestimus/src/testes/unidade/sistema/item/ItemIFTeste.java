@@ -1,10 +1,10 @@
-package teste.unidade.sistema.item;
+package testes.unidade.sistema.item;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
 
 /**
- * Classe EmailTeste - Responsável em realizar teste unitários na classe E-mail.
+ * Classe EmailTeste - Responsï¿½vel em realizar teste unitï¿½rios na classe E-mail.
  ** 
  * @author Samir Trajano Feitosa  - samircc20092@gmail.com
  *         outraPessoa1           - outroEmail1
@@ -22,8 +22,8 @@ public class ItemIFTeste extends TestCase implements Test {
 	}
 
 	/**
-	 * Método testEnvia - Método responsável em realizar testes.
-	 * Métodos DEVEM POSSUIR DATA, COMO MENCIONADO ABAIXO.
+	 * Mï¿½todo testEnvia - Mï¿½todo responsï¿½vel em realizar testes.
+	 * Mï¿½todos DEVEM POSSUIR DATA, COMO MENCIONADO ABAIXO.
 	 *
 	 * @since 17/01/2007
 	 */
