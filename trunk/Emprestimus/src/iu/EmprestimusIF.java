@@ -8,11 +8,11 @@ package iu;
 public interface EmprestimusIF {
 
 	//US01
-	public String criarUsuario( String login, String nome, String endereco );
+	public void criarUsuario( String login, String nome, String endereco ) throws Exception;
 	
-	public String abrirSessao( String login );
+	public String abrirSessao( String login ) throws Exception;
 	
-	public String getAtributoUsuario(String login, String atributo );
+	public String getAtributoUsuario(String login, String atributo ) throws Exception;
 	
 	//US02
 	public String cadastrarItem( String idSessao, String nome, String descricao, String categoria );

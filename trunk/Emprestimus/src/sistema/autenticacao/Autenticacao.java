@@ -39,7 +39,7 @@ public class Autenticacao implements AutenticacaoIF{
 		if( login == null || login.trim().equals("")) throw new Exception("Login inválido");
 		if( nome == null || nome.trim().equals("")) throw new Exception("Nome inválido");
 		if(endereco == null) endereco = "";
-		if( existeUsuario(login) ) throw new LoginJahExisteException(login);
+		if( existeUsuario(login) ) throw new Exception("Já existe um usuário com este login");
 		// adiciona novo usuario no sistema
 		usuariosCadastrados.put(login, new Usuario(login, nome, endereco));
 		
@@ -67,18 +67,22 @@ public class Autenticacao implements AutenticacaoIF{
 		if(!existeUsuario(login)) throw new Exception("Usuário inexistente");//Atributo inexistente
 		if(atributo == null || atributo.trim().equals("")) throw new Exception("Atributo inválido");
 		UsuarioIF usuario = getUsuario(login);
+		
 		Class cls = usuario.getClass();
 		Field[] campos = cls.getDeclaredFields();
+		String valor = null;
 		for( Field f : campos){
 			//if(f.toString().endsWith("."+atributo)) return usuario.
 			System.out.println(f.getName());
-			
+			if(f.getName().equals(atributo)){
+				f.setAccessible(true);
+				valor = (f.get((Usuario)usuario)).toString();
+				System.out.println(valor);
+			}
 		}
+		if(valor == null) throw new Exception("Atributo inexistente");
 		
-		
-		
-		//if() throw new Exception("Atributo inexistente");//Atributo inexistente
-		return null;
+		return valor;
 	}
 	
 	/**
