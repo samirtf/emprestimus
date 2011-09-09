@@ -2,6 +2,7 @@ package iu;
 
 import sistema.autenticacao.Autenticacao;
 import sistema.autenticacao.AutenticacaoIF;
+import sistema.usuario.UsuarioIF;
 
 /**
  * Classe que implementa a fachada, usada para fazer a interação entre a
@@ -67,10 +68,9 @@ public class Emprestimus implements EmprestimusIF {
 		if(!autenticacao.existeIdSessao(idSessao)) throw new Exception("Sessão inexistente");
 		if(nome == null || nome.trim().equals("")) throw new Exception("Nome inválido");
 		if(categoria == null || categoria.trim().equals("")) throw new Exception("Categoria inválida");
+		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
 		
-		
-		
-		return null;
+		return usuario.cadastrarItem(nome, descricao, categoria);
 	}
 
 	/*

@@ -56,6 +56,9 @@ public class Autenticacao implements AutenticacaoIF{
 			idSessao = gerarIdSessao();
 		}
 		sessoes.put(idSessao, getUsuario(login));
+		System.out.println(idSessao);
+		System.out.println("help now");
+		System.out.println(sessoes.containsKey(idSessao));
 		return idSessao;
 		
 	}

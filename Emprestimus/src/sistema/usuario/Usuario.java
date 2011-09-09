@@ -16,64 +16,70 @@ import sistema.item.ItemIF;
  */
 public class Usuario implements UsuarioIF {
 	/* Atributos estaticos. */
-	private static int ID_Prox_Usuario = 1; // ID do proximo usuario sera guardado nesta variavel estatica. 
-	
+	private static int ID_Prox_Usuario = 1; // ID do proximo usuario sera
+											// guardado nesta variavel estatica.
+
 	/* Atributos do objeto. */
 	private String login, nome, endereco;
-	
+
 	private final int id = ID_Prox_Usuario++; // id (codigo unico) do usuario
-	
+
 	private List<UsuarioIF> amigos; // Grupo de amigos
 	private List<UsuarioIF> solicitacoes; // solicitacoes de amizade
-	private List<ItemIF> itens; //itens do usuario
-	private List<ItemIF> itens_emprestados; // lista de itens que o usuario emprestou e ainda nao recebeu
-	
+	private List<ItemIF> itens; // itens do usuario
+	private List<ItemIF> itens_emprestados; // lista de itens que o usuario
+											// emprestou e ainda nao recebeu
+
 	/**
 	 * Construtor padrao eh privado e nao oferece implementacao.
 	 */
-	private Usuario(){}
-	
+	private Usuario() {
+	}
+
 	/**
 	 * Constroi um usuario a partir de um login, nome e endereco.
 	 * 
 	 * @param login
-	 * 		O login do usuario.
+	 *            O login do usuario.
 	 * @param nome
-	 * 		O nome do usuario.
+	 *            O nome do usuario.
 	 * @param endereco
-	 * 		O endereco do usuario.
+	 *            O endereco do usuario.
 	 */
-	public Usuario( String login , String nome, String endereco ) throws Exception{
-		/* Se login invalido segundo as especificacoes, lancar excecao com mensagem
-		 * padronizada nos requisitos. Consultar testes de aceitacao.
+	public Usuario(String login, String nome, String endereco) throws Exception {
+		/*
+		 * Se login invalido segundo as especificacoes, lancar excecao com
+		 * mensagem padronizada nos requisitos. Consultar testes de aceitacao.
 		 */
-		/* Se nome invalido segundo as especificacoes, lancar excecao com mensagem
-		 * padronizada nos requisitos. Consultar testes de aceitacao.
+		/*
+		 * Se nome invalido segundo as especificacoes, lancar excecao com
+		 * mensagem padronizada nos requisitos. Consultar testes de aceitacao.
 		 */
-		/* Se endereco invalido segundo as especificacoes, lancar excecao com mensagem
-		 * padronizada nos requisitos. Consultar testes de aceitacao.
+		/*
+		 * Se endereco invalido segundo as especificacoes, lancar excecao com
+		 * mensagem padronizada nos requisitos. Consultar testes de aceitacao.
 		 */
-		
-		//Estes métodos podem lançar exceção
+
+		// Estes métodos podem lançar exceção
 		setLogin(login);
 		setNome(nome);
 		setEndereco(endereco);
-		
+
 		itens = new ArrayList<ItemIF>();
 	}
 
 	@Override
-	public void setLogin(String login) { //TODO: lançar uma exceção aqui!
+	public void setLogin(String login) { // TODO: lançar uma exceção aqui!
 		this.login = login;
 	}
 
 	@Override
-	public void setNome(String nome) { //TODO: lançar uma exceção aqui!
+	public void setNome(String nome) { // TODO: lançar uma exceção aqui!
 		this.nome = nome;
 	}
 
 	@Override
-	public void setEndereco(String endereco) { //TODO: lançar uma exceção aqui!
+	public void setEndereco(String endereco) { // TODO: lançar uma exceção aqui!
 		this.endereco = endereco;
 	}
 
@@ -93,21 +99,31 @@ public class Usuario implements UsuarioIF {
 	}
 
 	@Override
-	public String cadastrarItem(String nome, String descricao, String categoria) throws Exception{
-		
-		try {
-			ItemIF item = new Item(getLogin(), nome, descricao, categoria); //FIXME logica do IdItem ainda nao implementada
-			itens.add(item);
-			return item.getIdItem();
-		} catch (Exception e) {
-			return null; //TODO: lançar uma exceção aqui!
-		}
+	public String cadastrarItem(String nome, String descricao, String categoria)
+			throws Exception {
+
+		System.out.println("lista de itens eh null: "+(itens == null));
+		System.out.println("meu login:" +getLogin());
+		System.out.println("nome:"+nome);
+		System.out.println("descricao:"+descricao);
+		System.out.println("categoria:"+categoria);
+		System.out.println("itens size:"+itens.size());
+		System.out.println();
+		ItemIF item = new Item(getLogin() + (itens.size() + 1), nome,
+				descricao, categoria); // FIXME logica do IdItem ainda nao
+										// implementada
+		System.out.println("cheguei aqui");
+		itens.add(item);
+		System.out.println("OPS");
+		System.out.println("eh null e algum momento" + item == null);
+		return item.getId();
+
 	}
 
 	@Override
 	public boolean removerItem(String idItem) {
 		for (ItemIF item : itens) {
-			if (idItem.equals(item.getIdItem())) {
+			if (idItem.equals(item.getId())) {
 				itens.remove(item);
 				return true;
 			}
@@ -118,28 +134,30 @@ public class Usuario implements UsuarioIF {
 	@Override
 	public String getListaIdItens() {
 		StringBuilder listaIdItensString = new StringBuilder();
-		
-		//FIXME: confirmar formato da string. Nathaniel concorda!
-		for(ItemIF item: this.itens){
-			listaIdItensString.append(item.getIdItem() + " ");
+
+		// FIXME: confirmar formato da string. Nathaniel concorda!
+		for (ItemIF item : this.itens) {
+			listaIdItensString.append(item.getId() + " ");
 		}
-		
+
 		return listaIdItensString.toString().trim();
 	}
 
 	@Override
 	public ItemIF getInformacoesItem(String idItem) {
 		// FIXME Não entendi a necessidade<->nome do metodo, Joeffison.
-		for(ItemIF item: this.itens){
-			if(item.getIdItem() == idItem){
+		for (ItemIF item : this.itens) {
+			if (item.getId() == idItem) {
 				return item;
 			}
 		}
-		
+
 		return null;
 	}
 
-	@Override // FIXME Quantidade de itens totais, disponiveis ou emprestados? Ass. Joeffison
+	@Override
+	// FIXME Quantidade de itens totais, disponiveis ou emprestados? Ass.
+	// Joeffison
 	public int qntItens() {
 		return this.itens.size();
 	}
@@ -152,12 +170,13 @@ public class Usuario implements UsuarioIF {
 	@Override
 	public String getListaIdItensEmprestados() {
 		StringBuilder listaIdItensEmprestadosString = new StringBuilder();
-		
-		//FIXME: confirmar formato da string. Nathaniel concorda!
-		for(ItemIF itensEmprestados: this.itens_emprestados){
-			listaIdItensEmprestadosString.append(itensEmprestados.getIdItem() + " ");
+
+		// FIXME: confirmar formato da string. Nathaniel concorda!
+		for (ItemIF itensEmprestados : this.itens_emprestados) {
+			listaIdItensEmprestadosString
+					.append(itensEmprestados.getId() + " ");
 		}
-		
+
 		return listaIdItensEmprestadosString.toString().trim();
 	}
 
@@ -181,21 +200,25 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public boolean estahItemDisponivel(String idItem) {
-		try{
+		try {
 			return getInformacoesItem(idItem).estahDisponivel();
-			
-		}catch(Exception e){
+
+		} catch (Exception e) {
 			return false;
 		}
 	}
 
 	@Override
-	public boolean equals(UsuarioIF outroUsuario) { //FIXME: Este método deveria testar apenas o login, por que facilitria outras coisas adiante
-		  
-		return (this.getLogin() == outroUsuario.getLogin() &&
-				this.getNome() == outroUsuario.getNome() &&
-				this.getEndereco() == outroUsuario.getEndereco());
+	public boolean equals(UsuarioIF outroUsuario) { // FIXME: Este método
+													// deveria testar apenas o
+													// login, por que facilitria
+													// outras coisas adiante
+
+		return (this.getLogin() == outroUsuario.getLogin()
+				&& this.getNome() == outroUsuario.getNome() && this
+					.getEndereco() == outroUsuario.getEndereco());
 	}
-	//TODO: fazer um método hashCode() que retorna o ID... pra facilitar o uso das listas e mapas... [quero opiniões]
+	// TODO: fazer um método hashCode() que retorna o ID... pra facilitar o uso
+	// das listas e mapas... [quero opiniões]
 
 }

@@ -15,7 +15,7 @@ public interface ItemIF {
 	 * @return
 	 * 		O id do objeto.
 	 */
-	public String getIdItem();
+	public String getId();
 	
 	/**
 	 * Recupera o nome do item.
