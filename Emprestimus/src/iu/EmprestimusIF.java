@@ -15,7 +15,7 @@ public interface EmprestimusIF {
 	public String getAtributoUsuario(String login, String atributo ) throws Exception;
 	
 	//US02
-	public String cadastrarItem( String idSessao, String nome, String descricao, String categoria );
+	public String cadastrarItem( String idSessao, String nome, String descricao, String categoria ) throws Exception;
 	
 	public String getAtributoItem( String idItem, String atributo );
 	

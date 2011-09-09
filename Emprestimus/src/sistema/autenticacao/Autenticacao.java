@@ -101,6 +101,13 @@ public class Autenticacao implements AutenticacaoIF{
 		return usuariosCadastrados.get(login);
 	}
 	
+	@Override
+	public UsuarioIF getUsuarioPeloIDSessao(String idSessao) throws Exception {
+		if( idSessao == null || idSessao.trim().equals("")) throw new Exception("Sessão inválida");
+		if(!existeIdSessao(idSessao)) throw new Exception("Sessão inexistente");
+		return sessoes.get(idSessao);
+	}
+	
 	/**
 	 * Gera um idSessao.
 	 * @return
@@ -119,7 +126,7 @@ public class Autenticacao implements AutenticacaoIF{
 	 * 		True - Se existir o idSessao.
 	 * 		False - Se nao existir.
 	 */
-	private boolean existeIdSessao(String idSessao){
+	public boolean existeIdSessao(String idSessao){
 		return sessoes.containsKey(idSessao);
 	}
 	
@@ -130,6 +137,8 @@ public class Autenticacao implements AutenticacaoIF{
 		
 		aut.getAtributoUsuario("samirtf", "login");
 	}
+
+	
 	
 
 }
