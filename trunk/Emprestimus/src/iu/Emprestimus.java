@@ -55,7 +55,7 @@ public class Emprestimus implements EmprestimusIF {
 	 * @see iu.EmprestimusIF#getAtributo(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public String getAtributo(String login, String atributo) {
+	public String getAtributoUsuario(String login, String atributo) {
 		try {
 			autenticacao.getAtributoUsuario(login, atributo);
 		} catch (Exception e) {
