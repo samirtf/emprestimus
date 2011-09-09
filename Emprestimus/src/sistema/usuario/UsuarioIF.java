@@ -69,7 +69,7 @@ public interface UsuarioIF {
 	 * @return
 	 * 		O idItem (String) no formato login_inteiro.
 	 */
-	public String cadastrarItem( String nome, String descricao, String categoria );
+	public String cadastrarItem( String nome, String descricao, String categoria ) throws Exception;
 	
 	/**
 	 * Remove item da lista de itens do usuario. A remocao eh feita apenas pelo idItem.
