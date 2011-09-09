@@ -30,7 +30,7 @@ public class UserFacede1 {
 	 * @param endereco
 	 *     O endereco do usuario.
 	 */
-	public void criarUsuario(String login, String nome, String endereco) {
+	public void criarUsuario(String login, String nome, String endereco) throws Exception{
 		sistema.criarUsuario(login, nome, endereco);
 	}
 
