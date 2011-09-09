@@ -22,7 +22,24 @@ public class Item implements ItemIF{
 	private Item(){}
 	
 	public Item( String idItem, String nome, String descricao, String categoria) throws Exception{
-		this(idItem, nome, descricao, ItemCategoria.getCategoria(categoria));
+		if(idItem == null || idItem.trim().equals("")) throw new Exception("Identificador do item é inválido");
+		if(nome == null || nome.trim().equals("")) throw new Exception("Nome inválido");
+		if(nome == null || nome.trim().equals("")) throw new Exception("Nome inválido");
+		if(! (categoria.equalsIgnoreCase("FILME") || categoria.equalsIgnoreCase("JOGO") 
+				|| categoria.equalsIgnoreCase("LIVRO")) ) throw new Exception("Categoria inválida");
+		
+		this.idItem = idItem;
+		this.nome = nome;
+		this.descricao = descricao;
+		if(categoria.equalsIgnoreCase("FILME")) {
+			this.categoria = ItemCategoria.FILME;
+		}
+		else if(categoria.equalsIgnoreCase("JOGO")){
+			this.categoria = ItemCategoria.JOGO;
+		}else if(categoria.equalsIgnoreCase("LIVRO")){
+			this.categoria = ItemCategoria.LIVRO;
+		}
+		
 	}
 	
     public Item( String idItem, String nome, String descricao, ItemCategoria categoria) throws Exception{
@@ -37,8 +54,8 @@ public class Item implements ItemIF{
     
     
 	@Override
-	public String getIdItem() {
-		return this.nome;
+	public String getId() {
+		return this.idItem;
 	}
 
 	@Override
@@ -98,7 +115,7 @@ public class Item implements ItemIF{
 	public boolean equals(Object obj) {
 		if (obj instanceof Item) {
 			Item outro = (Item) obj;
-			return getNome().equals(outro.getNome()) && getCategoria().equals(outro.getCategoria()) && this.idItem == outro.getIdItem();
+			return this.idItem == outro.getId();
 		}
 		return false;
 	}

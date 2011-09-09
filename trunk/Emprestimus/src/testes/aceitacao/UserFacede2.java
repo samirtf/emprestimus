@@ -58,6 +58,13 @@ public class UserFacede2 {
 		return sistema.getAtributoUsuario(login, atributo);
 	}
 	
+	public String cadastrarItem(String idSessao, String nome, String descricao,
+			String categoria) throws Exception {
+		
+		return sistema.cadastrarItem(idSessao, nome, descricao, categoria);
+		
+	}
+	
 	/**
 	 * Metodo que zera o Sistema.
 	 * 
