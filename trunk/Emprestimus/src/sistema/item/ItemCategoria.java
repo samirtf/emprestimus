@@ -36,15 +36,15 @@ public enum ItemCategoria {
 		
 		categoria.toUpperCase();
 		if (categoria.equals("LIVRO")) {
-			
+			return ItemCategoria.LIVRO;
 		} else if (categoria.equals("FILME")) {
-			
+			return ItemCategoria.FILME;
 		} else if (categoria.equals("JOGO")) {
-			
+			return ItemCategoria.JOGO;
 		} else {
 			throw new Exception(Mensagem.CATEGORIA_INEXISTENTE.getMensagem());
 		}
-		return ItemCategoria.FILME;
+		
 	}
 
 	public String getNome() {
