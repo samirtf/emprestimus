@@ -295,6 +295,60 @@ public class ValidadorString {
 		return pegaLogin(povoaList(4, lista), login);
     }
 	
+	/**
+	 * Verifica se a string, passada como parametro, eh nao nula, nao vazia, e nao possui nenhum espaco.
+	 * 
+	 * @param MensagemDeErro
+	 * 		Mensagem de erro a ser retornada em caso da string ser invalida. 
+	 * @param string_para_validacao
+	 * 			String que deve ser validada
+	 * @return 
+	 * @return
+	 * 			{@link Mensagem}.OK, caso a string passe nos testes,
+	 * 				ou uma mensagem de erro, caso nao.
+	 */
+	public static String validaCampoSemEspaco(String mensagemDeErro, String string_para_validacao) {
+		List<String> lista = new ArrayList<String>();
+        lista.add(mensagemDeErro);
+        return validaCampoSemEspaco(povoaList(4, lista), string_para_validacao);
+	}
+	
+	/**
+	 * Verifica se a string, passada como parametro, eh nao nula, nao vazia, e nao possui nenhum espaco.
+	 * 
+	 * @param mensagensDeErro
+	 * 		Mensagens de erro a ser retornada em caso da string ser invalida. 
+	 * @param string_para_validacao
+	 * 			String que deve ser validada
+	 * @return
+	 * 			{@link Mensagem}.OK, caso a string passe nos testes,
+	 * 				ou uma mensagem de erro, caso nao.
+	 */
+	public static String validaCampoSemEspaco(List<String> mensagensDeErro, String string_para_validacao) {
+		String teste = pegaLogin(mensagensDeErro, string_para_validacao); 
+		try {
+        	if (!teste.equals(string_para_validacao)) return mensagensDeErro.get(0); // so por garantia
+        	return Mensagem.OK.getMensagem();
+        } catch (Exception e) { // a mensagem de erro certa esta nesta excecao
+			return e.getMessage();
+		}
+	}
+	
+	/**
+	 * Verifica se a string, passada como parametro, eh nao nula, nao vazia, e nao possui nenhum espaco.
+	 * 
+	 * @param string_para_validacao
+	 * 			String que deve ser validada
+	 * @return 
+	 * @return
+	 * 			{@link Mensagem}.OK, caso a string passe nos testes,
+	 * 				ou uma mensagem de erro, caso nao.
+	 */
+	public static String validaCampoSemEspaco(String string_para_validacao) {
+		return validaCampoSemEspaco(mensagens_de_erro_padroes_login, string_para_validacao);
+	}
+	
+	
 	private static List<String> povoaList(int tamanho_desejado, List<String> list) {
 		
 		if (list == null || list.isEmpty()) return mensagens_de_erro_padroes_login;

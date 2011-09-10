@@ -109,7 +109,7 @@ public class Usuario implements UsuarioIF {
 		System.out.println("categoria:"+categoria);
 		System.out.println("itens size:"+itens.size());
 		System.out.println();
-		ItemIF item = new Item(getLogin() + (itens.size() + 1), nome,
+		ItemIF item = new Item(getLogin() + (itens.size() + 1), nome, //FIXME HAVERÁ itens com o mesmo id, quando o user puder apagar seus itens
 				descricao, categoria); // FIXME logica do IdItem ainda nao
 										// implementada
 		System.out.println("cheguei aqui");
