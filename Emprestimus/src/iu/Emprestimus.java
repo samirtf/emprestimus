@@ -3,6 +3,8 @@ package iu;
 import sistema.autenticacao.Autenticacao;
 import sistema.autenticacao.AutenticacaoIF;
 import sistema.usuario.UsuarioIF;
+import sistema.utilitarios.Mensagem;
+import sistema.utilitarios.ValidadorString;
 
 /**
  * Classe que implementa a fachada, usada para fazer a interação entre a
@@ -80,7 +82,10 @@ public class Emprestimus implements EmprestimusIF {
 	 */
 	@Override
 	public String getAtributoItem(String idItem, String atributo) {
-		// TODO Auto-generated method stub
+		if(!ValidadorString.validaCampoSemEspaco(atributo).equals(Mensagem.OK.getMensagem())) {
+			// O atributo nao eh valido
+		}
+		atributo = atributo.toLowerCase();
 		return null;
 	}
 
