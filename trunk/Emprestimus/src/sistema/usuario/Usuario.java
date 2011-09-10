@@ -5,6 +5,7 @@ import java.util.List;
 
 import sistema.item.Item;
 import sistema.item.ItemIF;
+import sistema.utilitarios.Validador;
 
 /**
  * Esta classe representa um usuario padrao do sistema.
@@ -47,19 +48,7 @@ public class Usuario implements UsuarioIF {
 	 *            O endereco do usuario.
 	 */
 	public Usuario(String login, String nome, String endereco) throws Exception {
-		/*
-		 * Se login invalido segundo as especificacoes, lancar excecao com
-		 * mensagem padronizada nos requisitos. Consultar testes de aceitacao.
-		 */
-		/*
-		 * Se nome invalido segundo as especificacoes, lancar excecao com
-		 * mensagem padronizada nos requisitos. Consultar testes de aceitacao.
-		 */
-		/*
-		 * Se endereco invalido segundo as especificacoes, lancar excecao com
-		 * mensagem padronizada nos requisitos. Consultar testes de aceitacao.
-		 */
-
+		
 		// Estes métodos podem lançar exceção
 		setLogin(login);
 		setNome(nome);
@@ -69,17 +58,23 @@ public class Usuario implements UsuarioIF {
 	}
 
 	@Override
-	public void setLogin(String login) { // TODO: lançar uma exceção aqui!
+	public void setLogin(String login) {
+		Validador.testaNaoNulo(login, "Login inválido"); //Pode lançar Exceção!
+		Validador.testaStringVazia(login, "Login inválido"); //Pode lançar Exceção!
 		this.login = login;
 	}
 
 	@Override
-	public void setNome(String nome) { // TODO: lançar uma exceção aqui!
+	public void setNome(String nome) {
+		Validador.testaNaoNulo(nome, "Nome inválido"); //Pode lançar Exceção!
+		Validador.testaStringVazia(nome, "Nome inválido"); //Pode lançar Exceção!
 		this.nome = nome;
 	}
 
 	@Override
-	public void setEndereco(String endereco) { // TODO: lançar uma exceção aqui!
+	public void setEndereco(String endereco) {
+		Validador.testaNaoNulo(endereco, "Endereco inválido"); //Pode lançar Exceção!
+		Validador.testaStringVazia(endereco, "Endereco inválido"); //Pode lançar Exceção!
 		this.endereco = endereco;
 	}
 
