@@ -50,6 +50,15 @@ public interface ItemIF {
 	public String getDescricao();
 	
 	/**
+	 * Modifica o id do usuario.
+	 * @param id
+	 * 		O id do usuario.
+	 * @throws Exception
+	 * 		Lanca uma excecao se o valor do id nao puder ser convertido para Long.
+	 */
+	public void setId( String id ) throws Exception;
+	
+	/**
 	 * Altera o nome do item.
 	 * 
 	 * @param nome
