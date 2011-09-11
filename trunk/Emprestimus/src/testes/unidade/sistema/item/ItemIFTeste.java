@@ -20,10 +20,14 @@ public class ItemIFTeste extends TestCase implements Test {
 	protected void setUp() {
 		System.out.println("Iniciando...");
 	}
+	
+	public void testaConstrutor(){
+		
+	}
 
 	/**
-	 * M�todo testEnvia - M�todo respons�vel em realizar testes.
-	 * M�todos DEVEM POSSUIR DATA, COMO MENCIONADO ABAIXO.
+	 * Metodo testEnvia - Metodo responsavel em realizar testes.
+	 * Metodos DEVEM POSSUIR DATA, COMO MENCIONADO ABAIXO.
 	 *
 	 * @since 17/01/2007
 	 */
