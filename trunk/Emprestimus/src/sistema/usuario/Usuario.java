@@ -5,6 +5,7 @@ import java.util.List;
 
 import sistema.item.Item;
 import sistema.item.ItemIF;
+import sistema.persistencia.ItemRepositorio;
 import sistema.utilitarios.Mensagem;
 import sistema.utilitarios.Validador;
 import sistema.utilitarios.ValidadorString;
@@ -95,22 +96,9 @@ public class Usuario implements UsuarioIF {
 	@Override
 	public String cadastrarItem(String nome, String descricao, String categoria)
 			throws Exception {
-
-		System.out.println("lista de itens eh null: "+(itens == null));
-		System.out.println("meu login:" +getLogin());
-		System.out.println("nome:"+nome);
-		System.out.println("descricao:"+descricao);
-		System.out.println("categoria:"+categoria);
-		System.out.println("itens size:"+itens.size());
-		System.out.println();
-		ItemIF item = new Item(getLogin() + (itens.size() + 1), nome, //FIXME HAVERÁ itens com o mesmo id, quando o user puder apagar seus itens
-				descricao, categoria); // FIXME logica do IdItem ainda nao
-										// implementada
-		System.out.println("cheguei aqui");
-		itens.add(item);
-		System.out.println("OPS");
-		System.out.println("eh null e algum momento" + item == null);
-		return item.getId();
+		
+		ItemRepositorio.cadastrarItem(new Item(nome, descricao, categoria));
+		return String.valueOf((Long.valueOf(ItemRepositorio.geraIdProxItem()) - 1)) ;
 
 	}
 
@@ -214,16 +202,12 @@ public class Usuario implements UsuarioIF {
 	}
 
 	@Override
-	public boolean equals(UsuarioIF outroUsuario) { // FIXME: Este método
-													// deveria testar apenas o
-													// login, por que facilitria
-													// outras coisas adiante
-
-		return (this.getLogin() == outroUsuario.getLogin()
-				&& this.getNome() == outroUsuario.getNome() && this
-					.getEndereco() == outroUsuario.getEndereco());
+	public boolean equals(Object outroUsuario) { 
+		if(outroUsuario instanceof UsuarioIF ){
+			return this.getLogin().equals(((UsuarioIF) outroUsuario).getLogin());
+		}
+		return false;
 	}
-	// TODO: fazer um método hashCode() que retorna o ID... pra facilitar o uso
-	// das listas e mapas... [quero opiniões]
+
 
 }
