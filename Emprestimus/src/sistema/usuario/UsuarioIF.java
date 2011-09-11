@@ -87,8 +87,8 @@ public interface UsuarioIF {
 	 * Recupera a lista ordenada de idItens de itens cadastrados.
 	 * @return
 	 * 		Uma lista de idItens ordenada.
+	 * formatacao: "7, 17, 18, 20, 21"
 	 */
-	//FIXME: é realmente pra retornar uma lista na forma de STRING??
 	public String getListaIdItens();
 	
 	/**
@@ -97,6 +97,7 @@ public interface UsuarioIF {
 	 * 		O idItem do item a ser procurado.
 	 * @return
 	 * 		A instancia de ItemIF.
+	 *      null - Caso o item nao exista.
 	 */
 	//TODO: o que acontece se o item não for encontrado?
 	//ADICIONAR aqui na interface para que eu possa implementar
@@ -108,6 +109,7 @@ public interface UsuarioIF {
 	 * 		int: quantidade de itens cadastrados.
 	 */
 	public int qntItens();
+	
 	
 	/**
 	 * Calcula a quantidade de itens atualmente concedidos em emprestimo,
@@ -174,7 +176,7 @@ public interface UsuarioIF {
 	 * 		True - Se os objetos forem iguais.
 	 * 		False - Se forem objetos de instancias diferentes ou nao forem iguais.
 	 */
-	public boolean equals( UsuarioIF outroUsuario );
+	public boolean equals( Object outroUsuario );
 
 	public List<ItemIF> getItens();
 	
