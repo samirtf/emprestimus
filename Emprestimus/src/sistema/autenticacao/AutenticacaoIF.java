@@ -1,5 +1,6 @@
 package sistema.autenticacao;
 
+import sistema.item.ItemIF;
 import sistema.usuario.UsuarioIF;
 
 public interface AutenticacaoIF {
@@ -17,5 +18,7 @@ public interface AutenticacaoIF {
 	public boolean existeIdSessao(String idSessao);
 	
 	public UsuarioIF getUsuarioPeloIDSessao( String idSessao ) throws Exception;
+
+	public ItemIF getItemComID(String id) throws Exception;
 
 }

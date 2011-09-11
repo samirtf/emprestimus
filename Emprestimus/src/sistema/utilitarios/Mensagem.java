@@ -73,9 +73,16 @@ public enum Mensagem {
 	INICIO_PADRAO_MENSAGEM_ERRO("Este dado"),
 	OPERACAO_FALHOU("Ocorreu um problema na execucao desta operacao."),
 	
-	/*Argumento invalidos*/
+	/*Argumentos invalidos*/
+	LOGIN_INVALIDO("Login inválido"),
+	LOGIN_INEXISTENTE("Login inexistente"),
+	NOME_INVALIDO("Nome inválido"),
+	NOME_INEXISTENTE("Nome inexistente"),
+	ENDERECO_INVALIDO("Endereco inválido"),
+	ENDERECO_INEXISTENTE("Endereco inexistente"),
 	CATEGORIA_INEXISTENTE("Categoria inexistente"),
-	CATEGORIA_INVALIDA("Categoria inválida");
+	CATEGORIA_INVALIDA("Categoria inválida"),
+	ITEM_INEXISTENTE("Item inexistente");
 	
 	private final String mensagem;
 

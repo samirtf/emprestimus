@@ -2,6 +2,7 @@ package iu;
 
 import sistema.autenticacao.Autenticacao;
 import sistema.autenticacao.AutenticacaoIF;
+import sistema.item.Item;
 import sistema.usuario.UsuarioIF;
 import sistema.utilitarios.Mensagem;
 import sistema.utilitarios.ValidadorString;
@@ -81,11 +82,18 @@ public class Emprestimus implements EmprestimusIF {
 	 * @see iu.EmprestimusIF#getAtributoItem(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public String getAtributoItem(String idItem, String atributo) {
+	public String getAtributoItem(String idItem, String atributo) throws Exception {
 		if(!ValidadorString.validaCampoSemEspaco(atributo).equals(Mensagem.OK.getMensagem())) {
 			// O atributo nao eh valido
 		}
 		atributo = atributo.toLowerCase();
+		if(atributo.equals("nome")){
+			return autenticacao.getItemComID(idItem).getNome();
+		} else if (atributo.equals("descricao")) {
+			return autenticacao.getItemComID(idItem).getDescricao();
+		} else if (atributo.equals("categoria")) {
+			return autenticacao.getItemComID(idItem).getCategoria();
+		}
 		return null;
 	}
 
