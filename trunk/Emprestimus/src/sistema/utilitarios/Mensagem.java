@@ -82,7 +82,12 @@ public enum Mensagem {
 	ENDERECO_INEXISTENTE("Endereco inexistente"),
 	CATEGORIA_INEXISTENTE("Categoria inexistente"),
 	CATEGORIA_INVALIDA("Categoria inválida"),
-	ITEM_INEXISTENTE("Item inexistente");
+	ID_ITEM_INVALIDO("Identificador do item é inválido"),
+	ID_ITEM_INEXISTENTE("Item inexistente"),
+	ATRIBUTO_INVALIDO("Atributo inválido"),
+	ATRIBUTO_INEXISTENTE("Atributo inexistente"),
+	PALAVRA_CHAVE_INVALIDA("Palavra-chave inválida"),
+	PALAVRA_CHAVE_INEXISTENTE("Nenhum usuário encontrado");
 	
 	private final String mensagem;
 
