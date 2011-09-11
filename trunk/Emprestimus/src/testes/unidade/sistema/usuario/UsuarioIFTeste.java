@@ -35,13 +35,52 @@ public class UsuarioIFTeste extends TestCase implements Test {
 		assertEquals(true,true);
 	}
 	
-	public void testaConstrutor() {
-		
+	public void testaConstrutor() throws Exception {
+		System.out.println("Testando construtor...");
 		try{
 			UsuarioIF usuario = new Usuario(null, "nome", "endereco");
 		}catch(Exception e){
-			Assert.assertEquals(e.getMessage(), "Usuário inválido");
+			Assert.assertEquals("Login inválido", e.getMessage() );
 		}
+		try{
+			UsuarioIF usuario = new Usuario(" ", "nome", "endereco");
+		}catch(Exception e){
+			Assert.assertEquals("Login inválido", e.getMessage());
+		}
+		
+		
+		try{
+			UsuarioIF usuario = new Usuario("Login", null, "endereco");
+		}catch(Exception e){
+			Assert.assertEquals("Nome inválido", e.getMessage() );
+		}
+		try{
+			UsuarioIF usuario = new Usuario("Login", " ", "endereco");
+		}catch(Exception e){
+			Assert.assertEquals("Nome inválido", e.getMessage());
+		}
+		
+		try{
+			UsuarioIF usuario = new Usuario("Login", "nome", null);
+		}catch(Exception e){
+			Assert.assertEquals("", e.getMessage() );
+		}
+		try{
+			UsuarioIF usuario = new Usuario("Login", "nome", " ");
+		}catch(Exception e){
+			Assert.assertEquals("", e.getMessage());
+		}
+		
+		UsuarioIF us1 = new Usuario(" meuLogin ", " Nome ", " endereco ");
+		Assert.assertEquals("meuLogin", us1.getLogin());
+		Assert.assertEquals("Nome", us1.getNome());
+		Assert.assertEquals("endereco", us1.getEndereco());
+		
+		UsuarioIF us2 = new Usuario(" meuLogin ", " Nome ", null);
+		Assert.assertEquals("meuLogin", us1.getLogin());
+		Assert.assertEquals("Nome", us1.getNome());
+		Assert.assertEquals("", us1.getEndereco());
+		
 	}
 
 	protected void tearDown() {
