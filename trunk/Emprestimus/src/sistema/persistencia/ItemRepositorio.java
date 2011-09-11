@@ -23,9 +23,11 @@ public class ItemRepositorio {
 		return String.valueOf(contadorID + 1);
 	}
 
-	public static void cadastrarItem(ItemIF item) throws Exception {
+	
+	public static String cadastrarItem(ItemIF item) throws Exception {
 		item.setId(ItemRepositorio.geraIdProxItem());
 		itensCadastrados.put(++contadorID, item);
+		return String.valueOf(contadorID);
 	}
 
 	public static ItemIF recuperarItem(String idItem) throws Exception {
