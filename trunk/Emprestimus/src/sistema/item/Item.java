@@ -1,5 +1,6 @@
 package sistema.item;
 
+import sistema.persistencia.ItemRepositorio;
 import sistema.utilitarios.Mensagem;
 import sistema.utilitarios.ValidadorString;
 
@@ -21,14 +22,13 @@ public class Item implements ItemIF{
 	 */
 	private Item(){}
 	
-	public Item( String idItem, String nome, String descricao, String categoria) throws Exception{
-		if(idItem == null || idItem.trim().equals("")) throw new Exception("Identificador do item é inválido");
+	public Item( String nome, String descricao, String categoria) throws Exception{
 		if(nome == null || nome.trim().equals("")) throw new Exception("Nome inválido");
 		if(nome == null || nome.trim().equals("")) throw new Exception("Nome inválido");
 		if(! (categoria.equalsIgnoreCase("FILME") || categoria.equalsIgnoreCase("JOGO") 
 				|| categoria.equalsIgnoreCase("LIVRO")) ) throw new Exception("Categoria inválida");
 		
-		this.idItem = idItem;
+	
 		this.nome = nome;
 		this.descricao = descricao;
 		if(categoria.equalsIgnoreCase("FILME")) {
@@ -42,7 +42,7 @@ public class Item implements ItemIF{
 		
 	}
 	
-    public Item( String idItem, String nome, String descricao, ItemCategoria categoria) throws Exception{
+    public Item( String nome, String descricao, ItemCategoria categoria) throws Exception{
     	this.idItem = idItem;
     	
     	setNome(nome);
@@ -76,6 +76,11 @@ public class Item implements ItemIF{
 	@Override
 	public String getDescricao() {
 		return this.descricao;
+	}
+	
+	@Override
+	public void setId(String id) throws Exception {
+		this.idItem = id;
 	}
 
 	@Override
@@ -119,4 +124,6 @@ public class Item implements ItemIF{
 		}
 		return false;
 	}
+
+	
 }
