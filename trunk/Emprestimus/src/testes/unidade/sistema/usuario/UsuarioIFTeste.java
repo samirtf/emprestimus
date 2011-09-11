@@ -89,8 +89,177 @@ public class UsuarioIFTeste extends TestCase implements Test {
 	
 	public void testaSettersEGetters(){
 		
+		try {
+			UsuarioIF us1 = new Usuario(" umLogin ", " umNome ", null);
+			Assert.assertEquals("umLogin", us1.getLogin());
+			Assert.assertEquals("umNome", us1.getNome());
+			Assert.assertEquals("", us1.getEndereco());
+		} catch (Exception e) {
+			Assert.fail("Nao devia ter lancado excecao");
+		}
+		
+		try {
+			UsuarioIF us1 = new Usuario(" umLogin   ", "   umNome   ", "   ");
+			Assert.assertEquals("umLogin", us1.getLogin());
+			Assert.assertEquals("umNome", us1.getNome());
+			Assert.assertEquals("", us1.getEndereco());
+		} catch (Exception e) {
+			Assert.fail("Nao devia ter lancado excecao");
+		}
+		
+		try {
+			UsuarioIF us1 = new Usuario(" umLogin   ", "   umNome   ", "  umEndereco   ");
+			Assert.assertEquals("umLogin", us1.getLogin());
+			Assert.assertEquals("umNome", us1.getNome());
+			Assert.assertEquals("umEndereco", us1.getEndereco());
+		} catch (Exception e) {
+			Assert.fail("Nao devia ter lancado excecao");
+		}
+		
+		UsuarioIF us1 = null;
+		
+		try{
+			us1 = new Usuario(" umLogin ", " umNome ", " umEndereco ");
+		}catch(Exception e){
+			Assert.fail("Não devia ter lançado excecao");
+		}
+		
+		try{
+			us1.setLogin(null);
+		}catch(Exception e){
+			Assert.assertEquals("Login inválido", e.getMessage());
+		}
+		
+		try{
+			us1.setLogin("    ");
+		}catch(Exception e){
+			Assert.assertEquals("Login inválido", e.getMessage());
+		}
+		
+		try{
+			us1.setLogin("  outroLogin  ");
+			Assert.assertEquals("outroLogin", us1.getLogin());
+		}catch(Exception e){
+			Assert.fail("Não deveria ter lancado excecao");
+		}
+		
+		try{
+			us1.setNome(null);
+		}catch(Exception e){
+			Assert.assertEquals("Nome inválido", e.getMessage());
+		}
+		
+		try{
+			us1.setNome("    ");
+		}catch(Exception e){
+			Assert.assertEquals("Nome inválido", e.getMessage());
+		}
+		
+		try{
+			us1.setNome("  outroNome  ");
+			Assert.assertEquals("outroNome", us1.getNome());
+		}catch(Exception e){
+			Assert.fail("Não deveria ter lancado excecao");
+		}
+		
+		try{
+			us1.setEndereco(null);
+			Assert.assertEquals("", us1.getEndereco());
+		}catch(Exception e){
+			Assert.fail("Não deveria ter lancado excecao");
+		}
+		
+		try{
+			us1.setEndereco("    ");
+			Assert.assertEquals("", us1.getEndereco());
+		}catch(Exception e){
+			Assert.fail("Não deveria ter lancado excecao");
+		}
+		
+		try{
+			us1.setEndereco("  outroEndereco  ");
+			Assert.assertEquals("outroEndereco", us1.getEndereco());
+		}catch(Exception e){
+			Assert.fail("Não deveria ter lancado excecao");
+		}
+		
 	}
 	
+	/**
+	 * A igualdade entre dois usuarios eh feita pelo LOGIN.
+	 */
+	public void testaIgualdadeUsuarios(){
+		
+		UsuarioIF us1, us2, us3;
+		
+		try{
+			us1 = new Usuario(" umLogin ", " umNome ", " umEndereco ");
+			us2 = new Usuario(" umLogin ", " umNome ", " umEndereco ");
+			us3 = new Usuario(" outroLogin ", " umNome ", " umEndereco ");
+			
+			Assert.assertEquals(true, us1.equals(us2));
+			Assert.assertEquals(false, us1.equals(us3));
+			
+			try{
+				us2.setNome(" outroNome ");
+				us2.setEndereco(" um Outro Endereco ");
+				Assert.assertEquals(true, us1.equals(us2));
+				
+				us2.setLogin(" outroLogin ");
+				Assert.assertEquals(false, us1.equals(us2));
+				Assert.assertEquals(false, us1.equals(us3));
+				Assert.assertEquals(true, us2.equals(us3));
+				
+				us3.setLogin( " OuTrOlOgIn " );
+				Assert.assertEquals(false, us2.equals(us3));
+				
+			}catch(Exception e){
+				Assert.fail("Nao devia ter lancado excacao");
+			}
+				
+		}catch(Exception e){
+			Assert.fail("Nao devia ter lancado excecao");
+		}
+		
+	}
+	
+	public void testarCadastrarItem(){
+		
+		UsuarioIF us1,us2, us3;
+		
+		try{
+			us1 = new Usuario(" samirtf ", " Samir Trajano Feitosa ", " um endereco X");
+			us2 = new Usuario(" Terrenus ", " Samir Trajano Feitosa ", " um endereco X");
+			us3 = new Usuario(" Terry ", " Samir Trajano Feitosa ", " um endereco X");
+			
+			try{
+				us1.cadastrarItem(null, " uma descricao ", " FILME ");
+			}catch(Exception ex){
+				Assert.assertEquals("Nome inválido", ex.getMessage());
+			}
+			
+			try{
+				us1.cadastrarItem("    ", " uma descricao ", " FILME ");
+			}catch(Exception ex){
+				Assert.assertEquals("Nome inválido", ex.getMessage());
+			}
+			
+			try{
+				us1.cadastrarItem("  nomeItem  ", null, " FILME ");
+				
+				//TODO
+			}catch(Exception ex){
+				Assert.fail();
+			}
+			
+			
+			
+		}catch(Exception e){
+			Assert.fail("Nao devia ter lancado excecao na criacao do usuario");
+		}
+		
+		
+	}
 	
 
 	protected void tearDown() {
