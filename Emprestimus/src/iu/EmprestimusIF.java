@@ -20,7 +20,7 @@ public interface EmprestimusIF {
 	public String getAtributoItem( String idItem, String atributo ) throws Exception;
 	
 	//US03
-	public String localizarUsuario( String idSessao, String chave, String atributo );
+	public String localizarUsuario( String idSessao, String chave, String atributo ) throws Exception;
 	
 	//US04
 	public void requisitarAmizade( String idSessao, String login );

@@ -1,6 +1,8 @@
 package sistema.autenticacao;
 
 import java.lang.reflect.Field;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
@@ -27,6 +29,7 @@ public class Autenticacao implements AutenticacaoIF{
 	@Override
 	public void zerarSistema() {
 		//FIXME implemente isto;
+		usuariosCadastrados = new TreeMap<String, UsuarioIF>();
 	}
 
 	@Override
@@ -36,6 +39,7 @@ public class Autenticacao implements AutenticacaoIF{
 	
 	@Override
 	public ItemIF getItemComID(String id) throws Exception {
+		ValidadorString.pegaCampoSemEspacos(Mensagem.ID_ITEM_INVALIDO.getMensagem(), id);
 		for (UsuarioIF usuario : usuariosCadastrados.values()) {
 			try {
 				for(ItemIF item : usuario.getItens()) {
@@ -45,7 +49,7 @@ public class Autenticacao implements AutenticacaoIF{
 				}
 			} catch (Exception e) {} // Descartando possiveis excecoes que nao precisam ser capturadas.
 		}
-		throw new Exception(Mensagem.ITEM_INEXISTENTE.getMensagem());
+		throw new Exception(Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
 	}
 	
 	@Override
@@ -148,6 +152,28 @@ public class Autenticacao implements AutenticacaoIF{
 		aut.criarUsuario("samirtf", "Samir", "meuEndereco");
 		
 		aut.getAtributoUsuario("samirtf", "login");
+	}
+
+	@Override
+	public List<UsuarioIF> getUsuarioNome(String nome) {
+		List<UsuarioIF> usuarios = new LinkedList<UsuarioIF>();
+		for(UsuarioIF user : usuariosCadastrados.values()) {
+			if (user.getNome().contains(nome)) {
+				usuarios.add(user);
+			}
+		}
+		return usuarios;
+	}
+
+	@Override
+	public List<UsuarioIF> getUsuarioEndereco(String endereco) {
+		List<UsuarioIF> usuarios = new LinkedList<UsuarioIF>();
+		for(UsuarioIF user : usuariosCadastrados.values()) {
+			if (user.getEndereco().contains(endereco)) {
+				usuarios.add(user);
+			}
+		}
+		return usuarios;
 	}
 
 	

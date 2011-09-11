@@ -1,5 +1,7 @@
 package sistema.autenticacao;
 
+import java.util.List;
+
 import sistema.item.ItemIF;
 import sistema.usuario.UsuarioIF;
 
@@ -20,5 +22,9 @@ public interface AutenticacaoIF {
 	public UsuarioIF getUsuarioPeloIDSessao( String idSessao ) throws Exception;
 
 	public ItemIF getItemComID(String id) throws Exception;
+
+	public List<UsuarioIF> getUsuarioNome(String nome);
+	
+	public List<UsuarioIF> getUsuarioEndereco(String endereco);
 
 }

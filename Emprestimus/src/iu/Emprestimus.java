@@ -1,5 +1,7 @@
 package iu;
 
+import java.util.List;
+
 import sistema.autenticacao.Autenticacao;
 import sistema.autenticacao.AutenticacaoIF;
 import sistema.item.Item;
@@ -83,9 +85,7 @@ public class Emprestimus implements EmprestimusIF {
 	 */
 	@Override
 	public String getAtributoItem(String idItem, String atributo) throws Exception {
-		if(!ValidadorString.validaCampoSemEspaco(atributo).equals(Mensagem.OK.getMensagem())) {
-			// O atributo nao eh valido
-		}
+		ValidadorString.pegaCampoSemEspacos(Mensagem.ATRIBUTO_INVALIDO.getMensagem(), atributo);
 		atributo = atributo.toLowerCase();
 		if(atributo.equals("nome")){
 			return autenticacao.getItemComID(idItem).getNome();
@@ -105,8 +105,29 @@ public class Emprestimus implements EmprestimusIF {
 	 */
 	@Override
 	public String localizarUsuario(String idSessao, String chave,
-			String atributo) {
-		// TODO Auto-generated method stub
+			String atributo) throws Exception {
+		autenticacao.getUsuarioPeloIDSessao(idSessao);
+		ValidadorString.pegaString(Mensagem.PALAVRA_CHAVE_INVALIDA.getMensagem(), chave);
+		ValidadorString.pegaString(Mensagem.ATRIBUTO_INVALIDO.getMensagem(), atributo);
+		atributo = atributo.toLowerCase();
+		List<UsuarioIF> users;
+		if(atributo.equals("nome")) {
+			users = autenticacao.getUsuarioNome(chave);
+		} else if(atributo.equals("endereco")) {
+			users = autenticacao.getUsuarioNome(chave);
+		} else {
+			throw new Exception(Mensagem.ATRIBUTO_INEXISTENTE.getMensagem());
+		}
+		if (users.size() == 0) {
+			throw new Exception(Mensagem.PALAVRA_CHAVE_INEXISTENTE.getMensagem());
+		}
+		String saida ="";
+		for (int i = 0; i<users.size(); i++) {
+			saida += users.get(i).getNome() + ", " + users.get(i).getEndereco();
+			if(i != users.size() -1) {
+				saida += "; ";
+			}
+		}
 		return null;
 	}
 
