@@ -35,6 +35,10 @@ public class UsuarioIFTeste extends TestCase implements Test {
 		assertEquals(true,true);
 	}
 	
+	/**
+	 * Testa construtor de UsuarioIF.
+	 * @throws Exception
+	 */
 	public void testaConstrutor() throws Exception {
 		System.out.println("Testando construtor...");
 		try{
@@ -82,6 +86,12 @@ public class UsuarioIFTeste extends TestCase implements Test {
 		Assert.assertEquals("", us1.getEndereco());
 		
 	}
+	
+	public void testaSettersEGetters(){
+		
+	}
+	
+	
 
 	protected void tearDown() {
 		System.out.println("Finalizando...");
