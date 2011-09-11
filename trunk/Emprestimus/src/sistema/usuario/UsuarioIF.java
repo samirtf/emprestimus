@@ -1,5 +1,7 @@
 package sistema.usuario;
 
+import java.util.List;
+
 import sistema.item.ItemIF;
 
 /**
@@ -173,6 +175,8 @@ public interface UsuarioIF {
 	 * 		False - Se forem objetos de instancias diferentes ou nao forem iguais.
 	 */
 	public boolean equals( UsuarioIF outroUsuario );
+
+	public List<ItemIF> getItens();
 	
 	
 }

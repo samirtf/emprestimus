@@ -19,14 +19,14 @@ public class ValidadorString {
 		if (mensagens_de_erro_padroes == null) mensagens_de_erro_padroes = toList(array);
 	}
 	
-	private static List<String> mensagens_de_erro_padroes_login = null;
+	private static List<String> mensagens_de_erro_padroes_campoSemEspacos = null;
 	{
 		String [] array = {"Este dado nao pode ser nulo!",
 					 	   "Este dado nao pode ser vazio!",
 						   "Este dado nao pode conter apenas espacos!," +
 						   "Este dado nao pode conter espacos!"};
 		
-		if (mensagens_de_erro_padroes_login == null) mensagens_de_erro_padroes_login = toList(array);
+		if (mensagens_de_erro_padroes_campoSemEspacos == null) mensagens_de_erro_padroes_campoSemEspacos = toList(array);
 	}
 	
 	
@@ -240,40 +240,40 @@ public class ValidadorString {
 	 * 
 	 * @param MensagensDeErro
 	 * 		List de {@link String} de tamanho 4,
-	 * 	onde os itens equivalem as mensagens de quando a String eh nula, vazia, so contem espacos ou contem espacos, respectivamente. 
-	 * @param login
-	 * 			Login que deve ser validado
+	 * 	onde os itens equivalem as mensagens de quando a String eh nula, vazia, so contem espacos ou contem algum espaco, respectivamente. 
+	 * @param campoSemEspacos
+	 * 			String que deve ser validada.
 	 * @return
-	 * 			Retorna o login validado, desde que este passe pelos testes
+	 * 			Retorna a string validada, desde que este passe pelos testes
 	 * @throws IllegalArgumentException
-	 * 			Lanca uma excecao, caso o login passado nao seja aprovado
+	 * 			Lanca uma excecao, caso a String passada nao seja aprovada.
 	 */
-	public static String pegaLogin(List<String> MensagensDeErro, String login) throws IllegalArgumentException {
+	public static String pegaCampoSemEspacos(List<String> MensagensDeErro, String campoSemEspacos) throws IllegalArgumentException {
 		MensagensDeErro = povoaList(4, MensagensDeErro);
         try {
-        	pegaString(MensagensDeErro, login);
+        	pegaString(MensagensDeErro, campoSemEspacos);
         } catch (IllegalArgumentException e) {
 			throw e;
 		}
         
-        if (login.contains(" ")) throw new IllegalArgumentException(MensagensDeErro.get(3));
+        if (campoSemEspacos.contains(" ")) throw new IllegalArgumentException(MensagensDeErro.get(3));
         
-        return login;
+        return campoSemEspacos;
     }
 	
 	/**
-	 * Retorna o login passado como parametro, se este for valido,
+	 * Retorna a String passada como parametro, se este for valido,
 	 * ou lanca uma excecao padrao, caso nao seja.
 	 * 
-	 * @param login
-	 * 			Login que deve ser validado
+	 * @param campoSemEspacos
+	 * 			CampoSemEspacos que deve ser validado
 	 * @return
-	 * 			Retorna o login validado, desde que este passe pelos testes
+	 * 			Retorna a string validada, desde que este passe pelos testes
 	 * @throws IllegalArgumentException
-	 * 			Lanca uma excecao, caso o login passado nao seja aprovado
+	 * 			Lanca uma excecao, caso a String passada nao seja aprovada.
 	 */
-	public static String pegaLogin(String login) throws IllegalArgumentException {
-        return pegaLogin(mensagens_de_erro_padroes_login, login);
+	public static String pegaCampoSemEspacos(String campoSemEspacos) throws IllegalArgumentException {
+        return pegaCampoSemEspacos(mensagens_de_erro_padroes_campoSemEspacos, campoSemEspacos);
     }
 	
 	/**
@@ -282,17 +282,17 @@ public class ValidadorString {
 	 * 
 	 * @param MensagemDeErro
 	 * 		Mensagem de erro a ser retornada em caso da string ser invalida. 
-	 * @param login
-	 * 			Login que deve ser validado
+	 * @param campoSemEspacos
+	 * 			String que deve ser validada.
 	 * @return
-	 * 			Retorna o login validado, desde que este passe pelos testes
+	 * 			Retorna a string validada, desde que este passe pelos testes
 	 * @throws IllegalArgumentException
-	 * 			Lanca uma excecao, caso o login passado nao seja aprovado
+	 * 			Lanca uma excecao, caso a String passada nao seja aprovada.
 	 */
-	public static String pegaLogin(String mensagemDeErro, String login) throws IllegalArgumentException {
+	public static String pegaCampoSemEspacos(String mensagemDeErro, String campoSemEspacos) throws IllegalArgumentException {
         List<String> lista = new ArrayList<String>();
         lista.add(mensagemDeErro);
-		return pegaLogin(povoaList(4, lista), login);
+		return pegaCampoSemEspacos(povoaList(4, lista), campoSemEspacos);
     }
 	
 	/**
@@ -325,7 +325,7 @@ public class ValidadorString {
 	 * 				ou uma mensagem de erro, caso nao.
 	 */
 	public static String validaCampoSemEspaco(List<String> mensagensDeErro, String string_para_validacao) {
-		String teste = pegaLogin(mensagensDeErro, string_para_validacao); 
+		String teste = pegaCampoSemEspacos(mensagensDeErro, string_para_validacao); 
 		try {
         	if (!teste.equals(string_para_validacao)) return mensagensDeErro.get(0); // so por garantia
         	return Mensagem.OK.getMensagem();
@@ -345,13 +345,13 @@ public class ValidadorString {
 	 * 				ou uma mensagem de erro, caso nao.
 	 */
 	public static String validaCampoSemEspaco(String string_para_validacao) {
-		return validaCampoSemEspaco(mensagens_de_erro_padroes_login, string_para_validacao);
+		return validaCampoSemEspaco(mensagens_de_erro_padroes_campoSemEspacos, string_para_validacao);
 	}
 	
 	
 	private static List<String> povoaList(int tamanho_desejado, List<String> list) {
 		
-		if (list == null || list.isEmpty()) return mensagens_de_erro_padroes_login;
+		if (list == null || list.isEmpty()) return mensagens_de_erro_padroes_campoSemEspacos;
 		
 		List <String> resposta = new ArrayList<String>();
 		resposta.addAll(list);

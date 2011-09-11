@@ -5,7 +5,9 @@ import java.util.List;
 
 import sistema.item.Item;
 import sistema.item.ItemIF;
+import sistema.utilitarios.Mensagem;
 import sistema.utilitarios.Validador;
+import sistema.utilitarios.ValidadorString;
 
 /**
  * Esta classe representa um usuario padrao do sistema.
@@ -58,23 +60,20 @@ public class Usuario implements UsuarioIF {
 	}
 
 	@Override
-	public void setLogin(String login) {
-		Validador.testaNaoNulo(login, "Login inválido"); //Pode lançar Exceção!
-		Validador.testaStringVazia(login, "Login inválido"); //Pode lançar Exceção!
+	public void setLogin(String login) throws IllegalArgumentException {
+		ValidadorString.pegaCampoSemEspacos(Mensagem.LOGIN_INVALIDO.getMensagem(), login); //Pode lançar Exceção!
 		this.login = login;
 	}
 
 	@Override
-	public void setNome(String nome) {
-		Validador.testaNaoNulo(nome, "Nome inválido"); //Pode lançar Exceção!
-		Validador.testaStringVazia(nome, "Nome inválido"); //Pode lançar Exceção!
+	public void setNome(String nome) throws IllegalArgumentException {
+		ValidadorString.pegaString(Mensagem.NOME_INVALIDO.getMensagem(), nome); //Pode lançar Exceção!
 		this.nome = nome;
 	}
 
 	@Override
-	public void setEndereco(String endereco) {
-		Validador.testaNaoNulo(endereco, "Endereco inválido"); //Pode lançar Exceção!
-		Validador.testaStringVazia(endereco, "Endereco inválido"); //Pode lançar Exceção!
+	public void setEndereco(String endereco) throws IllegalArgumentException {
+		ValidadorString.pegaString(Mensagem.ENDERECO_INVALIDO.getMensagem(), endereco); //Pode lançar Exceção!
 		this.endereco = endereco;
 	}
 
@@ -137,7 +136,18 @@ public class Usuario implements UsuarioIF {
 
 		return listaIdItensString.toString().trim();
 	}
-
+	
+	/**
+	 * Recupera a lista detodos os itens do usuario.
+	 * 
+	 * @return
+	 * 	Lista de itens.
+	 */
+	@Override
+	public List<ItemIF> getItens() {
+		return this.itens;
+	}
+	
 	@Override
 	public ItemIF getInformacoesItem(String idItem) {
 		// FIXME Não entendi a necessidade<->nome do metodo, Joeffison.

@@ -5,7 +5,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
 
-import sistema.excecoes.LoginJahExisteException;
+import sistema.item.Item;
+import sistema.item.ItemIF;
 import sistema.usuario.Usuario;
 import sistema.usuario.UsuarioIF;
 import sistema.utilitarios.Mensagem;
@@ -25,26 +26,32 @@ public class Autenticacao implements AutenticacaoIF{
 
 	@Override
 	public void zerarSistema() {
-		// TODO Auto-generated method stub
-		
+		//FIXME implemente isto;
 	}
 
 	@Override
 	public void encerrarSistema() {
-		// TODO Auto-generated method stub
-		
+		System.exit(0);
 	}
-
+	
+	@Override
+	public ItemIF getItemComID(String id) throws Exception {
+		for (UsuarioIF usuario : usuariosCadastrados.values()) {
+			try {
+				for(ItemIF item : usuario.getItens()) {
+					if (item.getId().equals(id)) {
+						return item;
+					}
+				}
+			} catch (Exception e) {} // Descartando possiveis excecoes que nao precisam ser capturadas.
+		}
+		throw new Exception(Mensagem.ITEM_INEXISTENTE.getMensagem());
+	}
+	
 	@Override
 	public void criarUsuario(String login, String nome, String endereco) throws Exception {
-		
-		if( login == null || login.trim().equals("")) throw new Exception("Login inválido");
-		if( nome == null || nome.trim().equals("")) throw new Exception("Nome inválido");
-		if(endereco == null) endereco = "";
-		if( existeUsuario(login) ) throw new Exception("Já existe um usuário com este login");
-		// adiciona novo usuario no sistema
-		usuariosCadastrados.put(login, new Usuario(login, nome, endereco));
-		
+		UsuarioIF novoUsuario = new Usuario(login, nome, endereco);
+		usuariosCadastrados.put(login, novoUsuario);
 	}
 
 	
