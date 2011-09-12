@@ -1,5 +1,5 @@
 package testes.aceitacao;
 
-public class UserFacade9 {
+public class UserFacade09 {
 
 }
