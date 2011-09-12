@@ -73,9 +73,13 @@ public class Usuario implements UsuarioIF {
 	}
 
 	@Override
-	public void setEndereco(String endereco) throws IllegalArgumentException {
-		ValidadorString.pegaString(Mensagem.ENDERECO_INVALIDO.getMensagem(), endereco); //Pode lançar Exceção!
-		this.endereco = endereco;
+	public void setEndereco(String endereco) {
+		if(endereco == null){
+			this.endereco = "";
+		}else{
+			this.endereco = endereco.trim();
+		}
+		
 	}
 
 	@Override
