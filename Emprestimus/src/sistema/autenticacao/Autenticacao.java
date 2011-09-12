@@ -30,6 +30,7 @@ public class Autenticacao implements AutenticacaoIF{
 	public void zerarSistema() {
 		//FIXME implemente isto;
 		usuariosCadastrados = new TreeMap<String, UsuarioIF>();
+		sessoes = new TreeMap<String, UsuarioIF>();
 	}
 
 	@Override
@@ -55,6 +56,7 @@ public class Autenticacao implements AutenticacaoIF{
 	@Override
 	public void criarUsuario(String login, String nome, String endereco) throws Exception {
 		UsuarioIF novoUsuario = new Usuario(login, nome, endereco);
+		if(usuariosCadastrados.containsKey(login.trim())) throw new Exception("Já existe um usuário com este login");
 		usuariosCadastrados.put(login, novoUsuario);
 	}
 
@@ -80,20 +82,17 @@ public class Autenticacao implements AutenticacaoIF{
 	public String getAtributoUsuario(String login, String atributo) throws Exception{
 		
 		if( login == null || login.trim().equals("")) throw new Exception("Login inválido");
-		if(!existeUsuario(login)) throw new Exception("Usuário inexistente");//Atributo inexistente
-		if(!ValidadorString.validaString(atributo).equals(Mensagem.OK.getMensagem())) throw new Exception("Atributo inválido");
-		UsuarioIF usuario = getUsuario(login);
+		if(!existeUsuario(login)) throw new Exception("Usuário inexistente");
+		if( atributo == null || atributo.trim().equals("")) throw new Exception("Atributo inválido");
+		//FIXME ValidadorString.validaString lança nullPointerException
+		//if(!ValidadorString.validaString(atributo).equals(Mensagem.OK.getMensagem())) throw new Exception("Atributo inválido");
 		
-		Class cls = usuario.getClass();
-		Field[] campos = cls.getDeclaredFields();
+		UsuarioIF usuario = getUsuario(login);
 		String valor = null;
-		for( Field f : campos){
-			//if(f.toString().endsWith("."+atributo)) return usuario.
-			System.out.println(f.getName()); //FIXME retirar este syso
+		for( Field f : usuario.getClass().getDeclaredFields()){
 			if(f.getName().equals(atributo)){
 				f.setAccessible(true);
 				valor = (f.get((Usuario)usuario)).toString();
-				System.out.println(valor);
 			}
 		}
 		if(valor == null) throw new Exception("Atributo inexistente");
@@ -149,6 +148,7 @@ public class Autenticacao implements AutenticacaoIF{
 	
 	public static void main( String[] args) throws Exception{
 		Autenticacao aut = new Autenticacao();
+		
 		aut.criarUsuario("samirtf", "Samir", "meuEndereco");
 		
 		aut.getAtributoUsuario("samirtf", "login");
