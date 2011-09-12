@@ -6,7 +6,7 @@ import java.util.List;
 
 import easyaccept.EasyAcceptFacade;
 
-public class TestUS8 {
+public class TestUS07 {
 
 	public static void main(String[] args) throws Exception {
 		
@@ -17,10 +17,10 @@ public class TestUS8 {
 	public static void run() {
 		
 		List<String> files = new ArrayList<String>();
-		String file1 = System.getProperty("user.dir") + "/src/testes/aceitacao/US08.txt";
+		String file1 = System.getProperty("user.dir") + "/src/testes/aceitacao/US07.txt";
 		files.add(file1);
 
-		UserFacade8 userFacade = new UserFacade8();
+		UserFacade07 userFacade = new UserFacade07();
 
 		EasyAcceptFacade eaFacade = new EasyAcceptFacade(userFacade, files);
 

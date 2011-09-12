@@ -17,7 +17,7 @@ import iu.EmprestimusIF;
  * 
  */
 
-public class UserFacade1 {
+public class UserFacade01 {
 	
 	public EmprestimusIF sistema = new Emprestimus();
 	
