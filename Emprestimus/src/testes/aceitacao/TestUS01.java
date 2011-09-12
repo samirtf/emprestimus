@@ -27,6 +27,7 @@ public class TestUS01 {
 		eaFacade.executeTests();
 
 		System.out.println(eaFacade.getCompleteResults());
+	
 	}
 
 }

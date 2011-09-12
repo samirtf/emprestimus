@@ -66,13 +66,15 @@ public class UsuarioIFTeste extends TestCase implements Test {
 		
 		try{
 			UsuarioIF usuario = new Usuario("Login", "nome", null);
+			Assert.assertEquals("", usuario.getEndereco() );
 		}catch(Exception e){
-			Assert.assertEquals("", e.getMessage() );
+			Assert.fail("Nao devia ter lancado excecao");
 		}
 		try{
 			UsuarioIF usuario = new Usuario("Login", "nome", " ");
+			Assert.assertEquals("", usuario.getEndereco() );
 		}catch(Exception e){
-			Assert.assertEquals("", e.getMessage());
+			Assert.fail("Nao devia ter lancado excecao");
 		}
 		
 		UsuarioIF us1 = new Usuario(" meuLogin ", " Nome ", " endereco ");
