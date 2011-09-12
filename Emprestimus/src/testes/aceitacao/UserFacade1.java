@@ -17,7 +17,7 @@ import iu.EmprestimusIF;
  * 
  */
 
-public class UserFacede2 {
+public class UserFacade1 {
 	
 	public EmprestimusIF sistema = new Emprestimus();
 	
@@ -56,13 +56,6 @@ public class UserFacede2 {
 	 */
 	public String getAtributoUsuario(String login, String atributo) throws Exception{
 		return sistema.getAtributoUsuario(login, atributo);
-	}
-	
-	public String cadastrarItem(String idSessao, String nome, String descricao,
-			String categoria) throws Exception {
-		
-		return sistema.cadastrarItem(idSessao, nome, descricao, categoria);
-		
 	}
 	
 	/**

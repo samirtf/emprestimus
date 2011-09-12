@@ -20,7 +20,7 @@ public class TestUS1 {
 		String file1 = System.getProperty("user.dir") + "/src/testes/aceitacao/US01.txt";
 		files.add(file1);
 
-		UserFacede1 UserFacede = new UserFacede1();
+		UserFacade1 UserFacede = new UserFacade1();
 
 		EasyAcceptFacade eaFacade = new EasyAcceptFacade(UserFacede, files);
 
