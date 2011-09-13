@@ -136,7 +136,13 @@ public class Item implements ItemIF{
 	public int compareTo(Object obj) {
 		if(!(obj instanceof Item)) throw new IllegalArgumentException("Nao é uma instancia de Item");
 		Item item = (Item) obj;
-		return this.getId().compareTo(item.getId());
+		if(Long.valueOf(this.getId()) < Long.valueOf(item.getId())){
+			return -1;
+		}else if(Long.valueOf(this.getId()) == Long.valueOf(item.getId())){
+			return 0;
+		}
+		return 1;
+				//this.getId().compareTo(item.getId());
 	}
 
 	
