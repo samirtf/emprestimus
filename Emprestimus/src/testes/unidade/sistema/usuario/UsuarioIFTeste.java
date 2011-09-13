@@ -83,9 +83,9 @@ public class UsuarioIFTeste extends TestCase implements Test {
 		Assert.assertEquals("endereco", us1.getEndereco());
 		
 		UsuarioIF us2 = new Usuario(" meuLogin ", " Nome ", null);
-		Assert.assertEquals("meuLogin", us1.getLogin());
-		Assert.assertEquals("Nome", us1.getNome());
-		Assert.assertEquals("", us1.getEndereco());
+		Assert.assertEquals("meuLogin", us2.getLogin());
+		Assert.assertEquals("Nome", us2.getNome());
+		Assert.assertEquals("", us2.getEndereco());
 		
 	}
 	
