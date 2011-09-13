@@ -2,6 +2,7 @@ package testes.unidade.sistema.usuario;
 
 
 import sistema.item.ItemCategoria;
+import sistema.persistencia.ItemRepositorio;
 import sistema.usuario.Usuario;
 import sistema.usuario.UsuarioIF;
 import junit.framework.Assert;
@@ -251,7 +252,8 @@ public class UsuarioIFTeste extends TestCase implements Test {
 			}
 			
 			try{
-				//cadastrando item para Uusuario1
+				//cadastrando item para Usuario1
+				Assert.assertEquals(0, ItemRepositorio.qntItens());
 				Assert.assertEquals(0, us1.qntItens());
 				String idItem01 = us1.cadastrarItem("  nomeItem  ", null, " FILME ");
 				System.out.println(idItem01);
@@ -261,7 +263,8 @@ public class UsuarioIFTeste extends TestCase implements Test {
 				Assert.assertEquals("nomeItem", us1.getItem(idItem01).getNome());
 				Assert.assertEquals("", us1.getItem(idItem01).getDescricao());
 				Assert.assertEquals("Filme", us1.getItem(idItem01).getCategoria());
-				//TODO Assert.assertEquals("", "");
+				Assert.assertEquals("1", us1.getListaIdItens());
+				Assert.assertEquals(1, ItemRepositorio.qntItens());
 				
 				//cadastrando item para Usuario2
 				Assert.assertEquals(0, us2.qntItens());
@@ -273,6 +276,8 @@ public class UsuarioIFTeste extends TestCase implements Test {
 				Assert.assertEquals("nome Item", us2.getItem(idItem02).getNome());
 				Assert.assertEquals("", us2.getItem(idItem02).getDescricao());
 				Assert.assertEquals("Filme", us2.getItem(idItem02).getCategoria());
+				Assert.assertEquals("2", us2.getListaIdItens());
+				Assert.assertEquals(2, ItemRepositorio.qntItens());
 				
 				//cadastrando item para Usuario3
 				Assert.assertEquals(0, us3.qntItens());
@@ -284,6 +289,50 @@ public class UsuarioIFTeste extends TestCase implements Test {
 				Assert.assertEquals("nome Item", us3.getItem(idItem03).getNome());
 				Assert.assertEquals("um jogo legal", us3.getItem(idItem03).getDescricao());
 				Assert.assertEquals("Jogo", us3.getItem(idItem03).getCategoria());
+				Assert.assertEquals("3", us3.getListaIdItens());
+				Assert.assertEquals(3, ItemRepositorio.qntItens());
+				
+				// adicionando mais itens aos usuarios
+				
+				//cadastrando outro item 4 para Usuario1
+				Assert.assertEquals(1, us1.qntItens());
+				String idItem04 = us1.cadastrarItem("  nomeI4  ", "descricaoI4", " JOGO ");
+				System.out.println(idItem04);
+				Assert.assertEquals("4", idItem04);
+				Assert.assertEquals(2, us1.qntItens());
+				Assert.assertTrue("O item deveria estar cadastrado", us1.existeItemID(idItem04));
+				Assert.assertEquals("nomeI4", us1.getItem(idItem04).getNome());
+				Assert.assertEquals("descricaoI4", us1.getItem(idItem04).getDescricao());
+				Assert.assertEquals("Jogo", us1.getItem(idItem04).getCategoria());
+				Assert.assertEquals("1 4", us1.getListaIdItens());
+				Assert.assertEquals(4, ItemRepositorio.qntItens());
+				
+				// cadastrando item 5 ao usuario 1
+				Assert.assertEquals(2, us1.qntItens());
+				String idItem05 = us1.cadastrarItem("  nomeI5  ", "descricaoI5", " JOGO ");
+				System.out.println(idItem05);
+				Assert.assertEquals("5", idItem05);
+				Assert.assertEquals(3, us1.qntItens());
+				Assert.assertTrue("O item deveria estar cadastrado", us1.existeItemID(idItem05));
+				Assert.assertEquals("nomeI5", us1.getItem(idItem05).getNome());
+				Assert.assertEquals("descricaoI5", us1.getItem(idItem05).getDescricao());
+				Assert.assertEquals("Jogo", us1.getItem(idItem05).getCategoria());
+				Assert.assertEquals("1 4 5", us1.getListaIdItens());
+				Assert.assertEquals(5, ItemRepositorio.qntItens());
+				
+				// cadastrando item 6 ao usuario 2
+				Assert.assertEquals(1, us2.qntItens());
+				String idItem06 = us2.cadastrarItem("  nomeI6  ", "descricaoI6", " JOGO ");
+				System.out.println(idItem06);
+				Assert.assertEquals("6", idItem06);
+				Assert.assertEquals(2, us2.qntItens());
+				Assert.assertTrue("O item deveria estar cadastrado", us2.existeItemID(idItem06));
+				Assert.assertEquals("nomeI6", us2.getItem(idItem06).getNome());
+				Assert.assertEquals("descricaoI6", us2.getItem(idItem06).getDescricao());
+				Assert.assertEquals("Jogo", us2.getItem(idItem06).getCategoria());
+				Assert.assertEquals("2 6", us2.getListaIdItens());
+				Assert.assertEquals(6, ItemRepositorio.qntItens());
+				
 				
 				
 			}catch(Exception ex){

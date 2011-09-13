@@ -59,5 +59,13 @@ public class ItemRepositorio {
 
 		return valor;
 	}
+	/**
+	 * Calcula a quantidade de itens cadastrados.
+	 * @return
+	 * 		A quantidade de itens cadastrados.
+	 */
+	public static int qntItens(){
+		return itensCadastrados.size();
+	}
 
 }
