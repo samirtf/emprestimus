@@ -56,7 +56,7 @@ public class Autenticacao implements AutenticacaoIF{
 	@Override
 	public void criarUsuario(String login, String nome, String endereco) throws Exception {
 		UsuarioIF novoUsuario = new Usuario(login, nome, endereco);
-		if(usuariosCadastrados.containsKey(login.trim())) throw new Exception("Já existe um usuário com este login");
+		if(usuariosCadastrados.containsKey(login.trim())) throw new Exception(Mensagem.LOGIN_JAH_CADASTRADO.getMensagem());
 		usuariosCadastrados.put(login, novoUsuario);
 	}
 
