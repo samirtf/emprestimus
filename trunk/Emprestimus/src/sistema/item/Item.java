@@ -2,6 +2,7 @@ package sistema.item;
 
 import sistema.persistencia.ItemRepositorio;
 import sistema.utilitarios.Mensagem;
+import sistema.utilitarios.Validador;
 import sistema.utilitarios.ValidadorString;
 
 /**
@@ -23,25 +24,12 @@ public class Item implements ItemIF{
 	private Item(){}
 	
 	public Item( String nome, String descricao, String categoria) throws Exception{
-		if(nome == null || nome.trim().equals("")) throw new Exception("Nome inválido");
+		setNome(nome);
 		if(! (categoria.trim().equalsIgnoreCase("FILME") || categoria.trim().equalsIgnoreCase("JOGO") 
 				|| categoria.trim().equalsIgnoreCase("LIVRO")) ) throw new Exception("Categoria inválida");
 		
-	
-		this.nome = nome.trim();
-		if(descricao == null){
-			this.descricao = "";
-		}else{
-			this.descricao = descricao.trim();
-		}
-		if(categoria.equalsIgnoreCase("FILME")) {
-			this.categoria = ItemCategoria.FILME;
-		}
-		else if(categoria.equalsIgnoreCase("JOGO")){
-			this.categoria = ItemCategoria.JOGO;
-		}else if(categoria.equalsIgnoreCase("LIVRO")){
-			this.categoria = ItemCategoria.LIVRO;
-		}
+		setDescricao(descricao);
+		setCategoria(categoria);
 		
 	}
 	
@@ -88,7 +76,9 @@ public class Item implements ItemIF{
 
 	@Override
 	public void setNome(String nome) throws Exception {
-		this.nome = ValidadorString.pegaString(nome);
+		Validador.testaNaoNulo(nome, Mensagem.NOME_INVALIDO.getMensagem());
+		Validador.testaStringVazia(nome.trim(), Mensagem.NOME_INVALIDO.getMensagem());
+		this.nome = nome.trim();
 	}
 	
 	@Override
@@ -101,12 +91,28 @@ public class Item implements ItemIF{
 	
 	@Override
 	public void setCategoria(String categoria) throws Exception {
-		this.categoria = ItemCategoria.getCategoria(categoria);
+		Validador.testaNaoNulo(categoria, Mensagem.CATEGORIA_INVALIDA.getMensagem());
+		Validador.testaStringVazia(categoria.trim(), Mensagem.CATEGORIA_INVALIDA.getMensagem());
+		
+		if(categoria.trim().equalsIgnoreCase("FILME")){
+			this.categoria = ItemCategoria.FILME;
+		}else if(categoria.trim().equalsIgnoreCase("JOGO")){
+			this.categoria = ItemCategoria.JOGO;
+		}else if(categoria.trim().equalsIgnoreCase("LIVRO")){
+			this.categoria = ItemCategoria.LIVRO;
+		}else{
+			throw new IllegalArgumentException(Mensagem.CATEGORIA_INEXISTENTE.getMensagem());
+		}
+		
 	}
 
 	@Override
 	public void setDescricao(String descricao) throws Exception {
-		this.descricao = ValidadorString.pegaString(descricao);
+		if(descricao == null){
+			this.descricao = null;
+		}else{
+			this.descricao = descricao.trim();
+		}
 	}
 
 	@Override
