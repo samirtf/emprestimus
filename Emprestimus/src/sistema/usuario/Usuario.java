@@ -102,8 +102,9 @@ public class Usuario implements UsuarioIF {
 	@Override
 	public String cadastrarItem(String nome, String descricao, String categoria)
 			throws Exception {
-		
-		ItemRepositorio.cadastrarItem(new Item(nome, descricao, categoria));
+		ItemIF item = new Item(nome, descricao, categoria);
+		ItemRepositorio.cadastrarItem(item);
+		itens.add(item);//o item eh modificdo pelo repositorio possuindo agora um id valido
 		return String.valueOf((Long.valueOf(ItemRepositorio.geraIdProxItem()) - 1)) ;
 
 	}
@@ -143,10 +144,9 @@ public class Usuario implements UsuarioIF {
 	}
 	
 	@Override
-	public ItemIF getInformacoesItem(String idItem) {
-		// FIXME Não entendi a necessidade<->nome do metodo, Joeffison.
+	public ItemIF getItem(String idItem) {
 		for (ItemIF item : this.itens) {
-			if (item.getId() == idItem) {
+			if (item.getId().equals(idItem)) {
 				return item;
 			}
 		}
@@ -200,7 +200,7 @@ public class Usuario implements UsuarioIF {
 	@Override
 	public boolean estahItemDisponivel(String idItem) {
 		try {
-			return getInformacoesItem(idItem).estahDisponivel();
+			return getItem(idItem).estahDisponivel();
 
 		} catch (Exception e) {
 			return false;
@@ -213,6 +213,17 @@ public class Usuario implements UsuarioIF {
 			return this.getLogin().equals(((UsuarioIF) outroUsuario).getLogin());
 		}
 		return false;
+	}
+
+	@Override
+	public boolean existeItemID(String idItem) {
+		try {
+			ItemIF item = new Item("placebo", "placebo", "FILME");
+			item.setId(idItem);
+			return itens.contains(item);
+		} catch (Exception e) {}//nao lanca excecao.
+		return false;
+		
 	}
 
 
