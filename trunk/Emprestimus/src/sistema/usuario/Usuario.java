@@ -62,14 +62,16 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public void setLogin(String login) throws IllegalArgumentException {
-		ValidadorString.pegaCampoSemEspacos(Mensagem.LOGIN_INVALIDO.getMensagem(), login); //Pode lançar Exceção!
-		this.login = login;
+		Validador.testaNaoNulo(login, Mensagem.LOGIN_INVALIDO.getMensagem());
+		Validador.testaStringVazia(login.trim(), Mensagem.LOGIN_INVALIDO.getMensagem());
+		this.login = login.trim();
 	}
 
 	@Override
 	public void setNome(String nome) throws IllegalArgumentException {
-		ValidadorString.pegaString(Mensagem.NOME_INVALIDO.getMensagem(), nome); //Pode lançar Exceção!
-		this.nome = nome;
+		Validador.testaNaoNulo(nome, Mensagem.NOME_INVALIDO.getMensagem());
+		Validador.testaStringVazia(nome.trim(), Mensagem.NOME_INVALIDO.getMensagem());
+		this.nome = nome.trim();
 	}
 
 	@Override

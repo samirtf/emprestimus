@@ -24,13 +24,16 @@ public class Item implements ItemIF{
 	
 	public Item( String nome, String descricao, String categoria) throws Exception{
 		if(nome == null || nome.trim().equals("")) throw new Exception("Nome inválido");
-		if(nome == null || nome.trim().equals("")) throw new Exception("Nome inválido");
-		if(! (categoria.equalsIgnoreCase("FILME") || categoria.equalsIgnoreCase("JOGO") 
-				|| categoria.equalsIgnoreCase("LIVRO")) ) throw new Exception("Categoria inválida");
+		if(! (categoria.trim().equalsIgnoreCase("FILME") || categoria.trim().equalsIgnoreCase("JOGO") 
+				|| categoria.trim().equalsIgnoreCase("LIVRO")) ) throw new Exception("Categoria inválida");
 		
 	
-		this.nome = nome;
-		this.descricao = descricao;
+		this.nome = nome.trim();
+		if(descricao == null){
+			this.descricao = "";
+		}else{
+			this.descricao = descricao.trim();
+		}
 		if(categoria.equalsIgnoreCase("FILME")) {
 			this.categoria = ItemCategoria.FILME;
 		}

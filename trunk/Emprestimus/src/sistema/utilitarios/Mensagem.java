@@ -76,6 +76,7 @@ public enum Mensagem {
 	/*Argumentos invalidos*/
 	LOGIN_INVALIDO("Login inválido"),
 	LOGIN_INEXISTENTE("Login inexistente"),
+	LOGIN_JAH_CADASTRADO("Já existe um usuário com este login"),
 	NOME_INVALIDO("Nome inválido"),
 	NOME_INEXISTENTE("Nome inexistente"),
 	ENDERECO_INVALIDO("Endereco inválido"),
