@@ -1,6 +1,7 @@
 package testes.unidade.sistema.usuario;
 
 
+import sistema.item.ItemCategoria;
 import sistema.usuario.Usuario;
 import sistema.usuario.UsuarioIF;
 import junit.framework.Assert;
@@ -250,16 +251,43 @@ public class UsuarioIFTeste extends TestCase implements Test {
 			}
 			
 			try{
+				//cadastrando item para Uusuario1
 				Assert.assertEquals(0, us1.qntItens());
 				String idItem01 = us1.cadastrarItem("  nomeItem  ", null, " FILME ");
 				System.out.println(idItem01);
+				Assert.assertEquals("1", idItem01);
 				Assert.assertEquals(1, us1.qntItens());
 				Assert.assertTrue("O item deveria estar cadastrado", us1.existeItemID(idItem01));
 				Assert.assertEquals("nomeItem", us1.getItem(idItem01).getNome());
+				Assert.assertEquals("", us1.getItem(idItem01).getDescricao());
+				Assert.assertEquals("Filme", us1.getItem(idItem01).getCategoria());
+				//TODO Assert.assertEquals("", "");
+				
+				//cadastrando item para Usuario2
+				Assert.assertEquals(0, us2.qntItens());
+				String idItem02 = us2.cadastrarItem("  nome Item  ", "  ", " FiLmE ");
+				Assert.assertEquals("2", idItem02);
+				System.out.println(idItem02);
+				Assert.assertEquals(1, us2.qntItens());
+				Assert.assertTrue("O item deveria estar cadastrado", us2.existeItemID(idItem02));
+				Assert.assertEquals("nome Item", us2.getItem(idItem02).getNome());
+				Assert.assertEquals("", us2.getItem(idItem02).getDescricao());
+				Assert.assertEquals("Filme", us2.getItem(idItem02).getCategoria());
+				
+				//cadastrando item para Usuario3
+				Assert.assertEquals(0, us3.qntItens());
+				String idItem03 = us3.cadastrarItem("  nome Item  ", " um jogo legal ", " jogo ");
+				Assert.assertEquals("3", idItem03);
+				System.out.println(idItem03);
+				Assert.assertEquals(1, us3.qntItens());
+				Assert.assertTrue("O item deveria estar cadastrado", us3.existeItemID(idItem03));
+				Assert.assertEquals("nome Item", us3.getItem(idItem03).getNome());
+				Assert.assertEquals("um jogo legal", us3.getItem(idItem03).getDescricao());
+				Assert.assertEquals("Jogo", us3.getItem(idItem03).getCategoria());
+				
 				
 			}catch(Exception ex){
-				ex.printStackTrace();
-				Assert.fail();
+				Assert.fail("Nao era para ter lancado excecao");
 			}
 			
 			

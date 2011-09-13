@@ -7,7 +7,7 @@ package sistema.item;
  * @version 1.2
  * @since 1.0
  */
-public interface ItemIF {
+public interface ItemIF extends Comparable{
 	
 	/**
 	 * Recupera o id do item.
@@ -127,5 +127,9 @@ public interface ItemIF {
 	 */
 	public boolean equals( Object outroItem );
 
+	/**
+	 * Compara os objetos por um ID.
+	 */
+	public int compareTo(Object obj);
 	
 }

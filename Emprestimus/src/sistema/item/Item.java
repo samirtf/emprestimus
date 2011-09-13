@@ -107,7 +107,7 @@ public class Item implements ItemIF{
 	@Override
 	public void setDescricao(String descricao) throws Exception {
 		if(descricao == null){
-			this.descricao = null;
+			this.descricao = "";
 		}else{
 			this.descricao = descricao.trim();
 		}
@@ -130,6 +130,13 @@ public class Item implements ItemIF{
 			return this.idItem.equals(outro.getId());
 		}
 		return false;
+	}
+
+	@Override
+	public int compareTo(Object obj) {
+		if(!(obj instanceof Item)) throw new IllegalArgumentException("Nao é uma instancia de Item");
+		Item item = (Item) obj;
+		return this.getId().compareTo(item.getId());
 	}
 
 	
