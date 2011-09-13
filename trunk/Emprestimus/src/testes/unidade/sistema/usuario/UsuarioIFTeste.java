@@ -333,6 +333,28 @@ public class UsuarioIFTeste extends TestCase implements Test {
 				Assert.assertEquals("2 6", us2.getListaIdItens());
 				Assert.assertEquals(6, ItemRepositorio.qntItens());
 				
+				// testes de carga
+				
+				Assert.assertTrue("Usuario 1 deve possuir ate entao 3 itens cadastrados",
+						us1.qntItens() == 3);
+				Assert.assertTrue("Usuario 2 deve possuir ate entao 2 itens cadastrados",
+						us2.qntItens() == 2);
+				Assert.assertTrue("Usuario 1 deve possuir ate entao 1 itens cadastrados",
+						us3.qntItens() == 1);
+				
+				
+				// iniciando testes de carga para usuario 1
+				for( int i = 0; i < 30; i++ ){
+					us1.cadastrarItem("nome"+i, "descricao"+i, "JoGo" );
+					us2.cadastrarItem("nome"+i, "descricao"+i, "LiVrO" );
+					us3.cadastrarItem("nome"+i, "descricao"+i, "FiLmE" );
+				}
+				System.out.println(us3.getListaIdItens());
+				Assert.assertEquals("1 4 5 7 10 13 16 19 22 25 28 31 34 37 40 43 46 49 52 55 58 61 64 67 70 73 76 79 82 85 88 91 94", us1.getListaIdItens());
+				Assert.assertEquals("2 6 8 11 14 17 20 23 26 29 32 35 38 41 44 47 50 53 56 59 62 65 68 71 74 77 80 83 86 89 92 95", us2.getListaIdItens());
+				Assert.assertEquals("3 9 12 15 18 21 24 27 30 33 36 39 42 45 48 51 54 57 60 63 66 69 72 75 78 81 84 87 90 93 96", us3.getListaIdItens());
+				
+				Assert.assertEquals(96, ItemRepositorio.qntItens()); // ha no total 96 itens
 				
 				
 			}catch(Exception ex){
