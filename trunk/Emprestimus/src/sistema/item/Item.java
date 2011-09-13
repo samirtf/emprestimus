@@ -25,12 +25,9 @@ public class Item implements ItemIF{
 	
 	public Item( String nome, String descricao, String categoria) throws Exception{
 		setNome(nome);
-		if(! (categoria.trim().equalsIgnoreCase("FILME") || categoria.trim().equalsIgnoreCase("JOGO") 
-				|| categoria.trim().equalsIgnoreCase("LIVRO")) ) throw new Exception("Categoria inválida");
-		
 		setDescricao(descricao);
 		setCategoria(categoria);
-		
+		this.estaDisponivel = true;
 	}
 	
     public Item( String nome, String descricao, ItemCategoria categoria) throws Exception{
@@ -87,6 +84,7 @@ public class Item implements ItemIF{
 			throw new Exception(Mensagem.CATEGORIA_INVALIDA.getMensagem());
 		}
 		this.categoria = categoria;
+		//TODO Aprimorar tratamento do tipo de exceção.
 	}
 	
 	@Override
@@ -129,7 +127,7 @@ public class Item implements ItemIF{
 	public boolean equals(Object obj) {
 		if (obj instanceof Item) {
 			Item outro = (Item) obj;
-			return this.idItem == outro.getId();
+			return this.idItem.equals(outro.getId());
 		}
 		return false;
 	}

@@ -23,6 +23,7 @@ public class UsuarioIFTeste extends TestCase implements Test {
 
 	protected void setUp() {
 		System.out.println("Iniciando...");
+		
 	}
 
 	/**
@@ -236,21 +237,28 @@ public class UsuarioIFTeste extends TestCase implements Test {
 			
 			try{
 				us1.cadastrarItem(null, " uma descricao ", " FILME ");
+				Assert.fail("Era para ter lancado excecao");
 			}catch(Exception ex){
 				Assert.assertEquals("Nome inválido", ex.getMessage());
 			}
 			
 			try{
 				us1.cadastrarItem("    ", " uma descricao ", " FILME ");
+				Assert.fail("Era para ter lancado excecao");
 			}catch(Exception ex){
 				Assert.assertEquals("Nome inválido", ex.getMessage());
 			}
 			
 			try{
-				us1.cadastrarItem("  nomeItem  ", null, " FILME ");
+				Assert.assertEquals(0, us1.qntItens());
+				String idItem01 = us1.cadastrarItem("  nomeItem  ", null, " FILME ");
+				System.out.println(idItem01);
+				Assert.assertEquals(1, us1.qntItens());
+				Assert.assertTrue("O item deveria estar cadastrado", us1.existeItemID(idItem01));
+				Assert.assertEquals("nomeItem", us1.getItem(idItem01).getNome());
 				
-				//TODO
 			}catch(Exception ex){
+				ex.printStackTrace();
 				Assert.fail();
 			}
 			

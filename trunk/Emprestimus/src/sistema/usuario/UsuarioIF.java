@@ -101,7 +101,17 @@ public interface UsuarioIF {
 	 */
 	//TODO: o que acontece se o item não for encontrado?
 	//ADICIONAR aqui na interface para que eu possa implementar
-	public ItemIF getInformacoesItem( String idItem );
+	public ItemIF getItem( String idItem );
+	
+	/**
+	 * Verifica se o usuario possui o item com id especifico cadastrado.
+	 * @param idItem
+	 * 		O id do item a ser procurado.
+	 * @return
+	 * 		True - Se o item existir.
+	 * 		False - Caso nao exista.
+	 */
+	public boolean existeItemID( String idItem );
 	
 	/**
 	 * Calcula a quantidade de itens cadastrados.
