@@ -1,6 +1,7 @@
 package sistema.usuario;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import sistema.item.Item;
@@ -123,8 +124,7 @@ public class Usuario implements UsuarioIF {
 	@Override
 	public String getListaIdItens() {
 		StringBuilder listaIdItensString = new StringBuilder();
-
-		// FIXME: confirmar formato da string. Nathaniel concorda!
+		Collections.sort(this.itens);
 		for (ItemIF item : this.itens) {
 			listaIdItensString.append(item.getId() + " ");
 		}

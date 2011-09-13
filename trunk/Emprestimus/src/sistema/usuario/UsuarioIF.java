@@ -87,7 +87,8 @@ public interface UsuarioIF {
 	 * Recupera a lista ordenada de idItens de itens cadastrados.
 	 * @return
 	 * 		Uma lista de idItens ordenada.
-	 * formatacao: "7, 17, 18, 20, 21"
+	 *      Formatacao: "7 17 18 20 21"
+	 *      Retorna-se uma string vazia caso nao haja elementos.
 	 */
 	public String getListaIdItens();
 	
