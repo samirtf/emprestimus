@@ -1,4 +1,4 @@
-package testes.aceitacao;
+package testes.aceitacao.fachadas;
 
 public class UserFacade08 {
 
