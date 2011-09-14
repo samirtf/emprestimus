@@ -18,8 +18,31 @@ import sistema.utilitarios.ValidadorString;
  * @version 1.0
  */
 public class Emprestimus implements EmprestimusIF {
+	private static Emprestimus emprestimus;
+	private Autenticacao autenticacao;
+	
+	private Emprestimus(){
+		autenticacao = Autenticacao.getInstance();
+	}
+	
+	/**
+	 * Metodo que faz parte do padrao Singleton e serve para retornar uma
+	 * instancia única do gerenciador de sala
+	 * 
+	 * @return um objeto do tipo GerenciadorDeSalas
+	 */
+	public synchronized static Emprestimus getInstance() {
 
-	AutenticacaoIF autenticacao = new Autenticacao();
+		if (emprestimus == null) {
+			emprestimus = new Emprestimus();
+			
+			return emprestimus;
+		}
+		
+		return emprestimus;
+	}
+
+	
 
 	/*
 	 * (non-Javadoc)
@@ -263,8 +286,7 @@ public class Emprestimus implements EmprestimusIF {
 	 */
 	@Override
 	public void zerarSistema() {
-		autenticacao.zerarSistema();
-
+		//Salva os dados em persistencia
 	}
 
 	/*
@@ -274,7 +296,7 @@ public class Emprestimus implements EmprestimusIF {
 	 */
 	@Override
 	public void encerrarSistema() {
-		autenticacao.encerrarSistema();
+		//Salva dados em persistencia
 
 	}
 

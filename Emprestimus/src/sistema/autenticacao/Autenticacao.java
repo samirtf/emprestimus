@@ -1,5 +1,7 @@
 package sistema.autenticacao;
 
+import iu.Emprestimus;
+
 import java.lang.reflect.Field;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,6 +18,8 @@ import sistema.utilitarios.ValidadorString;
 
 public class Autenticacao implements AutenticacaoIF{
 	
+	private static Autenticacao autenticacao;
+	
 	// Mapa dos usuarios cadastrados no sistema
 	private Map<String, UsuarioIF> usuariosCadastrados = new TreeMap<String, UsuarioIF>();
 	
@@ -23,7 +27,19 @@ public class Autenticacao implements AutenticacaoIF{
 	private Map<String, UsuarioIF> sessoes = new TreeMap<String, UsuarioIF>();
 	private final int qntMaxSessoes = Integer.MAX_VALUE - 1024; // Quantidade maxima de sessoes.
 	
+	private Autenticacao(){
+		usuariosCadastrados = new TreeMap<String, UsuarioIF>();
+		sessoes = new TreeMap<String, UsuarioIF>();
+	}
 	
+	public static Autenticacao getInstance() {
+		if (autenticacao == null) {
+			autenticacao = new Autenticacao();
+			
+			return autenticacao;
+		}
+		return autenticacao;
+	}
 	
 
 	@Override

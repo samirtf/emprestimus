@@ -19,7 +19,7 @@ import iu.EmprestimusIF;
 
 public class UserFacade02 {
 	
-	public EmprestimusIF sistema = new Emprestimus();
+	public EmprestimusIF sistema = Emprestimus.getInstance();
 	
 	/**
 	 * Cria usuario a partir de um login, um nome e um endereco.
