@@ -25,6 +25,7 @@ public class TestUS02 {
 		EasyAcceptFacade eaFacade = new EasyAcceptFacade(userFacade, files);
 
 		eaFacade.executeTests();
+		
 
 		System.out.println(eaFacade.getCompleteResults());
 	}
