@@ -7,6 +7,7 @@ import java.util.TreeMap;
 import sistema.item.ItemIF;
 import sistema.usuario.Usuario;
 import sistema.usuario.UsuarioIF;
+import sistema.utilitarios.Mensagem;
 
 public class ItemRepositorio {
 
@@ -31,20 +32,22 @@ public class ItemRepositorio {
 	}
 
 	public static ItemIF recuperarItem(String idItem) throws Exception {
-		Long idLong = null;
+		/*Long idLong = null;
 		try {
 			idLong = Long.parseLong(idItem);
 		} catch (Exception e) {
-			throw new Exception("Identificador do item é inválido");
-		}
-		ItemIF item = itensCadastrados.get(idLong);
-		if (item == null)
-			throw new Exception("Item inexistente");
+			throw new Exception(Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		}*/
+		ItemIF item = itensCadastrados.get(idItem);
+		/*if (item == null)
+			throw new Exception(Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
+		*/
 		return item;
 	}
 
 	public static String getAtributoItem(String idItem, String atributo)
 			throws Exception {
+		System.out.println(ItemRepositorio.qntItens());
 		ItemIF item = recuperarItem(idItem);
 
 		String valor = null;
@@ -55,7 +58,7 @@ public class ItemRepositorio {
 			}
 		}
 		if (valor == null)
-			throw new Exception("Atributo inexistente");
+			throw new Exception(Mensagem.ATRIBUTO_INEXISTENTE.getMensagem());
 
 		return valor;
 	}

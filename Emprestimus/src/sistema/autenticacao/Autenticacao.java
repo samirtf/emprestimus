@@ -45,13 +45,13 @@ public class Autenticacao implements AutenticacaoIF{
 	@Override
 	public void zerarSistema() {
 		//FIXME implemente isto;
-		usuariosCadastrados = new TreeMap<String, UsuarioIF>();
-		sessoes = new TreeMap<String, UsuarioIF>();
+		//usuariosCadastrados = new TreeMap<String, UsuarioIF>();
+		//sessoes = new TreeMap<String, UsuarioIF>();
 	}
 
 	@Override
 	public void encerrarSistema() {
-		System.exit(0);
+		//System.exit(0);
 	}
 	
 	@Override

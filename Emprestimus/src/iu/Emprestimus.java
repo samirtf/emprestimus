@@ -5,8 +5,10 @@ import java.util.List;
 import sistema.autenticacao.Autenticacao;
 import sistema.autenticacao.AutenticacaoIF;
 import sistema.item.Item;
+import sistema.persistencia.ItemRepositorio;
 import sistema.usuario.UsuarioIF;
 import sistema.utilitarios.Mensagem;
+import sistema.utilitarios.Validador;
 import sistema.utilitarios.ValidadorString;
 
 /**
@@ -107,17 +109,14 @@ public class Emprestimus implements EmprestimusIF {
 	 * @see iu.EmprestimusIF#getAtributoItem(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public String getAtributoItem(String idItem, String atributo) throws Exception {
-		ValidadorString.pegaCampoSemEspacos(Mensagem.ATRIBUTO_INVALIDO.getMensagem(), atributo);
-		atributo = atributo.toLowerCase();
-		if(atributo.equals("nome")){
-			return autenticacao.getItemComID(idItem).getNome();
-		} else if (atributo.equals("descricao")) {
-			return autenticacao.getItemComID(idItem).getDescricao();
-		} else if (atributo.equals("categoria")) {
-			return autenticacao.getItemComID(idItem).getCategoria();
-		}
-		return null;
+	public String getAtributoItem( String idItem, String atributo ) throws Exception {
+		Validador.testaNaoNulo(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		Validador.testaStringVazia(idItem.trim(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		atributo = atributo.toLowerCase().trim();
+		String str = ItemRepositorio.getAtributoItem(idItem, atributo);
+		System.out.println(str);
+		return str;
+		
 	}
 
 	/*
