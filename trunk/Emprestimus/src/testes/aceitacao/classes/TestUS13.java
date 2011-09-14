@@ -1,12 +1,14 @@
-package testes.aceitacao;
+package testes.aceitacao.classes;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
+import testes.aceitacao.fachadas.UserFacade13;
+
 import easyaccept.EasyAcceptFacade;
 
-public class TestUS08 {
+public class TestUS13 {
 
 	public static void main(String[] args) throws Exception {
 		
@@ -17,10 +19,10 @@ public class TestUS08 {
 	public static void run() {
 		
 		List<String> files = new ArrayList<String>();
-		String file1 = System.getProperty("user.dir") + "/src/testes/aceitacao/US08.txt";
+		String file1 = System.getProperty("user.dir") + "/src/testes/aceitacao/US13.txt";
 		files.add(file1);
 
-		UserFacade08 userFacade = new UserFacade08();
+		UserFacade13 userFacade = new UserFacade13();
 
 		EasyAcceptFacade eaFacade = new EasyAcceptFacade(userFacade, files);
 
