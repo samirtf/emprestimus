@@ -7,7 +7,7 @@ package sistema.item;
  * @version 1.2
  * @since 1.0
  */
-public interface ItemIF extends Comparable{
+public interface ItemIF extends Comparable<ItemIF>{
 	
 	/**
 	 * Recupera o id do item.
@@ -56,7 +56,7 @@ public interface ItemIF extends Comparable{
 	 * @throws Exception
 	 * 		Lanca uma excecao se o valor do id nao puder ser convertido para Long.
 	 */
-	public void setId( String id ) throws Exception;
+	public ItemIF setId( String id ) throws Exception;
 	
 	/**
 	 * Altera o nome do item.
@@ -130,6 +130,7 @@ public interface ItemIF extends Comparable{
 	/**
 	 * Compara os objetos por um ID.
 	 */
-	public int compareTo(Object obj);
+	@Override
+	public int compareTo(ItemIF item);
 	
 }

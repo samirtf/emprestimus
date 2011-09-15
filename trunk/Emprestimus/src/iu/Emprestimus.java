@@ -1,14 +1,15 @@
 package iu;
 
+import static sistema.utilitarios.Validador.assertNaoNulo;
+import static sistema.utilitarios.Validador.assertStringNaoVazia;
+import static sistema.utilitarios.Validador.asserteTrue;
+
 import java.util.List;
 
 import sistema.autenticacao.Autenticacao;
-import sistema.autenticacao.AutenticacaoIF;
-import sistema.item.Item;
 import sistema.persistencia.ItemRepositorio;
 import sistema.usuario.UsuarioIF;
 import sistema.utilitarios.Mensagem;
-import sistema.utilitarios.Validador;
 import sistema.utilitarios.ValidadorString;
 
 /**
@@ -94,10 +95,15 @@ public class Emprestimus implements EmprestimusIF {
 	@Override
 	public String cadastrarItem(String idSessao, String nome, String descricao,
 			String categoria) throws Exception {
-		if(idSessao == null || idSessao.trim().equals("")) throw new Exception("Sessão inválida");
-		if(!autenticacao.existeIdSessao(idSessao)) throw new Exception("Sessão inexistente");
-		if(nome == null || nome.trim().equals("")) throw new Exception("Nome inválido");
-		if(categoria == null || categoria.trim().equals("")) throw new Exception("Categoria inválida");
+		
+		assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		assertNaoNulo(nome, Mensagem.NOME_INVALIDO.getMensagem());
+		assertNaoNulo(categoria, Mensagem.CATEGORIA_INVALIDA.getMensagem());
+		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		assertStringNaoVazia(nome, Mensagem.NOME_INVALIDO.getMensagem());
+		assertStringNaoVazia(categoria, Mensagem.CATEGORIA_INVALIDA.getMensagem());
+		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
+		
 		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
 		
 		return usuario.cadastrarItem(nome, descricao, categoria);
@@ -110,8 +116,10 @@ public class Emprestimus implements EmprestimusIF {
 	 */
 	@Override
 	public String getAtributoItem( String idItem, String atributo ) throws Exception {
-		Validador.testaNaoNulo(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem());
-		Validador.testaStringVazia(idItem.trim(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		
+		assertNaoNulo(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		assertStringNaoVazia(idItem.trim(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		
 		atributo = atributo.toLowerCase().trim();
 		String str = ItemRepositorio.getAtributoItem(idItem, atributo);
 		System.out.println(str);
