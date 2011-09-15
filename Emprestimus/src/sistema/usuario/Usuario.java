@@ -8,8 +8,7 @@ import sistema.item.Item;
 import sistema.item.ItemIF;
 import sistema.persistencia.ItemRepositorio;
 import sistema.utilitarios.Mensagem;
-import sistema.utilitarios.Validador;
-import sistema.utilitarios.ValidadorString;
+import static sistema.utilitarios.Validador.*;
 
 /**
  * Esta classe representa um usuario padrao do sistema.
@@ -52,7 +51,7 @@ public class Usuario implements UsuarioIF {
 	 *            O endereco do usuario.
 	 */
 	public Usuario(String login, String nome, String endereco) throws Exception {
-		
+
 		// Estes métodos podem lançar exceção
 		setLogin(login);
 		setNome(nome);
@@ -62,27 +61,27 @@ public class Usuario implements UsuarioIF {
 	}
 
 	@Override
-	public void setLogin(String login) throws IllegalArgumentException {
-		Validador.testaNaoNulo(login, Mensagem.LOGIN_INVALIDO.getMensagem());
-		Validador.testaStringVazia(login.trim(), Mensagem.LOGIN_INVALIDO.getMensagem());
+	public void setLogin(String login) throws Exception {
+		assertNaoNulo(login, Mensagem.LOGIN_INVALIDO.getMensagem());
+		assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem());
 		this.login = login.trim();
 	}
 
 	@Override
-	public void setNome(String nome) throws IllegalArgumentException {
-		Validador.testaNaoNulo(nome, Mensagem.NOME_INVALIDO.getMensagem());
-		Validador.testaStringVazia(nome.trim(), Mensagem.NOME_INVALIDO.getMensagem());
+	public void setNome(String nome) throws Exception {
+		assertNaoNulo(nome, Mensagem.NOME_INVALIDO.getMensagem());
+		assertStringNaoVazia(nome, Mensagem.NOME_INVALIDO.getMensagem());
 		this.nome = nome.trim();
 	}
 
 	@Override
 	public void setEndereco(String endereco) {
-		if(endereco == null){
+		if (endereco == null) {
 			this.endereco = "";
-		}else{
+		} else {
 			this.endereco = endereco.trim();
 		}
-		
+
 	}
 
 	@Override
@@ -105,8 +104,10 @@ public class Usuario implements UsuarioIF {
 			throws Exception {
 		ItemIF item = new Item(nome, descricao, categoria);
 		ItemRepositorio.cadastrarItem(item);
-		itens.add(item);//o item eh modificdo pelo repositorio possuindo agora um id valido
-		return String.valueOf((Long.valueOf(ItemRepositorio.geraIdProxItem()) - 1)) ;
+		itens.add(item);// o item eh modificdo pelo repositorio possuindo agora
+						// um id valido
+		return String
+				.valueOf((Long.valueOf(ItemRepositorio.geraIdProxItem()) - 1));
 
 	}
 
@@ -131,18 +132,17 @@ public class Usuario implements UsuarioIF {
 
 		return listaIdItensString.toString().trim();
 	}
-	
+
 	/**
 	 * Recupera a lista detodos os itens do usuario.
 	 * 
-	 * @return
-	 * 	Lista de itens.
+	 * @return Lista de itens.
 	 */
 	@Override
 	public List<ItemIF> getItens() {
 		return this.itens;
 	}
-	
+
 	@Override
 	public ItemIF getItem(String idItem) {
 		for (ItemIF item : this.itens) {
@@ -155,8 +155,6 @@ public class Usuario implements UsuarioIF {
 	}
 
 	@Override
-	// FIXME Quantidade de itens totais, disponiveis ou emprestados? Ass.
-	// Joeffison
 	public int qntItens() {
 		return this.itens.size();
 	}
@@ -170,7 +168,6 @@ public class Usuario implements UsuarioIF {
 	public String getListaIdItensEmprestados() {
 		StringBuilder listaIdItensEmprestadosString = new StringBuilder();
 
-		// FIXME: confirmar formato da string. Nathaniel concorda!
 		for (ItemIF itensEmprestados : this.itens_emprestados) {
 			listaIdItensEmprestadosString
 					.append(itensEmprestados.getId() + " ");
@@ -208,9 +205,10 @@ public class Usuario implements UsuarioIF {
 	}
 
 	@Override
-	public boolean equals(Object outroUsuario) { 
-		if(outroUsuario instanceof UsuarioIF ){
-			return this.getLogin().equals(((UsuarioIF) outroUsuario).getLogin());
+	public boolean equals(Object outroUsuario) {
+		if (outroUsuario instanceof UsuarioIF) {
+			return this.getLogin()
+					.equals(((UsuarioIF) outroUsuario).getLogin());
 		}
 		return false;
 	}
@@ -218,13 +216,11 @@ public class Usuario implements UsuarioIF {
 	@Override
 	public boolean existeItemID(String idItem) {
 		try {
-			ItemIF item = new Item("placebo", "placebo", "FILME");
-			item.setId(idItem);
-			return itens.contains(item);
-		} catch (Exception e) {}//nao lanca excecao.
+			return itens.contains(new Item("placebo", "placebo", "FILME").setId(idItem));
+		} catch (Exception e) {
+		}// nao lanca excecao.
 		return false;
-		
-	}
 
+	}
 
 }

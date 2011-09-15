@@ -88,7 +88,9 @@ public enum Mensagem {
 	ATRIBUTO_INVALIDO("Atributo inválido"),
 	ATRIBUTO_INEXISTENTE("Atributo inexistente"),
 	PALAVRA_CHAVE_INVALIDA("Palavra-chave inválida"),
-	PALAVRA_CHAVE_INEXISTENTE("Nenhum usuário encontrado");
+	PALAVRA_CHAVE_INEXISTENTE("Nenhum usuário encontrado"),
+	SESSAO_INVALIDA("Sessão inválida"),
+	SESSAO_INEXISTENTE("Sessão inexistente");
 	
 	private final String mensagem;
 

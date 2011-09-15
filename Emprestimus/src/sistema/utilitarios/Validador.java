@@ -1,5 +1,7 @@
 package sistema.utilitarios;
 
+import sistema.excecoes.ArgumentoInvalidoException;
+
 /**
  * Classe usada para lançar exceção em alguns casos, quando se deseja testar
  * algo.
@@ -11,54 +13,46 @@ package sistema.utilitarios;
 public class Validador {
 
 	/**
-	 * Testa se um dado objeto é nullo, passando-se uma exceção para ser lançada
-	 * 
-	 * @param obj
-	 * @param t
-	 */
-	public static void testaNaoNulo(Object obj, Throwable t) {
-		if (obj == null) {
-			throw new IllegalArgumentException(t);
-		}
-	}
-
-	/**
 	 * Testa se um dado objeto é nullo, passando-se uma mensagem de erro, que
-	 * será acoplada a uma IllegalArgumentException
+	 * será acoplada a uma ArgumentoInvalidoException
 	 * 
 	 * @param obj
 	 * @param mensagem
+	 * @throws ArgumentoInvalidoException
 	 */
-	public static void testaNaoNulo(Object obj, String mensagem) {
-		if (obj == null) {
-			throw new IllegalArgumentException(mensagem);
-		}
+	public static void assertNaoNulo(Object obj, String mensagem)
+			throws ArgumentoInvalidoException {
+		if (obj == null)
+			throw new ArgumentoInvalidoException(mensagem);
 	}
 
 	/**
-	 * Testa se uma dada String é vazia, passando-se uma exceção para ser
-	 * lançada.
+	 * Testa se uma dada String é vazia ou se é formada apenas por espaços,
+	 * passando-se uma mensagem de erro, que será acoplada a uma
+	 * ArgumentoInvalidoException
 	 * 
-	 * @param s
-	 * @param t
-	 */
-	public static void testaStringVazia(String s, Throwable t) {
-		if (s.trim().equals("")) {
-			throw new IllegalArgumentException(t);
-		}
-	}
-
-	/**
-	 * Testa se uma dada String é vazia, passando-se uma mensagem de erro, que
-	 * será acoplada a uma IllegalArgumentException
-	 * 
-	 * @param s
+	 * @param str
 	 * @param mensagem
+	 * @throws ArgumentoInvalidoException
 	 */
-	public static void testaStringVazia(String s, String mensagem) {
-		if (s.trim().equals("")) {
-			throw new IllegalArgumentException(mensagem);
-		}
+	public static void assertStringNaoVazia(String str, String mensagem)
+			throws ArgumentoInvalidoException {
+		if (str.trim().equals(""))
+			throw new ArgumentoInvalidoException(mensagem);
+	}
+
+	/**
+	 * Testa se um valor é verdadeiro. Caso seja falso lança uma
+	 * ArgumentoInvalidoException.
+	 * 
+	 * @param bool
+	 * @param mensagem
+	 * @throws ArgumentoInvalidoException
+	 */
+	public static void asserteTrue(boolean bool, String mensagem)
+			throws ArgumentoInvalidoException {
+		if (!bool)
+			throw new ArgumentoInvalidoException(mensagem);
 	}
 
 }
