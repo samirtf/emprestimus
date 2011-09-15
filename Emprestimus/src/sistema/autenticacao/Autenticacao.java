@@ -1,176 +1,209 @@
 package sistema.autenticacao;
 
-import iu.Emprestimus;
-
 import java.lang.reflect.Field;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
+import java.util.logging.Logger;
 
-import sistema.item.Item;
 import sistema.item.ItemIF;
 import sistema.usuario.Usuario;
 import sistema.usuario.UsuarioIF;
+import sistema.utilitarios.Log;
 import sistema.utilitarios.Mensagem;
+import static sistema.utilitarios.Validador.*;
 import sistema.utilitarios.ValidadorString;
 
-public class Autenticacao implements AutenticacaoIF{
-	
+public class Autenticacao implements AutenticacaoIF {
+
+	Logger logger = Log.getLogger();
 	private static Autenticacao autenticacao;
-	
+
 	// Mapa dos usuarios cadastrados no sistema
 	private Map<String, UsuarioIF> usuariosCadastrados = new TreeMap<String, UsuarioIF>();
-	
+
 	// Mapa das sessoes de usuarios logados no sistema
 	private Map<String, UsuarioIF> sessoes = new TreeMap<String, UsuarioIF>();
-	private final int qntMaxSessoes = Integer.MAX_VALUE - 1024; // Quantidade maxima de sessoes.
-	
-	private Autenticacao(){
+	private final int qntMaxSessoes = Integer.MAX_VALUE - 1024; // Quantidade
+																// maxima de
+																// sessoes.
+
+	private Autenticacao() {
+		logger.info("Criando nova autenticação...");
+
 		usuariosCadastrados = new TreeMap<String, UsuarioIF>();
 		sessoes = new TreeMap<String, UsuarioIF>();
 	}
-	
+
 	public static Autenticacao getInstance() {
 		if (autenticacao == null) {
 			autenticacao = new Autenticacao();
-			
+
 			return autenticacao;
 		}
 		return autenticacao;
 	}
-	
 
 	@Override
 	public void zerarSistema() {
-		//FIXME implemente isto;
-		//usuariosCadastrados = new TreeMap<String, UsuarioIF>();
-		//sessoes = new TreeMap<String, UsuarioIF>();
+		logger.info("Zerando o sistema...");
+		// FIXME implemente isto;
+		// usuariosCadastrados = new TreeMap<String, UsuarioIF>();
+		// sessoes = new TreeMap<String, UsuarioIF>();
 	}
 
 	@Override
 	public void encerrarSistema() {
-		//System.exit(0);
+		logger.info("Encerrando o sistema...");
+		// System.exit(0);
 	}
-	
+
 	@Override
 	public ItemIF getItemComID(String id) throws Exception {
-		ValidadorString.pegaCampoSemEspacos(Mensagem.ID_ITEM_INVALIDO.getMensagem(), id);
+		logger.info("Procurando item com a ID " + id);
+		ValidadorString.pegaCampoSemEspacos(
+				Mensagem.ID_ITEM_INVALIDO.getMensagem(), id);
 		for (UsuarioIF usuario : usuariosCadastrados.values()) {
+			logger.info(" => Usuario: " + usuario.getLogin());
 			try {
-				for(ItemIF item : usuario.getItens()) {
+				for (ItemIF item : usuario.getItens()) {
+					logger.info("Item: " + item.getNome() + "ID: "
+							+ item.getId());
 					if (item.getId().equals(id)) {
 						return item;
 					}
 				}
-			} catch (Exception e) {} // Descartando possiveis excecoes que nao precisam ser capturadas.
+			} catch (Exception e) {
+				logger.severe(e.getMessage());
+			} // Descartando possiveis excecoes que nao precisam ser capturadas.
 		}
 		throw new Exception(Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
 	}
-	
+
 	@Override
-	public void criarUsuario(String login, String nome, String endereco) throws Exception {
+	public void criarUsuario(String login, String nome, String endereco)
+			throws Exception {
+		logger.info(String
+				.format("Criando usuario com login = \"%s\", nome = \"%s\" e endereço = \"%s\"",
+						login, nome, endereco));
+
 		UsuarioIF novoUsuario = new Usuario(login, nome, endereco);
-		if(usuariosCadastrados.containsKey(login.trim())) throw new Exception(Mensagem.LOGIN_JAH_CADASTRADO.getMensagem());
+		if (usuariosCadastrados.containsKey(login.trim())) {
+			logger.warning(Mensagem.LOGIN_JAH_CADASTRADO.getMensagem() + "\n"
+					+ novoUsuario + "\n"
+					+ usuariosCadastrados.get(login.trim()).toString());
+			throw new Exception(Mensagem.LOGIN_JAH_CADASTRADO.getMensagem());
+		}
 		usuariosCadastrados.put(login, novoUsuario);
 	}
 
-	
 	@Override
 	public String abrirSessao(String login) throws Exception {
+		logger.info("Abrindo nova seção com o login: " + login);
 
-		if( login == null || login.trim().equals("")) throw new Exception("Login inválido");
-		if(!existeUsuario(login)) throw new Exception("Usuário inexistente");
+		if (login == null || login.trim().equals(""))
+			throw new Exception("Login inválido");
+		if (!existeUsuario(login))
+			throw new Exception("Usuário inexistente");
 		String idSessao = gerarIdSessao();
-		while(existeIdSessao(idSessao)){
+		while (existeIdSessao(idSessao)) {
 			idSessao = gerarIdSessao();
 		}
 		sessoes.put(idSessao, getUsuario(login));
-		return idSessao;
 		
+		logger.info("Seção aberta com sucesso. idSeção: " + idSessao);
+		return idSessao;
+
 	}
 
 	@Override
-	public String getAtributoUsuario(String login, String atributo) throws Exception{
-		
-		if( login == null || login.trim().equals("")) throw new Exception("Login inválido");
-		if(!existeUsuario(login)) throw new Exception("Usuário inexistente");
-		if( atributo == null || atributo.trim().equals("")) throw new Exception("Atributo inválido");
-		//FIXME ValidadorString.validaString lança nullPointerException
-		//if(!ValidadorString.validaString(atributo).equals(Mensagem.OK.getMensagem())) throw new Exception("Atributo inválido");
-		
+	public String getAtributoUsuario(String login, String atributo)
+			throws Exception {
+		logger.info("Pegando atributo do usuário. login: " + login + " atributo: " + atributo);
+
+		assertNaoNulo(login, Mensagem.LOGIN_INVALIDO.getMensagem());
+		assertNaoNulo(atributo, Mensagem.ATRIBUTO_INVALIDO.getMensagem());
+		assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem());
+		assertStringNaoVazia(atributo, Mensagem.ATRIBUTO_INVALIDO.getMensagem());
+		asserteTrue(existeUsuario(login), Mensagem.USUARIO_INEXISTENTE.getMensagem());
+
 		UsuarioIF usuario = getUsuario(login);
 		String valor = null;
-		for( Field f : usuario.getClass().getDeclaredFields()){
-			if(f.getName().equals(atributo)){
+		for (Field f : usuario.getClass().getDeclaredFields()) {
+			logger.info("Field: " + f + " nome: " + f.getName());
+			if (f.getName().equals(atributo)) {
 				f.setAccessible(true);
-				valor = (f.get((Usuario)usuario)).toString();
+				valor = (f.get((Usuario) usuario)).toString();
 			}
 		}
-		if(valor == null) throw new Exception("Atributo inexistente");
-		
+		if (valor == null) {
+			logger.warning(Mensagem.ATRIBUTO_INEXISTENTE.getMensagem());
+			throw new Exception(Mensagem.ATRIBUTO_INEXISTENTE.getMensagem());
+		}
+
 		return valor;
 	}
-	
+
 	/**
 	 * Verifica se existe usuario cadastrado.
+	 * 
 	 * @param login
-	 * 		O login do usuario.
-	 * @return
-	 * 		True - Se o usuario ja estiver cadastrado.
-	 * 		False - Caso contrario.
+	 *            O login do usuario.
+	 * @return True - Se o usuario ja estiver cadastrado. False - Caso
+	 *         contrario.
 	 */
-	private boolean existeUsuario( String login ){
+	private boolean existeUsuario(String login) {
 		return usuariosCadastrados.containsKey(login);
 	}
-	
-	private UsuarioIF getUsuario( String login ) throws Exception{
+
+	private UsuarioIF getUsuario(String login) throws Exception {
 		return usuariosCadastrados.get(login);
 	}
-	
+
 	@Override
 	public UsuarioIF getUsuarioPeloIDSessao(String idSessao) throws Exception {
-		if( idSessao == null || idSessao.trim().equals("")) throw new Exception("Sessão inválida");
-		if(!existeIdSessao(idSessao)) throw new Exception("Sessão inexistente");
+		logger.info("Pegando usuario pela idSessão. idSessão: " + idSessao);
+		
+		assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		asserteTrue(existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
+		
+		logger.info("Usuario: " + sessoes.get(idSessao));
 		return sessoes.get(idSessao);
 	}
-	
+
 	/**
 	 * Gera um idSessao.
-	 * @return
-	 * 		Um idSessao.
+	 * 
+	 * @return Um idSessao.
 	 */
-	private String gerarIdSessao(){
+	private String gerarIdSessao() {
+		logger.info("Gerando uma idSessão");
+		
 		Random rd = new Random();
 		return String.valueOf((rd.nextInt(Integer.MAX_VALUE - 1024 - 1) + 1));
 	}
-	
+
 	/**
 	 * Verifica se um idSessao ja existe.
+	 * 
 	 * @param idSessao
-	 * 		Um idSessao.
-	 * @return
-	 * 		True - Se existir o idSessao.
-	 * 		False - Se nao existir.
+	 *            Um idSessao.
+	 * @return True - Se existir o idSessao. False - Se nao existir.
 	 */
-	public boolean existeIdSessao(String idSessao){
+	public boolean existeIdSessao(String idSessao) {
 		return sessoes.containsKey(idSessao);
-	}
-	
-	
-	public static void main( String[] args) throws Exception{
-		Autenticacao aut = new Autenticacao();
-		
-		aut.criarUsuario("samirtf", "Samir", "meuEndereco");
-		
-		aut.getAtributoUsuario("samirtf", "login");
 	}
 
 	@Override
 	public List<UsuarioIF> getUsuarioNome(String nome) {
+		logger.info("Pegando usuario pelo nome. Nome: " + nome);
+		
 		List<UsuarioIF> usuarios = new LinkedList<UsuarioIF>();
-		for(UsuarioIF user : usuariosCadastrados.values()) {
+		for (UsuarioIF user : usuariosCadastrados.values()) {
+			logger.info(" -Usuario: " + user.getNome());
 			if (user.getNome().contains(nome)) {
 				usuarios.add(user);
 			}
@@ -180,16 +213,15 @@ public class Autenticacao implements AutenticacaoIF{
 
 	@Override
 	public List<UsuarioIF> getUsuarioEndereco(String endereco) {
+		logger.info("Pegando usuario pelo endereço. Endereço: " + endereco);
 		List<UsuarioIF> usuarios = new LinkedList<UsuarioIF>();
-		for(UsuarioIF user : usuariosCadastrados.values()) {
+		for (UsuarioIF user : usuariosCadastrados.values()) {
+			logger.info(" -Endereço: " + user.getEndereco());
 			if (user.getEndereco().contains(endereco)) {
 				usuarios.add(user);
 			}
 		}
 		return usuarios;
 	}
-
-	
-	
 
 }
