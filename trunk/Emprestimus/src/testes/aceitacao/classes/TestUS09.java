@@ -19,7 +19,7 @@ public class TestUS09 {
 	public static void run() {
 		
 		List<String> files = new ArrayList<String>();
-		String file1 = System.getProperty("user.dir") + "/src/testes/aceitacao/US09.txt";
+		String file1 = System.getProperty("user.dir") + TestUS01.SCRIPTS_PATH + "US09.txt";
 		files.add(file1);
 
 		UserFacade09 userFacade = new UserFacade09();
