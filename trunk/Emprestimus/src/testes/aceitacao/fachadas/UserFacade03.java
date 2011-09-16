@@ -58,6 +58,10 @@ public class UserFacade03 {
 		return sistema.getAtributoUsuario(login, atributo);
 	}
 	
+	public String localizarUsuario(String idSessao, String chave, String atributo) throws Exception {
+		return sistema.localizarUsuario(idSessao, chave, atributo);
+	}
+	
 	public String cadastrarItem(String idSessao, String nome, String descricao,
 			String categoria) throws Exception {
 		

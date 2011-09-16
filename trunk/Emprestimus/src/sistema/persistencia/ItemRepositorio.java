@@ -38,7 +38,7 @@ public class ItemRepositorio {
 		} catch (Exception e) {
 			throw new Exception(Mensagem.ID_ITEM_INVALIDO.getMensagem());
 		}*/
-		ItemIF item = itensCadastrados.get(idItem);
+		ItemIF item = itensCadastrados.get(Long.parseLong(idItem));
 		/*if (item == null)
 			throw new Exception(Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
 		*/
@@ -47,7 +47,6 @@ public class ItemRepositorio {
 
 	public static String getAtributoItem(String idItem, String atributo)
 			throws Exception {
-		System.out.println(ItemRepositorio.qntItens());
 		ItemIF item = recuperarItem(idItem);
 
 		String valor = null;

@@ -51,4 +51,9 @@ public enum ItemCategoria {
 		return this.nome;
 	}
 	
+	@Override
+	public String toString() {
+		return getNome();
+	}
+	
 }
