@@ -65,6 +65,12 @@ public class UserFacade02 {
 		
 	}
 	
+	public String getAtributoItem(String idItem, String atributo) throws Exception {
+		return sistema.getAtributoItem(idItem, atributo);
+		
+		
+	}
+	
 	/**
 	 * Metodo que zera o Sistema.
 	 * 

@@ -122,7 +122,6 @@ public class Emprestimus implements EmprestimusIF {
 		
 		atributo = atributo.toLowerCase().trim();
 		String str = ItemRepositorio.getAtributoItem(idItem, atributo);
-		System.out.println(str);
 		return str;
 		
 	}
@@ -148,17 +147,16 @@ public class Emprestimus implements EmprestimusIF {
 		} else {
 			throw new Exception(Mensagem.ATRIBUTO_INEXISTENTE.getMensagem());
 		}
-		if (users.size() == 0) {
-			throw new Exception(Mensagem.PALAVRA_CHAVE_INEXISTENTE.getMensagem());
-		}
 		String saida ="";
 		for (int i = 0; i<users.size(); i++) {
-			saida += users.get(i).getNome() + ", " + users.get(i).getEndereco();
+			saida += users.get(i).getNome() + " - " + users.get(i).getEndereco();
 			if(i != users.size() -1) {
 				saida += "; ";
 			}
 		}
-		return null;
+		if (saida.trim().equals(""))
+			saida = Mensagem.PALAVRA_CHAVE_INEXISTENTE.getMensagem();
+		return saida;
 	}
 
 	/*
