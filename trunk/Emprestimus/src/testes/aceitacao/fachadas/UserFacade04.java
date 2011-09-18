@@ -26,19 +26,19 @@ public class UserFacade04 extends UserFacade03{
 		return sistema.abrirSessao(login);
 	}
 	
-	public String getRequisicoesDeAmizade(String idSessao) {
+	public String getRequisicoesDeAmizade(String idSessao) throws Exception {
 		return sistema.getRequisicoesDeAmizade(idSessao);
 	}
 	
-	public void requisitarAmizade(String idSessao, String login) {
+	public void requisitarAmizade(String idSessao, String login) throws Exception {
 		sistema.requisitarAmizade(idSessao, login);
 	}
 	
-	public String ehAmigo(String idSessao, String login) {
+	public String ehAmigo(String idSessao, String login) throws Exception{
 		return sistema.ehAmigo(idSessao, login);
 	}
 	
-	public void aprovarAmizade(String idSessao, String login) {
+	public void aprovarAmizade(String idSessao, String login) throws Exception{
 		sistema.aprovarAmizade(idSessao, login);
 	}
 	

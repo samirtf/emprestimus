@@ -29,7 +29,7 @@ public interface EmprestimusIF {
 	
 	public void aprovarAmizade( String idSessao, String login ) throws Exception;
 	
-	public String ehAmigo (String idSessao, String login );
+	public String ehAmigo (String idSessao, String login ) throws Exception;
 	
 	//US05
 	public String getAmigos( String idSessao );

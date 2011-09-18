@@ -183,7 +183,7 @@ public class Emprestimus implements EmprestimusIF {
 		Validador.assertStringNaoVazia(idSessao.trim(), Mensagem.SESSAO_INVALIDA.getMensagem());
 		Validador.assertNaoNulo(login, Mensagem.LOGIN_INVALIDO.getMensagem());
 		Validador.assertStringNaoVazia(login.trim(), Mensagem.LOGIN_INVALIDO.getMensagem());
-		Validador.asserteTrue(autenticacao.existeUsuario(login), Mensagem.USUARIO_INEXISTENTE.getMensagem());
+		Validador.asserteTrue(Autenticacao.existeUsuario(login), Mensagem.USUARIO_INEXISTENTE.getMensagem());
 		
 		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
 		usuario.requisitarAmizade(login);
@@ -227,6 +227,11 @@ public class Emprestimus implements EmprestimusIF {
 		Validador.assertStringNaoVazia(idSessao.trim(), Mensagem.SESSAO_INVALIDA.getMensagem());
 		Validador.assertNaoNulo(login, Mensagem.LOGIN_INVALIDO.getMensagem());
 		Validador.assertStringNaoVazia(login.trim(), Mensagem.LOGIN_INVALIDO.getMensagem());
+		Validador.asserteTrue(Autenticacao.existeUsuario(login.trim()), Mensagem.USUARIO_INEXISTENTE.getMensagem());
+		
+		UsuarioIF usuario = Autenticacao.getUsuarioPorLogin(login.trim());
+		usuario.aprovarAmizade(login);
+		
 	}
 
 	/*
@@ -235,9 +240,19 @@ public class Emprestimus implements EmprestimusIF {
 	 * @see iu.EmprestimusIF#ehAmigo(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public String ehAmigo(String idSessao, String login) {
-		// TODO Auto-generated method stub
-		return null;
+	public String ehAmigo(String idSessao, String login) throws Exception {
+		Validador.assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		Validador.assertStringNaoVazia(idSessao.trim(), Mensagem.SESSAO_INVALIDA.getMensagem());
+		Validador.assertNaoNulo(login, Mensagem.LOGIN_INVALIDO.getMensagem());
+		Validador.assertStringNaoVazia(login.trim(), Mensagem.LOGIN_INVALIDO.getMensagem());
+		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
+		asserteTrue(Autenticacao.existeUsuario(login.trim()), Mensagem.USUARIO_INEXISTENTE.getMensagem());
+		
+		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
+		if(usuario.ehAmigo(login)){
+			return "true";
+		}return "false";
+				
 	}
 
 	/*
