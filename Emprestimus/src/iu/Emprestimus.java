@@ -144,10 +144,16 @@ public class Emprestimus implements EmprestimusIF {
 		ValidadorString.pegaString(Mensagem.ATRIBUTO_INVALIDO.getMensagem(), atributo);
 		atributo = atributo.toLowerCase();
 		List<UsuarioIF> users;
+		UsuarioIF eu = autenticacao.getUsuarioPeloIDSessao(idSessao);
 		if(atributo.equals("nome")) {
+//			if( autenticacao.getUsuarioPeloIDSessao(idSessao).getNome().toLowerCase().contains(chave.toLowerCase()) ){
+//				return Mensagem.PALAVRA_CHAVE_INEXISTENTE.getMensagem();
+//			}
 			users = autenticacao.getUsuarioNome(chave);
+			if(users.contains(eu)) users.remove(eu);
 		} else if(atributo.equals("endereco")) {
-			users = autenticacao.getUsuarioNome(chave);
+			users = autenticacao.getUsuarioEndereco(chave);
+			if(users.contains(eu)) users.remove(eu);
 		} else {
 			throw new Exception(Mensagem.ATRIBUTO_INEXISTENTE.getMensagem());
 		}
