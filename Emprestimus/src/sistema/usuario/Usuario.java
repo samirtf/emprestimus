@@ -2,6 +2,7 @@ package sistema.usuario;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import sistema.autenticacao.Autenticacao;
@@ -211,17 +212,23 @@ public class Usuario implements UsuarioIF {
 		}
 	}
 	
-	public void aprovarAmizade( String login ){
-		for( UsuarioIF u : queremSerMeusAmigos ){
+	public synchronized void aprovarAmizade( String login ){
+		Iterator<UsuarioIF> iterador = queremSerMeusAmigos.iterator();
+		UsuarioIF u = null;
+		while(iterador.hasNext()){
+			u = iterador.next();
 			if(u.getLogin().trim().equalsIgnoreCase(login.trim())){
 				u.aprovouAmizade(this);
+				amigos.add(u);
+				//queremSerMeusAmigos.remove(u);
+				iterador.remove();
 			}
-			amigos.add(u);
-			queremSerMeusAmigos.remove(u);
+			
 		}
+		
 	}
 	
-	public void aprovouAmizade( UsuarioIF usuario ){
+	public synchronized void aprovouAmizade( UsuarioIF usuario ){
 		if(queroSerAmigoDeles.contains(usuario)){
 			queroSerAmigoDeles.remove(usuario);
 			amigos.add(usuario);
@@ -249,10 +256,18 @@ public class Usuario implements UsuarioIF {
 		return false;
 	}
 	
-	public void requisitarAmizade( String login ) throws ArgumentoInvalidoException{
+	public synchronized void requisitarAmizade( String login ) throws Exception{
 		for( UsuarioIF u : getQueroSerAmigoDe() ){
-			if(u.getLogin().trim().equalsIgnoreCase(login.trim())) return;
+			System.out.println("LOGIN: "+u.getLogin()+"outrologin: "+login);
+			System.out.println(u.getLogin().trim().equalsIgnoreCase(login.trim()));
+			if(u.getLogin().trim().equalsIgnoreCase(login.trim())){
+				System.out.println("opa");
+				throw new Exception();
+				
+			}
+				
 		}
+		System.out.println("NO EXCECAO");
 		UsuarioIF futuroAmigo = Autenticacao.getUsuarioPorLogin(login);
 		if( Autenticacao.existeUsuario(login.trim()) ){
 			queroSerAmigoDeles.add(futuroAmigo);

@@ -183,6 +183,7 @@ public class Emprestimus implements EmprestimusIF {
 		Validador.assertStringNaoVazia(idSessao.trim(), Mensagem.SESSAO_INVALIDA.getMensagem());
 		Validador.assertNaoNulo(login, Mensagem.LOGIN_INVALIDO.getMensagem());
 		Validador.assertStringNaoVazia(login.trim(), Mensagem.LOGIN_INVALIDO.getMensagem());
+		Validador.asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
 		Validador.asserteTrue(Autenticacao.existeUsuario(login), Mensagem.USUARIO_INEXISTENTE.getMensagem());
 		
 		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
@@ -222,14 +223,14 @@ public class Emprestimus implements EmprestimusIF {
 	 * @see iu.EmprestimusIF#aprovarAmizade(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public void aprovarAmizade(String idSessao, String login) throws ArgumentoInvalidoException {
+	public void aprovarAmizade(String idSessao, String login) throws Exception {
 		Validador.assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
 		Validador.assertStringNaoVazia(idSessao.trim(), Mensagem.SESSAO_INVALIDA.getMensagem());
 		Validador.assertNaoNulo(login, Mensagem.LOGIN_INVALIDO.getMensagem());
 		Validador.assertStringNaoVazia(login.trim(), Mensagem.LOGIN_INVALIDO.getMensagem());
 		Validador.asserteTrue(Autenticacao.existeUsuario(login.trim()), Mensagem.USUARIO_INEXISTENTE.getMensagem());
 		
-		UsuarioIF usuario = Autenticacao.getUsuarioPorLogin(login.trim());
+		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
 		usuario.aprovarAmizade(login);
 		
 	}
