@@ -10,6 +10,7 @@ import sistema.item.Item;
 import sistema.item.ItemIF;
 import sistema.persistencia.ItemRepositorio;
 import sistema.utilitarios.Mensagem;
+import sistema.utilitarios.Validador;
 import static sistema.utilitarios.Validador.*;
 
 /**
@@ -61,6 +62,7 @@ public class Usuario implements UsuarioIF {
 		setEndereco(endereco);
 
 		itens = new ArrayList<ItemIF>();
+		amigos = new ArrayList<UsuarioIF>();
 		queremSerMeusAmigos = new ArrayList<UsuarioIF>();
 		queroSerAmigoDeles = new ArrayList<UsuarioIF>();
 	}
@@ -209,6 +211,24 @@ public class Usuario implements UsuarioIF {
 		}
 	}
 	
+	public void aprovarAmizade( String login ){
+		for( UsuarioIF u : queremSerMeusAmigos ){
+			if(u.getLogin().trim().equalsIgnoreCase(login.trim())){
+				u.aprovouAmizade(this);
+			}
+			amigos.add(u);
+			queremSerMeusAmigos.remove(u);
+		}
+	}
+	
+	public void aprovouAmizade( UsuarioIF usuario ){
+		if(queroSerAmigoDeles.contains(usuario)){
+			queroSerAmigoDeles.remove(usuario);
+			amigos.add(usuario);
+		}
+		
+	}
+	
 	@Override
 	public List<UsuarioIF> getQueremSerMeusAmigos(){
 		return this.queremSerMeusAmigos;
@@ -217,6 +237,16 @@ public class Usuario implements UsuarioIF {
 	@Override
 	public List<UsuarioIF> getQueroSerAmigoDe(){
 		return this.queroSerAmigoDeles;
+	}
+	
+	public boolean ehAmigo( String login ) throws ArgumentoInvalidoException{
+		Validador.assertNaoNulo(login, Mensagem.LOGIN_INVALIDO.getMensagem());
+		Validador.assertStringNaoVazia(login.trim(), Mensagem.LOGIN_INVALIDO.getMensagem());
+		for( UsuarioIF u : amigos ){
+			if ( u.getLogin().trim().equalsIgnoreCase(login.trim()) ) 
+			return true;
+		}
+		return false;
 	}
 	
 	public void requisitarAmizade( String login ) throws ArgumentoInvalidoException{
@@ -255,5 +285,6 @@ public class Usuario implements UsuarioIF {
 		return false;
 
 	}
+
 
 }

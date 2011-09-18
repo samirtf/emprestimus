@@ -184,6 +184,8 @@ public interface UsuarioIF {
 	
 	public void requisitarAmizade( String login ) throws Exception;
 	
+	public boolean ehAmigo( String login ) throws ArgumentoInvalidoException;
+	
 	public List<UsuarioIF> getQueremSerMeusAmigos();
 	
 	
@@ -203,5 +205,9 @@ public interface UsuarioIF {
 	public boolean equals(Object outroUsuario);
 
 	public List<ItemIF> getItens();
+
+	public void aprovarAmizade(String login);
+
+	public void aprovouAmizade(UsuarioIF usuario);
 
 }
