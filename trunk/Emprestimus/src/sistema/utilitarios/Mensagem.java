@@ -90,6 +90,7 @@ public enum Mensagem {
 	PALAVRA_CHAVE_INVALIDA("Palavra-chave inválida"),
 	PALAVRA_CHAVE_INEXISTENTE("Nenhum usuário encontrado"),
 	NENHUM_USUARIO_EXISTENTE("Nenhum usuário existente"),
+	NAO_HA_REQUISICOES("Não há requisições"),
 	SESSAO_INVALIDA("Sessão inválida"),
 	SESSAO_INEXISTENTE("Sessão inexistente"),
 	USUARIO_INEXISTENTE("Usuário inexistente");

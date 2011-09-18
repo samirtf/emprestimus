@@ -23,11 +23,11 @@ public interface EmprestimusIF {
 	public String localizarUsuario( String idSessao, String chave, String atributo ) throws Exception;
 	
 	//US04
-	public void requisitarAmizade( String idSessao, String login );
+	public void requisitarAmizade( String idSessao, String login ) throws Exception;
 	
-	public String getRequisicoesDeAmizade( String idSessao );
+	public String getRequisicoesDeAmizade( String idSessao ) throws Exception;
 	
-	public void aprovarAmizade( String idSessao, String login );
+	public void aprovarAmizade( String idSessao, String login ) throws Exception;
 	
 	public String ehAmigo (String idSessao, String login );
 	

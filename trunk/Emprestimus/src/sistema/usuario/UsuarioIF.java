@@ -179,6 +179,15 @@ public interface UsuarioIF {
 	 *         existir ou se estiver emprestado.
 	 */
 	public boolean estahItemDisponivel(String idItem);
+	
+	public void usuarioQuerSerMeuAmigo( UsuarioIF usuario );
+	
+	public void requisitarAmizade( String login ) throws Exception;
+	
+	public List<UsuarioIF> getQueremSerMeusAmigos();
+	
+	
+	public List<UsuarioIF> getQueroSerAmigoDe();
 
 	/**
 	 * Verifica se dois Usuarios sao iguais. A verificacao eh feita a nivel de
