@@ -100,6 +100,8 @@ public interface UsuarioIF {
 	 *         Retorna-se uma string vazia caso nao haja elementos.
 	 */
 	public String getListaIdItens();
+	
+	public String getListaItens() throws Exception;
 
 	/**
 	 * Recupera o ItemIF a partir do idItem.
@@ -206,6 +208,8 @@ public interface UsuarioIF {
 	public boolean equals(Object outroUsuario);
 
 	public List<ItemIF> getItens();
+	
+	public String getAmigos() throws Exception;
 
 	public void aprovarAmizade(String login) throws Exception;
 

@@ -263,9 +263,12 @@ public class Emprestimus implements EmprestimusIF {
 	 * @see iu.EmprestimusIF#getAmigos(java.lang.String)
 	 */
 	@Override
-	public String getAmigos(String idSessao) {
-		// TODO Auto-generated method stub
-		return null;
+	public String getAmigos(String idSessao) throws Exception {
+		Validador.assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		Validador.assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		Validador.asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
+		
+		return autenticacao.getUsuarioPeloIDSessao(idSessao).getAmigos();
 	}
 
 	/*
@@ -274,9 +277,15 @@ public class Emprestimus implements EmprestimusIF {
 	 * @see iu.EmprestimusIF#getAmigos(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public String getAmigos(String idSessao, String login) {
-		// TODO Auto-generated method stub
-		return null;
+	public String getAmigos(String idSessao, String login) throws Exception {
+		Validador.assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		Validador.assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		Validador.asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
+		Validador.assertNaoNulo(login, Mensagem.LOGIN_INVALIDO.getMensagem());
+		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem());
+		Validador.asserteTrue(autenticacao.existeUsuario(login), Mensagem.USUARIO_INEXISTENTE.getMensagem());
+		
+		return Autenticacao.getUsuarioPorLogin(login).getAmigos();
 	}
 
 	/*
@@ -285,9 +294,12 @@ public class Emprestimus implements EmprestimusIF {
 	 * @see iu.EmprestimusIF#getItens(java.lang.String)
 	 */
 	@Override
-	public String getItens(String idSessao) {
-		// TODO Auto-generated method stub
-		return null;
+	public String getItens(String idSessao) throws Exception{
+		Validador.assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		Validador.assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		Validador.asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
+		
+		return autenticacao.getUsuarioPeloIDSessao(idSessao).getListaItens();
 	}
 
 	/*
@@ -296,9 +308,17 @@ public class Emprestimus implements EmprestimusIF {
 	 * @see iu.EmprestimusIF#getItens(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public String getItens(String idSessao, String login) {
-		// TODO Auto-generated method stub
-		return null;
+	public String getItens(String idSessao, String login) throws Exception {
+		Validador.assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		Validador.assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		Validador.asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
+		Validador.assertNaoNulo(login, Mensagem.LOGIN_INVALIDO.getMensagem());
+		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem());
+		Validador.asserteTrue(autenticacao.existeUsuario(login), Mensagem.USUARIO_INEXISTENTE.getMensagem());
+		Validador.asserteTrue(autenticacao.getUsuarioPeloIDSessao(idSessao).ehAmigo(login), 
+				Mensagem.USUARIO_NAO_TEM_PEMISSAO_VER_ITENS.getMensagem());
+		
+		return Autenticacao.getUsuarioPorLogin(login).getListaItens();
 	}
 
 	/*

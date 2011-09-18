@@ -329,5 +329,30 @@ public class Usuario implements UsuarioIF {
 
 	}
 
+	@Override
+	public String getAmigos() throws Exception{
+		Iterator<UsuarioIF> iterador = amigos.iterator();
+		StringBuffer str = new StringBuffer();
+		while(iterador.hasNext()){
+			str.append(iterador.next().getLogin()+"; ");
+		}
+		if(str.toString().trim().equals("")) 
+			return Mensagem.USUARIO_NAO_POSSUI_AMIGOS.getMensagem();
+		return str.toString().trim().substring(0, str.toString().length()-2);
+		
+	}
+
+	@Override
+	public String getListaItens() throws Exception{
+		Iterator<ItemIF> iterador = itens.iterator();
+		StringBuffer str = new StringBuffer();
+		while(iterador.hasNext()){
+			str.append(iterador.next().getNome()+"; ");
+		}
+		if(str.toString().trim().equals(""))
+			return Mensagem.USUARIO_SEM_ITENS_CADASTRADOS.getMensagem();
+		return str.toString().substring(0, str.toString().length()-2);
+	}
+
 
 }
