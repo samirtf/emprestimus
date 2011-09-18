@@ -93,7 +93,8 @@ public enum Mensagem {
 	NAO_HA_REQUISICOES("Não há requisições"),
 	SESSAO_INVALIDA("Sessão inválida"),
 	SESSAO_INEXISTENTE("Sessão inexistente"),
-	USUARIO_INEXISTENTE("Usuário inexistente");
+	USUARIO_INEXISTENTE("Usuário inexistente"),
+	USUARIO_JAH_SAO_AMIGOS("Os usuários já são amigos");
 	
 	private final String mensagem;
 
