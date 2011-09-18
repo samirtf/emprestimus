@@ -217,11 +217,13 @@ public class Autenticacao implements AutenticacaoIF {
 		List<UsuarioIF> usuarios = new LinkedList<UsuarioIF>();
 		for (UsuarioIF user : usuariosCadastrados.values()) {
 			logger.info(" -Endereço: " + user.getEndereco());
-			if (user.getEndereco().contains(endereco)) {
+			if (user.getEndereco().toLowerCase().contains(endereco.toLowerCase())) {
 				usuarios.add(user);
 			}
 		}
 		return usuarios;
 	}
+	
+	
 
 }

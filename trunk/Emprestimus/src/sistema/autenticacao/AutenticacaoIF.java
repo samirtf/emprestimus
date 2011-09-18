@@ -26,5 +26,6 @@ public interface AutenticacaoIF {
 	public List<UsuarioIF> getUsuarioNome(String nome);
 	
 	public List<UsuarioIF> getUsuarioEndereco(String endereco);
+	
 
 }
