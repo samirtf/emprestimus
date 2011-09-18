@@ -61,6 +61,7 @@ public class ItemRepositorio {
 
 		return valor;
 	}
+	
 	/**
 	 * Calcula a quantidade de itens cadastrados.
 	 * @return
@@ -68,6 +69,26 @@ public class ItemRepositorio {
 	 */
 	public static int qntItens(){
 		return itensCadastrados.size();
+	}
+	
+	
+	/**
+	 * Verifica se um determinado item existe no repositorio.
+	 * 
+	 * @param idItem
+	 * 		Um idItem.
+	 * @return
+	 * 		True - Se o item procurado existir.
+	 * 		False - Se o item não existir.
+	 */
+	public static boolean existeItem( String idItem ){
+		Long id;
+		try{
+			id = Long.valueOf(idItem);
+		}catch(Exception e){
+			return false;
+		}
+		return itensCadastrados.containsKey(Long.valueOf(idItem));
 	}
 
 }

@@ -119,6 +119,10 @@ public class Emprestimus implements EmprestimusIF {
 		
 		assertNaoNulo(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem());
 		assertStringNaoVazia(idItem.trim(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		asserteTrue(ItemRepositorio.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
+		
+		assertNaoNulo(atributo, Mensagem.ATRIBUTO_INVALIDO.getMensagem());
+		assertStringNaoVazia(atributo.trim(), Mensagem.ATRIBUTO_INVALIDO.getMensagem());
 		
 		atributo = atributo.toLowerCase().trim();
 		String str = ItemRepositorio.getAtributoItem(idItem, atributo);
