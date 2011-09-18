@@ -8,11 +8,13 @@ import java.util.Random;
 import java.util.TreeMap;
 import java.util.logging.Logger;
 
+import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.item.ItemIF;
 import sistema.usuario.Usuario;
 import sistema.usuario.UsuarioIF;
 import sistema.utilitarios.Log;
 import sistema.utilitarios.Mensagem;
+import sistema.utilitarios.Validador;
 import static sistema.utilitarios.Validador.*;
 import sistema.utilitarios.ValidadorString;
 
@@ -22,7 +24,7 @@ public class Autenticacao implements AutenticacaoIF {
 	private static Autenticacao autenticacao;
 
 	// Mapa dos usuarios cadastrados no sistema
-	private Map<String, UsuarioIF> usuariosCadastrados = new TreeMap<String, UsuarioIF>();
+	private static Map<String, UsuarioIF> usuariosCadastrados = new TreeMap<String, UsuarioIF>();
 
 	// Mapa das sessoes de usuarios logados no sistema
 	private Map<String, UsuarioIF> sessoes = new TreeMap<String, UsuarioIF>();
@@ -154,8 +156,16 @@ public class Autenticacao implements AutenticacaoIF {
 	 * @return True - Se o usuario ja estiver cadastrado. False - Caso
 	 *         contrario.
 	 */
-	private boolean existeUsuario(String login) {
+	public static boolean existeUsuario(String login) {
+		if(usuariosCadastrados == null) return false;
 		return usuariosCadastrados.containsKey(login);
+	}
+	
+	public static UsuarioIF getUsuarioPorLogin( String login ) throws ArgumentoInvalidoException{
+		Validador.assertNaoNulo(login, Mensagem.LOGIN_INVALIDO.getMensagem());
+		Validador.assertStringNaoVazia(login.trim(), Mensagem.LOGIN_INVALIDO.getMensagem());
+		Validador.asserteTrue(Autenticacao.existeUsuario(login), Mensagem.LOGIN_INEXISTENTE.getMensagem());
+		return usuariosCadastrados.get(login);
 	}
 
 	private UsuarioIF getUsuario(String login) throws Exception {

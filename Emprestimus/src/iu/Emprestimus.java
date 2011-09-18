@@ -7,9 +7,11 @@ import static sistema.utilitarios.Validador.asserteTrue;
 import java.util.List;
 
 import sistema.autenticacao.Autenticacao;
+import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.persistencia.ItemRepositorio;
 import sistema.usuario.UsuarioIF;
 import sistema.utilitarios.Mensagem;
+import sistema.utilitarios.Validador;
 import sistema.utilitarios.ValidadorString;
 
 /**
@@ -176,8 +178,15 @@ public class Emprestimus implements EmprestimusIF {
 	 * java.lang.String)
 	 */
 	@Override
-	public void requisitarAmizade(String idSessao, String login) {
-		// TODO Auto-generated method stub
+	public void requisitarAmizade(String idSessao, String login) throws Exception {
+		Validador.assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		Validador.assertStringNaoVazia(idSessao.trim(), Mensagem.SESSAO_INVALIDA.getMensagem());
+		Validador.assertNaoNulo(login, Mensagem.LOGIN_INVALIDO.getMensagem());
+		Validador.assertStringNaoVazia(login.trim(), Mensagem.LOGIN_INVALIDO.getMensagem());
+		Validador.asserteTrue(autenticacao.existeUsuario(login), Mensagem.USUARIO_INEXISTENTE.getMensagem());
+		
+		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
+		usuario.requisitarAmizade(login);
 
 	}
 
@@ -187,9 +196,24 @@ public class Emprestimus implements EmprestimusIF {
 	 * @see iu.EmprestimusIF#getRequisicoesDeAmizade(java.lang.String)
 	 */
 	@Override
-	public String getRequisicoesDeAmizade(String idSessao) {
-		// TODO Auto-generated method stub
-		return null;
+	public String getRequisicoesDeAmizade(String idSessao) throws Exception {
+		Validador.assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		Validador.assertStringNaoVazia(idSessao.trim(), Mensagem.SESSAO_INVALIDA.getMensagem());
+		Validador.asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
+		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
+		List<UsuarioIF> usuarios = usuario.getQueremSerMeusAmigos();
+		System.out.println(usuarios == null);
+		String saida ="";
+		for (int i = 0; i<usuarios.size(); i++) {
+			saida += usuarios.get(i).getLogin();
+			if(i != usuarios.size() -1) {
+				saida += "; ";
+			}
+		}
+		if (saida.trim().equals(""))
+			saida = Mensagem.NAO_HA_REQUISICOES.getMensagem();
+		return saida;
+		
 	}
 
 	/*
@@ -198,9 +222,11 @@ public class Emprestimus implements EmprestimusIF {
 	 * @see iu.EmprestimusIF#aprovarAmizade(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public void aprovarAmizade(String idSessao, String login) {
-		// TODO Auto-generated method stub
-
+	public void aprovarAmizade(String idSessao, String login) throws ArgumentoInvalidoException {
+		Validador.assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		Validador.assertStringNaoVazia(idSessao.trim(), Mensagem.SESSAO_INVALIDA.getMensagem());
+		Validador.assertNaoNulo(login, Mensagem.LOGIN_INVALIDO.getMensagem());
+		Validador.assertStringNaoVazia(login.trim(), Mensagem.LOGIN_INVALIDO.getMensagem());
 	}
 
 	/*

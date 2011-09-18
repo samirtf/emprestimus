@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import sistema.autenticacao.Autenticacao;
+import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.item.Item;
 import sistema.item.ItemIF;
 import sistema.persistencia.ItemRepositorio;
@@ -29,7 +31,8 @@ public class Usuario implements UsuarioIF {
 	private final int id = ID_Prox_Usuario++; // id (codigo unico) do usuario
 
 	private List<UsuarioIF> amigos; // Grupo de amigos
-	private List<UsuarioIF> solicitacoes; // solicitacoes de amizade
+	private List<UsuarioIF> queremSerMeusAmigos; // solicitacoes de amizade
+	private List<UsuarioIF> queroSerAmigoDeles; // solicitacoes de amizade
 	private List<ItemIF> itens; // itens do usuario
 	private List<ItemIF> itens_emprestados; // lista de itens que o usuario
 											// emprestou e ainda nao recebeu
@@ -58,6 +61,8 @@ public class Usuario implements UsuarioIF {
 		setEndereco(endereco);
 
 		itens = new ArrayList<ItemIF>();
+		queremSerMeusAmigos = new ArrayList<UsuarioIF>();
+		queroSerAmigoDeles = new ArrayList<UsuarioIF>();
 	}
 
 	@Override
@@ -202,6 +207,34 @@ public class Usuario implements UsuarioIF {
 		} catch (Exception e) {
 			return false;
 		}
+	}
+	
+	@Override
+	public List<UsuarioIF> getQueremSerMeusAmigos(){
+		return this.queremSerMeusAmigos;
+	}
+	
+	@Override
+	public List<UsuarioIF> getQueroSerAmigoDe(){
+		return this.queroSerAmigoDeles;
+	}
+	
+	public void requisitarAmizade( String login ) throws ArgumentoInvalidoException{
+		for( UsuarioIF u : getQueroSerAmigoDe() ){
+			if(u.getLogin().trim().equalsIgnoreCase(login.trim())) return;
+		}
+		UsuarioIF futuroAmigo = Autenticacao.getUsuarioPorLogin(login);
+		if( Autenticacao.existeUsuario(login.trim()) ){
+			queroSerAmigoDeles.add(futuroAmigo);
+			futuroAmigo.usuarioQuerSerMeuAmigo(this);
+		}
+	}
+	
+	public void usuarioQuerSerMeuAmigo( UsuarioIF usuario ){
+		for( UsuarioIF u : getQueremSerMeusAmigos() ){
+			if(u.equals(usuario)) return;
+		}
+		queremSerMeusAmigos.add(usuario);
 	}
 
 	@Override
