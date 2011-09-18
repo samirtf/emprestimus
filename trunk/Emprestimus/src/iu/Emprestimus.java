@@ -187,7 +187,8 @@ public class Emprestimus implements EmprestimusIF {
 		Validador.asserteTrue(Autenticacao.existeUsuario(login), Mensagem.USUARIO_INEXISTENTE.getMensagem());
 		
 		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
-		usuario.requisitarAmizade(login);
+		System.out.println(usuario.ehAmigo(login));
+		usuario.requisitarAmizade(login.trim());
 
 	}
 

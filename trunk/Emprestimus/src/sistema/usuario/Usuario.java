@@ -257,16 +257,26 @@ public class Usuario implements UsuarioIF {
 	}
 	
 	public synchronized void requisitarAmizade( String login ) throws Exception{
-		for( UsuarioIF u : getQueroSerAmigoDe() ){
-			System.out.println("LOGIN: "+u.getLogin()+"outrologin: "+login);
-			System.out.println(u.getLogin().trim().equalsIgnoreCase(login.trim()));
+		Iterator<UsuarioIF> iterador = getQueroSerAmigoDe().iterator();
+		UsuarioIF u = null;
+		while(iterador.hasNext()){
+			u = iterador.next();
 			if(u.getLogin().trim().equalsIgnoreCase(login.trim())){
-				System.out.println("opa");
-				throw new Exception();
+				System.out.println(u.getLogin());
+				System.out.println(login);
+				System.out.println("CAJÁ UMBU");
 				
 			}
-				
 		}
+//		for( UsuarioIF u : getQueroSerAmigoDe() ){
+//			System.out.println("LOGIN: "+u.getLogin()+"outrologin: "+login);
+//			System.out.println(u.getLogin().trim().equalsIgnoreCase(login.trim()));
+//			if(u.getLogin().trim().equalsIgnoreCase(login.trim())){
+//				System.out.println("opa");
+//				throw new Exception("");
+//				
+//			}
+//		}
 		System.out.println("NO EXCECAO");
 		UsuarioIF futuroAmigo = Autenticacao.getUsuarioPorLogin(login);
 		if( Autenticacao.existeUsuario(login.trim()) ){
