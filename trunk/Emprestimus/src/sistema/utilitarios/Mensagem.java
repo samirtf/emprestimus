@@ -95,6 +95,9 @@ public enum Mensagem {
 	SESSAO_INEXISTENTE("Sessão inexistente"),
 	USUARIO_INEXISTENTE("Usuário inexistente"),
 	USUARIO_JAH_SAO_AMIGOS("Os usuários já são amigos"),
+	USUARIO_NAO_POSSUI_AMIGOS("O usuário não possui amigos"),
+	USUARIO_SEM_ITENS_CADASTRADOS("O usuário não possui itens cadastrados"),
+	USUARIO_NAO_TEM_PEMISSAO_VER_ITENS("O usuário não tem permissão para visualizar estes itens"),
 	AMIZADE_JAH_SOLICITADA("Requisição já solicitada"),
 	REQUISICAO_AMIZADE_INEXISTNTE("Requisição de amizade inexistente");
 	

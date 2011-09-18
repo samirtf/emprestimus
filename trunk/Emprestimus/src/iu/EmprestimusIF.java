@@ -32,13 +32,13 @@ public interface EmprestimusIF {
 	public String ehAmigo (String idSessao, String login ) throws Exception;
 	
 	//US05
-	public String getAmigos( String idSessao );
+	public String getAmigos( String idSessao ) throws Exception;
 	
-	public String getAmigos( String idSessao, String login );
+	public String getAmigos( String idSessao, String login ) throws Exception;
 	
-	public String getItens( String idSessao );
+	public String getItens( String idSessao ) throws Exception;
 	
-	public String getItens( String idSessao, String login );
+	public String getItens( String idSessao, String login ) throws Exception;
 	
 	//US06
 	public String requisitarEmprestimo( String idSessao, String idItem, int duracao );
