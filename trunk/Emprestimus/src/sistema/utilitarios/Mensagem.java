@@ -94,7 +94,9 @@ public enum Mensagem {
 	SESSAO_INVALIDA("Sessão inválida"),
 	SESSAO_INEXISTENTE("Sessão inexistente"),
 	USUARIO_INEXISTENTE("Usuário inexistente"),
-	USUARIO_JAH_SAO_AMIGOS("Os usuários já são amigos");
+	USUARIO_JAH_SAO_AMIGOS("Os usuários já são amigos"),
+	AMIZADE_JAH_SOLICITADA("Requisição já solicitada"),
+	REQUISICAO_AMIZADE_INEXISTNTE("Requisição de amizade inexistente");
 	
 	private final String mensagem;
 

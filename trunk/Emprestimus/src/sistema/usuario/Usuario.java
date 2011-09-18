@@ -93,7 +93,7 @@ public class Usuario implements UsuarioIF {
 	}
 
 	@Override
-	public String getLogin() {
+	public synchronized String getLogin() {
 		return this.login;
 	}
 
@@ -212,7 +212,11 @@ public class Usuario implements UsuarioIF {
 		}
 	}
 	
-	public synchronized void aprovarAmizade( String login ){
+	public synchronized void aprovarAmizade( String login ) throws Exception{
+		UsuarioIF amigo = Autenticacao.getUsuarioPorLogin(login);
+		if(amigos.contains(amigo)){
+			throw new Exception(Mensagem.USUARIO_JAH_SAO_AMIGOS.getMensagem());
+		}
 		Iterator<UsuarioIF> iterador = queremSerMeusAmigos.iterator();
 		UsuarioIF u = null;
 		while(iterador.hasNext()){
@@ -222,13 +226,16 @@ public class Usuario implements UsuarioIF {
 				amigos.add(u);
 				//queremSerMeusAmigos.remove(u);
 				iterador.remove();
+				return;
 			}
 			
 		}
+		throw new Exception(Mensagem.REQUISICAO_AMIZADE_INEXISTNTE.getMensagem());
 		
 	}
 	
 	public synchronized void aprovouAmizade( UsuarioIF usuario ){
+		
 		if(queroSerAmigoDeles.contains(usuario)){
 			queroSerAmigoDeles.remove(usuario);
 			amigos.add(usuario);
@@ -249,24 +256,35 @@ public class Usuario implements UsuarioIF {
 	public boolean ehAmigo( String login ) throws ArgumentoInvalidoException{
 		Validador.assertNaoNulo(login, Mensagem.LOGIN_INVALIDO.getMensagem());
 		Validador.assertStringNaoVazia(login.trim(), Mensagem.LOGIN_INVALIDO.getMensagem());
-		for( UsuarioIF u : amigos ){
+		Iterator<UsuarioIF> iterador = amigos.iterator();
+		UsuarioIF u = null;
+		while(iterador.hasNext()){
+			u = iterador.next();
 			if ( u.getLogin().trim().equalsIgnoreCase(login.trim()) ) 
-			return true;
+				return true;
 		}
 		return false;
 	}
 	
-	public synchronized void requisitarAmizade( String login ) throws Exception{
+	public boolean amizadeDeFoiRequisitada( String login ) throws ArgumentoInvalidoException{
+		Validador.assertNaoNulo(login, Mensagem.LOGIN_INVALIDO.getMensagem());
+		Validador.assertStringNaoVazia(login.trim(), Mensagem.LOGIN_INVALIDO.getMensagem());
 		Iterator<UsuarioIF> iterador = getQueroSerAmigoDe().iterator();
 		UsuarioIF u = null;
 		while(iterador.hasNext()){
 			u = iterador.next();
-			if(u.getLogin().trim().equalsIgnoreCase(login.trim())){
-				System.out.println(u.getLogin());
-				System.out.println(login);
-				System.out.println("CAJÁ UMBU");
-				
-			}
+			if ( u.getLogin().trim().equalsIgnoreCase(login.trim()) ) 
+				return true;
+		}
+		return false;
+	}
+	
+	public void requisitarAmizade( String login ) throws Exception{
+		Iterator<UsuarioIF> iterador = getQueroSerAmigoDe().iterator();
+		if(ehAmigo(login)){
+			throw new Exception(Mensagem.USUARIO_JAH_SAO_AMIGOS.getMensagem());
+		}else if(amizadeDeFoiRequisitada(login)){
+			throw new Exception(Mensagem.AMIZADE_JAH_SOLICITADA.getMensagem());
 		}
 //		for( UsuarioIF u : getQueroSerAmigoDe() ){
 //			System.out.println("LOGIN: "+u.getLogin()+"outrologin: "+login);
