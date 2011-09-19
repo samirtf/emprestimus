@@ -354,11 +354,41 @@ public class Usuario implements UsuarioIF {
 			return Mensagem.USUARIO_SEM_ITENS_CADASTRADOS.getMensagem();
 		return str.toString().substring(0, str.toString().length()-2);
 	}
+	
+	public boolean oItemMePertence( String idItem ) throws ArgumentoInvalidoException{
+		Validador.assertNaoNulo(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		Validador.assertStringNaoVazia(idItem.trim(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		Validador.asserteTrue(ItemRepositorio.existeItem(idItem.trim()), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
+		Iterator<ItemIF> iterador = getItens().iterator();
+		while(iterador.hasNext()){
+			if(iterador.next().getId().trim().equalsIgnoreCase(idItem.trim())){
+				return true;
+			}
+		}
+		return false;
+		
+	}
+	
+	public boolean ehItemDoMeuAmigo( String idItem ) throws Exception{
+		Validador.assertNaoNulo(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		Validador.assertStringNaoVazia(idItem.trim(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		Validador.asserteTrue(ItemRepositorio.existeItem(idItem.trim()), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
+		Iterator<UsuarioIF> iterador = amigos.iterator();
+		while(iterador.hasNext()){
+			return iterador.next().oItemMePertence(idItem);
+		}
+		return false;
+		
+	}
 
 	@Override
-	public void requisitarEmprestimo(String idItem) {
-		// TODO Auto-generated method stub
-		throw new NullPointerException("requisitarEmprestimo nao implementado");
+	public void requisitarEmprestimo(String idItem) throws Exception{
+		Validador.assertNaoNulo(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		Validador.assertStringNaoVazia(idItem.trim(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		Validador.asserteTrue(ItemRepositorio.existeItem(idItem.trim()), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
+		Validador.asserteTrue(ehItemDoMeuAmigo(idItem), Mensagem.USUARIO_NAO_TEM_PERMISSAO_REQUISITAR_EMPREST_ITEM.getMensagem());
+		
+		
 	}
 	
 	

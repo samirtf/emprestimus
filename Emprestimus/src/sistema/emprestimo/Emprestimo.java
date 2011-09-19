@@ -16,6 +16,7 @@ public class Emprestimo implements EmprestimoIF{
 	UsuarioIF beneficiador;
 	ItemIF item;
 	String tipo;
+	EmprestimoEstado estado;
 	
 	public Emprestimo( UsuarioIF emprestador, UsuarioIF beneficiador, ItemIF item, String tipo, int duracao ) throws Exception{
 		setEmprestador(emprestador);
@@ -31,10 +32,12 @@ public class Emprestimo implements EmprestimoIF{
 		}else{
 			throw new Exception(Mensagem.EMPRESTIMO_TIPO_INXISTENTE.getMensagem());
 		}
+		this.estado = EmprestimoEstado.ANDAMENTO;
 	}
 	
 	@Override
 	public void setId(String idEmprestimo) throws Exception{
+		
 		Validador.assertNaoNulo(idEmprestimo, Mensagem.ID_EMPRESTIMO_INVALIDO.getMensagem());
 		Validador.assertStringNaoVazia(idEmprestimo.trim(), Mensagem.ID_EMPRESTIMO_INVALIDO.getMensagem());
 		try{
@@ -42,7 +45,6 @@ public class Emprestimo implements EmprestimoIF{
 		}catch(Exception e){
 			throw new Exception(Mensagem.ID_EMPRESTIMO_INVALIDO.getMensagem());
 		}
-		
 		id = idEmprestimo.trim();
 		
 	}
@@ -107,5 +109,30 @@ public class Emprestimo implements EmprestimoIF{
 	public boolean ehTipoBeneficiador() {
 		return tipo.equalsIgnoreCase("beneficiador");
 	}
+
+	@Override
+	public void setEstadoAceito() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setEstadoDevolvido() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setEstadoRecusado() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setEstadoAndamento() {
+		// TODO Auto-generated method stub
+		
+	}
+	
 
 }

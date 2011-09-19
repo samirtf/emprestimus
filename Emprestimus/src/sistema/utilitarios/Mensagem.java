@@ -98,6 +98,7 @@ public enum Mensagem {
 	USUARIO_NAO_POSSUI_AMIGOS("O usuário não possui amigos"),
 	USUARIO_SEM_ITENS_CADASTRADOS("O usuário não possui itens cadastrados"),
 	USUARIO_NAO_TEM_PEMISSAO_VER_ITENS("O usuário não tem permissão para visualizar estes itens"),
+	USUARIO_NAO_TEM_PERMISSAO_REQUISITAR_EMPREST_ITEM("O usuário não tem permissão para requisitar o empréstimo deste item"),
 	AMIZADE_JAH_SOLICITADA("Requisição já solicitada"),
 	REQUISICAO_AMIZADE_INEXISTNTE("Requisição de amizade inexistente"),
 	ID_EMPRESTIMO_INVALIDO("Identificador da requisição de empréstimo é inválido"),
