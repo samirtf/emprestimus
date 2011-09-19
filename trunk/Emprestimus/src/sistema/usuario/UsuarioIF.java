@@ -217,9 +217,9 @@ public interface UsuarioIF {
 	
     public boolean oItemMePertence( String idItem ) throws Exception;
 	
-	public boolean ehItemDoMeuAmigo( String idItem ) throws Exception;
+	public UsuarioIF ehItemDoMeuAmigo( String idItem ) throws Exception;
 	
-	public void requisitarEmprestimo( String idItem ) throws Exception;
+	public String requisitarEmprestimo( String idItem, int duracao ) throws Exception;
 	
 
 }

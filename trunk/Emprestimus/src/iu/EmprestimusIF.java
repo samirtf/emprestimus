@@ -41,7 +41,7 @@ public interface EmprestimusIF {
 	public String getItens( String idSessao, String login ) throws Exception;
 	
 	//US06
-	public String requisitarEmprestimo( String idSessao, String idItem, int duracao );
+	public String requisitarEmprestimo( String idSessao, String idItem, int duracao ) throws Exception;
 	
 	public void aprovarEmprestimo( String idSessao, String idRequisicaoEmprestimo );
 	

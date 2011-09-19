@@ -6,9 +6,12 @@ import java.util.Iterator;
 import java.util.List;
 
 import sistema.autenticacao.Autenticacao;
+import sistema.emprestimo.Emprestimo;
+import sistema.emprestimo.EmprestimoIF;
 import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.item.Item;
 import sistema.item.ItemIF;
+import sistema.persistencia.EmprestimoRepositorio;
 import sistema.persistencia.ItemRepositorio;
 import sistema.utilitarios.Mensagem;
 import sistema.utilitarios.Validador;
@@ -39,6 +42,8 @@ public class Usuario implements UsuarioIF {
 	private List<ItemIF> itens; // itens do usuario
 	private List<ItemIF> itens_emprestados; // lista de itens que o usuario
 											// emprestou e ainda nao recebeu
+	
+	private List<EmprestimoIF> emprestimos; //lista de emprestimos do tipo emprestimo/beneficios
 
 	/**
 	 * Construtor padrao eh privado e nao oferece implementacao.
@@ -67,6 +72,7 @@ public class Usuario implements UsuarioIF {
 		amigos = new ArrayList<UsuarioIF>();
 		queremSerMeusAmigos = new ArrayList<UsuarioIF>();
 		queroSerAmigoDeles = new ArrayList<UsuarioIF>();
+		emprestimos = new ArrayList<EmprestimoIF>();
 	}
 
 	@Override
@@ -287,16 +293,7 @@ public class Usuario implements UsuarioIF {
 		}else if(amizadeDeFoiRequisitada(login)){
 			throw new Exception(Mensagem.AMIZADE_JAH_SOLICITADA.getMensagem());
 		}
-//		for( UsuarioIF u : getQueroSerAmigoDe() ){
-//			System.out.println("LOGIN: "+u.getLogin()+"outrologin: "+login);
-//			System.out.println(u.getLogin().trim().equalsIgnoreCase(login.trim()));
-//			if(u.getLogin().trim().equalsIgnoreCase(login.trim())){
-//				System.out.println("opa");
-//				throw new Exception("");
-//				
-//			}
-//		}
-		System.out.println("NO EXCECAO");
+
 		UsuarioIF futuroAmigo = Autenticacao.getUsuarioPorLogin(login);
 		if( Autenticacao.existeUsuario(login.trim()) ){
 			queroSerAmigoDeles.add(futuroAmigo);
@@ -369,25 +366,38 @@ public class Usuario implements UsuarioIF {
 		
 	}
 	
-	public boolean ehItemDoMeuAmigo( String idItem ) throws Exception{
+	public UsuarioIF ehItemDoMeuAmigo( String idItem ) throws Exception{
 		Validador.assertNaoNulo(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem());
 		Validador.assertStringNaoVazia(idItem.trim(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
 		Validador.asserteTrue(ItemRepositorio.existeItem(idItem.trim()), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
 		Iterator<UsuarioIF> iterador = amigos.iterator();
 		while(iterador.hasNext()){
-			return iterador.next().oItemMePertence(idItem);
+			UsuarioIF amigo = iterador.next();
+			if(amigo.oItemMePertence(idItem)){
+				return amigo;
+			}
 		}
-		return false;
+		return null;
 		
 	}
 
 	@Override
-	public void requisitarEmprestimo(String idItem) throws Exception{
+	public String requisitarEmprestimo(String idItem, int duracao) throws Exception{
 		Validador.assertNaoNulo(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem());
 		Validador.assertStringNaoVazia(idItem.trim(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
 		Validador.asserteTrue(ItemRepositorio.existeItem(idItem.trim()), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
-		Validador.asserteTrue(ehItemDoMeuAmigo(idItem), Mensagem.USUARIO_NAO_TEM_PERMISSAO_REQUISITAR_EMPREST_ITEM.getMensagem());
+		Validador.asserteTrue(duracao > 0, Mensagem.EMPRESTIMO_DURACAO_INVALIDA.getMensagem());
+		UsuarioIF amigo = ehItemDoMeuAmigo(idItem);
+		Validador.asserteTrue( amigo != null , Mensagem.USUARIO_NAO_TEM_PERMISSAO_REQUISITAR_EMPREST_ITEM.getMensagem());
 		
+		
+		ItemIF item = ItemRepositorio.recuperarItem(idItem);
+		EmprestimoIF emp = new Emprestimo(amigo, this, item, "beneficiado", duracao);
+		EmprestimoRepositorio.requisitarEmprestimo(emp);
+		emprestimos.add(emp);// o emprestimo eh modificdo pelo repositorio possuindo agora
+						// um id valido
+		return String
+				.valueOf((Long.valueOf(EmprestimoRepositorio.geraIdProxEmprestimo()) - 1));
 		
 	}
 	
