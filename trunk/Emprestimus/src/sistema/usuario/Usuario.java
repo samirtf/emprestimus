@@ -20,6 +20,7 @@ import static sistema.utilitarios.Validador.*;
  * @author Joeffison Silverio de Andrade, 21011853
  * @author José Nathaniel L. de Abrante, 21011091
  * @author José Ulisses de Brito Lira Filho, 20911806
+ * @author Samir Trajano Feitosa, 20921299
  * @version 1.2.3
  */
 public class Usuario implements UsuarioIF {
@@ -353,6 +354,14 @@ public class Usuario implements UsuarioIF {
 			return Mensagem.USUARIO_SEM_ITENS_CADASTRADOS.getMensagem();
 		return str.toString().substring(0, str.toString().length()-2);
 	}
+
+	@Override
+	public void requisitarEmprestimo(String idItem) {
+		// TODO Auto-generated method stub
+		throw new NullPointerException("requisitarEmprestimo nao implementado");
+	}
+	
+	
 
 
 }
