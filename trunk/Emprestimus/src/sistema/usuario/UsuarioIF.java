@@ -215,7 +215,11 @@ public interface UsuarioIF {
 
 	public void aprovouAmizade(UsuarioIF usuario);
 	
-	public void requisitarEmprestimo( String idItem );
+    public boolean oItemMePertence( String idItem ) throws Exception;
+	
+	public boolean ehItemDoMeuAmigo( String idItem ) throws Exception;
+	
+	public void requisitarEmprestimo( String idItem ) throws Exception;
 	
 
 }
