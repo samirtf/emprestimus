@@ -329,9 +329,17 @@ public class Emprestimus implements EmprestimusIF {
 	 */
 	@Override
 	public String requisitarEmprestimo(String idSessao, String idItem,
-			int duracao) {
-		// TODO Auto-generated method stub
-		return null;
+			int duracao) throws Exception{
+		Validador.assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		Validador.assertStringNaoVazia(idSessao.trim(), Mensagem.SESSAO_INVALIDA.getMensagem());
+		Validador.asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
+		Validador.assertNaoNulo(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		Validador.assertStringNaoVazia(idItem.trim(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		Validador.asserteTrue(ItemRepositorio.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
+		Validador.asserteTrue(duracao > 0, Mensagem.EMPRESTIMO_DURACAO_INVALIDA.getMensagem());
+		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
+		return usuario.requisitarEmprestimo(idItem, duracao);
+		
 	}
 
 	/*

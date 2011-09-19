@@ -61,23 +61,23 @@ public class EmprestimoRepositorio {
 	}
 	
 	/**
-	 * Calcula a quantidade de itens cadastrados.
+	 * Calcula a quantidade de emprestimos cadastrados.
 	 * @return
-	 * 		A quantidade de itens cadastrados.
+	 * 		A quantidade de emprestimos cadastrados.
 	 */
-	public static int qntItens(){
+	public static int qntEmprestimos(){
 		return emprestimosRealizados.size();
 	}
 	
 	
 	/**
-	 * Verifica se um determinado item existe no repositorio.
+	 * Verifica se um determinado emprestimos existe no repositorio.
 	 * 
-	 * @param idItem
-	 * 		Um idItem.
+	 * @param idEmprestimo
+	 * 		Um idEmprestimo.
 	 * @return
-	 * 		True - Se o item procurado existir.
-	 * 		False - Se o item não existir.
+	 * 		True - Se o emprestimo procurado existir.
+	 * 		False - Se o emprestimo não existir.
 	 */
 	public static boolean existeItem( String idEmprestimo ){
 		Long id;

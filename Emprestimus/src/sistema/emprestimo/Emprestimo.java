@@ -13,22 +13,22 @@ public class Emprestimo implements EmprestimoIF{
 	String id;
 	int duracao;
 	UsuarioIF emprestador;
-	UsuarioIF beneficiador;
+	UsuarioIF beneficiado;
 	ItemIF item;
 	String tipo;
 	EmprestimoEstado estado;
 	
-	public Emprestimo( UsuarioIF emprestador, UsuarioIF beneficiador, ItemIF item, String tipo, int duracao ) throws Exception{
+	public Emprestimo( UsuarioIF emprestador, UsuarioIF beneficiado, ItemIF item, String tipo, int duracao ) throws Exception{
 		setEmprestador(emprestador);
-		setBeneficiador(beneficiador);
+		setBeneficiado(beneficiado);
 		setItem(item);
 		Validador.assertNaoNulo(tipo, Mensagem.EMPRESTIMO_TIPO_INVALIDO.getMensagem());
 		Validador.assertStringNaoVazia(tipo.trim(), Mensagem.EMPRESTIMO_TIPO_INVALIDO.getMensagem());
 		
 		if(tipo.trim().equalsIgnoreCase("emprestador")){
 			setTipoEmprestador();
-		}else if(tipo.trim().equalsIgnoreCase("beneficiador")){
-			setTipoBeneficiador();
+		}else if(tipo.trim().equalsIgnoreCase("beneficiado")){
+			setTipoBeneficiado();
 		}else{
 			throw new Exception(Mensagem.EMPRESTIMO_TIPO_INXISTENTE.getMensagem());
 		}
@@ -81,13 +81,13 @@ public class Emprestimo implements EmprestimoIF{
 		return this.emprestador;
 	}
 	
-	public void setBeneficiador( UsuarioIF beneficiador ) throws ArgumentoInvalidoException {
+	public void setBeneficiado( UsuarioIF beneficiado ) throws ArgumentoInvalidoException {
 		Validador.assertNaoNulo(emprestador, "UsuarioIF não deve ser null");
-		this.beneficiador = beneficiador;
+		this.beneficiado = beneficiado;
 	}
 	
-	public UsuarioIF getBeneficiador(){
-		return this.beneficiador;
+	public UsuarioIF getBeneficiado(){
+		return this.beneficiado;
 	}
 	
 	@Override
@@ -96,8 +96,8 @@ public class Emprestimo implements EmprestimoIF{
 	}
 	
 	@Override
-	public void setTipoBeneficiador() {
-		tipo = "beneficiador";
+	public void setTipoBeneficiado() {
+		tipo = "beneficiado";
 	}
 	
 	@Override
@@ -106,8 +106,8 @@ public class Emprestimo implements EmprestimoIF{
 	}
 	
 	@Override
-	public boolean ehTipoBeneficiador() {
-		return tipo.equalsIgnoreCase("beneficiador");
+	public boolean ehTipoBeneficiado() {
+		return tipo.equalsIgnoreCase("beneficiado");
 	}
 
 	@Override
@@ -133,6 +133,8 @@ public class Emprestimo implements EmprestimoIF{
 		// TODO Auto-generated method stub
 		
 	}
+
+
 	
 
 }
