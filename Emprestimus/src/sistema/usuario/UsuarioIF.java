@@ -215,5 +215,7 @@ public interface UsuarioIF {
 
 	public void aprovouAmizade(UsuarioIF usuario);
 	
+	public void requisitarEmprestimo( String idItem );
+	
 
 }
