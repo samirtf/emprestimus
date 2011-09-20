@@ -204,7 +204,6 @@ public class Emprestimus implements EmprestimusIF {
 		Validador.asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
 		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
 		List<UsuarioIF> usuarios = usuario.getQueremSerMeusAmigos();
-		System.out.println(usuarios == null);
 		String saida ="";
 		for (int i = 0; i<usuarios.size(); i++) {
 			saida += usuarios.get(i).getLogin();

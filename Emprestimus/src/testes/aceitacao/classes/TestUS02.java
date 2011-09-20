@@ -10,6 +10,8 @@ import easyaccept.EasyAcceptFacade;
 
 public class TestUS02 {
 
+	
+	
 	public static void main(String[] args) throws Exception {
 		
 		run();
