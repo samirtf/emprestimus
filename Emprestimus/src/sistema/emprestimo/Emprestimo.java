@@ -38,12 +38,12 @@ public class Emprestimo implements EmprestimoIF{
 	@Override
 	public void setId(String idEmprestimo) throws Exception{
 		
-		Validador.assertNaoNulo(idEmprestimo, Mensagem.ID_EMPRESTIMO_INVALIDO.getMensagem());
-		Validador.assertStringNaoVazia(idEmprestimo.trim(), Mensagem.ID_EMPRESTIMO_INVALIDO.getMensagem());
+		Validador.assertNaoNulo(idEmprestimo, Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
+		Validador.assertStringNaoVazia(idEmprestimo.trim(), Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
 		try{
 		    Long id = Long.valueOf(idEmprestimo.trim());
 		}catch(Exception e){
-			throw new Exception(Mensagem.ID_EMPRESTIMO_INVALIDO.getMensagem());
+			throw new Exception(Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
 		}
 		id = idEmprestimo.trim();
 		

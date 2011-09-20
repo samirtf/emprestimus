@@ -43,9 +43,9 @@ public interface EmprestimusIF {
 	//US06
 	public String requisitarEmprestimo( String idSessao, String idItem, int duracao ) throws Exception;
 	
-	public void aprovarEmprestimo( String idSessao, String idRequisicaoEmprestimo );
+	public void aprovarEmprestimo( String idSessao, String idRequisicaoEmprestimo ) throws Exception;
 	
-	public String getEmprestimos( String idSessao, String tipo );
+	public String getEmprestimos( String idSessao, String tipo ) throws Exception;
 	
 	//Utils
 	public void zerarSistema();
