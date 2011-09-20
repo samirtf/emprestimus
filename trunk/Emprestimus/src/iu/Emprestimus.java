@@ -9,6 +9,7 @@ import java.util.List;
 import sistema.autenticacao.Autenticacao;
 import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.persistencia.ItemRepositorio;
+import sistema.usuario.Usuario;
 import sistema.usuario.UsuarioIF;
 import sistema.utilitarios.Mensagem;
 import sistema.utilitarios.Validador;
@@ -337,6 +338,7 @@ public class Emprestimus implements EmprestimusIF {
 		Validador.assertStringNaoVazia(idItem.trim(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
 		Validador.asserteTrue(ItemRepositorio.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
 		Validador.asserteTrue(duracao > 0, Mensagem.EMPRESTIMO_DURACAO_INVALIDA.getMensagem());
+		
 		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
 		return usuario.requisitarEmprestimo(idItem, duracao);
 		
@@ -349,8 +351,13 @@ public class Emprestimus implements EmprestimusIF {
 	 * java.lang.String)
 	 */
 	@Override
-	public void aprovarEmprestimo(String idSessao, String idRequisicaoEmprestimo) {
-		// TODO Auto-generated method stub
+	public void aprovarEmprestimo(String idSessao, String idRequisicaoEmprestimo) throws Exception {
+		assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		assertNaoNulo(idRequisicaoEmprestimo, Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
+		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		assertStringNaoVazia(idRequisicaoEmprestimo, Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
+		
+		//TODO implemente isso!
 
 	}
 
@@ -360,8 +367,13 @@ public class Emprestimus implements EmprestimusIF {
 	 * @see iu.EmprestimusIF#getEmprestimos(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public String getEmprestimos(String idSessao, String tipo) {
-		// TODO Auto-generated method stub
+	public String getEmprestimos(String idSessao, String tipo) throws Exception {
+		assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		assertNaoNulo(tipo, Mensagem.TIPO_INVALIDO.getMensagem());
+		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INEXISTENTE.getMensagem());
+		assertStringNaoVazia(tipo, Mensagem.TIPO_INVALIDO.getMensagem());
+		
+		//TODO implemente isso!
 		return null;
 	}
 

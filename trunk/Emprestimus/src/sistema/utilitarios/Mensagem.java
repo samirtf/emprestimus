@@ -101,10 +101,11 @@ public enum Mensagem {
 	USUARIO_NAO_TEM_PERMISSAO_REQUISITAR_EMPREST_ITEM("O usuário não tem permissão para requisitar o empréstimo deste item"),
 	AMIZADE_JAH_SOLICITADA("Requisição já solicitada"),
 	REQUISICAO_AMIZADE_INEXISTNTE("Requisição de amizade inexistente"),
-	ID_EMPRESTIMO_INVALIDO("Identificador da requisição de empréstimo é inválido"),
+	ID_REQUISICAO_EMPRESTIMO_INVALIDO("Identificador da requisição de empréstimo é inválido"),
 	EMPRESTIMO_TIPO_INVALIDO("Tipo inválido"),
 	EMPRESTIMO_TIPO_INXISTENTE("Tipo inexistente"),
-	EMPRESTIMO_DURACAO_INVALIDA("Duracao inválida");
+	EMPRESTIMO_DURACAO_INVALIDA("Duracao inválida"),
+	TIPO_INVALIDO("Tipo inválido");
 	
 	private final String mensagem;
 
