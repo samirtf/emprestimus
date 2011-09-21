@@ -11,7 +11,7 @@ import sistema.utilitarios.ValidadorString;
  * @since 1.0
  */
 public enum EmprestimoEstado {
-	ACEITO("Acito"), RECUSADO("Recusado"), DEVOLVIDO("Devolvido"), ANDAMENTO("Andamento");
+	ACEITO("Aceito"), RECUSADO("Recusado"), DEVOLVIDO("Devolvido"), ANDAMENTO("Andamento"), EM_ESPERA("Em espera");
 	
 	private final String nome;
 	

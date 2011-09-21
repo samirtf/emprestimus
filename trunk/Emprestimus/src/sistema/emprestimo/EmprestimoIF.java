@@ -1,6 +1,7 @@
 package sistema.emprestimo;
 
 import sistema.excecoes.ArgumentoInvalidoException;
+import sistema.item.ItemIF;
 import sistema.usuario.UsuarioIF;
 
 public interface EmprestimoIF {
@@ -31,7 +32,11 @@ public interface EmprestimoIF {
 	
 	public UsuarioIF getBeneficiado();
 	
+	public ItemIF getItem();
+	
 	public int getDuracao();
+	
+	public boolean estahAceito();
 	
 	public boolean ehTipoEmprestador();
 	

@@ -79,7 +79,7 @@ public class EmprestimoRepositorio {
 	 * 		True - Se o emprestimo procurado existir.
 	 * 		False - Se o emprestimo não existir.
 	 */
-	public static boolean existeItem( String idEmprestimo ){
+	public static boolean existeEmprestimo( String idEmprestimo ){
 		Long id;
 		try{
 			id = Long.valueOf(idEmprestimo);

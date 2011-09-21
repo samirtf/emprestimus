@@ -12,8 +12,8 @@ public class Emprestimo implements EmprestimoIF{
 	
 	String id;
 	int duracao;
-	UsuarioIF emprestador;
-	UsuarioIF beneficiado;
+	UsuarioIF emprestador; //quem concedeu De
+	UsuarioIF beneficiado; // quem pediu   Para
 	ItemIF item;
 	String tipo;
 	EmprestimoEstado estado;
@@ -32,7 +32,7 @@ public class Emprestimo implements EmprestimoIF{
 		}else{
 			throw new Exception(Mensagem.EMPRESTIMO_TIPO_INXISTENTE.getMensagem());
 		}
-		this.estado = EmprestimoEstado.ANDAMENTO;
+		this.estado = EmprestimoEstado.EM_ESPERA;
 	}
 	
 	@Override
@@ -112,26 +112,32 @@ public class Emprestimo implements EmprestimoIF{
 
 	@Override
 	public void setEstadoAceito() {
-		// TODO Auto-generated method stub
+		this.estado = EmprestimoEstado.ACEITO;
 		
 	}
 
 	@Override
 	public void setEstadoDevolvido() {
-		// TODO Auto-generated method stub
+		this.estado = EmprestimoEstado.DEVOLVIDO;
 		
 	}
 
 	@Override
 	public void setEstadoRecusado() {
-		// TODO Auto-generated method stub
+		this.estado = EmprestimoEstado.RECUSADO;
 		
 	}
 
 	@Override
 	public void setEstadoAndamento() {
-		// TODO Auto-generated method stub
+		this.estado = EmprestimoEstado.ANDAMENTO;
 		
+	}
+
+	@Override
+	public boolean estahAceito() {
+		return !this.estado.equals(EmprestimoEstado.RECUSADO) &&
+			   !this.estado.equals(EmprestimoEstado.EM_ESPERA);
 	}
 
 
