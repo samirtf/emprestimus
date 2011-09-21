@@ -7,7 +7,9 @@ import static sistema.utilitarios.Validador.asserteTrue;
 import java.util.List;
 
 import sistema.autenticacao.Autenticacao;
+import sistema.emprestimo.EmprestimoIF;
 import sistema.excecoes.ArgumentoInvalidoException;
+import sistema.persistencia.EmprestimoRepositorio;
 import sistema.persistencia.ItemRepositorio;
 import sistema.usuario.Usuario;
 import sistema.usuario.UsuarioIF;
@@ -352,11 +354,13 @@ public class Emprestimus implements EmprestimusIF {
 	@Override
 	public void aprovarEmprestimo(String idSessao, String idRequisicaoEmprestimo) throws Exception {
 		assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
-		assertNaoNulo(idRequisicaoEmprestimo, Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
 		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		asserteTrue(autenticacao.existeIdSessao(idSessao.trim()), Mensagem.SESSAO_INEXISTENTE.getMensagem());
+		assertNaoNulo(idRequisicaoEmprestimo, Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
 		assertStringNaoVazia(idRequisicaoEmprestimo, Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
+		asserteTrue(EmprestimoRepositorio.existeEmprestimo(idRequisicaoEmprestimo.trim()), Mensagem.ID_REQUISICAO_EMP_INEXISTENTE.getMensagem());
 		
-		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
+		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao.trim());
 		usuario.aprovarEmprestimo(idRequisicaoEmprestimo);
 
 	}
@@ -369,13 +373,13 @@ public class Emprestimus implements EmprestimusIF {
 	@Override
 	public String getEmprestimos(String idSessao, String tipo) throws Exception {
 		assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		asserteTrue(autenticacao.existeIdSessao(idSessao.trim()), Mensagem.SESSAO_INEXISTENTE.getMensagem());
 		assertNaoNulo(tipo, Mensagem.TIPO_INVALIDO.getMensagem());
-		assertStringNaoVazia(idSessao,
-				Mensagem.SESSAO_INEXISTENTE.getMensagem());
 		assertStringNaoVazia(tipo, Mensagem.TIPO_INVALIDO.getMensagem());
+		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao.trim());
+		return usuario.getEmprestimos(tipo);
 		
-		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
-		return usuario.getEmprestimo(tipo);
 	}
 
 	/*
