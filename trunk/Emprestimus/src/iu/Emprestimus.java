@@ -356,7 +356,8 @@ public class Emprestimus implements EmprestimusIF {
 		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
 		assertStringNaoVazia(idRequisicaoEmprestimo, Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
 		
-		//TODO implemente isso!
+		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
+		usuario.aprovarEmprestimo(idRequisicaoEmprestimo);
 
 	}
 
@@ -369,11 +370,12 @@ public class Emprestimus implements EmprestimusIF {
 	public String getEmprestimos(String idSessao, String tipo) throws Exception {
 		assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
 		assertNaoNulo(tipo, Mensagem.TIPO_INVALIDO.getMensagem());
-		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INEXISTENTE.getMensagem());
+		assertStringNaoVazia(idSessao,
+				Mensagem.SESSAO_INEXISTENTE.getMensagem());
 		assertStringNaoVazia(tipo, Mensagem.TIPO_INVALIDO.getMensagem());
 		
-		//TODO implemente isso!
-		return null;
+		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
+		return usuario.getEmprestimo(tipo);
 	}
 
 	/*

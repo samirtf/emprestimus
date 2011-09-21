@@ -105,7 +105,8 @@ public enum Mensagem {
 	EMPRESTIMO_TIPO_INVALIDO("Tipo inválido"),
 	EMPRESTIMO_TIPO_INXISTENTE("Tipo inexistente"),
 	EMPRESTIMO_DURACAO_INVALIDA("Duracao inválida"),
-	TIPO_INVALIDO("Tipo inválido");
+	TIPO_INVALIDO("Tipo inválido"),
+	TIPO_INEXISTENTE("Tipo inexistente");
 	
 	private final String mensagem;
 
