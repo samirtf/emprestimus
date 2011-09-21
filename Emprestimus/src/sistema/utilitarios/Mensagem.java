@@ -15,7 +15,7 @@ public enum Mensagem {
 	MENU("\n--Menu Principal--\n" +
 		 "1 - Logar\n" +
 		 "2 - Cadastrar novo usuario\n" +
-		 "5 - Sair\n"),
+		 "3 - Sair\n"),
 	MENU_LOGADO("\n--Voce esta logado--\n" +
 			"1 - Cadastrar item\n" +
 			"2 - Ver meus itens\n" +
@@ -108,9 +108,12 @@ public enum Mensagem {
 	TIPO_INEXISTENTE("Tipo inexistente"),
 	EMPRESTIMO_SEM_PERMISSAO_APROVAR("O empréstimo só pode ser aprovado pelo dono do item"),
 	EMPRESTIMO_JA_APROVADO("Empréstimo já aprovado"),
+	EMPRESTIMO_INEXISTENTE("Empréstimo inexistente"),
+	EMPRESTIMO_DEVOLUCAO_APENAS_BENEFICIADO("O item só pode ser devolvido pelo usuário beneficiado"),
 	REQUISICAO_EMPRESTIMO_JA_SOLICITADA("Requisição já solicitada"),
 	NAO_HA_EMPRESTIMOS_DESTE_TIPO("Não há empréstimos deste tipo"),
 	ID_REQUISICAO_EMP_INEXISTENTE("Requisição de empréstimo inexistente"),
+	ID_EMPRESTIMO_INVALIDO("Identificador do empréstimo é inválido"),
 	TIPO_INVALIDO("Tipo inválido");
 	
 	private final String mensagem;
