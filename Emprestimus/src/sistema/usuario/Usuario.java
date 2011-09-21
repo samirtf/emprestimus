@@ -1,8 +1,5 @@
 package sistema.usuario;
 
-import static sistema.utilitarios.Validador.assertNaoNulo;
-import static sistema.utilitarios.Validador.assertStringNaoVazia;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -18,6 +15,7 @@ import sistema.persistencia.EmprestimoRepositorio;
 import sistema.persistencia.ItemRepositorio;
 import sistema.utilitarios.Mensagem;
 import sistema.utilitarios.Validador;
+import static sistema.utilitarios.Validador.*;
 
 /**
  * Esta classe representa um usuario padrao do sistema.
@@ -44,14 +42,10 @@ public class Usuario implements UsuarioIF {
 	private List<ItemIF> itens; // itens do usuario
 	private List<ItemIF> itens_emprestados; // lista de itens que o usuario
 											// emprestou e ainda nao recebeu
-
-	private List<EmprestimoIF> emprestimos; // lista de emprestimos do tipo
-											// emprestimo/beneficios
-	private List<EmprestimoIF> requisicoesDeEmprestimo; // lista dos emprestimos
-														// que foram
-														// requisitados a mim e
-														// estão aguardando a
-														// minha aprovação.
+	
+	private List<EmprestimoIF> emprestimos; //lista de emprestimos do tipo emprestimo/beneficios
+	private List<EmprestimoIF> emprestimosRequeridosPorAmigosEmEspera; //lista de emprestimos em espera que amigos fizeram a mim
+	private List<EmprestimoIF> emprestimosRequeridosPorMimEmEspera; //lista de emprestimos em espera que fiz a amigos
 
 	/**
 	 * Construtor padrao eh privado e nao oferece implementacao.
@@ -81,7 +75,8 @@ public class Usuario implements UsuarioIF {
 		queremSerMeusAmigos = new ArrayList<UsuarioIF>();
 		queroSerAmigoDeles = new ArrayList<UsuarioIF>();
 		emprestimos = new ArrayList<EmprestimoIF>();
-		requisicoesDeEmprestimo = new ArrayList<EmprestimoIF>();
+		emprestimosRequeridosPorAmigosEmEspera = new ArrayList<EmprestimoIF>();
+		emprestimosRequeridosPorMimEmEspera = new ArrayList<EmprestimoIF>();
 	}
 
 	@Override
@@ -227,96 +222,92 @@ public class Usuario implements UsuarioIF {
 			return false;
 		}
 	}
-
-	public synchronized void aprovarAmizade(String login) throws Exception {
+	
+	public synchronized void aprovarAmizade( String login ) throws Exception{
 		UsuarioIF amigo = Autenticacao.getUsuarioPorLogin(login);
-		if (amigos.contains(amigo)) {
+		if(amigos.contains(amigo)){
 			throw new Exception(Mensagem.USUARIO_JAH_SAO_AMIGOS.getMensagem());
 		}
 		Iterator<UsuarioIF> iterador = queremSerMeusAmigos.iterator();
 		UsuarioIF u = null;
-		while (iterador.hasNext()) {
+		while(iterador.hasNext()){
 			u = iterador.next();
-			if (u.getLogin().trim().equalsIgnoreCase(login.trim())) {
+			if(u.getLogin().trim().equalsIgnoreCase(login.trim())){
 				u.aprovouAmizade(this);
 				amigos.add(u);
-				// queremSerMeusAmigos.remove(u);
+				//queremSerMeusAmigos.remove(u);
 				iterador.remove();
 				return;
 			}
-
+			
 		}
-		throw new Exception(
-				Mensagem.REQUISICAO_AMIZADE_INEXISTNTE.getMensagem());
-
+		throw new Exception(Mensagem.REQUISICAO_AMIZADE_INEXISTNTE.getMensagem());
+		
 	}
-
-	public synchronized void aprovouAmizade(UsuarioIF usuario) {
-
-		if (queroSerAmigoDeles.contains(usuario)) {
+	
+	public synchronized void aprovouAmizade( UsuarioIF usuario ){
+		
+		if(queroSerAmigoDeles.contains(usuario)){
 			queroSerAmigoDeles.remove(usuario);
 			amigos.add(usuario);
 		}
-
+		
 	}
-
+	
 	@Override
-	public List<UsuarioIF> getQueremSerMeusAmigos() {
+	public List<UsuarioIF> getQueremSerMeusAmigos(){
 		return this.queremSerMeusAmigos;
 	}
-
+	
 	@Override
-	public List<UsuarioIF> getQueroSerAmigoDe() {
+	public List<UsuarioIF> getQueroSerAmigoDe(){
 		return this.queroSerAmigoDeles;
 	}
-
-	public boolean ehAmigo(String login) throws ArgumentoInvalidoException {
+	
+	public boolean ehAmigo( String login ) throws ArgumentoInvalidoException{
 		Validador.assertNaoNulo(login, Mensagem.LOGIN_INVALIDO.getMensagem());
-		Validador.assertStringNaoVazia(login.trim(),
-				Mensagem.LOGIN_INVALIDO.getMensagem());
+		Validador.assertStringNaoVazia(login.trim(), Mensagem.LOGIN_INVALIDO.getMensagem());
 		Iterator<UsuarioIF> iterador = amigos.iterator();
 		UsuarioIF u = null;
-		while (iterador.hasNext()) {
+		while(iterador.hasNext()){
 			u = iterador.next();
-			if (u.getLogin().trim().equalsIgnoreCase(login.trim()))
+			if ( u.getLogin().trim().equalsIgnoreCase(login.trim()) ) 
 				return true;
 		}
 		return false;
 	}
-
-	public boolean amizadeDeFoiRequisitada(String login)
-			throws ArgumentoInvalidoException {
+	
+	public boolean amizadeDeFoiRequisitada( String login ) throws ArgumentoInvalidoException{
 		Validador.assertNaoNulo(login, Mensagem.LOGIN_INVALIDO.getMensagem());
-		Validador.assertStringNaoVazia(login.trim(),
-				Mensagem.LOGIN_INVALIDO.getMensagem());
+		Validador.assertStringNaoVazia(login.trim(), Mensagem.LOGIN_INVALIDO.getMensagem());
 		Iterator<UsuarioIF> iterador = getQueroSerAmigoDe().iterator();
 		UsuarioIF u = null;
-		while (iterador.hasNext()) {
+		while(iterador.hasNext()){
 			u = iterador.next();
-			if (u.getLogin().trim().equalsIgnoreCase(login.trim()))
+			if ( u.getLogin().trim().equalsIgnoreCase(login.trim()) ) 
 				return true;
 		}
 		return false;
 	}
-
-	public void requisitarAmizade(String login) throws Exception {
-		if (ehAmigo(login)) {
+	
+	public void requisitarAmizade( String login ) throws Exception{
+		Iterator<UsuarioIF> iterador = getQueroSerAmigoDe().iterator();
+		if(ehAmigo(login)){
 			throw new Exception(Mensagem.USUARIO_JAH_SAO_AMIGOS.getMensagem());
-		} else if (amizadeDeFoiRequisitada(login)) {
+		}else if(amizadeDeFoiRequisitada(login)){
 			throw new Exception(Mensagem.AMIZADE_JAH_SOLICITADA.getMensagem());
 		}
 
 		UsuarioIF futuroAmigo = Autenticacao.getUsuarioPorLogin(login);
-		if (Autenticacao.existeUsuario(login.trim())) {
+		if( Autenticacao.existeUsuario(login.trim()) ){
 			queroSerAmigoDeles.add(futuroAmigo);
 			futuroAmigo.usuarioQuerSerMeuAmigo(this);
 		}
 	}
-
-	public void usuarioQuerSerMeuAmigo(UsuarioIF usuario) {
-		for (UsuarioIF u : getQueremSerMeusAmigos()) {
-			if (u.equals(usuario))
-				return;
+	
+	public void usuarioQuerSerMeuAmigo( UsuarioIF usuario ){
+		for( UsuarioIF u : getQueremSerMeusAmigos() ){
+			if(u.equals(usuario)) return;
 		}
 		queremSerMeusAmigos.add(usuario);
 	}
@@ -333,8 +324,7 @@ public class Usuario implements UsuarioIF {
 	@Override
 	public boolean existeItemID(String idItem) {
 		try {
-			return itens.contains(new Item("placebo", "placebo", "FILME")
-					.setId(idItem));
+			return itens.contains(new Item("placebo", "placebo", "FILME").setId(idItem));
 		} catch (Exception e) {
 		}// nao lanca excecao.
 		return false;
@@ -342,130 +332,179 @@ public class Usuario implements UsuarioIF {
 	}
 
 	@Override
-	public String getAmigos() throws Exception {
+	public String getAmigos() throws Exception{
 		Iterator<UsuarioIF> iterador = amigos.iterator();
 		StringBuffer str = new StringBuffer();
-		while (iterador.hasNext()) {
-			str.append(iterador.next().getLogin() + "; ");
+		while(iterador.hasNext()){
+			str.append(iterador.next().getLogin()+"; ");
 		}
-		if (str.toString().trim().equals(""))
+		if(str.toString().trim().equals("")) 
 			return Mensagem.USUARIO_NAO_POSSUI_AMIGOS.getMensagem();
-		return str.toString().trim().substring(0, str.toString().length() - 2);
-
+		return str.toString().trim().substring(0, str.toString().length()-2);
+		
 	}
 
 	@Override
-	public String getListaItens() throws Exception {
+	public String getListaItens() throws Exception{
 		Iterator<ItemIF> iterador = itens.iterator();
 		StringBuffer str = new StringBuffer();
-		while (iterador.hasNext()) {
-			str.append(iterador.next().getNome() + "; ");
+		while(iterador.hasNext()){
+			str.append(iterador.next().getNome()+"; ");
 		}
-		if (str.toString().trim().equals(""))
+		if(str.toString().trim().equals(""))
 			return Mensagem.USUARIO_SEM_ITENS_CADASTRADOS.getMensagem();
-		return str.toString().substring(0, str.toString().length() - 2);
+		return str.toString().substring(0, str.toString().length()-2);
 	}
-
-	public boolean oItemMePertence(String idItem)
-			throws ArgumentoInvalidoException {
-		Validador
-				.assertNaoNulo(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem());
-		Validador.assertStringNaoVazia(idItem.trim(),
-				Mensagem.ID_ITEM_INVALIDO.getMensagem());
-		Validador.asserteTrue(ItemRepositorio.existeItem(idItem.trim()),
-				Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
+	
+	public boolean oItemMePertence( String idItem ) throws ArgumentoInvalidoException{
+		Validador.assertNaoNulo(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		Validador.assertStringNaoVazia(idItem.trim(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		Validador.asserteTrue(ItemRepositorio.existeItem(idItem.trim()), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
 		Iterator<ItemIF> iterador = getItens().iterator();
-		while (iterador.hasNext()) {
-			if (iterador.next().getId().trim().equalsIgnoreCase(idItem.trim())) {
+		while(iterador.hasNext()){
+			if(iterador.next().getId().trim().equalsIgnoreCase(idItem.trim())){
 				return true;
 			}
 		}
 		return false;
-
+		
 	}
-
-	public UsuarioIF ehItemDoMeuAmigo(String idItem) throws Exception {
-		Validador
-				.assertNaoNulo(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem());
-		Validador.assertStringNaoVazia(idItem.trim(),
-				Mensagem.ID_ITEM_INVALIDO.getMensagem());
-		Validador.asserteTrue(ItemRepositorio.existeItem(idItem.trim()),
-				Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
+	
+	public UsuarioIF ehItemDoMeuAmigo( String idItem ) throws Exception{
+		Validador.assertNaoNulo(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		Validador.assertStringNaoVazia(idItem.trim(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		Validador.asserteTrue(ItemRepositorio.existeItem(idItem.trim()), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
 		Iterator<UsuarioIF> iterador = amigos.iterator();
-		while (iterador.hasNext()) {
+		while(iterador.hasNext()){
 			UsuarioIF amigo = iterador.next();
-			if (amigo.oItemMePertence(idItem)) {
+			if(amigo.oItemMePertence(idItem)){
 				return amigo;
 			}
 		}
 		return null;
-
-	}
-
-	@Override
-	public String requisitarEmprestimo(String idItem, int duracao)
-			throws Exception {
-		Validador
-				.assertNaoNulo(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem());
-		Validador.assertStringNaoVazia(idItem.trim(),
-				Mensagem.ID_ITEM_INVALIDO.getMensagem());
-		Validador.asserteTrue(ItemRepositorio.existeItem(idItem.trim()),
-				Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
-		Validador.asserteTrue(duracao > 0,
-				Mensagem.EMPRESTIMO_DURACAO_INVALIDA.getMensagem());
-		UsuarioIF amigo = ehItemDoMeuAmigo(idItem);
-		Validador.asserteTrue(amigo != null,
-				Mensagem.USUARIO_NAO_TEM_PERMISSAO_REQUISITAR_EMPREST_ITEM
-						.getMensagem());
-
-		ItemIF item = ItemRepositorio.recuperarItem(idItem);
-		EmprestimoIF emp = new Emprestimo(amigo, this, item, "beneficiado",
-				duracao);
-		EmprestimoRepositorio.requisitarEmprestimo(emp);// o emprestimo eh
-														// modificdo pelo
-														// repositorio possuindo
-														// agora um id valido
-		requisicoesDeEmprestimo.add(emp);
-		return String.valueOf((Long.valueOf(EmprestimoRepositorio
-				.geraIdProxEmprestimo()) - 1));
-
-	}
-
-	@Override
-	public void aprovarEmprestimo(String idRequisicaoEmprestimo)
-			throws Exception {
-		assertNaoNulo(idRequisicaoEmprestimo,
-				Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
-		assertStringNaoVazia(idRequisicaoEmprestimo,
-				Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
-
-		EmprestimoIF emprestimo = EmprestimoRepositorio
-				.recuperarEmprestimo(idRequisicaoEmprestimo);
-		if (emprestimo == null) {
-			throw new Exception("Requisição de empréstimo inexistente");
-		} else if (emprestimos.contains(emprestimo)) {
-			throw new Exception("Empréstimo já aprovado");
-		} else if (requisicoesDeEmprestimo.remove(emprestimo)) {
-			emprestimos.add(emprestimo);
-		}
-		//==== TODO =========================
-
-	}
-
-	@Override
-	public String getEmprestimo(String tipo) throws Exception {
-		assertNaoNulo(tipo, Mensagem.TIPO_INVALIDO.getMensagem());
-		assertStringNaoVazia(tipo, Mensagem.TIPO_INVALIDO.getMensagem());
 		
-	if (tipo.equals("emprestador")) {
-		 //TODO ===============
-	} else if (tipo.equals("beneficiado")) {
-		 //TODO ===============
-	} else if (tipo.equals("todos")) {
-		 //TODO ===============
-	} else {
-		throw new Exception(Mensagem.TIPO_INEXISTENTE.getMensagem()); //TODO ===============
 	}
-		return null; //TODO ===============
+	
+	public void adicionarRequisicaoEmprestimoEmEsperaDeAmigo(EmprestimoIF emp){
+		this.emprestimosRequeridosPorAmigosEmEspera.add(emp);
 	}
+
+	@Override
+	public String requisitarEmprestimo(String idItem, int duracao) throws Exception{
+		Validador.assertNaoNulo(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		Validador.assertStringNaoVazia(idItem.trim(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		Validador.asserteTrue(ItemRepositorio.existeItem(idItem.trim()), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
+		Validador.asserteTrue(duracao > 0, Mensagem.EMPRESTIMO_DURACAO_INVALIDA.getMensagem());
+		UsuarioIF amigo = ehItemDoMeuAmigo(idItem);
+		Validador.asserteTrue( amigo != null , Mensagem.USUARIO_NAO_TEM_PERMISSAO_REQUISITAR_EMPREST_ITEM.getMensagem());
+		
+		
+		ItemIF item = ItemRepositorio.recuperarItem(idItem);
+		EmprestimoIF emp = new Emprestimo(amigo, this, item, "beneficiado", duracao);
+		
+		//verifica se jah fiz o pedido do item
+		Iterator<EmprestimoIF> iterador = emprestimosRequeridosPorMimEmEspera.iterator();
+		while(iterador.hasNext()){
+			if(iterador.next().getItem().equals(item))
+				throw new Exception(Mensagem.REQUISICAO_EMPRESTIMO_JA_SOLICITADA.getMensagem());
+		}
+		
+		EmprestimoRepositorio.requisitarEmprestimo(emp);
+		emprestimosRequeridosPorMimEmEspera.add(emp);// o emprestimo eh modificdo pelo repositorio possuindo agora
+						// um id valido
+		amigo.adicionarRequisicaoEmprestimoEmEsperaDeAmigo(emp);
+		return String
+				.valueOf((Long.valueOf(EmprestimoRepositorio.geraIdProxEmprestimo()) - 1));
+		
+	}
+	
+
+	@Override
+	public String getEmprestimos(String tipo) throws Exception {
+		Validador.assertNaoNulo(tipo, Mensagem.EMPRESTIMO_TIPO_INVALIDO.getMensagem());
+		Validador.assertStringNaoVazia(tipo.trim(), Mensagem.EMPRESTIMO_TIPO_INVALIDO.getMensagem());
+		//"mark-steve:The Social Network:Andamento; steve-mark:Guia do mochileiro das galáxias:Andamento"
+		StringBuffer str = new StringBuffer();
+		List<String> listaSaida = new ArrayList<String>();
+		Iterator<EmprestimoIF> iterador = emprestimos.iterator();
+		
+		while(iterador.hasNext()){
+			EmprestimoIF emp = iterador.next();
+			if(tipo.trim().equalsIgnoreCase("emprestador")){
+				
+				if(this.equals(emp.getEmprestador())){
+					
+					listaSaida.add(emp.getEmprestador().getLogin()+"-"+
+				               emp.getBeneficiado().getLogin()+":"+
+				               emp.getItem().getNome()+":Andamento; ");
+					Collections.sort(listaSaida);
+				}
+			}else if (tipo.trim().equalsIgnoreCase("beneficiado")){
+				if(this.equals(emp.getBeneficiado())){
+					
+					listaSaida.add(emp.getEmprestador().getLogin()+"-"+
+				               emp.getBeneficiado().getLogin()+":"+
+				               emp.getItem().getNome()+":Andamento; ");
+					Collections.sort(listaSaida);
+				}
+			}else if (tipo.trim().equalsIgnoreCase("todos")){
+				
+				if(this.equals(emp.getEmprestador())){
+					listaSaida.add(0, emp.getEmprestador().getLogin()+"-"+
+				               emp.getBeneficiado().getLogin()+":"+
+				               emp.getItem().getNome()+":Andamento; ");
+				}
+				
+				if(this.equals(emp.getBeneficiado())){
+					listaSaida.add(emp.getEmprestador().getLogin()+"-"+
+				               emp.getBeneficiado().getLogin()+":"+
+				               emp.getItem().getNome()+":Andamento; ");
+				}
+				
+			}else{
+				throw new Exception(Mensagem.EMPRESTIMO_TIPO_INXISTENTE.getMensagem());
+			}
+		}
+		
+		for(String s : listaSaida){
+			str.append(s);
+		}
+		
+		if(str.toString().trim().equals("")) return Mensagem.NAO_HA_EMPRESTIMOS_DESTE_TIPO.getMensagem();
+		return str.toString().trim().substring(0, str.toString().length()-2);
+	}
+
+	@Override
+	public void aprovarEmprestimo( String idRequisicaoEmprestimo )
+			throws Exception {
+		
+		assertNaoNulo(idRequisicaoEmprestimo, Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
+		assertStringNaoVazia(idRequisicaoEmprestimo, Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
+		asserteTrue(EmprestimoRepositorio.existeEmprestimo(idRequisicaoEmprestimo.trim()), Mensagem.ID_REQUISICAO_EMP_INEXISTENTE.getMensagem());
+		
+		EmprestimoIF emp = EmprestimoRepositorio.recuperarEmprestimo(idRequisicaoEmprestimo.trim());
+		if(!this.equals(emp.getEmprestador())){
+			//se eu nao for o emprestador, lanca excecao
+			throw new Exception(Mensagem.EMPRESTIMO_SEM_PERMISSAO_APROVAR.getMensagem());
+		}else if(emp.estahAceito()){
+			throw new Exception(Mensagem.EMPRESTIMO_JA_APROVADO.getMensagem());
+		}else{
+			emp.setEstadoAceito();
+		}
+		
+		emprestimosRequeridosPorAmigosEmEspera.remove(emp);
+		emprestimos.add(emp);
+		UsuarioIF amigo = emp.getBeneficiado();
+		amigo.emprestimoAceitoPorAmigo(emp);
+		
+	}
+	
+	public void emprestimoAceitoPorAmigo( EmprestimoIF emp ) throws Exception {
+		if(!emp.estahAceito()) throw new Exception("Meu Amigo Recusou Emprestimo - ERRO");
+		this.emprestimosRequeridosPorAmigosEmEspera.remove(emp);
+		emprestimos.add(emp);
+	}
+	
+
+
 }
