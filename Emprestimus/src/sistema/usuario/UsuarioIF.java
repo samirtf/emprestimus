@@ -2,6 +2,7 @@ package sistema.usuario;
 
 import java.util.List;
 
+import sistema.emprestimo.EmprestimoIF;
 import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.item.ItemIF;
 
@@ -100,7 +101,7 @@ public interface UsuarioIF {
 	 *         Retorna-se uma string vazia caso nao haja elementos.
 	 */
 	public String getListaIdItens();
-
+	
 	public String getListaItens() throws Exception;
 
 	/**
@@ -181,18 +182,17 @@ public interface UsuarioIF {
 	 *         existir ou se estiver emprestado.
 	 */
 	public boolean estahItemDisponivel(String idItem);
-
-	public void usuarioQuerSerMeuAmigo(UsuarioIF usuario);
-
-	public void requisitarAmizade(String login) throws Exception;
-
-	public boolean ehAmigo(String login) throws ArgumentoInvalidoException;
-
-	public boolean amizadeDeFoiRequisitada(String login)
-			throws ArgumentoInvalidoException;
-
+	
+	public void usuarioQuerSerMeuAmigo( UsuarioIF usuario );
+	
+	public void requisitarAmizade( String login ) throws Exception;
+	
+	public boolean ehAmigo( String login ) throws ArgumentoInvalidoException;
+	
+	public boolean amizadeDeFoiRequisitada( String login ) throws ArgumentoInvalidoException;
+	
 	public List<UsuarioIF> getQueremSerMeusAmigos();
-
+	
 	public List<UsuarioIF> getQueroSerAmigoDe();
 
 	/**
@@ -209,23 +209,25 @@ public interface UsuarioIF {
 	public boolean equals(Object outroUsuario);
 
 	public List<ItemIF> getItens();
-
+	
 	public String getAmigos() throws Exception;
 
 	public void aprovarAmizade(String login) throws Exception;
 
 	public void aprovouAmizade(UsuarioIF usuario);
-
-	public boolean oItemMePertence(String idItem) throws Exception;
-
-	public UsuarioIF ehItemDoMeuAmigo(String idItem) throws Exception;
-
-	public String requisitarEmprestimo(String idItem, int duracao)
-			throws Exception;
-
-	public void aprovarEmprestimo(String idRequisicaoEmprestimo)
-			throws Exception;
-
-	public String getEmprestimo(String tipo) throws Exception;
+	
+    public boolean oItemMePertence( String idItem ) throws Exception;
+	
+	public UsuarioIF ehItemDoMeuAmigo( String idItem ) throws Exception;
+	
+	public String requisitarEmprestimo( String idItem, int duracao ) throws Exception;
+	
+	public String getEmprestimos(String tipo) throws Exception;
+	
+	public void adicionarRequisicaoEmprestimoEmEsperaDeAmigo(EmprestimoIF emp);
+	
+	public void aprovarEmprestimo( String idRequisicaoEmprestimo ) throws Exception;
+	
+	public void emprestimoAceitoPorAmigo( EmprestimoIF emp ) throws Exception;
 
 }
