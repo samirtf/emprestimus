@@ -105,8 +105,13 @@ public enum Mensagem {
 	EMPRESTIMO_TIPO_INVALIDO("Tipo inválido"),
 	EMPRESTIMO_TIPO_INXISTENTE("Tipo inexistente"),
 	EMPRESTIMO_DURACAO_INVALIDA("Duracao inválida"),
-	TIPO_INVALIDO("Tipo inválido"),
-	TIPO_INEXISTENTE("Tipo inexistente");
+	TIPO_INEXISTENTE("Tipo inexistente"),
+	EMPRESTIMO_SEM_PERMISSAO_APROVAR("O empréstimo só pode ser aprovado pelo dono do item"),
+	EMPRESTIMO_JA_APROVADO("Empréstimo já aprovado"),
+	REQUISICAO_EMPRESTIMO_JA_SOLICITADA("Requisição já solicitada"),
+	NAO_HA_EMPRESTIMOS_DESTE_TIPO("Não há empréstimos deste tipo"),
+	ID_REQUISICAO_EMP_INEXISTENTE("Requisição de empréstimo inexistente"),
+	TIPO_INVALIDO("Tipo inválido");
 	
 	private final String mensagem;
 
