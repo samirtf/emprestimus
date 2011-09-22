@@ -419,8 +419,8 @@ public class Emprestimus implements EmprestimusIF {
 		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
 		EmprestimoIF emp = EmprestimoRepositorio.recuperarEmprestimo(idEmprestimo);
 		asserteTrue(emp.getBeneficiado().equals(usuario),Mensagem.EMPRESTIMO_DEVOLUCAO_APENAS_BENEFICIADO.getMensagem());
-		asserteTrue(!emp.getEstado().equalsIgnoreCase(EmprestimoEstado.AGUARDANDO_CONFIRMACAO_DEVOLUCAO.getNome()), Mensagem.ITEM_JA_DEVOLVIDO.getMensagem());
-		asserteTrue(!emp.getEstado().equalsIgnoreCase(EmprestimoEstado.CONFIRMADO.getNome()), Mensagem.ITEM_JA_DEVOLVIDO.getMensagem());
+		asserteTrue(!emp.getTipoEstado().equals(EmprestimoEstado.AGUARDANDO_CONFIRMACAO_DEVOLUCAO), Mensagem.ITEM_JA_DEVOLVIDO.getMensagem());
+		asserteTrue(!emp.getTipoEstado().equals(EmprestimoEstado.CONFIRMADO), Mensagem.ITEM_JA_DEVOLVIDO.getMensagem());
 		
 		
 		emp.setEstadoAguardandoConfirmacaoDevolucao();

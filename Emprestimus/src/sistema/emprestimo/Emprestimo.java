@@ -150,6 +150,11 @@ public class Emprestimo implements EmprestimoIF{
 	public String getEstado() {
 		return estado.getNome();
 	}
+	
+	@Override
+	public EmprestimoEstado getTipoEstado(){
+		return this.estado;
+	}
 
 
 	
