@@ -45,6 +45,8 @@ public interface EmprestimoIF {
 	public boolean ehTipoBeneficiado();
 	
 	public String getEstado();
+
+	EmprestimoEstado getTipoEstado();
 	
 
 }

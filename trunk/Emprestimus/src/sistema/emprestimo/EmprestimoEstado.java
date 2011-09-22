@@ -11,7 +11,7 @@ import sistema.utilitarios.ValidadorString;
  * @since 1.0
  */
 public enum EmprestimoEstado {
-	ACEITO("Aceito"), RECUSADO("Recusado"), CONFIRMADO("Completado"), ANDAMENTO("Andamento"),
+	ACEITO("Andamento"), RECUSADO("Recusado"), CONFIRMADO("Completado"), ANDAMENTO("Andamento"),
 	AGUARDANDO_CONFIRMACAO_DEVOLUCAO("Andamento"), EM_ESPERA("Em espera");
 	
 	private final String nome;
@@ -40,7 +40,7 @@ public enum EmprestimoEstado {
 			return EmprestimoEstado.ACEITO;
 		} else if (categoria.equals("RECUSADO")) {
 			return EmprestimoEstado.RECUSADO;
-		} else if (categoria.equals("REVOLVIDO")) {
+		} else if (categoria.equals("DEVOLVIDO")) {
 			return EmprestimoEstado.CONFIRMADO;
 		} else if (categoria.equals("ANDAMENTO")) {
 			return EmprestimoEstado.ANDAMENTO;
