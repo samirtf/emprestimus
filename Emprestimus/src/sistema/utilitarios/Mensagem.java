@@ -110,11 +110,14 @@ public enum Mensagem {
 	EMPRESTIMO_JA_APROVADO("Empréstimo já aprovado"),
 	EMPRESTIMO_INEXISTENTE("Empréstimo inexistente"),
 	EMPRESTIMO_DEVOLUCAO_APENAS_BENEFICIADO("O item só pode ser devolvido pelo usuário beneficiado"),
+	EMPRESTIMO_DEVOLUCAO_CONFIRMADA_APENAS_EMPRESTADOR("O término do empréstimo só pode ser confirmado pelo dono do item"),
 	REQUISICAO_EMPRESTIMO_JA_SOLICITADA("Requisição já solicitada"),
 	NAO_HA_EMPRESTIMOS_DESTE_TIPO("Não há empréstimos deste tipo"),
 	ID_REQUISICAO_EMP_INEXISTENTE("Requisição de empréstimo inexistente"),
 	ID_EMPRESTIMO_INVALIDO("Identificador do empréstimo é inválido"),
-	TIPO_INVALIDO("Tipo inválido");
+	TIPO_INVALIDO("Tipo inválido"),
+	ITEM_JA_DEVOLVIDO("Item já devolvido"), 
+	TERMINO_EMPRESTIMO_JA_CONFIRMADO("Término do empréstimo já confirmado");
 	
 	private final String mensagem;
 

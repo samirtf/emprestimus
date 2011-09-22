@@ -10,8 +10,8 @@ public class UserFacade06 extends UserFacade05{
 		return sistema.getEmprestimos(idSessao, tipo);
 	}
 	
-	public void aprovarEmprestimo(String idSessao,String idRequisicaoEmprestimo) throws Exception {
-		sistema.aprovarEmprestimo(idSessao, idRequisicaoEmprestimo);
+	public String aprovarEmprestimo(String idSessao,String idRequisicaoEmprestimo) throws Exception {
+		return sistema.aprovarEmprestimo(idSessao, idRequisicaoEmprestimo);
 	}
 
 }
