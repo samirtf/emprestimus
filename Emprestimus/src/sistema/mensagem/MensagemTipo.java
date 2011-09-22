@@ -6,7 +6,7 @@ import sistema.utilitarios.ValidadorString;
 
 public enum MensagemTipo {
 	
-	OFF_TOPIC("off-topic"), EMPRESTIMO("Emprestimus");
+	OFF_TOPIC("offtopic"), NEGOCIACAO("negociacao");
 	
 private final String nome;
 	
@@ -30,10 +30,10 @@ private final String nome;
 		}
 		
 		categoria.toUpperCase();
-		if (categoria.equals("OFF-TOPIC")) {
+		if (categoria.equals("offtopic")) {
 			return MensagemTipo.OFF_TOPIC;
-		} else if (categoria.equals("EMPRESTIMO")) {
-			return MensagemTipo.EMPRESTIMO;
+		} else if (categoria.equals("negociacao")) {
+			return MensagemTipo.NEGOCIACAO;
 		}else {
 			throw new Exception("MEnsagemTipo falta mensagem");
 		}

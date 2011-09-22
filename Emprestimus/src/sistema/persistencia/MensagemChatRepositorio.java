@@ -25,7 +25,7 @@ public class MensagemChatRepositorio {
 
 	
 	public static String registrarMensagem(MensagemChatIF msg) throws Exception {
-		msg.setId(MensagemChatRepositorio.geraIdProxMensagem());
+		msg.setIdMensagem(MensagemChatRepositorio.geraIdProxMensagem());
 		mensagensEnviadas.put(++contadorID, msg);
 		return String.valueOf(contadorID);
 	}

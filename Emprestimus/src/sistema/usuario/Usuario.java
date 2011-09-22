@@ -11,8 +11,12 @@ import sistema.emprestimo.EmprestimoIF;
 import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.item.Item;
 import sistema.item.ItemIF;
+import sistema.mensagem.MensagemChat;
+import sistema.mensagem.MensagemChatIF;
+import sistema.mensagem.MensagemTipo;
 import sistema.persistencia.EmprestimoRepositorio;
 import sistema.persistencia.ItemRepositorio;
+import sistema.persistencia.MensagemChatRepositorio;
 import sistema.utilitarios.Mensagem;
 import sistema.utilitarios.Validador;
 import static sistema.utilitarios.Validador.*;
@@ -46,6 +50,9 @@ public class Usuario implements UsuarioIF {
 	private List<EmprestimoIF> emprestimos; //lista de emprestimos do tipo emprestimo/beneficios
 	private List<EmprestimoIF> emprestimosRequeridosPorAmigosEmEspera; //lista de emprestimos em espera que amigos fizeram a mim
 	private List<EmprestimoIF> emprestimosRequeridosPorMimEmEspera; //lista de emprestimos em espera que fiz a amigos
+	
+	private List<MensagemChatIF> mensagensEnviadas; //lista de mensagens enviadas
+	private List<MensagemChatIF> mensagensRecebidas; //lista de mensagens enviadas
 
 	/**
 	 * Construtor padrao eh privado e nao oferece implementacao.
@@ -77,6 +84,8 @@ public class Usuario implements UsuarioIF {
 		emprestimos = new ArrayList<EmprestimoIF>();
 		emprestimosRequeridosPorAmigosEmEspera = new ArrayList<EmprestimoIF>();
 		emprestimosRequeridosPorMimEmEspera = new ArrayList<EmprestimoIF>();
+		mensagensEnviadas = new ArrayList<MensagemChatIF>();
+		mensagensRecebidas = new ArrayList<MensagemChatIF>();
 	}
 
 	@Override
@@ -504,6 +513,74 @@ public class Usuario implements UsuarioIF {
 		this.emprestimosRequeridosPorAmigosEmEspera.remove(emp);
 		emprestimos.add(emp);
 	}
+
+	@Override
+	public UsuarioIF possuoAmigoComEsteLogin(String login) throws Exception {
+		assertNaoNulo(login, Mensagem.LOGIN_INVALIDO.getMensagem());
+		assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem());
+		
+		Iterator<UsuarioIF> iterador = amigos.iterator();
+		while(iterador.hasNext()){
+			UsuarioIF amigo = iterador.next();
+			if(amigo.getLogin().equals(login.trim()))
+				return amigo;
+		}
+		
+		return null;
+	}
+
+	@Override
+	public String enviarMensagemOffTopic( String destinatario, String assunto,
+			String mensagem) throws Exception {
+		
+		assertNaoNulo(destinatario, Mensagem.DESTINATARIO_INVALIDO.getMensagem());
+		assertStringNaoVazia(destinatario, Mensagem.DESTINATARIO_INVALIDO.getMensagem());
+		UsuarioIF amigo = this.possuoAmigoComEsteLogin(destinatario);
+		asserteTrue( amigo != null, Mensagem.DESTINATARIO_INEXISTENTE.getMensagem());
+		
+		assertNaoNulo(assunto, Mensagem.ASSUNTO_INVALIDO.getMensagem());
+		assertStringNaoVazia(assunto, Mensagem.ASSUNTO_INVALIDO.getMensagem());
+		
+		assertNaoNulo(mensagem, Mensagem.MENSAGEM_INVALIDA.getMensagem());
+		assertStringNaoVazia(mensagem, Mensagem.MENSAGEM_INVALIDA.getMensagem());
+		
+		MensagemChatIF msg = new MensagemChat(this, amigo, assunto.trim(), mensagem.trim());
+		MensagemChatRepositorio.registrarMensagem(msg);
+		mensagensEnviadas.add(msg);
+		return msg.getIdMensagem();
+	}
+
+
+	@Override
+	public String enviarMensagemEmprestimo(String destinatario, String assunto,
+			String mensagem, String idRequisicaoEmprestimo) throws Exception {
+
+		assertNaoNulo(destinatario, Mensagem.DESTINATARIO_INVALIDO.getMensagem());
+		assertStringNaoVazia(destinatario, Mensagem.DESTINATARIO_INVALIDO.getMensagem());
+		UsuarioIF amigo = this.possuoAmigoComEsteLogin(destinatario);
+		asserteTrue( amigo != null, Mensagem.DESTINATARIO_INEXISTENTE.getMensagem());
+		
+		assertNaoNulo(assunto, Mensagem.ASSUNTO_INVALIDO.getMensagem());
+		assertStringNaoVazia(assunto, Mensagem.ASSUNTO_INVALIDO.getMensagem());
+		
+		assertNaoNulo(mensagem, Mensagem.MENSAGEM_INVALIDA.getMensagem());
+		assertStringNaoVazia(mensagem, Mensagem.MENSAGEM_INVALIDA.getMensagem());
+		
+		assertNaoNulo(idRequisicaoEmprestimo, Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
+		assertStringNaoVazia(idRequisicaoEmprestimo, Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
+		asserteTrue(EmprestimoRepositorio.existeEmprestimo(idRequisicaoEmprestimo.trim()), 
+				Mensagem.ID_REQUISICAO_EMP_INEXISTENTE.getMensagem());
+		
+		MensagemChatIF msg = new MensagemChat(this, amigo, assunto.trim(), mensagem.trim(), 
+				idRequisicaoEmprestimo.trim(), MensagemTipo.NEGOCIACAO );
+		
+		MensagemChatRepositorio.registrarMensagem(msg);
+		mensagensEnviadas.add(msg);
+		return msg.getIdMensagem();
+		
+	}
+
+	
 	
 
 

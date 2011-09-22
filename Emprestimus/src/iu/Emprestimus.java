@@ -10,6 +10,7 @@ import sistema.autenticacao.Autenticacao;
 import sistema.emprestimo.EmprestimoEstado;
 import sistema.emprestimo.EmprestimoIF;
 import sistema.excecoes.ArgumentoInvalidoException;
+import sistema.mensagem.MensagemChat;
 import sistema.persistencia.EmprestimoRepositorio;
 import sistema.persistencia.ItemRepositorio;
 import sistema.usuario.Usuario;
@@ -446,6 +447,74 @@ public class Emprestimus implements EmprestimusIF {
 		
 		emp.setEstadoConfirmado();
 		
+	}
+
+	@Override
+	public String enviarMensagem(String idSessao, String destinatario,
+			String assunto, String mensagem) throws Exception {
+		assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
+		
+		assertNaoNulo(destinatario, Mensagem.DESTINATARIO_INVALIDO.getMensagem());
+		assertStringNaoVazia(destinatario, Mensagem.DESTINATARIO_INVALIDO.getMensagem());
+		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
+		UsuarioIF amigo = usuario.possuoAmigoComEsteLogin(destinatario);
+		asserteTrue( amigo != null, Mensagem.DESTINATARIO_INEXISTENTE.getMensagem());
+		
+		assertNaoNulo(assunto, Mensagem.ASSUNTO_INVALIDO.getMensagem());
+		assertStringNaoVazia(assunto, Mensagem.ASSUNTO_INVALIDO.getMensagem());
+		
+		assertNaoNulo(mensagem, Mensagem.MENSAGEM_INVALIDA.getMensagem());
+		assertStringNaoVazia(mensagem, Mensagem.MENSAGEM_INVALIDA.getMensagem());
+		
+		return usuario.enviarMensagemOffTopic(destinatario, assunto, mensagem);
+		
+	}
+
+	@Override
+	public String enviarMensagem(String idSessao, String destinatario,
+			String assunto, String mensagem, String idRequisicaoEmprestimo)
+			throws Exception {
+		assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
+		
+		assertNaoNulo(destinatario, Mensagem.DESTINATARIO_INVALIDO.getMensagem());
+		assertStringNaoVazia(destinatario, Mensagem.DESTINATARIO_INVALIDO.getMensagem());
+		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
+		UsuarioIF amigo = usuario.possuoAmigoComEsteLogin(destinatario);
+		asserteTrue( amigo != null, Mensagem.DESTINATARIO_INEXISTENTE.getMensagem());
+		
+		assertNaoNulo(assunto, Mensagem.ASSUNTO_INVALIDO.getMensagem());
+		assertStringNaoVazia(assunto, Mensagem.ASSUNTO_INVALIDO.getMensagem());
+		
+		assertNaoNulo(mensagem, Mensagem.MENSAGEM_INVALIDA.getMensagem());
+		assertStringNaoVazia(mensagem, Mensagem.MENSAGEM_INVALIDA.getMensagem());
+		
+		assertNaoNulo(idRequisicaoEmprestimo, Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
+		assertStringNaoVazia(idRequisicaoEmprestimo, Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
+		asserteTrue(EmprestimoRepositorio.existeEmprestimo(idRequisicaoEmprestimo.trim()), 
+				Mensagem.ID_REQUISICAO_EMP_INEXISTENTE.getMensagem());
+		
+		return usuario.enviarMensagemEmprestimo(destinatario, assunto, mensagem, idRequisicaoEmprestimo);
+	}
+
+	@Override
+	public String lerTopicos(String idSessao, String tipo) throws Exception {
+		assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
+		return null;
+	}
+
+	@Override
+	public String lerMensagens(String idSessao, String idTopico)
+			throws Exception {
+		assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
+		return null;
 	}
 
 }
