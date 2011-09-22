@@ -130,7 +130,8 @@ public enum Mensagem {
 	ASSUNTO_INVALIDO("Assunto inválido"),
 	MENSAGEM_INVALIDA("Mensagem inválida"), 
 	DESTINATARIO_INEXISTENTE("Destinatário inexistente"), 
-	ID_MENSAGEM_INVALIDO("Identificador mensagem inválido");
+	ID_MENSAGEM_INVALIDO("Identificador mensagem inválido"),
+	NAO_HA_TOPICOS_CRIADOS("Não há tópicos criados");
 	
 	private final String mensagem;
 

@@ -5,7 +5,7 @@ public class UserFacade08 extends UserFacade07{
 	
 	public String enviarMensagem(String idSessao, String destinatario,
 			String assunto, String mensagem) throws Exception {
-		return sistema.enviarMensagem(idSessao, destinatario, assunto, mensagem);
+		 return sistema.enviarMensagem(idSessao, destinatario, assunto, mensagem);
 		
 	}
 
@@ -13,7 +13,7 @@ public class UserFacade08 extends UserFacade07{
 	public String enviarMensagm(String idSessao, String destinatario,
 			String assunto, String mensagem, String idRequisicaoEmprestimo)
 			throws Exception {
-		return sistema.enviarMensagem(idSessao, destinatario, assunto, mensagem, idRequisicaoEmprestimo);
+		 return sistema.enviarMensagem(idSessao, destinatario, assunto, mensagem, idRequisicaoEmprestimo);
 		
 	}
 

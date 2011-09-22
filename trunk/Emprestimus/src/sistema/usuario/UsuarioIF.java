@@ -5,6 +5,7 @@ import java.util.List;
 import sistema.emprestimo.EmprestimoIF;
 import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.item.ItemIF;
+import sistema.mensagem.ChatIF;
 
 /**
  * Representa um usuario do sistema. Esta interface assegura que os metodos
@@ -233,9 +234,15 @@ public interface UsuarioIF {
 	public UsuarioIF possuoAmigoComEsteLogin(  String login ) throws Exception;
 	
 	//public UsuarioIF getAmigoPeloLogin( String login ) throws Exception;
+	
+	public void adicionaConversaOfftopicNaLista( ChatIF conversa );
+	
+	public void adicionaConversaNegociacaoNaLista( ChatIF conversa );
 
 	public String enviarMensagemOffTopic( String destinatario, String assunto, String mensagem ) throws Exception;
 	
 	public String enviarMensagemEmprestimo( String destinatario, String assunto, String mensagem, String idRequisicaoEmprestimo ) throws Exception;
+	
+	public String lerTopicos( String tipo ) throws Exception;
 	
 }

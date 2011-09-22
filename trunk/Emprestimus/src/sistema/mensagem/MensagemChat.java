@@ -1,121 +1,55 @@
 package sistema.mensagem;
 
-import sistema.excecoes.ArgumentoInvalidoException;
-import sistema.persistencia.EmprestimoRepositorio;
-import sistema.usuario.UsuarioIF;
-import sistema.utilitarios.Mensagem;
-import static sistema.utilitarios.Validador.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
-public class MensagemChat implements MensagemChatIF{
-	String idMensagem;
-	UsuarioIF remetente;
-	UsuarioIF destinatario;
-	String assunto, mensagem, idRequisicaoEmprestimo;
-	MensagemTipo tipo;
+public class MensagemChat implements MensagemChatIF, Comparable<MensagemChatIF>{
+
+	String mensagem = "";
+	Date data;
 	
-	public MensagemChat(UsuarioIF remetente, UsuarioIF destinatario, String assunto, 
-			String mensagem, String idRequisicaoEmprestimo, MensagemTipo tipo ) throws ArgumentoInvalidoException{
-		
-		setRemetente(remetente);
-		setDestinatario(destinatario);
-		setAssunto(assunto);
-		setMensagem(mensagem);
-		this.tipo = tipo;
-		
-	}
-
-	public MensagemChat(UsuarioIF remetente, UsuarioIF destinatario, String assunto,
-			String mensagem ) throws ArgumentoInvalidoException {
-		
-		setRemetente(remetente);
-		setDestinatario(destinatario);
-		setAssunto(assunto);
-		setMensagem(mensagem);
-		setTipoOffTopicMsg();
-		
-	}
-
-	@Override
-	public void setTipoOffTopicMsg() {
-		this.tipo = MensagemTipo.OFF_TOPIC;
+	public MensagemChat(String mensagem) {
+		this.mensagem = mensagem;
+		this.data = new GregorianCalendar().getTime(); 
 	}
 	
-	
+	public String getMensagem() {
+		return mensagem;
+	}
 
-	@Override
-	public void setMensagem(String mensagem) throws ArgumentoInvalidoException {
-		assertNaoNulo(mensagem, Mensagem.MENSAGEM_INVALIDA.getMensagem());
-		assertStringNaoVazia(mensagem, Mensagem.MENSAGEM_INVALIDA.getMensagem());
+	public void setMensagem(String mensagem) {
 		this.mensagem = mensagem;
 	}
 
-	@Override
-	public void setAssunto(String assunto) throws ArgumentoInvalidoException {
-		assertNaoNulo(assunto, Mensagem.ASSUNTO_INVALIDO.getMensagem());
-		assertStringNaoVazia(assunto, Mensagem.ASSUNTO_INVALIDO.getMensagem());
-		this.assunto = assunto;
+	public Date getData() {
+		return data;
+	}
+
+	public void setData(Date data) {
+		this.data = data;
 	}
 
 	@Override
-	public void setDestinatario(UsuarioIF destinatario) throws ArgumentoInvalidoException {
-		assertNaoNulo(destinatario, Mensagem.DESTINATARIO_INVALIDO.getMensagem());
-		this.destinatario = destinatario;
-	}
-
-	@Override
-	public void setRemetente(UsuarioIF remetente) throws ArgumentoInvalidoException {
-		assertNaoNulo(remetente, Mensagem.REMETENTE_INVALIDO.getMensagem());
-		this.remetente = remetente;
-	}
-
-	@Override
-	public void setIdMensagem(String idMensagem) {
-		this.idMensagem = idMensagem;
+	public String toString(){
+		return "DATA:"+(String.format("%1$te/%1$tm/%1$tY - %tT", data))+" MENSAGEM:"+mensagem;
 	}
 	
-	@Override
-	public void setIdRequisicaEmprestimo(String idRequisicaoEmprestimo) throws ArgumentoInvalidoException {
-		assertNaoNulo(idRequisicaoEmprestimo, Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
-		assertStringNaoVazia(idRequisicaoEmprestimo, Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
-		asserteTrue(EmprestimoRepositorio.existeEmprestimo(idRequisicaoEmprestimo.trim()), 
-				Mensagem.ID_REQUISICAO_EMP_INEXISTENTE.getMensagem());
-		this.idRequisicaoEmprestimo = idRequisicaoEmprestimo;
+	public static void main( String[] args ) throws InterruptedException{
+		MensagemChat msg = new MensagemChat("Samir chegou ");
+		Thread.sleep(1000);
+		MensagemChat msg2 = new MensagemChat("Samir chegou ");
+		
+		System.out.println(msg);
+		System.out.println(msg2);
+		System.out.println(msg.compareTo(msg2));
 	}
 
 	@Override
-	public void setTipoNegociacaoMsg() {
-		tipo = MensagemTipo.NEGOCIACAO;
+	public int compareTo(MensagemChatIF outra) {
+		return getData().compareTo(outra.getData());
 	}
-
-	@Override
-	public String getMensagem() {
-		return this.mensagem;
-	}
-
-	@Override
-	public String getAssunto() {
-		return this.assunto;
-	}
-
-	@Override
-	public UsuarioIF getDestinatario() {
-		return this.destinatario;
-	}
-
-	@Override
-	public UsuarioIF getRemetente() {
-		return this.remetente;
-	}
-
-	@Override
-	public String getIdMensagem() {
-		return this.idMensagem;
-	}
-
-	@Override
-	public String getIdRequisicaoEmprestimo() {
-		return this.idRequisicaoEmprestimo;
-	}
+	
 	
 	
 
