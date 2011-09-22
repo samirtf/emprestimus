@@ -10,7 +10,7 @@ import sistema.autenticacao.Autenticacao;
 import sistema.emprestimo.EmprestimoEstado;
 import sistema.emprestimo.EmprestimoIF;
 import sistema.excecoes.ArgumentoInvalidoException;
-import sistema.mensagem.MensagemChat;
+import sistema.mensagem.Chat;
 import sistema.persistencia.EmprestimoRepositorio;
 import sistema.persistencia.ItemRepositorio;
 import sistema.usuario.Usuario;
@@ -505,7 +505,13 @@ public class Emprestimus implements EmprestimusIF {
 		assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
 		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
 		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
-		return null;
+		
+		assertNaoNulo(tipo, Mensagem.TIPO_INVALIDO.getMensagem());
+		assertStringNaoVazia(tipo, Mensagem.TIPO_INVALIDO.getMensagem());
+		
+		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
+		return usuario.lerTopicos(tipo);
+		
 	}
 
 	@Override

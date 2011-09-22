@@ -56,6 +56,8 @@ public interface EmprestimusIF {
     //mensagm off-topic
     public String enviarMensagem( String idSessao, String destinatario, String assunto, String mensagem ) throws Exception;
     
+    
+    
     //relativa a negociacao
     public String enviarMensagem( String idSessao, String destinatario, String assunto, String mensagem, String idRequisicaoEmprestimo ) throws Exception;
     
