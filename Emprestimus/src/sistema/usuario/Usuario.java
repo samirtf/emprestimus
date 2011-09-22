@@ -3,6 +3,7 @@ package sistema.usuario;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import sistema.autenticacao.Autenticacao;
@@ -11,12 +12,12 @@ import sistema.emprestimo.EmprestimoIF;
 import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.item.Item;
 import sistema.item.ItemIF;
-import sistema.mensagem.MensagemChat;
-import sistema.mensagem.MensagemChatIF;
+import sistema.mensagem.Chat;
+import sistema.mensagem.ChatIF;
 import sistema.mensagem.MensagemTipo;
 import sistema.persistencia.EmprestimoRepositorio;
 import sistema.persistencia.ItemRepositorio;
-import sistema.persistencia.MensagemChatRepositorio;
+import sistema.persistencia.ChatRepositorio;
 import sistema.utilitarios.Mensagem;
 import sistema.utilitarios.Validador;
 import static sistema.utilitarios.Validador.*;
@@ -51,8 +52,8 @@ public class Usuario implements UsuarioIF {
 	private List<EmprestimoIF> emprestimosRequeridosPorAmigosEmEspera; //lista de emprestimos em espera que amigos fizeram a mim
 	private List<EmprestimoIF> emprestimosRequeridosPorMimEmEspera; //lista de emprestimos em espera que fiz a amigos
 	
-	private List<MensagemChatIF> mensagensEnviadas; //lista de mensagens enviadas
-	private List<MensagemChatIF> mensagensRecebidas; //lista de mensagens enviadas
+	private List<ChatIF> conversasOfftopic; //lista de conversas offtopic
+	private List<ChatIF> conversasNegociacao; //lista de conversas negociacao
 
 	/**
 	 * Construtor padrao eh privado e nao oferece implementacao.
@@ -84,8 +85,8 @@ public class Usuario implements UsuarioIF {
 		emprestimos = new ArrayList<EmprestimoIF>();
 		emprestimosRequeridosPorAmigosEmEspera = new ArrayList<EmprestimoIF>();
 		emprestimosRequeridosPorMimEmEspera = new ArrayList<EmprestimoIF>();
-		mensagensEnviadas = new ArrayList<MensagemChatIF>();
-		mensagensRecebidas = new ArrayList<MensagemChatIF>();
+		conversasOfftopic = new LinkedList<ChatIF>();
+		conversasNegociacao = new LinkedList<ChatIF>();
 	}
 
 	@Override
@@ -528,6 +529,14 @@ public class Usuario implements UsuarioIF {
 		
 		return null;
 	}
+	
+	public void adicionaConversaOfftopicNaLista( ChatIF conversa ){
+		this.conversasOfftopic.add(conversa);
+	}
+	
+	public void adicionaConversaNegociacaoNaLista( ChatIF conversa ){
+		this.conversasNegociacao.add(conversa);
+	}
 
 	@Override
 	public String enviarMensagemOffTopic( String destinatario, String assunto,
@@ -544,10 +553,18 @@ public class Usuario implements UsuarioIF {
 		assertNaoNulo(mensagem, Mensagem.MENSAGEM_INVALIDA.getMensagem());
 		assertStringNaoVazia(mensagem, Mensagem.MENSAGEM_INVALIDA.getMensagem());
 		
-		MensagemChatIF msg = new MensagemChat(this, amigo, assunto.trim(), mensagem.trim());
-		MensagemChatRepositorio.registrarMensagem(msg);
-		mensagensEnviadas.add(msg);
-		return msg.getIdMensagem();
+		ChatIF conversa = ChatRepositorio.existeConversaEntreAsPessoasSobreMesmoAssuntoETipo(this.login, 
+				destinatario, assunto, true);
+		
+		if(conversa == null){
+			conversa = new Chat(this, amigo, assunto.trim(), mensagem.trim());
+		}
+		conversa.adicionaMensagem(mensagem);	
+		conversa.setTipoOffTopicMsg();
+		ChatRepositorio.registrarConversa(conversa);
+		this.conversasOfftopic.add(conversa);
+		amigo.adicionaConversaOfftopicNaLista(conversa);
+		return conversa.getIdMensagem();
 	}
 
 
@@ -571,17 +588,39 @@ public class Usuario implements UsuarioIF {
 		asserteTrue(EmprestimoRepositorio.existeEmprestimo(idRequisicaoEmprestimo.trim()), 
 				Mensagem.ID_REQUISICAO_EMP_INEXISTENTE.getMensagem());
 		
-		MensagemChatIF msg = new MensagemChat(this, amigo, assunto.trim(), mensagem.trim(), 
-				idRequisicaoEmprestimo.trim(), MensagemTipo.NEGOCIACAO );
+		ChatIF conversa = ChatRepositorio.existeConversaEntreAsPessoasSobreMesmoAssuntoETipo(this.login, 
+				destinatario, assunto, false);
 		
-		MensagemChatRepositorio.registrarMensagem(msg);
-		mensagensEnviadas.add(msg);
-		return msg.getIdMensagem();
+		if(conversa == null){
+			conversa = new Chat(this, amigo, assunto.trim(), 
+					mensagem, idRequisicaoEmprestimo );
+		}
+		conversa.adicionaMensagem(mensagem);
+		conversa.setTipoNegociacaoMsg();
+		ChatRepositorio.registrarConversa(conversa);
+		this.conversasOfftopic.add(conversa);
+		amigo.adicionaConversaNegociacaoNaLista(conversa);
+		return conversa.getIdMensagem();
 		
 	}
 
-	
-	
+	@Override
+	public String lerTopicos(String tipo) throws Exception {
+		assertNaoNulo(tipo, Mensagem.TIPO_INVALIDO.getMensagem());
+		assertStringNaoVazia(tipo, Mensagem.TIPO_INVALIDO.getMensagem());
+		
+//		if(tipo.trim().equalsIgnoreCase("negociacao")){
+//			
+//		}else if(tipo.trim().equalsIgnoreCase("offtopic")){
+//			
+//		}else if(tipo.trim().equalsIgnoreCase("todos")){
+//			
+//		}else{
+//			return Mensagem.TIPO_INEXISTENTE.getMensagem();
+//		}
+		
+		return null;
+	}
 
 
 }
