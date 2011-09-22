@@ -117,8 +117,8 @@ public class Emprestimo implements EmprestimoIF{
 	}
 
 	@Override
-	public void setEstadoDevolvido() {
-		this.estado = EmprestimoEstado.DEVOLVIDO;
+	public void setEstadoConfirmado() {
+		this.estado = EmprestimoEstado.CONFIRMADO;
 		
 	}
 
@@ -138,6 +138,17 @@ public class Emprestimo implements EmprestimoIF{
 	public boolean estahAceito() {
 		return !this.estado.equals(EmprestimoEstado.RECUSADO) &&
 			   !this.estado.equals(EmprestimoEstado.EM_ESPERA);
+	}
+
+	@Override
+	public void setEstadoAguardandoConfirmacaoDevolucao() {
+		this.estado = EmprestimoEstado.AGUARDANDO_CONFIRMACAO_DEVOLUCAO;
+		
+	}
+
+	@Override
+	public String getEstado() {
+		return estado.getNome();
 	}
 
 

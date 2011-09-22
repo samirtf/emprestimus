@@ -413,8 +413,7 @@ public class Usuario implements UsuarioIF {
 		emprestimosRequeridosPorMimEmEspera.add(emp);// o emprestimo eh modificdo pelo repositorio possuindo agora
 						// um id valido
 		amigo.adicionarRequisicaoEmprestimoEmEsperaDeAmigo(emp);
-		return String
-				.valueOf((Long.valueOf(EmprestimoRepositorio.geraIdProxEmprestimo()) - 1));
+		return emp.getIdEmprestimo();
 		
 	}
 	
@@ -436,7 +435,7 @@ public class Usuario implements UsuarioIF {
 					
 					listaSaida.add(emp.getEmprestador().getLogin()+"-"+
 				               emp.getBeneficiado().getLogin()+":"+
-				               emp.getItem().getNome()+":Andamento; ");
+				               emp.getItem().getNome()+":"+emp.getEstado()+"; ");
 					Collections.sort(listaSaida);
 				}
 			}else if (tipo.trim().equalsIgnoreCase("beneficiado")){
@@ -444,7 +443,7 @@ public class Usuario implements UsuarioIF {
 					
 					listaSaida.add(emp.getEmprestador().getLogin()+"-"+
 				               emp.getBeneficiado().getLogin()+":"+
-				               emp.getItem().getNome()+":Andamento; ");
+				               emp.getItem().getNome()+":"+emp.getEstado()+"; ");
 					Collections.sort(listaSaida);
 				}
 			}else if (tipo.trim().equalsIgnoreCase("todos")){
@@ -452,13 +451,13 @@ public class Usuario implements UsuarioIF {
 				if(this.equals(emp.getEmprestador())){
 					listaSaida.add(0, emp.getEmprestador().getLogin()+"-"+
 				               emp.getBeneficiado().getLogin()+":"+
-				               emp.getItem().getNome()+":Andamento; ");
+				               emp.getItem().getNome()+":"+emp.getEstado()+"; ");
 				}
 				
 				if(this.equals(emp.getBeneficiado())){
 					listaSaida.add(emp.getEmprestador().getLogin()+"-"+
 				               emp.getBeneficiado().getLogin()+":"+
-				               emp.getItem().getNome()+":Andamento; ");
+				               emp.getItem().getNome()+":"+emp.getEstado()+"; ");
 				}
 				
 			}else{
@@ -475,7 +474,7 @@ public class Usuario implements UsuarioIF {
 	}
 
 	@Override
-	public void aprovarEmprestimo( String idRequisicaoEmprestimo )
+	public String aprovarEmprestimo( String idRequisicaoEmprestimo )
 			throws Exception {
 		
 		assertNaoNulo(idRequisicaoEmprestimo, Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
@@ -496,6 +495,7 @@ public class Usuario implements UsuarioIF {
 		emprestimos.add(emp);
 		UsuarioIF amigo = emp.getBeneficiado();
 		amigo.emprestimoAceitoPorAmigo(emp);
+		return emp.getIdEmprestimo();
 		
 	}
 	

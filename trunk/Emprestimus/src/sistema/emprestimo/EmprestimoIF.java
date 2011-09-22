@@ -14,11 +14,13 @@ public interface EmprestimoIF {
 	
 	public void setEstadoAceito();
 	
-	public void setEstadoDevolvido();
+	public void setEstadoConfirmado();
 	
 	public void setEstadoRecusado();
 	
 	public void setEstadoAndamento();
+	
+	public void setEstadoAguardandoConfirmacaoDevolucao();
 	
 	public void setTipoEmprestador();
 	
@@ -41,6 +43,8 @@ public interface EmprestimoIF {
 	public boolean ehTipoEmprestador();
 	
 	public boolean ehTipoBeneficiado();
+	
+	public String getEstado();
 	
 
 }

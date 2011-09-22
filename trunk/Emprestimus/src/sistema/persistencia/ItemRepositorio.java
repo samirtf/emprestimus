@@ -32,16 +32,16 @@ public class ItemRepositorio {
 	}
 
 	public static ItemIF recuperarItem(String idItem) throws Exception {
-		/*Long idLong = null;
+		Long idLong = null;
 		try {
 			idLong = Long.parseLong(idItem);
 		} catch (Exception e) {
 			throw new Exception(Mensagem.ID_ITEM_INVALIDO.getMensagem());
-		}*/
-		ItemIF item = itensCadastrados.get(Long.parseLong(idItem));
-		/*if (item == null)
+		}
+		ItemIF item = itensCadastrados.get(idLong);
+		if (item == null)
 			throw new Exception(Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
-		*/
+		
 		return item;
 	}
 

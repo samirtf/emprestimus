@@ -7,6 +7,7 @@ import static sistema.utilitarios.Validador.asserteTrue;
 import java.util.List;
 
 import sistema.autenticacao.Autenticacao;
+import sistema.emprestimo.EmprestimoEstado;
 import sistema.emprestimo.EmprestimoIF;
 import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.persistencia.EmprestimoRepositorio;
@@ -352,7 +353,7 @@ public class Emprestimus implements EmprestimusIF {
 	 * java.lang.String)
 	 */
 	@Override
-	public void aprovarEmprestimo(String idSessao, String idRequisicaoEmprestimo) throws Exception {
+	public String aprovarEmprestimo(String idSessao, String idRequisicaoEmprestimo) throws Exception {
 		assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
 		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
 		asserteTrue(autenticacao.existeIdSessao(idSessao.trim()), Mensagem.SESSAO_INEXISTENTE.getMensagem());
@@ -361,8 +362,9 @@ public class Emprestimus implements EmprestimusIF {
 		asserteTrue(EmprestimoRepositorio.existeEmprestimo(idRequisicaoEmprestimo.trim()), Mensagem.ID_REQUISICAO_EMP_INEXISTENTE.getMensagem());
 		
 		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao.trim());
-		usuario.aprovarEmprestimo(idRequisicaoEmprestimo);
-
+		String saida = usuario.aprovarEmprestimo(idRequisicaoEmprestimo);
+		return saida;
+		
 	}
 
 	/*
@@ -401,6 +403,49 @@ public class Emprestimus implements EmprestimusIF {
 	public void encerrarSistema() {
 		//Salva dados em persistencia
 
+	}
+
+	@Override
+	public void devolverItem(String idSessao, String idEmprestimo)
+			throws Exception {
+		assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
+		
+		assertNaoNulo(idEmprestimo, Mensagem.ID_EMPRESTIMO_INVALIDO.getMensagem());
+		assertStringNaoVazia(idEmprestimo, Mensagem.ID_EMPRESTIMO_INVALIDO.getMensagem());
+		asserteTrue(EmprestimoRepositorio.existeEmprestimo(idEmprestimo), Mensagem.EMPRESTIMO_INEXISTENTE.getMensagem());
+		
+		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
+		EmprestimoIF emp = EmprestimoRepositorio.recuperarEmprestimo(idEmprestimo);
+		asserteTrue(emp.getBeneficiado().equals(usuario),Mensagem.EMPRESTIMO_DEVOLUCAO_APENAS_BENEFICIADO.getMensagem());
+		asserteTrue(!emp.getEstado().equalsIgnoreCase(EmprestimoEstado.AGUARDANDO_CONFIRMACAO_DEVOLUCAO.getNome()), Mensagem.ITEM_JA_DEVOLVIDO.getMensagem());
+		asserteTrue(!emp.getEstado().equalsIgnoreCase(EmprestimoEstado.CONFIRMADO.getNome()), Mensagem.ITEM_JA_DEVOLVIDO.getMensagem());
+		
+		
+		emp.setEstadoAguardandoConfirmacaoDevolucao();
+		
+	}
+
+	@Override
+	public void confirmarTerminoEmprestimo(String idSessao, String idEmprestimo)
+			throws Exception {
+		
+		assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
+		
+		assertNaoNulo(idEmprestimo, Mensagem.ID_EMPRESTIMO_INVALIDO.getMensagem());
+		assertStringNaoVazia(idEmprestimo, Mensagem.ID_EMPRESTIMO_INVALIDO.getMensagem());
+		asserteTrue(EmprestimoRepositorio.existeEmprestimo(idEmprestimo), Mensagem.EMPRESTIMO_INEXISTENTE.getMensagem());
+		
+		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
+		EmprestimoIF emp = EmprestimoRepositorio.recuperarEmprestimo(idEmprestimo);
+		asserteTrue(emp.getEmprestador().equals(usuario),Mensagem.EMPRESTIMO_DEVOLUCAO_CONFIRMADA_APENAS_EMPRESTADOR.getMensagem());
+		asserteTrue(!emp.getEstado().equalsIgnoreCase(EmprestimoEstado.CONFIRMADO.getNome()), Mensagem.TERMINO_EMPRESTIMO_JA_CONFIRMADO.getMensagem());
+		
+		emp.setEstadoConfirmado();
+		
 	}
 
 }

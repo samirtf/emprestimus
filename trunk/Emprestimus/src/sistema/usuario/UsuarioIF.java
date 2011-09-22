@@ -226,7 +226,7 @@ public interface UsuarioIF {
 	
 	public void adicionarRequisicaoEmprestimoEmEsperaDeAmigo(EmprestimoIF emp);
 	
-	public void aprovarEmprestimo( String idRequisicaoEmprestimo ) throws Exception;
+	public String aprovarEmprestimo( String idRequisicaoEmprestimo ) throws Exception;
 	
 	public void emprestimoAceitoPorAmigo( EmprestimoIF emp ) throws Exception;
 
