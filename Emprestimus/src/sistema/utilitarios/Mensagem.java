@@ -25,9 +25,11 @@ public enum Mensagem {
 			"6 - Ver perfil proprio\n" +
 			"7 - GetAtributo\n" +
 			"8 - Sair\n"),
+
 	PERGUNTAR_TENTAR_NOVAMENTE("Deseja tentar novamente?\n"+
 							   "1 - Sim\n" +
 							   "2 - Não"),
+
 	COPYRIGHT("Copyright © 2010 Joeffison S. A. All rights reserved."),
 	CONTATOS("Deseja contratar nossos servicos?\n" +
 					 "Entao envie um email para: joeffisonsa@gmail.com"),
@@ -122,7 +124,13 @@ public enum Mensagem {
 	ID_EMPRESTIMO_INVALIDO("Identificador do empréstimo é inválido"),
 	TIPO_INVALIDO("Tipo inválido"),
 	ITEM_JA_DEVOLVIDO("Item já devolvido"), 
-	TERMINO_EMPRESTIMO_JA_CONFIRMADO("Término do empréstimo já confirmado");
+	TERMINO_EMPRESTIMO_JA_CONFIRMADO("Término do empréstimo já confirmado"),
+	REMETENTE_INVALIDO("Remetente inválido"),
+	DESTINATARIO_INVALIDO("Destinatário inválido"), 
+	ASSUNTO_INVALIDO("Assunto inválido"),
+	MENSAGEM_INVALIDA("Mensagem inválida"), 
+	DESTINATARIO_INEXISTENTE("Destinatário inexistente"), 
+	ID_MENSAGEM_INVALIDO("Identificador mensagem inválido");
 	
 	private final String mensagem;
 
