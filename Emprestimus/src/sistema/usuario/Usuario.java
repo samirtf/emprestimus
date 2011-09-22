@@ -3,7 +3,6 @@ package sistema.usuario;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 import sistema.autenticacao.Autenticacao;
@@ -85,8 +84,8 @@ public class Usuario implements UsuarioIF {
 		emprestimos = new ArrayList<EmprestimoIF>();
 		emprestimosRequeridosPorAmigosEmEspera = new ArrayList<EmprestimoIF>();
 		emprestimosRequeridosPorMimEmEspera = new ArrayList<EmprestimoIF>();
-		conversasOfftopic = new LinkedList<ChatIF>();
-		conversasNegociacao = new LinkedList<ChatIF>();
+		conversasOfftopic = new ArrayList<ChatIF>();
+		conversasNegociacao = new ArrayList<ChatIF>();
 	}
 
 	@Override
@@ -492,14 +491,10 @@ public class Usuario implements UsuarioIF {
 		asserteTrue(EmprestimoRepositorio.existeEmprestimo(idRequisicaoEmprestimo.trim()), Mensagem.ID_REQUISICAO_EMP_INEXISTENTE.getMensagem());
 		
 		EmprestimoIF emp = EmprestimoRepositorio.recuperarEmprestimo(idRequisicaoEmprestimo.trim());
-		if(!this.equals(emp.getEmprestador())){
-			//se eu nao for o emprestador, lanca excecao
-			throw new Exception(Mensagem.EMPRESTIMO_SEM_PERMISSAO_APROVAR.getMensagem());
-		}else if(emp.estahAceito()){
-			throw new Exception(Mensagem.EMPRESTIMO_JA_APROVADO.getMensagem());
-		}else{
-			emp.setEstadoAceito();
-		}
+				asserteTrue(this.equals(emp.getEmprestador()), Mensagem.EMPRESTIMO_SEM_PERMISSAO_APROVAR.getMensagem());
+		asserteTrue(!emp.estahAceito(), Mensagem.EMPRESTIMO_JA_APROVADO.getMensagem());
+		
+		emp.setEstadoAceito();
 		
 		emprestimosRequeridosPorAmigosEmEspera.remove(emp);
 		emprestimos.add(emp);

@@ -1,5 +1,7 @@
 package sistema.emprestimo;
-import sistema.emprestimo.EmprestimoIF;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.item.ItemIF;
 import sistema.usuario.UsuarioIF;
@@ -11,12 +13,14 @@ public class Emprestimo implements EmprestimoIF{
 	
 	
 	String id;
-	int duracao;
+	int duracao; //Em dias
 	UsuarioIF emprestador; //quem concedeu De
 	UsuarioIF beneficiado; // quem pediu   Para
 	ItemIF item;
 	String tipo;
 	EmprestimoEstado estado;
+	Calendar dataDeAprovacao;
+	Calendar dataDeDevolucao;
 	
 	public Emprestimo( UsuarioIF emprestador, UsuarioIF beneficiado, ItemIF item, String tipo, int duracao ) throws Exception{
 		setEmprestador(emprestador);
@@ -113,6 +117,9 @@ public class Emprestimo implements EmprestimoIF{
 	@Override
 	public void setEstadoAceito() {
 		this.estado = EmprestimoEstado.ACEITO;
+		dataDeAprovacao = new GregorianCalendar();
+		dataDeDevolucao = new GregorianCalendar();
+		dataDeDevolucao.add(GregorianCalendar.DATE, duracao);
 		
 	}
 
@@ -145,6 +152,12 @@ public class Emprestimo implements EmprestimoIF{
 		this.estado = EmprestimoEstado.AGUARDANDO_CONFIRMACAO_DEVOLUCAO;
 		
 	}
+	
+	@Override
+	public void setEstadoCancelado() {
+		this.estado = EmprestimoEstado.CANCELADO;
+		
+	}
 
 	@Override
 	public String getEstado() {
@@ -154,6 +167,10 @@ public class Emprestimo implements EmprestimoIF{
 	@Override
 	public EmprestimoEstado getTipoEstado(){
 		return this.estado;
+	}
+	
+	public Calendar getDataDeDevolucao() {
+		return dataDeDevolucao;
 	}
 
 
