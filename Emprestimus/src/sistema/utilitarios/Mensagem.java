@@ -23,7 +23,11 @@ public enum Mensagem {
 			"4 - Procurar amigos\n" +
 			"5 - Ver solicitacoes de amizade\n" +
 			"6 - Ver perfil proprio\n" +
-			"7 - Sair\n"),
+			"7 - GetAtributo\n" +
+			"8 - Sair\n"),
+	PERGUNTAR_TENTAR_NOVAMENTE("Deseja tentar novamente?\n"+
+							   "1 - Sim\n" +
+							   "2 - Não"),
 	COPYRIGHT("Copyright © 2010 Joeffison S. A. All rights reserved."),
 	CONTATOS("Deseja contratar nossos servicos?\n" +
 					 "Entao envie um email para: joeffisonsa@gmail.com"),
@@ -55,6 +59,7 @@ public enum Mensagem {
 	PEDIR_LOGIN("Entre com o seu login: "),
 	PEDIR_SENHA("Entre com a sua senha: "),
 	PEDIR_OPCAO("Por favor, digite uma opcao: "),
+	PERGUNTAR_ATRIBUTO("Qual o atributo que você deseja?"),
 	NOME_PARA_CADASTRAR("Qual o nome do usuario a ser cadastrado?"),
 	LOGIN_PARA_CADASTRAR("Qual o login do usuario a ser cadastrado?"),
 	ENDERECO_PARA_CADASTRAR("Qual o endereco do usuario a ser cadastrado?"),
