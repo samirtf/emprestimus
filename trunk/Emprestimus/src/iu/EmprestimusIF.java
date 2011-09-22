@@ -52,6 +52,22 @@ public interface EmprestimusIF {
     
     public void confirmarTerminoEmprestimo( String idSessao, String idEmprestimo ) throws Exception;
     
+    //US08
+    //mensagm off-topic
+    public String enviarMensagem( String idSessao, String destinatario, String assunto, String mensagem ) throws Exception;
+    
+    //relativa a negociacao
+    public String enviarMensagem( String idSessao, String destinatario, String assunto, String mensagem, String idRequisicaoEmprestimo ) throws Exception;
+    
+    //Recupera a lista de tópicos do usuário, informando o tipo dos tópicos recuperados (negociação, off-topic ou todos). 
+    //Esta lista deve ser ordenada pela data de criação, do tópico mais recente ao mais antigo.
+    public String lerTopicos( String idSessao, String tipo ) throws Exception;
+    
+    //Recupera a lista de mensagens relativa a um tópico. 
+    //Esta lista deve ser ordenada pela data de criação, da mensagem antiga à mais recente.
+    public String lerMensagens( String idSessao, String idTopico ) throws Exception;
+    
+    //US09
 	
 	//Utils
 	public void zerarSistema();

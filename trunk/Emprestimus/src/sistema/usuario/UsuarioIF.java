@@ -229,5 +229,13 @@ public interface UsuarioIF {
 	public String aprovarEmprestimo( String idRequisicaoEmprestimo ) throws Exception;
 	
 	public void emprestimoAceitoPorAmigo( EmprestimoIF emp ) throws Exception;
+	
+	public UsuarioIF possuoAmigoComEsteLogin(  String login ) throws Exception;
+	
+	//public UsuarioIF getAmigoPeloLogin( String login ) throws Exception;
 
+	public String enviarMensagemOffTopic( String destinatario, String assunto, String mensagem ) throws Exception;
+	
+	public String enviarMensagemEmprestimo( String destinatario, String assunto, String mensagem, String idRequisicaoEmprestimo ) throws Exception;
+	
 }
