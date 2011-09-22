@@ -70,6 +70,9 @@ public interface EmprestimusIF {
     public String lerMensagens( String idSessao, String idTopico ) throws Exception;
     
     //US09
+    public void requisitarDevolucao(String idSessao, String idEmprestimo) throws Exception;
+    
+    public void adicionarDias(String dias) throws Exception ;
 	
 	//Utils
 	public void zerarSistema();

@@ -4,6 +4,8 @@ import static sistema.utilitarios.Validador.assertNaoNulo;
 import static sistema.utilitarios.Validador.assertStringNaoVazia;
 import static sistema.utilitarios.Validador.asserteTrue;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import sistema.autenticacao.Autenticacao;
@@ -30,6 +32,8 @@ import sistema.utilitarios.ValidadorString;
 public class Emprestimus implements EmprestimusIF {
 	private static Emprestimus emprestimus;
 	private Autenticacao autenticacao;
+	private Calendar dataCorrente;
+	private int diasExtras = 0;
 	
 	private Emprestimus(){
 		autenticacao = Autenticacao.getInstance();
@@ -425,6 +429,39 @@ public class Emprestimus implements EmprestimusIF {
 		
 		
 		emp.setEstadoAguardandoConfirmacaoDevolucao();
+		
+	}
+
+	@Override
+	public void requisitarDevolucao(String idSessao, String idEmprestimo)
+			throws Exception {
+		assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		assertNaoNulo(idEmprestimo, Mensagem.ID_EMPRESTIMO_INVALIDO.getMensagem());
+		assertStringNaoVazia(idEmprestimo, Mensagem.ID_EMPRESTIMO_INVALIDO.getMensagem());
+		
+		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
+		EmprestimoIF emprestimo = EmprestimoRepositorio.recuperarEmprestimo(idEmprestimo);
+		
+		//FIXME
+		
+		asserteTrue(emprestimo.getEmprestador().equals(usuario),"TODO => Emprestimus.requisitarDevolução");
+		asserteTrue(emprestimo.getEstado().equalsIgnoreCase(EmprestimoEstado.ANDAMENTO.getNome()), Mensagem.TERMINO_EMPRESTIMO_JA_CONFIRMADO.getMensagem());
+		
+		dataCorrente = new GregorianCalendar();
+		dataCorrente.add(GregorianCalendar.DATE, diasExtras);
+		
+		if (dataCorrente.compareTo(emprestimo.getDataDeDevolucao()) <= 0)
+			emprestimo.setEstadoCancelado();
+	}
+	
+	@Override
+	public void adicionarDias(String dias) throws Exception {
+		assertNaoNulo(dias, Mensagem.ATRIBUTO_INVALIDO.getMensagem());
+		int numDias = Integer.valueOf(dias);
+		diasExtras += numDias;
+		
+		
 		
 	}
 

@@ -1,5 +1,7 @@
 package sistema.emprestimo;
 
+import java.util.Calendar;
+
 import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.item.ItemIF;
 import sistema.usuario.UsuarioIF;
@@ -21,6 +23,8 @@ public interface EmprestimoIF {
 	public void setEstadoAndamento();
 	
 	public void setEstadoAguardandoConfirmacaoDevolucao();
+
+	public void setEstadoCancelado();
 	
 	public void setTipoEmprestador();
 	
@@ -47,6 +51,8 @@ public interface EmprestimoIF {
 	public String getEstado();
 
 	EmprestimoEstado getTipoEstado();
+
+	public Calendar getDataDeDevolucao();
 	
 
 }
