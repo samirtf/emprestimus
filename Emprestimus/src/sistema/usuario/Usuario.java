@@ -1,8 +1,10 @@
 package sistema.usuario;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import sistema.autenticacao.Autenticacao;
@@ -84,8 +86,8 @@ public class Usuario implements UsuarioIF {
 		emprestimos = new ArrayList<EmprestimoIF>();
 		emprestimosRequeridosPorAmigosEmEspera = new ArrayList<EmprestimoIF>();
 		emprestimosRequeridosPorMimEmEspera = new ArrayList<EmprestimoIF>();
-		conversasOfftopic = new ArrayList<ChatIF>();
-		conversasNegociacao = new ArrayList<ChatIF>();
+		conversasOfftopic = new LinkedList<ChatIF>();
+		conversasNegociacao = new LinkedList<ChatIF>();
 	}
 
 	@Override
@@ -553,12 +555,14 @@ public class Usuario implements UsuarioIF {
 		
 		if(conversa == null){
 			conversa = new Chat(this, amigo, assunto.trim(), mensagem.trim());
+			conversa.setTipoOffTopicMsg();
+			ChatRepositorio.registrarConversa(conversa);
+			this.conversasOfftopic.add(conversa);
+			amigo.adicionaConversaOfftopicNaLista(conversa);
+		}else{
+			conversa.adicionaMensagem(mensagem);		
 		}
-		conversa.adicionaMensagem(mensagem);	
-		conversa.setTipoOffTopicMsg();
-		ChatRepositorio.registrarConversa(conversa);
-		this.conversasOfftopic.add(conversa);
-		amigo.adicionaConversaOfftopicNaLista(conversa);
+		
 		return conversa.getIdMensagem();
 	}
 
@@ -589,12 +593,14 @@ public class Usuario implements UsuarioIF {
 		if(conversa == null){
 			conversa = new Chat(this, amigo, assunto.trim(), 
 					mensagem, idRequisicaoEmprestimo );
+			conversa.setTipoNegociacaoMsg();
+			ChatRepositorio.registrarConversa(conversa);
+			this.conversasNegociacao.add(conversa);
+			amigo.adicionaConversaNegociacaoNaLista(conversa);
+		}else{
+		    conversa.adicionaMensagem(mensagem);
 		}
-		conversa.adicionaMensagem(mensagem);
-		conversa.setTipoNegociacaoMsg();
-		ChatRepositorio.registrarConversa(conversa);
-		this.conversasOfftopic.add(conversa);
-		amigo.adicionaConversaNegociacaoNaLista(conversa);
+		
 		return conversa.getIdMensagem();
 		
 	}
@@ -603,18 +609,38 @@ public class Usuario implements UsuarioIF {
 	public String lerTopicos(String tipo) throws Exception {
 		assertNaoNulo(tipo, Mensagem.TIPO_INVALIDO.getMensagem());
 		assertStringNaoVazia(tipo, Mensagem.TIPO_INVALIDO.getMensagem());
-		
-//		if(tipo.trim().equalsIgnoreCase("negociacao")){
-//			
-//		}else if(tipo.trim().equalsIgnoreCase("offtopic")){
-//			
-//		}else if(tipo.trim().equalsIgnoreCase("todos")){
-//			
-//		}else{
-//			return Mensagem.TIPO_INEXISTENTE.getMensagem();
-//		}
-		
-		return null;
+		List<ChatIF> listaTopicos = new ArrayList<ChatIF>();
+		StringBuffer saida = new StringBuffer();
+		if(tipo.trim().equalsIgnoreCase("negociacao") || tipo.trim().equalsIgnoreCase("todos")){
+			Iterator<ChatIF> iterador = conversasNegociacao.iterator();
+			
+			while(iterador.hasNext()){
+				listaTopicos.add(iterador.next());
+				//saida.append(iterador.next().getAssunto()+"; ");
+			}
+		}
+		if(tipo.trim().equalsIgnoreCase("offtopic") || tipo.trim().equalsIgnoreCase("todos")){
+			Iterator<ChatIF> iterador = conversasOfftopic.iterator();
+			
+			while(iterador.hasNext()){
+				listaTopicos.add(iterador.next());
+				//saida.append(iterador.next().getAssunto()+"; ");
+			}		
+		}
+		if(!tipo.trim().equalsIgnoreCase("negociacao") && 
+				!tipo.trim().equalsIgnoreCase("offtopic") && !tipo.trim().equalsIgnoreCase("todos")){
+			return Mensagem.TIPO_INEXISTENTE.getMensagem();
+		}
+		//if(saida.toString().trim().equals(""))
+		if(listaTopicos.isEmpty())
+			return Mensagem.NAO_HA_TOPICOS_CRIADOS.getMensagem();
+		Collections.sort(listaTopicos);
+		Collections.reverse(listaTopicos);
+		for (ChatIF c : listaTopicos) {
+			System.out.println(c.getAssunto());
+			saida.append(c.getAssunto()+"; ");
+		}
+		return saida.toString().trim().substring(0, saida.toString().trim().length()-1);
 	}
 
 
