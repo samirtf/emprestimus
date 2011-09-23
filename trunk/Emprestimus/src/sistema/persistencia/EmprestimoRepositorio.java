@@ -34,7 +34,7 @@ public class EmprestimoRepositorio {
 		try {
 			idLong = Long.parseLong(idEmprestimo);
 		} catch (Exception e) {
-			throw new Exception(Mensagem.ID_ITEM_INVALIDO.getMensagem());
+			throw new Exception(Mensagem.EMPRESTIMO_INEXISTENTE.getMensagem());
 		}
 		EmprestimoIF emp = emprestimosRealizados.get(Long.parseLong(idEmprestimo));
 		if (emp == null)
