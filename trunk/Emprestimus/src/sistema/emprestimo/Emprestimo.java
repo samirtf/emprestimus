@@ -175,7 +175,6 @@ public class Emprestimo implements EmprestimoIF{
 	public synchronized Calendar getDataDeDevolucao() {
 		Calendar dataDevolucao = (Calendar) dataDeAprovacao.clone();
 		dataDevolucao.add(GregorianCalendar.DATE, duracao);
-		dataDevolucao.add(GregorianCalendar.MILLISECOND, 1);
 		return dataDevolucao;
 	}
 
