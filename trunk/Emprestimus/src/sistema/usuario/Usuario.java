@@ -625,9 +625,6 @@ public class Usuario implements UsuarioIF {
 				listaTopicos.add(iterador.next());
 				//saida.append(iterador.next().getAssunto()+"; ");
 			}
-			for (ChatIF c : listaTopicos) {
-				System.out.println(c.getAssunto());
-			}
 		}
 		if(tipo.trim().equalsIgnoreCase("offtopic") || tipo.trim().equalsIgnoreCase("todos")){
 			Iterator<ChatIF> iterador = conversasOfftopic.iterator();
@@ -636,21 +633,17 @@ public class Usuario implements UsuarioIF {
 				listaTopicos.add(iterador.next());
 				//saida.append(iterador.next().getAssunto()+"; ");
 			}
-			for (ChatIF c : listaTopicos) {
-				System.out.println(c.getAssunto());
-			}
 		}
 		if(!tipo.trim().equalsIgnoreCase("negociacao") && 
 				!tipo.trim().equalsIgnoreCase("offtopic") && !tipo.trim().equalsIgnoreCase("todos")){
 			throw new Exception(Mensagem.TIPO_INEXISTENTE.getMensagem());
 		}
-		//if(saida.toString().trim().equals(""))
+
 		if(listaTopicos.isEmpty())
 			return Mensagem.NAO_HA_TOPICOS_CRIADOS.getMensagem();
 		Collections.sort(listaTopicos);
 		Collections.reverse(listaTopicos);
 		for (ChatIF c : listaTopicos) {
-			System.out.println(c.getAssunto());
 			saida.append(c.getAssunto()+"; ");
 		}
 		return saida.toString().trim().substring(0, saida.toString().trim().length()-1);
