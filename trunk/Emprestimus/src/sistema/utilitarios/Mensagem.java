@@ -134,7 +134,9 @@ public enum Mensagem {
 	TOPICO_ID_INVALIDO("Identificador do tópico é inválido"),
 	TOPICO_ID_INEXISTENTE("Tópico inexistente"),
 	NAO_HA_TOPICOS_CRIADOS("Não há tópicos criados"),
-	DEVOLUCAO_JA_REQUISITADA("Devolução já requisitada");
+	DEVOLUCAO_JA_REQUISITADA("Devolução já requisitada"),
+	USUARIO_NAO_PARTICIPA_DESTE_EMPRESTIMO("O usuário não participa deste empréstimo"),
+	USUARIO_SEM_PERMISSAO_LEITURA_TOPICO("O usuário não tem permissão para ler as mensagens deste tópico");
 	
 	private final String mensagem;
 

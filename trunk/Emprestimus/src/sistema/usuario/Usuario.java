@@ -590,10 +590,14 @@ public class Usuario implements UsuarioIF {
 		asserteTrue(EmprestimoRepositorio.existeEmprestimo(idRequisicaoEmprestimo.trim()), 
 				Mensagem.ID_REQUISICAO_EMP_INEXISTENTE.getMensagem());
 		
+		EmprestimoIF emprestimo = EmprestimoRepositorio.recuperarEmprestimo(idRequisicaoEmprestimo);
+		if(!this.equals(emprestimo.getEmprestador()) && !this.equals(emprestimo.getBeneficiado()))
+			throw new Exception(Mensagem.USUARIO_NAO_PARTICIPA_DESTE_EMPRESTIMO.getMensagem());
+		
 		ChatIF conversa = ChatRepositorio.existeConversaEntreAsPessoasSobreMesmoAssuntoETipo(this.login, 
 				destinatario, assunto, false);
 		
-		if(conversa == null){
+		if( conversa == null ){
 			conversa = new Chat(this, amigo, assunto.trim(), 
 					mensagem, idRequisicaoEmprestimo );
 			conversa.setTipoNegociacaoMsg();
@@ -639,7 +643,7 @@ public class Usuario implements UsuarioIF {
 		}
 		if(!tipo.trim().equalsIgnoreCase("negociacao") && 
 				!tipo.trim().equalsIgnoreCase("offtopic") && !tipo.trim().equalsIgnoreCase("todos")){
-			return Mensagem.TIPO_INEXISTENTE.getMensagem();
+			throw new Exception(Mensagem.TIPO_INEXISTENTE.getMensagem());
 		}
 		//if(saida.toString().trim().equals(""))
 		if(listaTopicos.isEmpty())
@@ -653,5 +657,6 @@ public class Usuario implements UsuarioIF {
 		return saida.toString().trim().substring(0, saida.toString().trim().length()-1);
 	}
 
+	
 
 }
