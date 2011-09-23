@@ -618,7 +618,6 @@ public class Usuario implements UsuarioIF {
 		assertStringNaoVazia(tipo, Mensagem.TIPO_INVALIDO.getMensagem());
 		List<ChatIF> listaTopicos = new ArrayList<ChatIF>();
 		StringBuffer saida = new StringBuffer();
-		System.out.println("Startando");
 		if(tipo.trim().equalsIgnoreCase("negociacao") || tipo.trim().equalsIgnoreCase("todos")){
 			Iterator<ChatIF> iterador = conversasNegociacao.iterator();
 			
