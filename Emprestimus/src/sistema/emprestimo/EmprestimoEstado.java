@@ -11,7 +11,7 @@ import sistema.utilitarios.ValidadorString;
  * @since 1.0
  */
 public enum EmprestimoEstado {
-	ACEITO("Andamento"), RECUSADO("RECUSADO"), CONFIRMADO("Completado"), ANDAMENTO("ANDAMENTO"),
+	ACEITO("Andamento"), RECUSADO("RECUSADO"), CONFIRMADO("Completado"), ANDAMENTO("Andamento"),
 	AGUARDANDO_CONFIRMACAO_DEVOLUCAO("Andamento"), EM_ESPERA("EM ESPERA"), CANCELADO("Cancelado");
 	
 	/*

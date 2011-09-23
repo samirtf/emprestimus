@@ -426,16 +426,18 @@ public class Emprestimus implements EmprestimusIF {
 		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
 		EmprestimoIF emprestimo = EmprestimoRepositorio.recuperarEmprestimo(idEmprestimo);
 		
-		//FIXME
-		
-		asserteTrue(emprestimo.getEmprestador().equals(usuario),"TODO => Emprestimus.requisitarDevolução");
+		asserteTrue(emprestimo.getEmprestador().equals(usuario),"O usuário não tem permissão para requisitar a devolução deste item");
 		asserteTrue(emprestimo.getEstado().equalsIgnoreCase(EmprestimoEstado.ANDAMENTO.getNome()), Mensagem.TERMINO_EMPRESTIMO_JA_CONFIRMADO.getMensagem());
+		asserteTrue(!emprestimo.getEstadoEnum().equals(EmprestimoEstado.ANDAMENTO), Mensagem.DEVOLUCAO_JA_REQUISITADA.getMensagem());
 		
 		dataCorrente = new GregorianCalendar();
 		dataCorrente.add(GregorianCalendar.DATE, diasExtras);
 		
-		if (dataCorrente.compareTo(emprestimo.getDataDeDevolucao()) <= 0)
+		if (dataCorrente.compareTo(emprestimo.getDataDeDevolucao()) <= 0) {
 			emprestimo.setEstadoCancelado();
+		} else {
+			emprestimo.setEstadoAndamento();
+		}
 	}
 	
 	@Override

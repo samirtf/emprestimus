@@ -2,6 +2,7 @@ package sistema.emprestimo;
 import sistema.emprestimo.EmprestimoIF;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+
 import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.item.ItemIF;
 import sistema.usuario.UsuarioIF;
@@ -162,6 +163,10 @@ public class Emprestimo implements EmprestimoIF{
 	@Override
 	public String getEstado() {
 		return estado.getNome();
+	}
+	
+	public EmprestimoEstado getEstadoEnum() {
+		return estado;
 	}
 	
 	@Override
