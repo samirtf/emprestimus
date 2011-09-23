@@ -11,9 +11,9 @@ import sistema.utilitarios.ValidadorString;
  * @since 1.0
  */
 public enum EmprestimoEstado {
-	ACEITO("Andamento"), RECUSADO("RECUSADO"), CONFIRMADO("Completado"), ANDAMENTO("Andamento"),
-	AGUARDANDO_CONFIRMACAO_DEVOLUCAO("Andamento"), EM_ESPERA("EM ESPERA"), CANCELADO("Cancelado"),
-	REQUISITADO_PARA_DEVOLUCAO("Cancelado");
+	ACEITO("ACEITO"), ESPERANDO_CONFIRMACAO("ESP_CONFIRM"), CONFIRMADO("COMPLETADO"),
+	EM_ESPERA("EM ESPERA"), CANCELADO("CANCELADO"),
+	REQUISITADO_PARA_DEVOLUCAO("REQUIS_DEV");
 	
 	/*
 	ACEITO("Andamento"), RECUSADO("Recusado"), CONFIRMADO("Completado"), ANDAMENTO("Andamento"),
@@ -45,12 +45,10 @@ public enum EmprestimoEstado {
 		if (categoria.equals("ACEITO")) {
 			return EmprestimoEstado.ACEITO;
 		} else if (categoria.equals("RECUSADO")) {
-			return EmprestimoEstado.RECUSADO;
+			return EmprestimoEstado.ESPERANDO_CONFIRMACAO;
 		} else if (categoria.equals("DEVOLVIDO")) {
 			return EmprestimoEstado.CONFIRMADO;
-		} else if (categoria.equals("ANDAMENTO")) {
-			return EmprestimoEstado.ANDAMENTO;
-		}else {
+		} else {
 			throw new Exception(Mensagem.CATEGORIA_INEXISTENTE.getMensagem());
 		}
 		

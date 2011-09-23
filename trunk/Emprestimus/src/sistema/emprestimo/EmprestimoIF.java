@@ -18,11 +18,13 @@ public interface EmprestimoIF {
 	
 	public void setEstadoConfirmado();
 	
-	public void setEstadoRecusado();
+	public void setEstadoEsperandoConfirmacao();
 	
-	public void setEstadoAndamento();
+	//public void setEstadoAndamento();
 	
-	public void setEstadoAguardandoConfirmacaoDevolucao();
+	public String getNomeParaEstado();
+	
+	public void setEstadoRequisitadoDevolucao();
 
 	public void setEstadoCancelado();
 	
@@ -56,7 +58,6 @@ public interface EmprestimoIF {
 	
 	public EmprestimoEstado getEstadoEnum();
 
-	public void setEstadoRequisitadoParaDevolucao();
 	
 
 }

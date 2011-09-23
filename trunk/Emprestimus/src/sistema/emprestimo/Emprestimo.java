@@ -36,7 +36,7 @@ public class Emprestimo implements EmprestimoIF{
 			setTipoBeneficiado();
 		}else{
 			throw new Exception(Mensagem.EMPRESTIMO_TIPO_INXISTENTE.getMensagem());
-		}
+		}		
 		this.estado = EmprestimoEstado.EM_ESPERA;
 	}
 	
@@ -129,29 +129,18 @@ public class Emprestimo implements EmprestimoIF{
 	}
 
 	@Override
-	public void setEstadoRecusado() {
-		this.estado = EmprestimoEstado.RECUSADO;
+	public void setEstadoRequisitadoDevolucao() {
+		this.estado = EmprestimoEstado.ESPERANDO_CONFIRMACAO;
 		
 	}
 
-	@Override
-	public void setEstadoAndamento() {
-		this.estado = EmprestimoEstado.ANDAMENTO;
-		
-	}
+	
 
 	@Override
 	public boolean estahAceito() {
-//		return !this.estado.equals(EmprestimoEstado.RECUSADO) &&
-//			   !this.estado.equals(EmprestimoEstado.EM_ESPERA);
-		return this.estado.getNome().equalsIgnoreCase(EmprestimoEstado.ANDAMENTO.getNome());
+		return this.estado.equals(EmprestimoEstado.EM_ESPERA) ;
 	}
 
-	@Override
-	public void setEstadoAguardandoConfirmacaoDevolucao() {
-		this.estado = EmprestimoEstado.AGUARDANDO_CONFIRMACAO_DEVOLUCAO;
-		
-	}
 	
 	@Override
 	public void setEstadoCancelado() {
@@ -168,6 +157,19 @@ public class Emprestimo implements EmprestimoIF{
 		return estado;
 	}
 	
+	public String getNomeParaEstado(){
+		if(this.estado ==  EmprestimoEstado.ACEITO){
+			return "Andamento";
+		}else if(this.estado ==  EmprestimoEstado.ESPERANDO_CONFIRMACAO){
+			return "Andamento";
+		}else if(this.estado ==  EmprestimoEstado.CANCELADO){
+			return "Cancelado";
+		}else if(this.estado ==  EmprestimoEstado.CONFIRMADO){
+			return "Completado";
+		}
+		return "FUUU";	
+	}
+	
 	@Override
 	public EmprestimoEstado getTipoEstado(){
 		return this.estado;
@@ -180,10 +182,13 @@ public class Emprestimo implements EmprestimoIF{
 	}
 
 	@Override
-	public void setEstadoRequisitadoParaDevolucao() {
-		estado = EmprestimoEstado.REQUISITADO_PARA_DEVOLUCAO;
+	public void setEstadoEsperandoConfirmacao() {
+		this.estado = EmprestimoEstado.ESPERANDO_CONFIRMACAO;
 		
 	}
+
+
+
 
 
 	
