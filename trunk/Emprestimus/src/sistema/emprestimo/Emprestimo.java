@@ -130,7 +130,7 @@ public class Emprestimo implements EmprestimoIF{
 
 	@Override
 	public void setEstadoRequisitadoDevolucao() {
-		this.estado = EmprestimoEstado.ESPERANDO_CONFIRMACAO;
+		this.estado = EmprestimoEstado.REQUISITADO_PARA_DEVOLUCAO;
 		
 	}
 
@@ -166,8 +166,10 @@ public class Emprestimo implements EmprestimoIF{
 			return "Cancelado";
 		}else if(this.estado ==  EmprestimoEstado.CONFIRMADO){
 			return "Completado";
+		} else if (this.estado == EmprestimoEstado.REQUISITADO_PARA_DEVOLUCAO) {
+			return "Andamento";
 		}
-		return "FUUU";	
+		return " => Bug em Emprestimus.getNomeParaEstado()";	
 	}
 	
 	@Override
