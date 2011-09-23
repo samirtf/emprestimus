@@ -9,6 +9,7 @@ import java.util.List;
 
 import sistema.autenticacao.Autenticacao;
 import sistema.emprestimo.Emprestimo;
+import sistema.emprestimo.EmprestimoEstado;
 import sistema.emprestimo.EmprestimoIF;
 import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.item.Item;
@@ -411,7 +412,6 @@ public class Usuario implements UsuarioIF {
 		
 		
 		ItemIF item = ItemRepositorio.recuperarItem(idItem);
-		EmprestimoIF emp = new Emprestimo(amigo, this, item, "beneficiado", duracao);
 		
 		//verifica se jah fiz o pedido do item
 		Iterator<EmprestimoIF> iterador = emprestimosRequeridosPorMimEmEspera.iterator();
@@ -420,6 +420,9 @@ public class Usuario implements UsuarioIF {
 				throw new Exception(Mensagem.REQUISICAO_EMPRESTIMO_JA_SOLICITADA.getMensagem());
 		}
 		
+		EmprestimoIF emp = new Emprestimo(amigo, this, item, "beneficiado", duracao);
+		
+		//vou atualizar estado do emprestimo
 		EmprestimoRepositorio.requisitarEmprestimo(emp);
 		emprestimosRequeridosPorMimEmEspera.add(emp);// o emprestimo eh modificdo pelo repositorio possuindo agora
 						// um id valido
@@ -449,7 +452,7 @@ public class Usuario implements UsuarioIF {
 					
 					listaSaida.add(emp.getEmprestador().getLogin()+"-"+
 				               emp.getBeneficiado().getLogin()+":"+
-				               emp.getItem().getNome()+":"+emp.getEstado()+"; ");
+				               emp.getItem().getNome()+":"+emp.getNomeParaEstado()+"; ");
 					Collections.sort(listaSaida);
 				}
 			}else if (tipo.trim().equalsIgnoreCase("beneficiado")){
@@ -457,7 +460,7 @@ public class Usuario implements UsuarioIF {
 					
 					listaSaida.add(emp.getEmprestador().getLogin()+"-"+
 				               emp.getBeneficiado().getLogin()+":"+
-				               emp.getItem().getNome()+":"+emp.getEstado()+"; ");
+				               emp.getItem().getNome()+":"+emp.getNomeParaEstado()+"; ");
 					Collections.sort(listaSaida);
 				}
 			}else if (tipo.trim().equalsIgnoreCase("todos")){
@@ -465,13 +468,13 @@ public class Usuario implements UsuarioIF {
 				if(this.equals(emp.getEmprestador())){
 					listaSaida.add(0, emp.getEmprestador().getLogin()+"-"+
 				               emp.getBeneficiado().getLogin()+":"+
-				               emp.getItem().getNome()+":"+emp.getEstado()+"; ");
+				               emp.getItem().getNome()+":"+emp.getNomeParaEstado()+"; ");
 				}
 				
 				if(this.equals(emp.getBeneficiado())){
 					listaSaida.add(emp.getEmprestador().getLogin()+"-"+
 				               emp.getBeneficiado().getLogin()+":"+
-				               emp.getItem().getNome()+":"+emp.getEstado()+"; ");
+				               emp.getItem().getNome()+":"+emp.getNomeParaEstado()+"; ");
 				}
 				
 			}else{
@@ -497,7 +500,8 @@ public class Usuario implements UsuarioIF {
 		
 		EmprestimoIF emp = EmprestimoRepositorio.recuperarEmprestimo(idRequisicaoEmprestimo.trim());
 				asserteTrue(this.equals(emp.getEmprestador()), Mensagem.EMPRESTIMO_SEM_PERMISSAO_APROVAR.getMensagem());
-		asserteTrue(!emp.estahAceito(), Mensagem.EMPRESTIMO_JA_APROVADO.getMensagem());
+		
+				
 		
 		emp.setEstadoAceito();
 		
@@ -510,7 +514,7 @@ public class Usuario implements UsuarioIF {
 	}
 	
 	public void emprestimoAceitoPorAmigo( EmprestimoIF emp ) throws Exception {
-		if(!emp.estahAceito()) throw new Exception("Meu Amigo Recusou Emprestimo - ERRO");
+//		if(!emp.estahAceito()) throw new Exception("Meu Amigo Recusou Emprestimo - ERRO");
 		this.emprestimosRequeridosPorAmigosEmEspera.remove(emp);
 		emprestimos.add(emp);
 	}
