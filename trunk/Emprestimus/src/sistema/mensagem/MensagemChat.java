@@ -38,16 +38,6 @@ public class MensagemChat implements MensagemChatIF, Comparable<MensagemChatIF>{
 	public String toString(){
 		return "DATA:"+(String.format("%1$te/%1$tm/%1$tY - %tT", data))+" MENSAGEM:"+mensagem;
 	}
-	
-	public static void main( String[] args ) throws InterruptedException{
-		MensagemChat msg = new MensagemChat("Samir chegou ");
-		Thread.sleep(1000);
-		MensagemChat msg2 = new MensagemChat("Samir chegou ");
-		
-		System.out.println(msg);
-		System.out.println(msg2);
-		System.out.println(msg.compareTo(msg2));
-	}
 
 	@Override
 	public int compareTo(MensagemChatIF outra) {

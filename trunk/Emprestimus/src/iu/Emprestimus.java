@@ -452,12 +452,7 @@ public class Emprestimus implements EmprestimusIF {
 		
 		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
 		EmprestimoIF emprestimo = EmprestimoRepositorio.recuperarEmprestimo(idEmprestimo);
-		System.out.println(emprestimo.getTipoEstado());
         asserteTrue(emprestimo.getEmprestador().equals(usuario),"O usuário não tem permissão para requisitar a devolução deste item");
-//		asserteTrue(emprestimo.getEstado().equalsIgnoreCase((EmprestimoEstado.ANDAMENTO.getNome()))
-//				|| emprestimo.getEstadoEnum().equals(EmprestimoEstado.REQUISITADO_PARA_DEVOLUCAO)
-//						|| emprestimo.getEstadoEnum().equals(EmprestimoEstado.ACEITO), Mensagem.TERMINO_EMPRESTIMO_JA_CONFIRMADO.getMensagem());
-        System.out.println("flah"+emprestimo.getEstadoEnum());
         asserteTrue(emprestimo.getEstadoEnum() !=  EmprestimoEstado.REQUISITADO_PARA_DEVOLUCAO, "Já requisitado para devo");
         if(emprestimo.getEstadoEnum() == EmprestimoEstado.REQUISITADO_PARA_DEVOLUCAO){
         	throw new Exception("UMMMMMPA");
@@ -472,7 +467,6 @@ public class Emprestimus implements EmprestimusIF {
         	throw new Exception(Mensagem.DEVOLUCAO_JA_REQUISITADA.getMensagem());
         }
         asserteTrue(!emprestimo.getEstadoEnum().equals(EmprestimoEstado.ESPERANDO_CONFIRMACAO), Mensagem.DEVOLUCAO_JA_REQUISITADA.getMensagem());
-//		asserteTrue(!emprestimo.getEstadoEnum().equals(EmprestimoEstado.REQUISITADO_PARA_DEVOLUCAO), Mensagem.ITEM_JA_DEVOLVIDO.getMensagem());
 		
 		dataCorrente = new GregorianCalendar();
 		dataCorrente.add(GregorianCalendar.DATE, diasExtras);
@@ -480,19 +474,11 @@ public class Emprestimus implements EmprestimusIF {
 		
 		if (dataCorrente.compareTo(emprestimo.getDataDeDevolucao()) <= 0) {
 			emprestimo.setEstadoCancelado();
-			System.out.println("kkkkkkkkkkk");
 		}else {
 			emprestimo.setEstadoRequisitadoDevolucao();
-			System.out.println("NUCAAAA");
 		}
 		
 		UsuarioIF amigo = emprestimo.getBeneficiado();
-		/*
-		 * String assunto = "Empréstimo do item "+item.getNome()+" a "+this.getNome()+"";
-		String mensagem = this.getNome()+" solicitou o empréstimo do item "+item.getNome();
-		 */
-		//Steven Paul Jobs solicitou o empréstimo do item The Social Network
-		//Mark Zuckerberg solicitou a devolução do item The Social Network
 		String assunto = "Empréstimo do item "+emprestimo.getItem().getNome()+" a "+amigo.getNome()+"";
 		String mensagem = usuario.getNome()+" solicitou a devolução do item "+emprestimo.getItem().getNome();
 		usuario.enviarMensagemEmprestimo(amigo.getLogin(), assunto, mensagem, emprestimo.getIdEmprestimo());
@@ -536,13 +522,11 @@ public class Emprestimus implements EmprestimusIF {
 		
 		if (emp.getEstadoEnum() == EmprestimoEstado.ESPERANDO_CONFIRMACAO){
 			emp.setEstadoConfirmado();
-			System.out.println("confimardo");
 			liberaItem(idSessao, idEmprestimo);
 		}
 		
 		if (emp.getEstadoEnum() == EmprestimoEstado.CANCELADO){
 			emp.setEstadoCancelado();
-			System.out.println("cNCLoooooo");
 		}
 		
 	}
