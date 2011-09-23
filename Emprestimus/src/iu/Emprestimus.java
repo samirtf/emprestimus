@@ -338,7 +338,7 @@ public class Emprestimus implements EmprestimusIF {
 	 * java.lang.String, int)
 	 */
 	@Override
-	public String requisitarEmprestimo(String idSessao, String idItem,
+	public synchronized String requisitarEmprestimo(String idSessao, String idItem,
 			int duracao) throws Exception{
 		Validador.assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
 		Validador.assertStringNaoVazia(idSessao.trim(), Mensagem.SESSAO_INVALIDA.getMensagem());
@@ -394,7 +394,7 @@ public class Emprestimus implements EmprestimusIF {
 	
 
 	@Override
-	public void devolverItem(String idSessao, String idEmprestimo)
+	public synchronized void devolverItem(String idSessao, String idEmprestimo)
 			throws Exception {
 		assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
 		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
@@ -416,7 +416,7 @@ public class Emprestimus implements EmprestimusIF {
 	}
 
 	@Override
-	public void requisitarDevolucao(String idSessao, String idEmprestimo)
+	public synchronized void requisitarDevolucao(String idSessao, String idEmprestimo)
 			throws Exception {
 		assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
 		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
@@ -446,7 +446,7 @@ public class Emprestimus implements EmprestimusIF {
 	}
 	
 	@Override
-	public void adicionarDias(String dias) throws Exception {
+	public synchronized void adicionarDias(String dias) throws Exception {
 		assertNaoNulo(dias, Mensagem.ATRIBUTO_INVALIDO.getMensagem());
 		int numDias = Integer.valueOf(dias);
 		diasExtras += numDias;
