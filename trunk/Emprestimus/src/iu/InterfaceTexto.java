@@ -7,6 +7,8 @@ import sistema.utilitarios.Mensagem;
 public class InterfaceTexto {
 	
 	private static EmprestimusIF emprestimus;
+	private static String login_logado;
+	private static String id_sessao;
 	
 	/**
 	 * @param args
@@ -53,13 +55,14 @@ public class InterfaceTexto {
 	}
 
 	private static void logar() {
-		String login_logado;
 		System.out.println(Mensagem.PEDIR_LOGIN.getMensagem());
 		try {
 			login_logado = pegaStringDaEntrada();
-			emprestimus.abrirSessao(login_logado);
-			menuLogado(login_logado);
+			id_sessao = emprestimus.abrirSessao(login_logado);
+			menuLogado();
 		} catch (Exception e) {
+			id_sessao = null;
+			login_logado = null;
 			System.out.println(e.getMessage());
 			if(!tentarNovamente()){
 				menuDeslogado();
@@ -68,36 +71,149 @@ public class InterfaceTexto {
 		}
 	}
 
-	private static void menuLogado(String login_logado) {
+	private static void menuLogado() {
 		int opcao;
 		System.out.println(Mensagem.MENU_LOGADO.getMensagem());
 		opcao = pegarOpcao(1, 8);
 		switch (opcao) {
+		case 1:
+			getAtributo();
+			break;
+			
+		case 2:
+			cadastrarItem();
+			break;
+			
+		case 3:
+			// FIXME sem implentacao. Como passar idItem?
+			break;
+			
+		case 4:
+			localizarUsuario();
+			break;
+	
+		case 5:
+			requisitarAmizade();
+			break;
+			
+		case 6:
+			visualizarRequisitacoesAmizade();
+			break;
+	
 		case 7:
-			getAtributo(login_logado);
+			aprovarAmizade();
 			break;
 			
 		case 8:
+			verificarAmizade();
+			break;
+			
+		case 9:
 			emprestimus.encerrarSistema();
 			break;
 			
 		default:
-			menuLogado(login_logado);
+			menuLogado();
 			break;
 		}
-		menuLogado(login_logado);
+		menuLogado();
 	}
 
-	private static void getAtributo(String login_logado) {
+	private static void verificarAmizade() {
+		System.out.println(Mensagem.PEDIR_LOGIN_AMIGO_VERIFICAR.getMensagem());
+		try {
+			if (emprestimus.ehAmigo(id_sessao, pegaStringDaEntrada()).equalsIgnoreCase("true")) {
+				System.out.println(Mensagem.INFO_SAO_AMIGOS.getMensagem());
+			} else {
+				System.out.println(Mensagem.INFO_NAO_SAO_AMIGOS.getMensagem());
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			if (tentarNovamente()) {
+				verificarAmizade();
+			}
+		}
+	}
+
+	private static void aprovarAmizade() {
+		System.out.println(Mensagem.PEDIR_LOGIN_AMIGO_APROVAR.getMensagem());
+		try {
+			emprestimus.aprovarAmizade(id_sessao, pegaStringDaEntrada());
+			System.out.println(Mensagem.OPERACAO_SUCESSO.getMensagem());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			if(tentarNovamente()) {
+				aprovarAmizade();
+			}
+		}
+	}
+
+	private static void visualizarRequisitacoesAmizade() {
+		try {
+			System.out.println(emprestimus.getRequisicoesDeAmizade(id_sessao));
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			menuLogado();
+		}
+	}
+
+	private static void requisitarAmizade() {
+		System.out.println(Mensagem.PEDIR_LOGIN_AMIGO_ADICIONAR.getMensagem());
+		try {
+			emprestimus.requisitarAmizade(id_sessao, pegaStringDaEntrada());
+			System.out.println(Mensagem.INFO_AGUARDE_APROVACAO_AMIZADE.getMensagem());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			if(tentarNovamente()){
+				requisitarAmizade();
+			}
+		}
+	}
+
+	private static void localizarUsuario() {
+		String chave, atributo;
+		System.out.println(Mensagem.PEDIR_CHAVE_BUSCA.getMensagem());
+		chave = pegaStringDaEntrada();
+		System.out.println(Mensagem.PERGUNTAR_ATRIBUTO.getMensagem());
+		atributo = pegaStringDaEntrada();
+		try {
+			System.out.println(emprestimus.localizarUsuario(id_sessao, chave, atributo));
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			if (tentarNovamente()) {
+				localizarUsuario();
+			}
+		}
+	}
+
+	private static void cadastrarItem() {
+		String nome, descricao, categoria;
+		System.out.println(Mensagem.PEDIR_NOME_ITEM_CADASTRAR.getMensagem());
+		nome = pegaStringDaEntrada();
+		System.out.println(Mensagem.PEDIR_DESCRICAO_ITEM_CADASTRAR.getMensagem());
+		descricao = pegaStringDaEntrada();
+		System.out.println(Mensagem.PEDIR_CATEGORIA_ITEM_CADASTRAR.getMensagem());
+		categoria = pegaStringDaEntrada();
+		
+		try {
+			emprestimus.cadastrarItem(id_sessao, nome, descricao, categoria);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			if(tentarNovamente()) {
+				cadastrarItem();
+			}
+		}
+	}
+
+	private static void getAtributo() {
 		System.out.println(Mensagem.PERGUNTAR_ATRIBUTO.getMensagem());
 		try {
 			System.out.println(emprestimus.getAtributoUsuario(login_logado, pegaStringDaEntrada()));
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			if(!tentarNovamente()){
-				menuLogado(login_logado);
+			if(tentarNovamente()){
+				getAtributo();
 			}
-			getAtributo(login_logado);
 		}
 	}
 
