@@ -142,8 +142,9 @@ public class Emprestimo implements EmprestimoIF{
 
 	@Override
 	public boolean estahAceito() {
-		return !this.estado.equals(EmprestimoEstado.RECUSADO) &&
-			   !this.estado.equals(EmprestimoEstado.EM_ESPERA);
+//		return !this.estado.equals(EmprestimoEstado.RECUSADO) &&
+//			   !this.estado.equals(EmprestimoEstado.EM_ESPERA);
+		return this.estado.getNome().equalsIgnoreCase(EmprestimoEstado.ANDAMENTO.getNome());
 	}
 
 	@Override
