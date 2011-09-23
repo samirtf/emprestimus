@@ -21,7 +21,7 @@ public class Emprestimo implements EmprestimoIF{
 	String tipo;
 	EmprestimoEstado estado;
 	Calendar dataDeAprovacao;
-	Calendar dataDeDevolucao;
+//	Calendar dataDeDevolucao;
 	
 	public Emprestimo( UsuarioIF emprestador, UsuarioIF beneficiado, ItemIF item, String tipo, int duracao ) throws Exception{
 		setEmprestador(emprestador);
@@ -119,8 +119,6 @@ public class Emprestimo implements EmprestimoIF{
 	public void setEstadoAceito() {
 		this.estado = EmprestimoEstado.ACEITO;
 		dataDeAprovacao = new GregorianCalendar();
-		dataDeDevolucao = new GregorianCalendar();
-		dataDeDevolucao.add(GregorianCalendar.DATE, duracao);
 		
 	}
 
@@ -175,7 +173,9 @@ public class Emprestimo implements EmprestimoIF{
 	}
 	
 	public Calendar getDataDeDevolucao() {
-		return dataDeDevolucao;
+		Calendar dataDevolucao = (Calendar) dataDeAprovacao.clone();
+		dataDevolucao.add(GregorianCalendar.DATE, duracao);
+		return dataDevolucao;
 	}
 
 	@Override
