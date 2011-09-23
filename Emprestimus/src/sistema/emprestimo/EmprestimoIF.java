@@ -55,5 +55,8 @@ public interface EmprestimoIF {
 	public Calendar getDataDeDevolucao();
 	
 	public EmprestimoEstado getEstadoEnum();
+
+	public void setEstadoRequisitadoParaDevolucao();
 	
+
 }
