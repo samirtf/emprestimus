@@ -33,7 +33,7 @@ public class Chat implements ChatIF {
 		adicionaMensagem(mensagem);
 		setIdRequisicaEmprestimo(idRequisicaoEmprestimo);
 		setTipoNegociacaoMsg();
-		this.dataUltimaAtualizacao = new GregorianCalendar().getTime();
+		setDataUltimaAtualizacao();
 		
 	}
 
@@ -46,6 +46,10 @@ public class Chat implements ChatIF {
 		this.conversa = new LinkedList<MensagemChatIF>();
 		adicionaMensagem(mensagem);
 		setTipoOffTopicMsg();
+		setDataUltimaAtualizacao();
+	}
+	
+	public synchronized void setDataUltimaAtualizacao(){
 		this.dataUltimaAtualizacao = new GregorianCalendar().getTime();
 	}
 

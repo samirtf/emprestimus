@@ -424,6 +424,9 @@ public class Usuario implements UsuarioIF {
 		emprestimosRequeridosPorMimEmEspera.add(emp);// o emprestimo eh modificdo pelo repositorio possuindo agora
 						// um id valido
 		amigo.adicionarRequisicaoEmprestimoEmEsperaDeAmigo(emp);
+		String assunto = "Empréstimo do item "+item.getNome()+" a "+this.getNome()+"";
+		String mensagem = this.getNome()+" solicitou o empréstimo do item "+item.getNome();
+		this.enviarMensagemEmprestimo(amigo.getLogin(), assunto, mensagem, emp.getIdEmprestimo());
 		return emp.getIdEmprestimo();
 		
 	}
@@ -536,7 +539,7 @@ public class Usuario implements UsuarioIF {
 	}
 
 	@Override
-	public String enviarMensagemOffTopic( String destinatario, String assunto,
+	public synchronized String enviarMensagemOffTopic( String destinatario, String assunto,
 			String mensagem) throws Exception {
 		
 		assertNaoNulo(destinatario, Mensagem.DESTINATARIO_INVALIDO.getMensagem());
@@ -568,7 +571,7 @@ public class Usuario implements UsuarioIF {
 
 
 	@Override
-	public String enviarMensagemEmprestimo(String destinatario, String assunto,
+	public synchronized String enviarMensagemEmprestimo(String destinatario, String assunto,
 			String mensagem, String idRequisicaoEmprestimo) throws Exception {
 
 		assertNaoNulo(destinatario, Mensagem.DESTINATARIO_INVALIDO.getMensagem());
@@ -611,12 +614,16 @@ public class Usuario implements UsuarioIF {
 		assertStringNaoVazia(tipo, Mensagem.TIPO_INVALIDO.getMensagem());
 		List<ChatIF> listaTopicos = new ArrayList<ChatIF>();
 		StringBuffer saida = new StringBuffer();
+		System.out.println("Startando");
 		if(tipo.trim().equalsIgnoreCase("negociacao") || tipo.trim().equalsIgnoreCase("todos")){
 			Iterator<ChatIF> iterador = conversasNegociacao.iterator();
 			
 			while(iterador.hasNext()){
 				listaTopicos.add(iterador.next());
 				//saida.append(iterador.next().getAssunto()+"; ");
+			}
+			for (ChatIF c : listaTopicos) {
+				System.out.println(c.getAssunto());
 			}
 		}
 		if(tipo.trim().equalsIgnoreCase("offtopic") || tipo.trim().equalsIgnoreCase("todos")){
@@ -625,7 +632,10 @@ public class Usuario implements UsuarioIF {
 			while(iterador.hasNext()){
 				listaTopicos.add(iterador.next());
 				//saida.append(iterador.next().getAssunto()+"; ");
-			}		
+			}
+			for (ChatIF c : listaTopicos) {
+				System.out.println(c.getAssunto());
+			}
 		}
 		if(!tipo.trim().equalsIgnoreCase("negociacao") && 
 				!tipo.trim().equalsIgnoreCase("offtopic") && !tipo.trim().equalsIgnoreCase("todos")){
