@@ -1,0 +1,74 @@
+Set 18, 2011 11:36:10 PM sistema.autenticacao.Autenticacao <init>
+Informações: Criando nova autenticação...
+Set 18, 2011 11:36:10 PM sistema.autenticacao.Autenticacao criarUsuario
+Informações: Criando usuario com login = "mark", nome = "Mark Zuckerberg" e endereço = "Palo Alto, California"
+Set 18, 2011 11:36:10 PM sistema.autenticacao.Autenticacao criarUsuario
+Informações: Criando usuario com login = "steve", nome = "Steven Paul Jobs" e endereço = "Palo Alto, California"
+Set 18, 2011 11:36:10 PM sistema.autenticacao.Autenticacao criarUsuario
+Informações: Criando usuario com login = "bill", nome = "William Henry Gates III" e endereço = "Medina, Washington"
+Set 18, 2011 11:36:10 PM sistema.autenticacao.Autenticacao abrirSessao
+Informações: Abrindo nova seção com o login: mark
+Set 18, 2011 11:36:10 PM sistema.autenticacao.Autenticacao gerarIdSessao
+Informações: Gerando uma idSessão
+Set 18, 2011 11:36:11 PM sistema.autenticacao.Autenticacao abrirSessao
+Informações: Seção aberta com sucesso. idSeção: 1521033912
+Set 18, 2011 11:36:11 PM sistema.autenticacao.Autenticacao abrirSessao
+Informações: Abrindo nova seção com o login: steve
+Set 18, 2011 11:36:11 PM sistema.autenticacao.Autenticacao gerarIdSessao
+Informações: Gerando uma idSessão
+Set 18, 2011 11:36:11 PM sistema.autenticacao.Autenticacao abrirSessao
+Informações: Seção aberta com sucesso. idSeção: 678966478
+Set 18, 2011 11:36:11 PM sistema.autenticacao.Autenticacao abrirSessao
+Informações: Abrindo nova seção com o login: bill
+Set 18, 2011 11:36:11 PM sistema.autenticacao.Autenticacao gerarIdSessao
+Informações: Gerando uma idSessão
+Set 18, 2011 11:36:11 PM sistema.autenticacao.Autenticacao abrirSessao
+Informações: Seção aberta com sucesso. idSeção: 479496323
+Set 18, 2011 11:36:11 PM sistema.autenticacao.Autenticacao getUsuarioPeloIDSessao
+Informações: Pegando usuario pela idSessão. idSessão: 678966478
+Set 18, 2011 11:36:11 PM sistema.autenticacao.Autenticacao getUsuarioPeloIDSessao
+Informações: Usuario: sistema.usuario.Usuario@43126d4
+Set 18, 2011 11:36:11 PM sistema.autenticacao.Autenticacao getUsuarioPeloIDSessao
+Informações: Pegando usuario pela idSessão. idSessão: 479496323
+Set 18, 2011 11:36:11 PM sistema.autenticacao.Autenticacao getUsuarioPeloIDSessao
+Informações: Usuario: sistema.usuario.Usuario@36ec2a72
+Set 18, 2011 11:36:11 PM sistema.autenticacao.Autenticacao getUsuarioPeloIDSessao
+Informações: Pegando usuario pela idSessão. idSessão: 1521033912
+Set 18, 2011 11:36:11 PM sistema.autenticacao.Autenticacao getUsuarioPeloIDSessao
+Informações: Usuario: sistema.usuario.Usuario@4ad6be89
+Set 18, 2011 11:36:11 PM sistema.autenticacao.Autenticacao getUsuarioPeloIDSessao
+Informações: Pegando usuario pela idSessão. idSessão: 1521033912
+Set 18, 2011 11:36:11 PM sistema.autenticacao.Autenticacao getUsuarioPeloIDSessao
+Informações: Usuario: sistema.usuario.Usuario@4ad6be89
+Set 18, 2011 11:36:11 PM sistema.autenticacao.Autenticacao getUsuarioPeloIDSessao
+Informações: Pegando usuario pela idSessão. idSessão: 1521033912
+Set 18, 2011 11:36:11 PM sistema.autenticacao.Autenticacao getUsuarioPeloIDSessao
+Informações: Usuario: sistema.usuario.Usuario@4ad6be89
+Set 18, 2011 11:36:11 PM sistema.autenticacao.Autenticacao getUsuarioPeloIDSessao
+Informações: Pegando usuario pela idSessão. idSessão: 678966478
+Set 18, 2011 11:36:11 PM sistema.autenticacao.Autenticacao getUsuarioPeloIDSessao
+Informações: Usuario: sistema.usuario.Usuario@43126d4
+Set 18, 2011 11:36:11 PM sistema.autenticacao.Autenticacao getUsuarioPeloIDSessao
+Informações: Pegando usuario pela idSessão. idSessão: 479496323
+Set 18, 2011 11:36:11 PM sistema.autenticacao.Autenticacao getUsuarioPeloIDSessao
+Informações: Usuario: sistema.usuario.Usuario@36ec2a72
+Set 18, 2011 11:36:11 PM sistema.autenticacao.Autenticacao getUsuarioPeloIDSessao
+Informações: Pegando usuario pela idSessão. idSessão: 678966478
+Set 18, 2011 11:36:11 PM sistema.autenticacao.Autenticacao getUsuarioPeloIDSessao
+Informações: Usuario: sistema.usuario.Usuario@43126d4
+Set 18, 2011 11:36:11 PM sistema.autenticacao.Autenticacao getUsuarioPeloIDSessao
+Informações: Pegando usuario pela idSessão. idSessão: 1521033912
+Set 18, 2011 11:36:11 PM sistema.autenticacao.Autenticacao getUsuarioPeloIDSessao
+Informações: Usuario: sistema.usuario.Usuario@4ad6be89
+Set 18, 2011 11:36:11 PM sistema.autenticacao.Autenticacao getUsuarioPeloIDSessao
+Informações: Pegando usuario pela idSessão. idSessão: 1521033912
+Set 18, 2011 11:36:11 PM sistema.autenticacao.Autenticacao getUsuarioPeloIDSessao
+Informações: Usuario: sistema.usuario.Usuario@4ad6be89
+Set 18, 2011 11:36:11 PM sistema.autenticacao.Autenticacao getUsuarioPeloIDSessao
+Informações: Pegando usuario pela idSessão. idSessão: 1521033912
+Set 18, 2011 11:36:11 PM sistema.autenticacao.Autenticacao getUsuarioPeloIDSessao
+Informações: Usuario: sistema.usuario.Usuario@4ad6be89
+Set 18, 2011 11:36:11 PM sistema.autenticacao.Autenticacao getUsuarioPeloIDSessao
+Informações: Pegando usuario pela idSessão. idSessão: 678966478
+Set 18, 2011 11:36:11 PM sistema.autenticacao.Autenticacao getUsuarioPeloIDSessao
+Informações: Usuario: sistema.usuario.Usuario@43126d4

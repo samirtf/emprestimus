@@ -105,7 +105,7 @@ public class ChatRepositorio {
 				( conversa.getRemetente().getLogin().equals(destinatario) && 
 					conversa.getDestinatario().getLogin().equals(remetente)) ){
 				
-				if( conversa.getAssunto().equals(assunto) ){
+				if( conversa.getAssunto().trim().equals(assunto.trim()) ){
 					if(ehOffTopic){
 						if(conversa.ehConversaOfftopic())
 							// trata-se da mesma conversa
