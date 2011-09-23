@@ -11,7 +11,11 @@ public class MensagemChat implements MensagemChatIF, Comparable<MensagemChatIF>{
 	
 	public MensagemChat(String mensagem) {
 		this.mensagem = mensagem;
-		this.data = new GregorianCalendar().getTime(); 
+		setData();
+	}
+	
+	public synchronized void setData(){
+		this.data = new GregorianCalendar().getTime();
 	}
 	
 	public String getMensagem() {
@@ -26,7 +30,7 @@ public class MensagemChat implements MensagemChatIF, Comparable<MensagemChatIF>{
 		return data;
 	}
 
-	public void setData(Date data) {
+	public synchronized void setData(Date data) {
 		this.data = data;
 	}
 
