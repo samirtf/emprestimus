@@ -56,5 +56,4 @@ public interface EmprestimoIF {
 	
 	public EmprestimoEstado getEstadoEnum();
 	
-
 }
