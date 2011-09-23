@@ -109,7 +109,6 @@ public class Chat implements ChatIF {
 		Iterator<MensagemChatIF> iterador = conversa.iterator();
 		while(iterador.hasNext()){
 			saida.append(iterador.next().getMensagem());
-			System.out.println(saida.toString());
 		}
 		
 		return this.conversa.toString();
@@ -160,10 +159,7 @@ public class Chat implements ChatIF {
 				"Uma conversa espretensiosa", "Uma mensagem nada a ver", "id");
 		
 		conversa.adicionaMensagem("Opaaa");
-		conversa.adicionaMensagem("Suruba");
-		
-		System.out.println(conversa.getConversa());
-		
+		conversa.adicionaMensagem("Suruba");		
 	}
 
 	@Override
