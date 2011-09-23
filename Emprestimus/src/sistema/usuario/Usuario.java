@@ -516,7 +516,7 @@ public class Usuario implements UsuarioIF {
 	
 	public void emprestimoAceitoPorAmigo( EmprestimoIF emp ) throws Exception {
 //		if(!emp.estahAceito()) throw new Exception("Meu Amigo Recusou Emprestimo - ERRO");
-		this.emprestimosRequeridosPorAmigosEmEspera.remove(emp);
+		this.emprestimosRequeridosPorMimEmEspera.remove(emp);
 		emprestimos.add(emp);
 	}
 
