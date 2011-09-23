@@ -15,18 +15,35 @@ public enum Mensagem {
 	MENU("\n--Menu Principal--\n" +
 		 "1 - Logar\n" +
 		 "2 - Cadastrar novo usuario\n" +
-		 "3 - Sair\n"),
+		 "3 - Zerar Sistema\n" +
+		 "4 - Sair\n"),
 	// Nao modeifique a ordem das opções dos menus, sem alterar a iu.
 	MENU_LOGADO("\n--Voce esta logado--\n" +
-			"1 - Ver atributo do usuário\n" +
-			"2 - Cadastrar Item\n" +
-			"3 - Ver atributo de item\n" +
-			"4 - Localizar usuário\n" +
-			"5 - Solicitar amizade\n" +
-			"6 - Visualizar solicitações de amizade\n" +
-			"7 - Aprovar amizade\n" +
-			"8 - Verificar se tem amizade com outro usuário" +
-			"15 - Sair\n"),
+			" 1 - Ver atributo do usuário\n" +
+			" 2 - Cadastrar Item\n" +
+			" 3 - Ver atributo de item\n" +
+			" 4 - Localizar usuário\n" +
+			" 5 - Solicitar amizade\n" +
+			" 6 - Visualizar solicitações de amizade\n" +
+			" 7 - Aprovar amizade\n" +
+			" 8 - Verificar se tem amizade com outro usuário\n" +
+			" 9 - Visualizar lista de amigos\n" +
+			"10 - Visualizar lista de amigos de outro usuário\n" +
+			"11 - Visualizar itens\n" +
+			"12 - Visualizar itens de outro usuário\n" +
+			"13 - Requisitar emprestimo\n" +
+			"14 - Aprovar Emprestimo\n" +
+			"15 - Visualizar Emprestimos\n" +
+			"16 - Devolver Item\n" +
+			"17 - Confirmar Termino do Emprestimo\n" +
+			"18 - Enviar Mensagem\n" +
+			"19 - Enviar Mensagem\n" +
+			"20 - Ler Topicos\n" +
+			"21 - Ler Mensagens\n" +
+			"22 - Requisitar Devolucao\n" +
+			"23 - Adicionar Dias\n" +
+			"24 - Registrar Interesse\n" +
+			"25 - Sair"),
 
 	PERGUNTAR_TENTAR_NOVAMENTE("Deseja tentar novamente?\n"+
 							   "1 - Sim\n" +
@@ -68,6 +85,11 @@ public enum Mensagem {
 	PEDIR_LOGIN_AMIGO_ADICIONAR("Digite o login do amigo a ser adicionado."),
 	PEDIR_LOGIN_AMIGO_APROVAR("Digite o login do amigo a ser aprovado."),
 	PEDIR_LOGIN_AMIGO_VERIFICAR("Digite o login do amigo a ser verificado."),
+	PEDIR_LOGIN_USUARIO_VERIFICAR("Digite o login do usuário a ser verificado."),
+	PEDIR_ID_TEM_VERIFICAR("Qual o id do item a ser verificado?"),
+	PEDIR_TIPO_EMPRESTIMO("Qual o tipo de emprestimo que você deseja?"),
+	PEDIR_ID_EMPRESTIMO_APROVAR("Qual o id da requisitação do emprestimo a ser aprovado?"),
+	PEDIR_DURACAO_EMPRESTIMO("Qual a duracao do emprestimo?"),
 	INFO_SAO_AMIGOS("Vocês são amigos."),
 	INFO_NAO_SAO_AMIGOS("Vocês não são amigos."),
 	/*Cadastrar*/
