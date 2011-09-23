@@ -2,11 +2,14 @@ package sistema.mensagem;
 
 import static sistema.utilitarios.Validador.assertNaoNulo;
 import static sistema.utilitarios.Validador.assertStringNaoVazia;
+
+import java.util.Date;
+
 import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.usuario.UsuarioIF;
 import sistema.utilitarios.Mensagem;
 
-public interface ChatIF {
+public interface ChatIF extends Comparable<ChatIF>{
 		
 	public void setTipoOffTopicMsg();
 	
@@ -39,6 +42,8 @@ public interface ChatIF {
 	public String getConversa() throws Exception;
 	
 	public boolean ehConversaOfftopic();
+	
+	public Date getData();
 	
 
 }

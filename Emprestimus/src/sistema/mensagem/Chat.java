@@ -1,5 +1,7 @@
 package sistema.mensagem;
 
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,7 +13,7 @@ import sistema.usuario.UsuarioIF;
 import sistema.utilitarios.Mensagem;
 import static sistema.utilitarios.Validador.*;
 
-public class Chat implements ChatIF{
+public class Chat implements ChatIF {
 	
 	String idMensagem;
 	UsuarioIF remetente;
@@ -19,6 +21,7 @@ public class Chat implements ChatIF{
 	String assunto, idRequisicaoEmprestimo;
 	List<MensagemChatIF> conversa;
 	MensagemTipo tipo;
+	Date dataUltimaAtualizacao;
 	
 	public Chat(UsuarioIF remetente, UsuarioIF destinatario, String assunto, 
 			String mensagem, String idRequisicaoEmprestimo ) throws ArgumentoInvalidoException{
@@ -29,7 +32,8 @@ public class Chat implements ChatIF{
 		this.conversa = new LinkedList<MensagemChatIF>();
 		adicionaMensagem(mensagem);
 		setIdRequisicaEmprestimo(idRequisicaoEmprestimo);
-		this.tipo = MensagemTipo.NEGOCIACAO;
+		setTipoNegociacaoMsg();
+		this.dataUltimaAtualizacao = new GregorianCalendar().getTime();
 		
 	}
 
@@ -39,9 +43,10 @@ public class Chat implements ChatIF{
 		setRemetente(remetente);
 		setDestinatario(destinatario);
 		setAssunto(assunto);
+		this.conversa = new LinkedList<MensagemChatIF>();
 		adicionaMensagem(mensagem);
 		setTipoOffTopicMsg();
-		
+		this.dataUltimaAtualizacao = new GregorianCalendar().getTime();
 	}
 
 	@Override
@@ -53,7 +58,9 @@ public class Chat implements ChatIF{
 	public void adicionaMensagem(String mensagem) throws ArgumentoInvalidoException {
 		assertNaoNulo(mensagem, Mensagem.MENSAGEM_INVALIDA.getMensagem());
 		assertStringNaoVazia(mensagem, Mensagem.MENSAGEM_INVALIDA.getMensagem());
-		this.conversa.add( new MensagemChat(mensagem) );
+		MensagemChat mensagemChat = new MensagemChat(mensagem); 
+		this.conversa.add( mensagemChat );
+		this.dataUltimaAtualizacao = mensagemChat.getData(); 
 	}
 
 	@Override
@@ -94,6 +101,13 @@ public class Chat implements ChatIF{
 
 	@Override
 	public String getMensagem() {
+		StringBuffer saida = new StringBuffer();
+		Iterator<MensagemChatIF> iterador = conversa.iterator();
+		while(iterador.hasNext()){
+			saida.append(iterador.next().getMensagem());
+			System.out.println(saida.toString());
+		}
+		
 		return this.conversa.toString();
 	}
 
@@ -132,8 +146,8 @@ public class Chat implements ChatIF{
 		}
 		
 		if(conversa.toString().equals(""))
-			throw new Exception("Conversa sem mensagem vazia");
-		return conversa.toString().trim();
+			throw new Exception("Conversa sem mensagem");
+		return conversa.toString().trim().substring(0, conversa.toString().trim().length()-1);
 	}
 	
 	public static void main(String[] args) throws ArgumentoInvalidoException, Exception{
@@ -152,6 +166,17 @@ public class Chat implements ChatIF{
 	public boolean ehConversaOfftopic() {
 		return this.tipo == MensagemTipo.OFF_TOPIC;
 	}
+
+	@Override
+	public int compareTo(ChatIF outro) {
+		return this.dataUltimaAtualizacao.compareTo(outro.getData());
+	}
+
+	@Override
+	public Date getData() {
+		return this.dataUltimaAtualizacao;
+	}
+
 	
 	
 }
