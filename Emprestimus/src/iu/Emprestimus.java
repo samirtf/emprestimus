@@ -13,6 +13,8 @@ import sistema.emprestimo.EmprestimoEstado;
 import sistema.emprestimo.EmprestimoIF;
 import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.mensagem.Chat;
+import sistema.mensagem.ChatIF;
+import sistema.persistencia.ChatRepositorio;
 import sistema.persistencia.EmprestimoRepositorio;
 import sistema.persistencia.ItemRepositorio;
 import sistema.usuario.Usuario;
@@ -389,26 +391,7 @@ public class Emprestimus implements EmprestimusIF {
 		
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see iu.EmprestimusIF#zerarSistema()
-	 */
-	@Override
-	public void zerarSistema() {
-		//Salva os dados em persistencia
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see iu.EmprestimusIF#encerrarSistema()
-	 */
-	@Override
-	public void encerrarSistema() {
-		//Salva dados em persistencia
-
-	}
+	
 
 	@Override
 	public void devolverItem(String idSessao, String idEmprestimo)
@@ -557,7 +540,34 @@ public class Emprestimus implements EmprestimusIF {
 		assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
 		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
 		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
-		return null;
+		assertNaoNulo(idTopico, Mensagem.TOPICO_ID_INVALIDO.getMensagem());
+		assertStringNaoVazia(idTopico, Mensagem.TOPICO_ID_INVALIDO.getMensagem());
+		asserteTrue(ChatRepositorio.existeConversa(idTopico), Mensagem.TOPICO_ID_INEXISTENTE.getMensagem());
+		
+		ChatIF conversa = ChatRepositorio.recuperarConversa(idTopico);
+		
+		return conversa.getConversa();
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see iu.EmprestimusIF#zerarSistema()
+	 */
+	@Override
+	public void zerarSistema() {
+		//Salva os dados em persistencia
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see iu.EmprestimusIF#encerrarSistema()
+	 */
+	@Override
+	public void encerrarSistema() {
+		//Salva dados em persistencia
+
 	}
 
 }
