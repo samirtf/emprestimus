@@ -509,6 +509,7 @@ public class Usuario implements UsuarioIF {
 		emprestimos.add(emp);
 		UsuarioIF amigo = emp.getBeneficiado();
 		amigo.emprestimoAceitoPorAmigo(emp);
+		emp.getItem().setDisponibilidade(false);
 		return emp.getIdEmprestimo();
 		
 	}

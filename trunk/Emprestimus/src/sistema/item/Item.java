@@ -1,8 +1,13 @@
 package sistema.item;
 
-import static sistema.utilitarios.Validador.assertNaoNulo;
-import static sistema.utilitarios.Validador.assertStringNaoVazia;
+import static sistema.utilitarios.Validador.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import sistema.excecoes.ArgumentoInvalidoException;
+import sistema.usuario.Usuario;
+import sistema.usuario.UsuarioIF;
 import sistema.utilitarios.Mensagem;
 
 /**
@@ -17,6 +22,7 @@ public class Item implements ItemIF {
 	private String idItem, nome, descricao;
 	private ItemCategoria categoria;
 	private boolean estaDisponivel;
+	private List<UsuarioIF> interessados;
 
 	/**
 	 * O construtor padrao eh privado e nao oferece implementacao.
@@ -29,18 +35,19 @@ public class Item implements ItemIF {
 		setNome(nome);
 		setDescricao(descricao);
 		setCategoria(categoria);
+		
 		this.estaDisponivel = true;
+		this.interessados = new ArrayList<UsuarioIF>();
 	}
 
 	public Item(String nome, String descricao, ItemCategoria categoria)
 			throws Exception {
-		this.idItem = idItem;
-
 		setNome(nome);
 		setDescricao(descricao);
 		setCategoria(categoria);
-
+		
 		this.estaDisponivel = true;
+		this.interessados = new ArrayList<UsuarioIF>();
 	}
 
 	@Override
@@ -141,6 +148,30 @@ public class Item implements ItemIF {
 	@Override
 	public int compareTo(ItemIF item) {
 		return (int) (Long.valueOf(this.getId()) - Long.valueOf(item.getId()));
+	}
+
+	@Override
+	public void adicionaInteressado(UsuarioIF interessado) throws Exception {
+		asserteTrue(!interessados.contains(interessado), "O usuario já está entre os interessados."); //FIXME utilizar as mensagens constantes do enum Mensagem
+		interessados.add(interessado);
+		
+	}
+
+	@Override
+	public void removeInteressado(UsuarioIF interessado) throws Exception {
+		asserteTrue(interessados.remove(interessado), "O usuario não está entre os interessados."); //FIXME utilizar as mensagens constantes do enum Mensagem
+		
+	}
+
+	@Override
+	public void removeTodosInteressados() {
+		interessados.clear();
+		
+	}
+
+	@Override
+	public List<UsuarioIF> getInteresasados() {
+		return interessados;
 	}
 
 }
