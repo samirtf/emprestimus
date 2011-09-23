@@ -74,7 +74,7 @@ public class InterfaceTexto {
 	private static void menuLogado() {
 		int opcao;
 		System.out.println(Mensagem.MENU_LOGADO.getMensagem());
-		opcao = pegarOpcao(1, 8);
+		opcao = pegarOpcao(1, 15);
 		switch (opcao) {
 		case 1:
 			getAtributo();
@@ -108,7 +108,7 @@ public class InterfaceTexto {
 			verificarAmizade();
 			break;
 			
-		case 9:
+		case 15:
 			emprestimus.encerrarSistema();
 			break;
 			
