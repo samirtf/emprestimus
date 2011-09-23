@@ -15,7 +15,15 @@ public class MensagemChat implements MensagemChatIF, Comparable<MensagemChatIF>{
 	}
 	
 	public synchronized void setData(){
+		try {
+			//atrasar em 1 milisegundo para a mensagem ser ordenada corretamente
+			Thread.sleep(1);
+		} catch (InterruptedException e) {
+			
+			e.printStackTrace();
+		}
 		this.data = new GregorianCalendar().getTime();
+		System.out.println(this.data.getTime());
 	}
 	
 	public String getMensagem() {
@@ -40,7 +48,7 @@ public class MensagemChat implements MensagemChatIF, Comparable<MensagemChatIF>{
 	}
 
 	@Override
-	public int compareTo(MensagemChatIF outra) {
+	public synchronized int compareTo(MensagemChatIF outra) {
 		return getData().compareTo(outra.getData());
 	}
 	
