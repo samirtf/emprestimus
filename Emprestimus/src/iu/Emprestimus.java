@@ -410,6 +410,7 @@ public class Emprestimus implements EmprestimusIF {
 		asserteTrue(!emp.getTipoEstado().equals(EmprestimoEstado.AGUARDANDO_CONFIRMACAO_DEVOLUCAO), Mensagem.ITEM_JA_DEVOLVIDO.getMensagem());
 		asserteTrue(!emp.getTipoEstado().equals(EmprestimoEstado.CONFIRMADO), Mensagem.ITEM_JA_DEVOLVIDO.getMensagem());
 		
+
 		if (!emp.getEstadoEnum().equals(EmprestimoEstado.REQUISITADO_PARA_DEVOLUCAO))
 			emp.setEstadoAguardandoConfirmacaoDevolucao();						
 	}
@@ -426,27 +427,36 @@ public class Emprestimus implements EmprestimusIF {
 		EmprestimoIF emprestimo = EmprestimoRepositorio.recuperarEmprestimo(idEmprestimo);
 		
 		asserteTrue(emprestimo.getEmprestador().equals(usuario),"O usuário não tem permissão para requisitar a devolução deste item");
-		asserteTrue(emprestimo.getEstado().equalsIgnoreCase(EmprestimoEstado.ANDAMENTO.getNome())
+		asserteTrue(emprestimo.getEstado().equalsIgnoreCase((EmprestimoEstado.ANDAMENTO.getNome()))
 				|| emprestimo.getEstadoEnum().equals(EmprestimoEstado.REQUISITADO_PARA_DEVOLUCAO)
 						|| emprestimo.getEstadoEnum().equals(EmprestimoEstado.ACEITO), Mensagem.TERMINO_EMPRESTIMO_JA_CONFIRMADO.getMensagem());
 		asserteTrue(!emprestimo.getEstadoEnum().equals(EmprestimoEstado.AGUARDANDO_CONFIRMACAO_DEVOLUCAO), Mensagem.ITEM_JA_DEVOLVIDO.getMensagem());
 		asserteTrue(!emprestimo.getEstadoEnum().equals(EmprestimoEstado.ANDAMENTO), Mensagem.DEVOLUCAO_JA_REQUISITADA.getMensagem());
-		asserteTrue(!emprestimo.getEstadoEnum().equals(EmprestimoEstado.REQUISITADO_PARA_DEVOLUCAO), Mensagem.DEVOLUCAO_JA_REQUISITADA.getMensagem());
+		asserteTrue(!emprestimo.getEstadoEnum().equals(EmprestimoEstado.REQUISITADO_PARA_DEVOLUCAO), Mensagem.ITEM_JA_DEVOLVIDO.getMensagem());
 		
 		dataCorrente = new GregorianCalendar();
 		dataCorrente.add(GregorianCalendar.DATE, diasExtras);
 		dataCorrente.add(GregorianCalendar.MILLISECOND, -3);
 		
-		if (dataCorrente.compareTo(emprestimo.getDataDeDevolucao()) <= 0) {
+		if (dataCorrente.compareTo(emprestimo.getDataDeDevolucao()) < 0) {
+			//System.out.println(emprestimo.getEmprestador().getLogin());
 			emprestimo.setEstadoRequisitadoParaDevolucao();
 		} else {
+			System.out.println(emprestimo.getItem().getNome());
+			System.out.println("asdf"+emprestimo.getEmprestador().getLogin());
 			emprestimo.setEstadoAndamento();
 		}
 		UsuarioIF amigo = emprestimo.getBeneficiado();
-		
+		/*
+		 * String assunto = "Empréstimo do item "+item.getNome()+" a "+this.getNome()+"";
+		String mensagem = this.getNome()+" solicitou o empréstimo do item "+item.getNome();
+		 */
+		//Steven Paul Jobs solicitou o empréstimo do item The Social Network
+		//Mark Zuckerberg solicitou a devolução do item The Social Network
 		String assunto = "Empréstimo do item "+emprestimo.getItem().getNome()+" a "+amigo.getNome()+"";
 		String mensagem = usuario.getNome()+" solicitou a devolução do item "+emprestimo.getItem().getNome();
 		usuario.enviarMensagemEmprestimo(amigo.getLogin(), assunto, mensagem, emprestimo.getIdEmprestimo());
+		System.out.println(usuario.getNome()+"jaspion"+emprestimo.getEstadoEnum());
 	}
 	
 	@Override
