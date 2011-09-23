@@ -26,7 +26,7 @@ public enum Mensagem {
 			"6 - Visualizar solicitações de amizade\n" +
 			"7 - Aprovar amizade\n" +
 			"8 - Verificar se tem amizade com outro usuário" +
-			"9 - Sair\n"),
+			"15 - Sair\n"),
 
 	PERGUNTAR_TENTAR_NOVAMENTE("Deseja tentar novamente?\n"+
 							   "1 - Sim\n" +
