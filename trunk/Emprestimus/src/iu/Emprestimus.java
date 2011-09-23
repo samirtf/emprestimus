@@ -436,6 +436,7 @@ public class Emprestimus implements EmprestimusIF {
 		
 		dataCorrente = new GregorianCalendar();
 		dataCorrente.add(GregorianCalendar.DATE, diasExtras);
+		dataCorrente.add(GregorianCalendar.MILLISECOND, -3);
 		
 		if (dataCorrente.compareTo(emprestimo.getDataDeDevolucao()) <= 0) {
 			emprestimo.setEstadoRequisitadoParaDevolucao();
