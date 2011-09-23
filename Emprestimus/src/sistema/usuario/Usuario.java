@@ -401,7 +401,7 @@ public class Usuario implements UsuarioIF {
 	}
 
 	@Override
-	public String requisitarEmprestimo(String idItem, int duracao) throws Exception{
+	public synchronized String requisitarEmprestimo(String idItem, int duracao) throws Exception{
 		Validador.assertNaoNulo(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem());
 		Validador.assertStringNaoVazia(idItem.trim(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
 		Validador.asserteTrue(ItemRepositorio.existeItem(idItem.trim()), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
