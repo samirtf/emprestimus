@@ -78,6 +78,8 @@ public interface EmprestimusIF {
 	public void zerarSistema();
 	
 	public void encerrarSistema();
+
+	public void registraInteresse(String idSessao, String idItem) throws Exception;
 	
 	
 }

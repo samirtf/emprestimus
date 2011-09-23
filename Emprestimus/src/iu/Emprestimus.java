@@ -12,6 +12,7 @@ import sistema.autenticacao.Autenticacao;
 import sistema.emprestimo.EmprestimoEstado;
 import sistema.emprestimo.EmprestimoIF;
 import sistema.excecoes.ArgumentoInvalidoException;
+import sistema.item.ItemIF;
 import sistema.mensagem.Chat;
 import sistema.mensagem.ChatIF;
 import sistema.persistencia.ChatRepositorio;
@@ -525,7 +526,6 @@ public class Emprestimus implements EmprestimusIF {
 		asserteTrue(emp.getEmprestador().equals(usuario),Mensagem.EMPRESTIMO_DEVOLUCAO_CONFIRMADA_APENAS_EMPRESTADOR.getMensagem());
 		asserteTrue(!emp.getEstadoEnum().equals(EmprestimoEstado.CONFIRMADO), Mensagem.TERMINO_EMPRESTIMO_JA_CONFIRMADO.getMensagem());
 		
-		System.out.println(emp.getEstadoEnum());
 		
 		if (emp.getEstadoEnum() == EmprestimoEstado.REQUISITADO_PARA_DEVOLUCAO){
 			throw new Exception(Mensagem.DEVOLUCAO_JA_REQUISITADA.getMensagem());
@@ -537,13 +537,34 @@ public class Emprestimus implements EmprestimusIF {
 		if (emp.getEstadoEnum() == EmprestimoEstado.ESPERANDO_CONFIRMACAO){
 			emp.setEstadoConfirmado();
 			System.out.println("confimardo");
+			liberaItem(idSessao, idEmprestimo);
 		}
 		
 		if (emp.getEstadoEnum() == EmprestimoEstado.CANCELADO){
 			emp.setEstadoCancelado();
 			System.out.println("cNCLoooooo");
 		}
-			
+		
+	}
+
+	/**
+	 * Seta um item como disponivel e envia mensagens privadas para todos os interessados nele.
+	 * 
+	 * @param idSessao 
+	 * @param idEmprestimo 
+	 * @throws Exception 
+	 */
+	private void liberaItem(String idSessao, String idEmprestimo) throws Exception {
+		EmprestimoIF emprestimo = EmprestimoRepositorio.recuperarEmprestimo(idEmprestimo);
+		UsuarioIF dono = emprestimo.getEmprestador();
+		ItemIF item = emprestimo.getItem();
+		
+		for (UsuarioIF interessado : item.getInteresasados()) {
+			enviarMensagem(idSessao, interessado.getLogin(), "O item " + item.getNome() + " do usuário " + dono.getNome() + " está disponível",
+							"Agora você pode requisitar o empréstimo do " + item.getNome());
+		}
+		item.removeTodosInteressados();
+		item.setDisponibilidade(true);
 		
 	}
 
@@ -628,6 +649,31 @@ public class Emprestimus implements EmprestimusIF {
 			throw new Exception(Mensagem.USUARIO_SEM_PERMISSAO_LEITURA_TOPICO.getMensagem());
 		
 		return conversa.getConversa();
+	}
+	
+	@Override
+	public void registraInteresse(String idSessao, String idItem)
+			throws Exception {
+		assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
+		assertNaoNulo(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		asserteTrue(ItemRepositorio.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
+		
+		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
+		ItemIF item = ItemRepositorio.recuperarItem(idItem);
+		
+		//FIXME usar as mensagens constantes do enum Mensagem
+		
+		asserteTrue(!item.getInteresasados().contains(usuario), "O usuário já registrou interesse neste item");
+		asserteTrue(!usuario.oItemMePertence(idItem), "O usuário não pode registrar interesse no próprio item");
+		assertNaoNulo(usuario.ehItemDoMeuAmigo(idItem), "O usuário não tem permissão para registrar interesse neste item");
+//		asserteTrue(!item.estahDisponivel(), "--O item está disponível");
+		
+		item.adicionaInteressado(usuario);
+		
+		
 	}
 	
 	/*
