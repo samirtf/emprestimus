@@ -16,15 +16,17 @@ public enum Mensagem {
 		 "1 - Logar\n" +
 		 "2 - Cadastrar novo usuario\n" +
 		 "3 - Sair\n"),
+	// Nao modeifique a ordem das opções dos menus, sem alterar a iu.
 	MENU_LOGADO("\n--Voce esta logado--\n" +
-			"1 - Cadastrar item\n" +
-			"2 - Ver meus itens\n" +
-			"3 - Ver meus amigos\n" +
-			"4 - Procurar amigos\n" +
-			"5 - Ver solicitacoes de amizade\n" +
-			"6 - Ver perfil proprio\n" +
-			"7 - GetAtributo\n" +
-			"8 - Sair\n"),
+			"1 - Ver atributo do usuário\n" +
+			"2 - Cadastrar Item\n" +
+			"3 - Ver atributo de item\n" +
+			"4 - Localizar usuário\n" +
+			"5 - Solicitar amizade\n" +
+			"6 - Visualizar solicitações de amizade\n" +
+			"7 - Aprovar amizade\n" +
+			"8 - Verificar se tem amizade com outro usuário" +
+			"9 - Sair\n"),
 
 	PERGUNTAR_TENTAR_NOVAMENTE("Deseja tentar novamente?\n"+
 							   "1 - Sim\n" +
@@ -62,17 +64,31 @@ public enum Mensagem {
 	PEDIR_SENHA("Entre com a sua senha: "),
 	PEDIR_OPCAO("Por favor, digite uma opcao: "),
 	PERGUNTAR_ATRIBUTO("Qual o atributo que você deseja?"),
+	PEDIR_CHAVE_BUSCA("Digite a palavra chave a ser procurada:"),
+	PEDIR_LOGIN_AMIGO_ADICIONAR("Digite o login do amigo a ser adicionado."),
+	PEDIR_LOGIN_AMIGO_APROVAR("Digite o login do amigo a ser aprovado."),
+	PEDIR_LOGIN_AMIGO_VERIFICAR("Digite o login do amigo a ser verificado."),
+	INFO_SAO_AMIGOS("Vocês são amigos."),
+	INFO_NAO_SAO_AMIGOS("Vocês não são amigos."),
+	/*Cadastrar*/
 	NOME_PARA_CADASTRAR("Qual o nome do usuario a ser cadastrado?"),
 	LOGIN_PARA_CADASTRAR("Qual o login do usuario a ser cadastrado?"),
 	ENDERECO_PARA_CADASTRAR("Qual o endereco do usuario a ser cadastrado?"),
-	DESCRICAO_PARA_CADASTRAR("Qual o endereco do usuario a ser cadastrado?"),
+	PEDIR_NOME_ITEM_CADASTRAR("Qual o nome do item a ser cadastrado?"),
+	PEDIR_CATEGORIA_ITEM_CADASTRAR("Qual a categoria do item a ser cadastrado?"),
+	PEDIR_DESCRICAO_ITEM_CADASTRAR("Qual a descrição do item a ser cadastrado?"),
+	
 	PEDIR_NOME_DO_AMIGO("\nDigite o nome do seu amigo: <Enter para voltar>"),
 	MENU_ITEMCATEGORIA("\n--Escolha uma categoria:--\n" +
 			"1 - Livro\n" +
 			"2 - Filme\n" +
 			"3 - Jogo\n"),
 	
-	
+	/*Avisos*/
+	INFO_AGUARDE_APROVACAO_AMIZADE("Usuario adicionado a sua lista de amizades pendentes.\n" +
+								   "Este usuário irá para sua lista de amigos, assim que ele aprovar a sua solicitação."),
+	OPERACAO_SUCESSO("Operação realizada com sucesso!"),
+								   
 	/*Mensagens de erro: */
 	OPCAO_INVALIDA("Opcao invalida."),
 	OUTRA_OPCAO("Escolha uma outra opcao. "),
