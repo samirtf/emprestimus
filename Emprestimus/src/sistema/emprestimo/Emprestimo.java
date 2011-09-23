@@ -116,7 +116,7 @@ public class Emprestimo implements EmprestimoIF{
 	}
 
 	@Override
-	public void setEstadoAceito() {
+	public synchronized void setEstadoAceito() {
 		this.estado = EmprestimoEstado.ACEITO;
 		dataDeAprovacao = new GregorianCalendar();
 		
@@ -172,9 +172,10 @@ public class Emprestimo implements EmprestimoIF{
 		return this.estado;
 	}
 	
-	public Calendar getDataDeDevolucao() {
+	public synchronized Calendar getDataDeDevolucao() {
 		Calendar dataDevolucao = (Calendar) dataDeAprovacao.clone();
 		dataDevolucao.add(GregorianCalendar.DATE, duracao);
+		dataDevolucao.add(GregorianCalendar.MILLISECOND, 1);
 		return dataDevolucao;
 	}
 
