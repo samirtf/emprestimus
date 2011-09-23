@@ -443,6 +443,11 @@ public class Emprestimus implements EmprestimusIF {
 		} else {
 			emprestimo.setEstadoAndamento();
 		}
+		UsuarioIF amigo = emprestimo.getBeneficiado();
+		
+		String assunto = "Empréstimo do item "+emprestimo.getItem().getNome()+" a "+amigo.getNome()+"";
+		String mensagem = usuario.getNome()+" solicitou a devolução do item "+emprestimo.getItem().getNome();
+		usuario.enviarMensagemEmprestimo(amigo.getLogin(), assunto, mensagem, emprestimo.getIdEmprestimo());
 	}
 	
 	@Override
