@@ -427,14 +427,18 @@ public class Emprestimus implements EmprestimusIF {
 		EmprestimoIF emprestimo = EmprestimoRepositorio.recuperarEmprestimo(idEmprestimo);
 		
 		asserteTrue(emprestimo.getEmprestador().equals(usuario),"O usuário não tem permissão para requisitar a devolução deste item");
-		asserteTrue(emprestimo.getEstado().equalsIgnoreCase(EmprestimoEstado.ANDAMENTO.getNome()), Mensagem.TERMINO_EMPRESTIMO_JA_CONFIRMADO.getMensagem());
+		asserteTrue(emprestimo.getEstado().equalsIgnoreCase(EmprestimoEstado.ANDAMENTO.getNome())
+				|| emprestimo.getEstadoEnum().equals(EmprestimoEstado.REQUISITADO_PARA_DEVOLUCAO)
+						|| emprestimo.getEstadoEnum().equals(EmprestimoEstado.ACEITO), Mensagem.TERMINO_EMPRESTIMO_JA_CONFIRMADO.getMensagem());
 		asserteTrue(!emprestimo.getEstadoEnum().equals(EmprestimoEstado.ANDAMENTO), Mensagem.DEVOLUCAO_JA_REQUISITADA.getMensagem());
+		asserteTrue(!emprestimo.getEstadoEnum().equals(EmprestimoEstado.REQUISITADO_PARA_DEVOLUCAO), Mensagem.DEVOLUCAO_JA_REQUISITADA.getMensagem());
+		asserteTrue(!emprestimo.getEstadoEnum().equals(EmprestimoEstado.AGUARDANDO_CONFIRMACAO_DEVOLUCAO), Mensagem.ITEM_JA_DEVOLVIDO.getMensagem());
 		
 		dataCorrente = new GregorianCalendar();
 		dataCorrente.add(GregorianCalendar.DATE, diasExtras);
 		
 		if (dataCorrente.compareTo(emprestimo.getDataDeDevolucao()) <= 0) {
-			emprestimo.setEstadoCancelado();
+			emprestimo.setEstadoRequisitadoParaDevolucao();
 		} else {
 			emprestimo.setEstadoAndamento();
 		}

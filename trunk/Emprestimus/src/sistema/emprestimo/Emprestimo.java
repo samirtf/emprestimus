@@ -178,6 +178,12 @@ public class Emprestimo implements EmprestimoIF{
 		return dataDeDevolucao;
 	}
 
+	@Override
+	public void setEstadoRequisitadoParaDevolucao() {
+		estado = EmprestimoEstado.REQUISITADO_PARA_DEVOLUCAO;
+		
+	}
+
 
 	
 
