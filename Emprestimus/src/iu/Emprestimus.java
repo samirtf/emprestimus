@@ -547,6 +547,9 @@ public class Emprestimus implements EmprestimusIF {
 		asserteTrue(ChatRepositorio.existeConversa(idTopico), Mensagem.TOPICO_ID_INEXISTENTE.getMensagem());
 		
 		ChatIF conversa = ChatRepositorio.recuperarConversa(idTopico);
+		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
+		if(!usuario.equals(conversa.getRemetente()) && !usuario.equals(conversa.getDestinatario()))
+			throw new Exception(Mensagem.USUARIO_SEM_PERMISSAO_LEITURA_TOPICO.getMensagem());
 		
 		return conversa.getConversa();
 	}
