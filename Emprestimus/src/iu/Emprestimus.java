@@ -410,9 +410,8 @@ public class Emprestimus implements EmprestimusIF {
 		asserteTrue(!emp.getTipoEstado().equals(EmprestimoEstado.AGUARDANDO_CONFIRMACAO_DEVOLUCAO), Mensagem.ITEM_JA_DEVOLVIDO.getMensagem());
 		asserteTrue(!emp.getTipoEstado().equals(EmprestimoEstado.CONFIRMADO), Mensagem.ITEM_JA_DEVOLVIDO.getMensagem());
 		
-		
-		emp.setEstadoAguardandoConfirmacaoDevolucao();
-		
+		if (!emp.getEstadoEnum().equals(EmprestimoEstado.REQUISITADO_PARA_DEVOLUCAO))
+			emp.setEstadoAguardandoConfirmacaoDevolucao();						
 	}
 
 	@Override
@@ -430,9 +429,9 @@ public class Emprestimus implements EmprestimusIF {
 		asserteTrue(emprestimo.getEstado().equalsIgnoreCase(EmprestimoEstado.ANDAMENTO.getNome())
 				|| emprestimo.getEstadoEnum().equals(EmprestimoEstado.REQUISITADO_PARA_DEVOLUCAO)
 						|| emprestimo.getEstadoEnum().equals(EmprestimoEstado.ACEITO), Mensagem.TERMINO_EMPRESTIMO_JA_CONFIRMADO.getMensagem());
+		asserteTrue(!emprestimo.getEstadoEnum().equals(EmprestimoEstado.AGUARDANDO_CONFIRMACAO_DEVOLUCAO), Mensagem.ITEM_JA_DEVOLVIDO.getMensagem());
 		asserteTrue(!emprestimo.getEstadoEnum().equals(EmprestimoEstado.ANDAMENTO), Mensagem.DEVOLUCAO_JA_REQUISITADA.getMensagem());
 		asserteTrue(!emprestimo.getEstadoEnum().equals(EmprestimoEstado.REQUISITADO_PARA_DEVOLUCAO), Mensagem.DEVOLUCAO_JA_REQUISITADA.getMensagem());
-		asserteTrue(!emprestimo.getEstadoEnum().equals(EmprestimoEstado.AGUARDANDO_CONFIRMACAO_DEVOLUCAO), Mensagem.ITEM_JA_DEVOLVIDO.getMensagem());
 		
 		dataCorrente = new GregorianCalendar();
 		dataCorrente.add(GregorianCalendar.DATE, diasExtras);
@@ -475,9 +474,10 @@ public class Emprestimus implements EmprestimusIF {
 		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
 		EmprestimoIF emp = EmprestimoRepositorio.recuperarEmprestimo(idEmprestimo);
 		asserteTrue(emp.getEmprestador().equals(usuario),Mensagem.EMPRESTIMO_DEVOLUCAO_CONFIRMADA_APENAS_EMPRESTADOR.getMensagem());
-		asserteTrue(!emp.getEstado().equalsIgnoreCase(EmprestimoEstado.CONFIRMADO.getNome()), Mensagem.TERMINO_EMPRESTIMO_JA_CONFIRMADO.getMensagem());
+		asserteTrue(!emp.getEstadoEnum().equals(EmprestimoEstado.CONFIRMADO), Mensagem.TERMINO_EMPRESTIMO_JA_CONFIRMADO.getMensagem());
 		
-		emp.setEstadoConfirmado();
+		if (emp.getEstadoEnum().equals(EmprestimoEstado.AGUARDANDO_CONFIRMACAO_DEVOLUCAO))
+			emp.setEstadoConfirmado();
 		
 	}
 
