@@ -141,15 +141,15 @@ public class InterfaceTexto {
 			break;
 			
 		case 16:
-			
+			devolverItem();
 			break;
 			
 		case 17:
-			
+			confirmarTerminoEmprestimo();
 			break;
 			
 		case 18:
-			
+			enviarMensagemOFFTopic();
 			break;
 			
 		case 19:
@@ -185,6 +185,47 @@ public class InterfaceTexto {
 			break;
 		}
 		menuLogado();
+	}
+
+	private static void enviarMensagemOFFTopic() {
+		System.out.println(Mensagem.PEDIR_DESTINATARIO.getMensagem());
+		String destinatario = pegaStringDaEntrada();
+		System.out.println(Mensagem.PEDIR_ASSUNTO.getMensagem());
+		String assunto = pegaStringDaEntrada();
+		try {
+			emprestimus.enviarMensagem(id_sessao, destinatario, assunto, pegaStringDaEntrada());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			if(tentarNovamente()) {
+				enviarMensagemOFFTopic();
+			}
+		}
+	}
+
+	private static void confirmarTerminoEmprestimo() {
+		System.out.println(Mensagem.PEDIR_ID_EMPRESTIMO.getMensagem());
+		try {
+			emprestimus.confirmarTerminoEmprestimo(id_sessao, pegaStringDaEntrada());
+			System.out.println(Mensagem.OPERACAO_SUCESSO.getMensagem());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			if (tentarNovamente()) {
+				confirmarTerminoEmprestimo();
+			}
+		}
+	}
+
+	private static void devolverItem() {
+		System.out.println(Mensagem.PEDIR_ID_EMPRESTIMO.getMensagem());
+		try {
+			emprestimus.devolverItem(id_sessao, pegaStringDaEntrada());
+			System.out.println(Mensagem.OPERACAO_SUCESSO.getMensagem());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			if(tentarNovamente()) {
+				
+			}
+		}
 	}
 
 	private static void visualizarEmprestimos() {

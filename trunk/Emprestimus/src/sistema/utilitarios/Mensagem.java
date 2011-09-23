@@ -89,7 +89,12 @@ public enum Mensagem {
 	PEDIR_ID_TEM_VERIFICAR("Qual o id do item a ser verificado?"),
 	PEDIR_TIPO_EMPRESTIMO("Qual o tipo de emprestimo que você deseja?"),
 	PEDIR_ID_EMPRESTIMO_APROVAR("Qual o id da requisitação do emprestimo a ser aprovado?"),
+	PEDIR_ID_EMPRESTIMO("Informe o id do emprestimo:"),
 	PEDIR_DURACAO_EMPRESTIMO("Qual a duracao do emprestimo?"),
+	PEDIR_DESTINATARIO("Informe o destinatário."),
+	PEDIR_ASSUNTO("Informe o assunto"),
+	PEDIR_MENSAGEM("Escreva a mensagem que deseja enviar."),
+	
 	INFO_SAO_AMIGOS("Vocês são amigos."),
 	INFO_NAO_SAO_AMIGOS("Vocês não são amigos."),
 	/*Cadastrar*/
