@@ -1,9 +1,12 @@
 package iu;
 
 /**
- * Interface geral do sistema. Para os �ntimos, chama-se Fachada =D.
- * @author Radix
- *
+ * Fachada para as funcionalidades do sistema.
+ * 
+ * 
+ * @author Joeffison Silverio de Andrade, 21011853, joeffisonsa@gmail.com
+ * @version 1.5
+ * @since 1.0
  */
 public interface EmprestimusIF {
 
