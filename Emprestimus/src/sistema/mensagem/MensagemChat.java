@@ -23,7 +23,7 @@ public class MensagemChat implements MensagemChatIF, Comparable<MensagemChatIF>{
 			e.printStackTrace();
 		}
 		this.data = new GregorianCalendar().getTime();
-		System.out.println(this.data.getTime());
+		
 	}
 	
 	public String getMensagem() {
