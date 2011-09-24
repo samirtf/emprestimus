@@ -4,7 +4,9 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import sistema.excecoes.ArgumentoInvalidoException;
+import sistema.item.Item;
 import sistema.item.ItemIF;
+import sistema.usuario.Usuario;
 import sistema.usuario.UsuarioIF;
 import sistema.utilitarios.Mensagem;
 import sistema.utilitarios.Validador;
@@ -20,7 +22,8 @@ public class Emprestimo implements EmprestimoIF{
 	ItemIF item;
 	String tipo;
 	EmprestimoEstado estado;
-	Calendar dataDeAprovacao;
+	String situacao;
+	GregorianCalendar dataDeAprovacao;
 //	Calendar dataDeDevolucao;
 	
 	public Emprestimo( UsuarioIF emprestador, UsuarioIF beneficiado, ItemIF item, String tipo, int duracao ) throws Exception{
@@ -37,7 +40,8 @@ public class Emprestimo implements EmprestimoIF{
 		}else{
 			throw new Exception(Mensagem.EMPRESTIMO_TIPO_INXISTENTE.getMensagem());
 		}		
-		this.estado = EmprestimoEstado.EM_ESPERA;
+		this.estado = EmprestimoEstado.EM_ANDAMENTO;
+		this.situacao = "Andamento";
 	}
 	
 	@Override
@@ -115,38 +119,12 @@ public class Emprestimo implements EmprestimoIF{
 		return tipo.equalsIgnoreCase("beneficiado");
 	}
 
-	@Override
-	public synchronized void setEstadoAceito() {
-		this.estado = EmprestimoEstado.ACEITO;
-		dataDeAprovacao = new GregorianCalendar();
-		
-	}
 
-	@Override
-	public void setEstadoConfirmado() {
-		this.estado = EmprestimoEstado.CONFIRMADO;
-		
+	public boolean estaAprovado(){
+		return this.dataDeAprovacao == null;
 	}
-
-	@Override
-	public void setEstadoRequisitadoDevolucao() {
-		this.estado = EmprestimoEstado.REQUISITADO_PARA_DEVOLUCAO;
-		
-	}
-
 	
-
-	@Override
-	public boolean estahAceito() {
-		return this.estado.equals(EmprestimoEstado.EM_ESPERA) ;
-	}
-
 	
-	@Override
-	public void setEstadoCancelado() {
-		this.estado = EmprestimoEstado.CANCELADO;
-		
-	}
 
 	@Override
 	public String getEstado() {
@@ -158,18 +136,18 @@ public class Emprestimo implements EmprestimoIF{
 	}
 	
 	public String getNomeParaEstado(){
-		if(this.estado ==  EmprestimoEstado.ACEITO){
-			return "Andamento";
-		}else if(this.estado ==  EmprestimoEstado.ESPERANDO_CONFIRMACAO){
-			return "Andamento";
-		}else if(this.estado ==  EmprestimoEstado.CANCELADO){
-			return "Cancelado";
-		}else if(this.estado ==  EmprestimoEstado.CONFIRMADO){
-			return "Completado";
-		} else if (this.estado == EmprestimoEstado.REQUISITADO_PARA_DEVOLUCAO) {
-			return "Andamento";
+		if (estado == EmprestimoEstado.EM_ANDAMENTO) {
+			return "EM_ANDAMENTO";
+		} else if (estado == EmprestimoEstado.DEVOLVIDO) {
+			return "DEVOLVIDO";
+		} else if (estado == EmprestimoEstado.DEVOLUCAO_REQUISITADA) {
+			return "DEVOLUCAO_REQUISITADA";
+		} else if (estado == EmprestimoEstado.TERMINAL) {
+			return "TERMINAL";
+		} else {
+			return " => Bug em Emprestimus.getNomeParaEstado()";
 		}
-		return " => Bug em Emprestimus.getNomeParaEstado()";	
+			
 	}
 	
 	@Override
@@ -183,16 +161,180 @@ public class Emprestimo implements EmprestimoIF{
 		return dataDevolucao;
 	}
 
+	
+
 	@Override
-	public void setEstadoEsperandoConfirmacao() {
-		this.estado = EmprestimoEstado.ESPERANDO_CONFIRMACAO;
+	public void setSituacaoAndamento() {
+		this.situacao = "Andamento";
+	}
+
+	@Override
+	public void setSituacaoCancelado() {
+		this.situacao = "Cancelado";
+	}
+
+	@Override
+	public void setSituacaoCompletado() {
+		this.situacao = "Completado";
+	}
+
+	@Override
+	public boolean ehSituacaoAndamento() {
+		return this.situacao.equals("Andamento");
+	}
+
+	@Override
+	public boolean ehSituacaoCancelado() {
+		return this.situacao.equals("Cancelado");
+	}
+
+	@Override
+	public boolean ehSituacaoCompletado() {
+		return this.situacao.equals("Completado");
+	}
+
+	@Override
+	public void aprovarEmprestimo() throws Exception {
+		if(ehEstadoAndamento()){
+			setDataAprovacao();
+			setEstadoAndamento();
+			setSituacaoAndamento();
+		}else if(ehEstadoDevolucaoRequisitada()){
+			throw new Exception("Transicao aprovarEmprestimo de Devolucao Requisitada Nao Permitida");
+		}else if(ehEstadoDevolvido()){
+			throw new Exception("Transicao aprovarEmprestimo de Devolvido Nao Permitida");
+		}else if(ehEstadoTermino()){
+			throw new Exception("Transicao aprovarEmprestimo de Terminal Nao Permitida");
+		}else{
+			throw new Exception("Estado não implementado");
+		}
+		this.getItem().setDisponibilidade(false);
 		
+	}
+
+	@Override
+	public void requisitarDevolucaoEmprestimo(boolean noPrazo) throws Exception {
+		if(ehEstadoAndamento()){
+			setEstadoDevolucaoRequisitada();
+			if(noPrazo){
+				setSituacaoCancelado();
+			}else{
+				setSituacaoAndamento();
+			}
+		}else if(ehEstadoDevolucaoRequisitada()){
+			throw new Exception(Mensagem.DEVOLUCAO_JA_REQUISITADA.getMensagem());
+		}else if(ehEstadoDevolvido()){
+			throw new Exception(Mensagem.ITEM_JA_DEVOLVIDO.getMensagem());
+		}else if(ehEstadoTermino()){
+			throw new Exception(Mensagem.ITEM_JA_DEVOLVIDO.getMensagem());
+		}else{
+			throw new Exception("Estado não implementado");
+		}
+		
+	}
+
+	@Override
+	public void devolverEmprestimo() throws Exception {
+		if(ehEstadoAndamento()){
+			setEstadoDevolvido();
+			setSituacaoAndamento();
+		}else if(ehEstadoDevolucaoRequisitada()){
+			if(ehSituacaoAndamento()){
+				setSituacaoAndamento();
+			}else{
+				setSituacaoCancelado();
+			}
+			setEstadoDevolvido();
+			
+		}else if(ehEstadoDevolvido()){
+			throw new Exception(Mensagem.ITEM_JA_DEVOLVIDO.getMensagem());
+		}else if(ehEstadoTermino()){
+			throw new Exception(Mensagem.ITEM_JA_DEVOLVIDO.getMensagem());
+		}else{
+			throw new Exception("Estado não implementado");
+		}
+		
+	}
+
+	@Override
+	public void confirmarEmprestimo() throws Exception {
+		if(ehEstadoAndamento()){
+			throw new Exception("Item não foi devolvido");
+		}else if(ehEstadoDevolucaoRequisitada()){
+			throw new Exception("Item não foi devolvido");
+		}else if(ehEstadoDevolvido()){
+			if(ehSituacaoAndamento()){
+				setSituacaoCompletado();
+			}else{
+				setSituacaoCancelado();
+			}
+			setEstadoTermino();
+			this.getItem().setDisponibilidade(true);
+		}else if(ehEstadoTermino()){
+			throw new Exception(Mensagem.TERMINO_EMPRESTIMO_JA_CONFIRMADO.getMensagem());
+		}else{
+			throw new Exception("Estado não implementado");
+		}
+		
+	}
+
+	@Override
+	public boolean ehEstadoAndamento() {
+		return estado == EmprestimoEstado.EM_ANDAMENTO;
+	}
+
+	@Override
+	public boolean ehEstadoDevolucaoRequisitada() {
+		return estado == EmprestimoEstado.DEVOLUCAO_REQUISITADA;
+	}
+
+	@Override
+	public boolean ehEstadoDevolvido() {
+		return estado == EmprestimoEstado.DEVOLVIDO;
+	}
+
+	@Override
+	public boolean ehEstadoTermino() {
+		return estado == EmprestimoEstado.TERMINAL;
+	}
+
+	@Override
+	public void setEstadoAndamento() {
+		estado = EmprestimoEstado.EM_ANDAMENTO;		
+	}
+
+	@Override
+	public void setEstadoDevolucaoRequisitada() {
+		estado = EmprestimoEstado.DEVOLUCAO_REQUISITADA;
+	}
+
+	@Override
+	public void setEstadoDevolvido() {
+		estado = EmprestimoEstado.DEVOLVIDO;
+	}
+
+	@Override
+	public void setEstadoTermino() {
+		estado = EmprestimoEstado.TERMINAL;
 	}
 
 
 
+	@Override
+	public String getSituacao() {
+		return situacao;
+	}
 
-
-	
+	@Override
+	public void setDataAprovacao() {
+		try {
+			Thread.sleep(1);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.dataDeAprovacao = new GregorianCalendar();
+		
+	}
 
 }

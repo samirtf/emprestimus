@@ -11,14 +11,8 @@ import sistema.utilitarios.ValidadorString;
  * @since 1.0
  */
 public enum EmprestimoEstado {
-	ACEITO("ACEITO"), ESPERANDO_CONFIRMACAO("ESP_CONFIRM"), CONFIRMADO("COMPLETADO"),
-	EM_ESPERA("EM ESPERA"), CANCELADO("CANCELADO"),
-	REQUISITADO_PARA_DEVOLUCAO("REQUIS_DEV");
-	
-	/*
-	ACEITO("Andamento"), RECUSADO("Recusado"), CONFIRMADO("Completado"), ANDAMENTO("Andamento"),
-	AGUARDANDO_CONFIRMACAO_DEVOLUCAO("Andamento"), EM_ESPERA("Em espera"), CANCELADO("Cancelado");
-	*/
+	EM_ANDAMENTO("Em Andamento"), DEVOLVIDO("Devolvido"), DEVOLUCAO_REQUISITADA("Devolucao Requisitada"),
+	TERMINAL("Terminado");
 	
 	private final String nome;
 	
@@ -41,13 +35,14 @@ public enum EmprestimoEstado {
 			throw new Exception(Mensagem.CATEGORIA_INVALIDA.getMensagem());
 		}
 		
-		categoria.toUpperCase();
-		if (categoria.equals("ACEITO")) {
-			return EmprestimoEstado.ACEITO;
-		} else if (categoria.equals("RECUSADO")) {
-			return EmprestimoEstado.ESPERANDO_CONFIRMACAO;
-		} else if (categoria.equals("DEVOLVIDO")) {
-			return EmprestimoEstado.CONFIRMADO;
+		if (categoria.equalsIgnoreCase("Em Andamento")) {
+			return EmprestimoEstado.EM_ANDAMENTO;
+		} else if (categoria.equalsIgnoreCase("Devolvido")) {
+			return EmprestimoEstado.DEVOLVIDO;
+		} else if (categoria.equalsIgnoreCase("Devolucao Requisitada")) {
+			return EmprestimoEstado.DEVOLUCAO_REQUISITADA;
+		} else if (categoria.equalsIgnoreCase("Terminado")) {
+			return EmprestimoEstado.TERMINAL;
 		} else {
 			throw new Exception(Mensagem.CATEGORIA_INEXISTENTE.getMensagem());
 		}

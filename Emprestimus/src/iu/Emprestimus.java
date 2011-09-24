@@ -371,19 +371,6 @@ public class Emprestimus implements EmprestimusIF {
 		
 		EmprestimoIF emp = EmprestimoRepositorio.recuperarEmprestimo(idRequisicaoEmprestimo); 
 		
-		if( emp.getEstadoEnum() == EmprestimoEstado.ACEITO ){
-			throw new Exception(Mensagem.EMPRESTIMO_JA_APROVADO.getMensagem());
-		}else if(emp.getEstadoEnum() == EmprestimoEstado.EM_ESPERA){
-			emp.setEstadoAceito();
-		}else if( emp.getEstadoEnum() == EmprestimoEstado.CANCELADO ){
-			throw new Exception("Já foi cancelado");
-		}else if( emp.getEstadoEnum() == EmprestimoEstado.CONFIRMADO ){
-			throw new Exception("Já devolvido");
-		}else if( emp.getEstadoEnum() == EmprestimoEstado.ESPERANDO_CONFIRMACAO ){
-			throw new Exception("Já esperando confirmação");
-		}else if( emp.getEstadoEnum() == EmprestimoEstado.REQUISITADO_PARA_DEVOLUCAO ){
-			throw new Exception("Já requisitado para devolucao");
-		}
 		
 		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao.trim());
 		String saida = usuario.aprovarEmprestimo(idRequisicaoEmprestimo);
@@ -425,15 +412,7 @@ public class Emprestimus implements EmprestimusIF {
 		EmprestimoIF emp = EmprestimoRepositorio.recuperarEmprestimo(idEmprestimo);
 		asserteTrue(emp.getBeneficiado().equals(usuario),Mensagem.EMPRESTIMO_DEVOLUCAO_APENAS_BENEFICIADO.getMensagem());
 		
-		
-		if (emp.getEstadoEnum().equals(EmprestimoEstado.ESPERANDO_CONFIRMACAO))
-				throw new Exception(Mensagem.ITEM_JA_DEVOLVIDO.getMensagem());
-		
-		if (emp.getEstadoEnum().equals(EmprestimoEstado.REQUISITADO_PARA_DEVOLUCAO)){
-			emp.setEstadoEsperandoConfirmacao();
-		}else if(emp.getEstadoEnum().equals(EmprestimoEstado.ACEITO)){
-			emp.setEstadoEsperandoConfirmacao();
-		}
+		emp.devolverEmprestimo();
 			
 	}
 
@@ -449,37 +428,21 @@ public class Emprestimus implements EmprestimusIF {
 		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
 		EmprestimoIF emprestimo = EmprestimoRepositorio.recuperarEmprestimo(idEmprestimo);
         asserteTrue(emprestimo.getEmprestador().equals(usuario),"O usuário não tem permissão para requisitar a devolução deste item");
-        asserteTrue(emprestimo.getEstadoEnum() !=  EmprestimoEstado.REQUISITADO_PARA_DEVOLUCAO, "Já requisitado para devo");
-        if(emprestimo.getEstadoEnum() == EmprestimoEstado.REQUISITADO_PARA_DEVOLUCAO){
-        	throw new Exception("UMMMMMPA");
-        }
-
-        
-        if(emprestimo.getEstadoEnum() == EmprestimoEstado.CONFIRMADO){
-        	throw new Exception(Mensagem.ITEM_JA_DEVOLVIDO.getMensagem());
-        }
-        if(emprestimo.getEstadoEnum() == EmprestimoEstado.ESPERANDO_CONFIRMACAO){
-        	throw new Exception(Mensagem.DEVOLUCAO_JA_REQUISITADA.getMensagem());
-        }
-        if(emprestimo.getEstadoEnum() == EmprestimoEstado.CANCELADO &&
-        		emprestimo.getItem().estahDisponivel()){
-        	throw new Exception(Mensagem.ITEM_JA_DEVOLVIDO.getMensagem());
-        }
-        if(emprestimo.getEstadoEnum() == EmprestimoEstado.CANCELADO &&
-        		!emprestimo.getItem().estahDisponivel()){
-        	throw new Exception(Mensagem.DEVOLUCAO_JA_REQUISITADA.getMensagem());
-        }
-        //asserteTrue(!emprestimo.getEstadoEnum().equals(EmprestimoEstado.ESPERANDO_CONFIRMACAO), Mensagem.DEVOLUCAO_JA_REQUISITADA.getMensagem());
-		
+        		
 		dataCorrente = new GregorianCalendar();
 		dataCorrente.add(GregorianCalendar.DATE, diasExtras);
 		dataCorrente.add(GregorianCalendar.MILLISECOND, -1);
+		emprestimo.getDataDeDevolucao();
 		
+		try{
+			dataCorrente.compareTo(emprestimo.getDataDeDevolucao());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		if (dataCorrente.compareTo(emprestimo.getDataDeDevolucao()) <= 0) {
-			emprestimo.setEstadoCancelado();
-			emprestimo.getItem().setDisponibilidade(false);
+			emprestimo.requisitarDevolucaoEmprestimo(true);
 		}else {
-			emprestimo.setEstadoRequisitadoDevolucao();
+			emprestimo.requisitarDevolucaoEmprestimo(false);
 		}
 		
 		UsuarioIF amigo = emprestimo.getBeneficiado();
@@ -514,26 +477,10 @@ public class Emprestimus implements EmprestimusIF {
 		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
 		EmprestimoIF emp = EmprestimoRepositorio.recuperarEmprestimo(idEmprestimo);
 		asserteTrue(emp.getEmprestador().equals(usuario),Mensagem.EMPRESTIMO_DEVOLUCAO_CONFIRMADA_APENAS_EMPRESTADOR.getMensagem());
-		asserteTrue(!emp.getEstadoEnum().equals(EmprestimoEstado.CONFIRMADO), Mensagem.TERMINO_EMPRESTIMO_JA_CONFIRMADO.getMensagem());
+		//asserteTrue(!emp.getEstadoEnum().equals(EmprestimoEstado.CONFIRMADO), Mensagem.TERMINO_EMPRESTIMO_JA_CONFIRMADO.getMensagem());
 		
-		
-		if (emp.getEstadoEnum() == EmprestimoEstado.REQUISITADO_PARA_DEVOLUCAO){
-			throw new Exception(Mensagem.DEVOLUCAO_JA_REQUISITADA.getMensagem());
-		}
-		if (emp.getEstadoEnum() == EmprestimoEstado.CONFIRMADO){
-			throw new Exception(Mensagem.ITEM_JA_DEVOLVIDO.getMensagem());
-		}
-		
-		if (emp.getEstadoEnum() == EmprestimoEstado.ESPERANDO_CONFIRMACAO){
-			emp.setEstadoConfirmado();
-			liberaItem(idSessao, idEmprestimo);
-			emp.getBeneficiado();//limpar da lista
-		}
-		
-		if (emp.getEstadoEnum() == EmprestimoEstado.CANCELADO){
-			emp.setEstadoCancelado();
-			emp.getItem().setDisponibilidade(true);
-		}
+		emp.confirmarEmprestimo();
+		liberaItem(idSessao, idEmprestimo);
 		
 	}
 
