@@ -153,27 +153,27 @@ public class InterfaceTexto {
 			break;
 			
 		case 19:
-			
+			enviarMensagemNegociacao();
 			break;
 			
 		case 20:
-			
+			lerTopicos();
 			break;
 			
 		case 21:
-			
+			lerMensagens();
 			break;
 			
 		case 22:
-			
+			requisitarDevolucao();
 			break;
 			
 		case 23:
-			
+			incrementarDias();
 			break;
 			
 		case 24:
-			
+			registrarInteresse();
 			break;
 		
 		case 25:
@@ -187,13 +187,95 @@ public class InterfaceTexto {
 		menuLogado();
 	}
 
+	private static void registrarInteresse() {
+		System.out.println(Mensagem.PEDIR_ID_TEM.getMensagem());
+		try {
+			emprestimus.registraInteresse(id_sessao, pegaStringDaEntrada());
+			System.out.println(Mensagem.OPERACAO_SUCESSO.getMensagem());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			if(tentarNovamente()) {
+				registrarInteresse();
+			}
+		}
+	}
+
+	private static void incrementarDias() {
+		System.out.println(Mensagem.PEDIR_INCREMENTO_DIAS.getMensagem());
+		try {
+			emprestimus.adicionarDias(pegaStringDaEntrada());
+			System.out.println(Mensagem.OPERACAO_SUCESSO.getMensagem());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			if(tentarNovamente()) {
+				incrementarDias();
+			}
+		}
+	}
+
+	private static void requisitarDevolucao() {
+		System.out.println(Mensagem.PEDIR_ID_EMPRESTIMO.getMensagem());
+		try {
+			emprestimus.requisitarDevolucao(id_sessao, pegaStringDaEntrada());
+			System.out.println(Mensagem.OPERACAO_SUCESSO.getMensagem());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			if(tentarNovamente()){
+				requisitarDevolucao();
+			}
+		}
+	}
+
+	private static void lerMensagens() {
+		System.out.println(Mensagem.PEDIR_ID_TOPICO.getMensagem());
+		try {
+			System.out.println(emprestimus.lerMensagens(id_sessao, pegaStringDaEntrada()));
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			if(tentarNovamente()){
+				lerMensagens();
+			}
+		}
+	}
+
+	private static void lerTopicos() {
+		System.out.println(Mensagem.PEDIR_TIPO.getMensagem());
+		try {
+			System.out.println(emprestimus.lerTopicos(id_sessao, pegaStringDaEntrada()));
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			if(tentarNovamente()){
+				lerTopicos();
+			}
+		}
+	}
+
+	private static void enviarMensagemNegociacao() {
+		System.out.println(Mensagem.PEDIR_DESTINATARIO.getMensagem());
+		String destinatario = pegaStringDaEntrada();
+		System.out.println(Mensagem.PEDIR_ASSUNTO.getMensagem());
+		String assunto = pegaStringDaEntrada();
+		System.out.println(Mensagem.PEDIR_MENSAGEM.getMensagem());
+		String mensagem = pegaStringDaEntrada();
+		System.out.println(Mensagem.PEDIR_ID_REQUISITACAO_EMPRESTIMO.getMensagem());
+		try {
+			System.out.println("O id do tópico é: "+emprestimus.enviarMensagem(id_sessao, destinatario, assunto, mensagem, pegaStringDaEntrada()));
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			if(tentarNovamente()) {
+				enviarMensagemNegociacao();
+			}
+		}
+	}
+
 	private static void enviarMensagemOFFTopic() {
 		System.out.println(Mensagem.PEDIR_DESTINATARIO.getMensagem());
 		String destinatario = pegaStringDaEntrada();
 		System.out.println(Mensagem.PEDIR_ASSUNTO.getMensagem());
 		String assunto = pegaStringDaEntrada();
+		System.out.println(Mensagem.PEDIR_MENSAGEM.getMensagem());
 		try {
-			emprestimus.enviarMensagem(id_sessao, destinatario, assunto, pegaStringDaEntrada());
+			System.out.println("O id do tópico é: "+emprestimus.enviarMensagem(id_sessao, destinatario, assunto, pegaStringDaEntrada()));
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			if(tentarNovamente()) {
