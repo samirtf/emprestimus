@@ -43,8 +43,8 @@ public class Emprestimus implements EmprestimusIF {
 	}
 	
 	/**
-	 * Metodo que faz parte do padrao Singleton e serve para retornar uma
-	 * instancia única do gerenciador de sala
+	 * Metodo que faz parte do padrão Singleton e serve para retornar uma
+	 * instancia da classe que sera unica para toda a execução.
 	 * 
 	 * @return um objeto do tipo GerenciadorDeSalas
 	 */
@@ -620,7 +620,7 @@ public class Emprestimus implements EmprestimusIF {
 	 */
 	@Override
 	public void zerarSistema() {
-		//Salva os dados em persistencia
+		//Zerar o BD
 	}
 
 	/*
@@ -630,8 +630,8 @@ public class Emprestimus implements EmprestimusIF {
 	 */
 	@Override
 	public void encerrarSistema() {
-		//Salva dados em persistencia
-
+		//Salva dados em persistencia e encerra.
+		System.exit(0);
 	}
 
 }
