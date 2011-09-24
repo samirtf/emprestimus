@@ -159,7 +159,7 @@ public class Chat implements ChatIF {
 				"Uma conversa espretensiosa", "Uma mensagem nada a ver", "id");
 		
 		conversa.adicionaMensagem("Opaaa");
-		conversa.adicionaMensagem("Suruba");		
+		conversa.adicionaMensagem("Suco de uva");		
 	}
 
 	@Override
