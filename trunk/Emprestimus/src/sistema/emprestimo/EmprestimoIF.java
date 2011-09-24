@@ -14,20 +14,8 @@ public interface EmprestimoIF {
 	
 	public void setBeneficiado( UsuarioIF beneficiado ) throws ArgumentoInvalidoException;
 	
-	public void setEstadoAceito();
-	
-	public void setEstadoConfirmado();
-	
-	public void setEstadoEsperandoConfirmacao();
-	
-	//public void setEstadoAndamento();
-	
 	public String getNomeParaEstado();
-	
-	public void setEstadoRequisitadoDevolucao();
-
-	public void setEstadoCancelado();
-	
+		
 	public void setTipoEmprestador();
 	
 	public void setTipoBeneficiado();
@@ -44,7 +32,7 @@ public interface EmprestimoIF {
 	
 	public int getDuracao();
 	
-	public boolean estahAceito();
+	//public boolean estahAceito();
 	
 	public boolean ehTipoEmprestador();
 	
@@ -58,6 +46,37 @@ public interface EmprestimoIF {
 	
 	public EmprestimoEstado getEstadoEnum();
 
+	//######################### Autômato Finito
+	
+	public void setSituacaoAndamento();
+	public void setSituacaoCancelado();
+	public void setSituacaoCompletado();
+	public boolean ehSituacaoAndamento();
+	public boolean ehSituacaoCancelado();
+	public boolean ehSituacaoCompletado();
+	
+	public boolean estaAprovado();
+	
+	public void setEstadoAndamento();
+	public void setEstadoDevolucaoRequisitada();
+	public void setEstadoDevolvido();
+	public void setEstadoTermino();
+	public boolean ehEstadoAndamento();
+	public boolean ehEstadoDevolucaoRequisitada();
+	public boolean ehEstadoDevolvido();
+	public boolean ehEstadoTermino();
+	
+	public void aprovarEmprestimo() throws Exception;
+	
+	public void requisitarDevolucaoEmprestimo( boolean noPrazo ) throws Exception;
+	
+	public void devolverEmprestimo() throws Exception;
+	
+	public void confirmarEmprestimo() throws Exception;
+	
+	public String getSituacao();
+	
+	public void setDataAprovacao();
 	
 
 }

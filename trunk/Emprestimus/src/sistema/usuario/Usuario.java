@@ -452,7 +452,7 @@ public class Usuario implements UsuarioIF {
 					
 					listaSaida.add(emp.getEmprestador().getLogin()+"-"+
 				               emp.getBeneficiado().getLogin()+":"+
-				               emp.getItem().getNome()+":"+emp.getNomeParaEstado()+"; ");
+				               emp.getItem().getNome()+":"+emp.getSituacao()+"; ");
 					Collections.sort(listaSaida);
 				}
 			}else if (tipo.trim().equalsIgnoreCase("beneficiado")){
@@ -460,7 +460,7 @@ public class Usuario implements UsuarioIF {
 					
 					listaSaida.add(emp.getEmprestador().getLogin()+"-"+
 				               emp.getBeneficiado().getLogin()+":"+
-				               emp.getItem().getNome()+":"+emp.getNomeParaEstado()+"; ");
+				               emp.getItem().getNome()+":"+emp.getSituacao()+"; ");
 					Collections.sort(listaSaida);
 				}
 			}else if (tipo.trim().equalsIgnoreCase("todos")){
@@ -468,13 +468,13 @@ public class Usuario implements UsuarioIF {
 				if(this.equals(emp.getEmprestador())){
 					listaSaida.add(0, emp.getEmprestador().getLogin()+"-"+
 				               emp.getBeneficiado().getLogin()+":"+
-				               emp.getItem().getNome()+":"+emp.getNomeParaEstado()+"; ");
+				               emp.getItem().getNome()+":"+emp.getSituacao()+"; ");
 				}
 				
 				if(this.equals(emp.getBeneficiado())){
 					listaSaida.add(emp.getEmprestador().getLogin()+"-"+
 				               emp.getBeneficiado().getLogin()+":"+
-				               emp.getItem().getNome()+":"+emp.getNomeParaEstado()+"; ");
+				               emp.getItem().getNome()+":"+emp.getSituacao()+"; ");
 				}
 				
 			}else{
@@ -500,10 +500,9 @@ public class Usuario implements UsuarioIF {
 		
 		EmprestimoIF emp = EmprestimoRepositorio.recuperarEmprestimo(idRequisicaoEmprestimo.trim());
 				asserteTrue(this.equals(emp.getEmprestador()), Mensagem.EMPRESTIMO_SEM_PERMISSAO_APROVAR.getMensagem());
-		
 				
-		
-		emp.setEstadoAceito();
+		if(!emp.estaAprovado()) throw new Exception(Mensagem.EMPRESTIMO_JA_APROVADO.getMensagem());
+		emp.aprovarEmprestimo();
 		
 		emprestimosRequeridosPorAmigosEmEspera.remove(emp);
 		emprestimos.add(emp);
