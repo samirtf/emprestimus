@@ -37,7 +37,7 @@ public enum Mensagem {
 			"16 - Devolver Item\n" +
 			"17 - Confirmar Termino do Emprestimo\n" +
 			"18 - Enviar Mensagem\n" +
-			"19 - Enviar Mensagem\n" +
+			"19 - Enviar Mensagem sobre emprestimo\n" +
 			"20 - Ler Topicos\n" +
 			"21 - Ler Mensagens\n" +
 			"22 - Requisitar Devolucao\n" +
@@ -87,13 +87,19 @@ public enum Mensagem {
 	PEDIR_LOGIN_AMIGO_VERIFICAR("Digite o login do amigo a ser verificado."),
 	PEDIR_LOGIN_USUARIO_VERIFICAR("Digite o login do usuário a ser verificado."),
 	PEDIR_ID_TEM_VERIFICAR("Qual o id do item a ser verificado?"),
+	PEDIR_ID_TEM("Qual o id do item desejado?"),
 	PEDIR_TIPO_EMPRESTIMO("Qual o tipo de emprestimo que você deseja?"),
 	PEDIR_ID_EMPRESTIMO_APROVAR("Qual o id da requisitação do emprestimo a ser aprovado?"),
 	PEDIR_ID_EMPRESTIMO("Informe o id do emprestimo:"),
+	PEDIR_ID_REQUISITACAO_EMPRESTIMO("Informe o id da requisitação do emprestimo:"),
 	PEDIR_DURACAO_EMPRESTIMO("Qual a duracao do emprestimo?"),
 	PEDIR_DESTINATARIO("Informe o destinatário."),
 	PEDIR_ASSUNTO("Informe o assunto"),
 	PEDIR_MENSAGEM("Escreva a mensagem que deseja enviar."),
+	PEDIR_TIPO("Informe o tipo desejado: "),
+	PEDIR_ID_TOPICO("Informe o id do tópico: "),
+	PEDIR_INCREMENTO_DIAS("Informe o valor a ser incrementado."),
+	
 	
 	INFO_SAO_AMIGOS("Vocês são amigos."),
 	INFO_NAO_SAO_AMIGOS("Vocês não são amigos."),
