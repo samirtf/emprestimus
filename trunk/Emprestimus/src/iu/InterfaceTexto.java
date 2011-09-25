@@ -193,7 +193,8 @@ public class InterfaceTexto {
 			break;
 			
 		case 29:
-			emprestimus.encerrarSistema();
+			System.out.println("Saindo... \n\n\n");
+			menuDeslogado();
 			break;
 			
 		default:
