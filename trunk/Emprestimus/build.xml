@@ -1,11 +1,11 @@
-<project name="Emprestimus" default="dist" basedir=".">
+<project name="Emprestimus" default="jar" basedir=".">
     <description>
-        "Projeto da disciplina de S. I. 1"
+        Arquivo de build do sistema Emprestimus
     </description>
   <!-- set global properties for this build -->
   <property name="src" location="src"/>
   <property name="build" location="build"/>
-  <property name="dist"  location="dist"/>
+  <property name="dist"  location="Emprestimus"/>
 
   <target name="init">
     <!-- Create the time stamp -->
@@ -14,22 +14,28 @@
     <mkdir dir="${build}"/>
   </target>
 
-  <target name="compile" depends="init"
+  <target name="compila" depends="init"
         description="compile the source " >
     <!-- Compile the java code from ${src} into ${build} -->
-    <javac srcdir="${src}" destdir="${InterfaceTexto}"/>
+    <javac srcdir="${src}" destdir="${build}"/>
   </target>
 
-  <target name="dist" depends="compile"
+  <target name="jar" depends="compila"
         description="generate the distribution" >
     <!-- Create the distribution directory -->
     <mkdir dir="${dist}/lib"/>
 
-    <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
-    <jar jarfile="${dist}/lib/MyProject-${DSTAMP}.jar" basedir="${build}"/>
+    <!-- Put everything in ${build} into the Emprestimus-${DSTAMP}.jar file -->
+    <jar jarfile="${dist}/lib/Emprestimus-${DSTAMP}.jar" basedir="${build}"/>
+  </target>
+	
+  <target name="doc" depends="compila"
+        description="generate javadoc" >
+    <!-- Create the distribution directory -->
+    <mkdir dir="${dist}/doc"/>
   </target>
 
-  <target name="clean"
+  <target name="limpa"
         description="clean up" >
     <!-- Delete the ${build} and ${dist} directory trees -->
     <delete dir="${build}"/>
