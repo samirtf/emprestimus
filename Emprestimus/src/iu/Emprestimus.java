@@ -23,11 +23,9 @@ import sistema.persistencia.ChatRepositorio;
 import sistema.persistencia.EmprestimoRepositorio;
 import sistema.persistencia.ItemRepositorio;
 import sistema.usuario.ReputacaouUsuarioComparator;
-import sistema.usuario.Usuario;
 import sistema.usuario.UsuarioIF;
 import sistema.utilitarios.Mensagem;
 import sistema.utilitarios.Validador;
-import sistema.utilitarios.ValidadorString;
 
 /**
  * Classe que implementa a fachada, usada para fazer a interação entre a
@@ -158,16 +156,18 @@ public class Emprestimus implements EmprestimusIF {
 	@Override
 	public String localizarUsuario(String idSessao, String chave,
 			String atributo) throws Exception {
-		autenticacao.getUsuarioPeloIDSessao(idSessao);
-		ValidadorString.pegaString(Mensagem.PALAVRA_CHAVE_INVALIDA.getMensagem(), chave);
-		ValidadorString.pegaString(Mensagem.ATRIBUTO_INVALIDO.getMensagem(), atributo);
+		assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		assertStringNaoVazia(idSessao.trim(), Mensagem.SESSAO_INVALIDA.getMensagem());
+		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
+		assertNaoNulo(chave, Mensagem.PALAVRA_CHAVE_INVALIDA.getMensagem());
+		assertStringNaoVazia(idSessao.trim(), Mensagem.PALAVRA_CHAVE_INVALIDA.getMensagem());
+		assertNaoNulo(atributo, Mensagem.ATRIBUTO_INVALIDO.getMensagem());
+		assertStringNaoVazia(atributo.trim(), Mensagem.ATRIBUTO_INVALIDO.getMensagem());
+
 		atributo = atributo.toLowerCase();
 		List<UsuarioIF> users;
 		UsuarioIF eu = autenticacao.getUsuarioPeloIDSessao(idSessao);
 		if(atributo.equals("nome")) {
-//			if( autenticacao.getUsuarioPeloIDSessao(idSessao).getNome().toLowerCase().contains(chave.toLowerCase()) ){
-//				return Mensagem.PALAVRA_CHAVE_INEXISTENTE.getMensagem();
-//			}
 			users = autenticacao.getUsuarioNome(chave);
 			if(users.contains(eu)) users.remove(eu);
 		} else if(atributo.equals("endereco")) {
