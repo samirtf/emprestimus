@@ -3,10 +3,11 @@
         Arquivo de build do sistema Emprestimus
     </description>
   <!-- set global properties for this build -->
-  <property name="src" location="src"/>
+  <property name="src"   location="src"/>
   <property name="build" location="build"/>
-  <property name="dist"  location="Emprestimus"/>
-
+  <property name="dist"  location="dist"/>
+  <property name="teste" location="src/testes/aceitacao/classes"/>
+	
   <target name="init">
     <!-- Create the time stamp -->
     <tstamp/>
@@ -29,7 +30,7 @@
     <jar jarfile="${dist}/lib/Emprestimus-${DSTAMP}.jar" basedir="${build}"/>
   </target>
 	
-  <target name="doc" depends="compila"
+  <target name="doc" depends="init"
         description="generate javadoc" >
     <!-- Create the distribution directory -->
     <mkdir dir="${dist}/doc"/>
