@@ -191,7 +191,8 @@ public enum Mensagem {
 	ORDENACAO_TIPO_INEXISTENTE("Tipo de ordenação inexistente"),
 	ORDENACAO_CRITERIO_INVALIDO("Critério inválido de ordenação"),
 	ORDENACAO_CRITERIO_INEXISTENTE("Critério de ordenação inexistente"),
-	NENHUM_ITEM_ENCONTRADO("Nenhum item encontrado");
+	NENHUM_ITEM_ENCONTRADO("Nenhum item encontrado"),
+    AMIZADE_INEXISTENTE("Amizade inexistente");
 	
 	private final String mensagem;
 

@@ -399,4 +399,6 @@ public interface EmprestimusIF {
 	 */
 	public void encerrarSistema();
 
+	public void desfazerAmizade(String idSessao, String amigo) throws Exception;
+
 }

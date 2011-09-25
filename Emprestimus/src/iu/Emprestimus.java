@@ -644,7 +644,7 @@ public class Emprestimus implements EmprestimusIF {
 	@Override
 	public String pesquisarItem(String idSessao, String chave, String atributo,
 			String tipoOrdenacao, String criterioOrdenacao) throws Exception {
-		// TODO Auto-generated method stub
+		
 		assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
 		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
 		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
@@ -681,6 +681,25 @@ public class Emprestimus implements EmprestimusIF {
 		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
 		
 		return usuario.pesquisarItem(chave, atributo, tipoOrdenacao, criterioOrdenacao);
+	}
+
+	@Override
+	public void desfazerAmizade(String idSessao, String amigo) throws Exception {
+		assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
+		
+		assertNaoNulo(amigo, Mensagem.LOGIN_INVALIDO.getMensagem());
+		assertStringNaoVazia(amigo, Mensagem.LOGIN_INVALIDO.getMensagem());
+		asserteTrue(Autenticacao.existeUsuario(amigo), Mensagem.USUARIO_INEXISTENTE.getMensagem());
+		
+		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
+		if(!usuario.ehAmigo(amigo)){
+			throw new Exception(Mensagem.AMIZADE_INEXISTENTE.getMensagem());
+		}
+		
+		usuario.desfazerAmizade(amigo);
+		
 	}
 
 }

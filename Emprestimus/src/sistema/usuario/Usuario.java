@@ -826,9 +826,78 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public void decrementaReputacao() {
-		// TODO Auto-generated method stub
+		this.reputacao--;
 		
 	}
+
+	@Override
+	public void desfazerAmizade(String amigo) throws Exception {
+		assertNaoNulo(amigo, Mensagem.LOGIN_INVALIDO.getMensagem());
+		assertStringNaoVazia(amigo, Mensagem.LOGIN_INVALIDO.getMensagem());
+		asserteTrue(Autenticacao.existeUsuario(amigo), Mensagem.USUARIO_INEXISTENTE.getMensagem());
+		if(!ehAmigo(amigo)){
+			throw new Exception(Mensagem.AMIZADE_INEXISTENTE.getMensagem());
+		}
+		
+		Iterator<UsuarioIF> iteradorAmigos = amigos.iterator();
+		while(iteradorAmigos.hasNext()){
+			
+			UsuarioIF umAmigo = iteradorAmigos.next();
+			if(amigo.trim().equalsIgnoreCase(umAmigo.getLogin().trim())){
+				
+				//remover requisições do usuário
+				umAmigo.removerEmprestimosRequeridosPorAmigo(this);
+				umAmigo.removerEmprestimosRequeridosPorMim(this);
+				this.removerEmprestimosRequeridosPorMim(umAmigo);
+				this.removerEmprestimosRequeridosPorAmigo(umAmigo);
+				
+				//remover usuario da lista
+				umAmigo.removerAmigoDaLista(this);
+				iteradorAmigos.remove();
+				
+				
+			}
+			
+		}
+		
+	}
+
+	@Override
+	public void removerAmigoDaLista(UsuarioIF amigo) {
+		this.amigos.remove(amigo);		
+	}
+
+	@Override
+	public void removerEmprestimosRequeridosPorAmigo(UsuarioIF amigo) {
+		Iterator<EmprestimoIF> iteradorListaEmprestimosRequeridosPorAmigo 
+		= this.emprestimosRequeridosPorAmigosEmEspera.iterator();
+		
+		while(iteradorListaEmprestimosRequeridosPorAmigo.hasNext()){
+			EmprestimoIF emprestimo = iteradorListaEmprestimosRequeridosPorAmigo.next();
+			if(emprestimo.getBeneficiado().equals(amigo)){
+				EmprestimoRepositorio.removerEmprestimo(emprestimo.getIdEmprestimo());
+				iteradorListaEmprestimosRequeridosPorAmigo.remove();
+			}
+		}
+		
+		
+	}
+
+	@Override
+	public void removerEmprestimosRequeridosPorMim(UsuarioIF amigo) {
+		Iterator<EmprestimoIF> iteradorListaEmprestimosRequeridosPorMim 
+		= this.emprestimosRequeridosPorMimEmEspera.iterator();
+		
+		while(iteradorListaEmprestimosRequeridosPorMim.hasNext()){
+			EmprestimoIF emprestimo = iteradorListaEmprestimosRequeridosPorMim.next();
+			if(emprestimo.getEmprestador().equals(amigo)){
+				EmprestimoRepositorio.removerEmprestimo(emprestimo.getIdEmprestimo());
+				iteradorListaEmprestimosRequeridosPorMim.remove();
+			}
+		}
+		
+	}
+	
 
 	
 

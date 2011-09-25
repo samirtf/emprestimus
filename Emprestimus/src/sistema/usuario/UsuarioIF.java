@@ -255,4 +255,14 @@ public interface UsuarioIF extends Comparable<UsuarioIF> {
 	
 	public int getReputacao();
 	
+	public void desfazerAmizade( String amigo ) throws Exception;
+	
+	public void removerAmigoDaLista( UsuarioIF amigo );
+	
+	public void removerEmprestimosRequeridosPorAmigo( UsuarioIF amigo );
+	
+	public void removerEmprestimosRequeridosPorMim( UsuarioIF amigo );
+	
+	
+	
 }
