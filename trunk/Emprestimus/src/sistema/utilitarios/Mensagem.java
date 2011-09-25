@@ -43,7 +43,9 @@ public enum Mensagem {
 			"22 - Requisitar Devolucao\n" +
 			"23 - Adicionar Dias\n" +
 			"24 - Registrar Interesse\n" +
-			"25 - Sair"),
+			"25 - Pesquisar item\n" +
+			"26 - Desfazre amizade\n" +
+			"27 - Sair"),
 
 	PERGUNTAR_TENTAR_NOVAMENTE("Deseja tentar novamente?\n"+
 							   "1 - Sim\n" +
@@ -80,11 +82,12 @@ public enum Mensagem {
 	PEDIR_LOGIN("Entre com o seu login: "),
 	PEDIR_SENHA("Entre com a sua senha: "),
 	PEDIR_OPCAO("Por favor, digite uma opcao: "),
-	PERGUNTAR_ATRIBUTO("Qual o atributo que você deseja?"),
+	PERGUNTAR_ATRIBUTO("Qual o atributo?"),
 	PEDIR_CHAVE_BUSCA("Digite a palavra chave a ser procurada:"),
 	PEDIR_LOGIN_AMIGO_ADICIONAR("Digite o login do amigo a ser adicionado."),
 	PEDIR_LOGIN_AMIGO_APROVAR("Digite o login do amigo a ser aprovado."),
 	PEDIR_LOGIN_AMIGO_VERIFICAR("Digite o login do amigo a ser verificado."),
+	PEDIR_LOGIN_AMIGO_DELETAR("Digite o login do amigo a ser deletado."),
 	PEDIR_LOGIN_USUARIO_VERIFICAR("Digite o login do usuário a ser verificado."),
 	PEDIR_ID_TEM_VERIFICAR("Qual o id do item a ser verificado?"),
 	PEDIR_ID_TEM("Qual o id do item desejado?"),
@@ -99,6 +102,8 @@ public enum Mensagem {
 	PEDIR_TIPO("Informe o tipo desejado: "),
 	PEDIR_ID_TOPICO("Informe o id do tópico: "),
 	PEDIR_INCREMENTO_DIAS("Informe o valor a ser incrementado."),
+	PEDIR_TIPO_ORDENACAO("Qual o tipo de ordenação?"),
+	PEDIR_CRITERIO_ORDENACAO("Qual o critério de ordenação?"),
 	
 	
 	INFO_SAO_AMIGOS("Vocês são amigos."),
@@ -192,7 +197,7 @@ public enum Mensagem {
 	ORDENACAO_CRITERIO_INVALIDO("Critério inválido de ordenação"),
 	ORDENACAO_CRITERIO_INEXISTENTE("Critério de ordenação inexistente"),
 	NENHUM_ITEM_ENCONTRADO("Nenhum item encontrado"),
-    AMIZADE_INEXISTENTE("Amizade inexistente"),
+	AMIZADE_INEXISTENTE("Amizade inexistente"),
     SEM_PERMISSAO_APAGAR_ITEM("O usuário não tem permissão para apagar este item"),
     NAO_PODE_EMPRESTAR_ITEM_EMPRESTADO("O usuário não pode apagar este item enquanto estiver emprestado");
 	
