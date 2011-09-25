@@ -44,8 +44,10 @@ public enum Mensagem {
 			"23 - Adicionar Dias\n" +
 			"24 - Registrar Interesse\n" +
 			"25 - Pesquisar item\n" +
-			"26 - Desfazre amizade\n" +
-			"27 - Sair"),
+			"26 - Desfazer amizade\n" +
+			"27 - Apagar item\n" +
+			"28 - Ver ranking\n" +
+			"29 - Sair"),
 
 	PERGUNTAR_TENTAR_NOVAMENTE("Deseja tentar novamente?\n"+
 							   "1 - Sim\n" +
@@ -104,7 +106,7 @@ public enum Mensagem {
 	PEDIR_INCREMENTO_DIAS("Informe o valor a ser incrementado."),
 	PEDIR_TIPO_ORDENACAO("Qual o tipo de ordenação?"),
 	PEDIR_CRITERIO_ORDENACAO("Qual o critério de ordenação?"),
-	
+	PEDIR_CATEGORIA("Qual a categoria?"),
 	
 	INFO_SAO_AMIGOS("Vocês são amigos."),
 	INFO_NAO_SAO_AMIGOS("Vocês não são amigos."),
