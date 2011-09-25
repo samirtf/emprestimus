@@ -78,7 +78,7 @@ public class InterfaceTexto {
 	private static void menuLogado() {
 		int opcao;
 		System.out.println(Mensagem.MENU_LOGADO.getMensagem());
-		opcao = pegarOpcao(1, 27);
+		opcao = pegarOpcao(1, 29);
 		switch (opcao) {
 		case 1:
 			getAtributo();
@@ -185,6 +185,14 @@ public class InterfaceTexto {
 			break;
 			
 		case 27:
+			apagarItem();
+			break;
+			
+		case 28:
+			verRanking();
+			break;
+			
+		case 29:
 			emprestimus.encerrarSistema();
 			break;
 			
@@ -193,6 +201,31 @@ public class InterfaceTexto {
 			break;
 		}
 		menuLogado();
+	}
+
+	private static void verRanking() {
+		System.out.println(Mensagem.PEDIR_CATEGORIA.getMensagem());
+		try {
+			System.out.println(emprestimus.getRanking(id_sessao, pegaStringDaEntrada()));
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			if(tentarNovamente()){
+				verRanking();
+			}
+		}
+	}
+
+	private static void apagarItem() {
+		System.out.println(Mensagem.PEDIR_ID_TEM.getMensagem());
+		try {
+			emprestimus.apagarItem(id_sessao, pegaStringDaEntrada());
+			System.out.println(Mensagem.OPERACAO_SUCESSO.getMensagem());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			if(tentarNovamente()){
+				apagarItem();
+			}
+		}
 	}
 
 	private static void desfazerAmizade() {
