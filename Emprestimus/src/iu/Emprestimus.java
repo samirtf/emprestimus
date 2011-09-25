@@ -482,6 +482,12 @@ public class Emprestimus implements EmprestimusIF {
 		
 		emp.confirmarEmprestimo();
 		liberaItem(idSessao, idEmprestimo);
+		//verificar a situacao do emprestimo
+		if(emp.getSituacao().equals("Completado")){
+			usuario.incrementaReputacao();
+		}else if(emp.getSituacao().equals("Cancelado")){
+			usuario.decrementaReputacao();
+		}
 		
 	}
 
@@ -672,11 +678,9 @@ public class Emprestimus implements EmprestimusIF {
 			
 		}
 		
+		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
 		
-		
-		
-		
-		return null;
+		return usuario.pesquisarItem(chave, atributo, tipoOrdenacao, criterioOrdenacao);
 	}
 
 }

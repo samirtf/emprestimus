@@ -250,9 +250,8 @@ public interface UsuarioIF extends Comparable<UsuarioIF> {
 	public String pesquisarItem( String chave, String atributo, 
 			String tipoOrdenacao, String criterioOrdenacao ) throws Exception;
 	
-
-	
 	public void incrementaReputacao();
+	public void decrementaReputacao();
 	
 	public int getReputacao();
 	
