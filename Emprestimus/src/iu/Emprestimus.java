@@ -6,6 +6,7 @@ import static sistema.utilitarios.Validador.asserteTrue;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.LinkedList;
 import java.util.List;
 
 import sistema.autenticacao.Autenticacao;
@@ -631,7 +632,51 @@ public class Emprestimus implements EmprestimusIF {
 	@Override
 	public void encerrarSistema() {
 		//Salva dados em persistencia e encerra.
-		System.exit(0);
+		//System.exit(0);
+	}
+
+	@Override
+	public String pesquisarItem(String idSessao, String chave, String atributo,
+			String tipoOrdenacao, String criterioOrdenacao) throws Exception {
+		// TODO Auto-generated method stub
+		assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
+		
+		assertNaoNulo(chave, Mensagem.CHAVE_INVALIDA.getMensagem());
+		assertStringNaoVazia(chave, Mensagem.CHAVE_INVALIDA.getMensagem());
+		
+		assertNaoNulo(atributo, Mensagem.ATRIBUTO_INVALIDO.getMensagem());
+		assertStringNaoVazia(atributo, Mensagem.ATRIBUTO_INVALIDO.getMensagem());
+		if(!atributo.trim().equalsIgnoreCase("nome") &&
+				!atributo.trim().equalsIgnoreCase("descricao") &&
+				!atributo.trim().equalsIgnoreCase("categoria") &&
+				!atributo.trim().equalsIgnoreCase("descrição")
+				){
+			throw new Exception(Mensagem.ATRIBUTO_INEXISTENTE.getMensagem());
+		}
+		
+		assertNaoNulo(tipoOrdenacao, Mensagem.ORDENACAO_TIPO_INVALIDO.getMensagem());
+		assertStringNaoVazia(tipoOrdenacao, Mensagem.ORDENACAO_TIPO_INVALIDO.getMensagem());
+		if( !tipoOrdenacao.trim().equalsIgnoreCase("crescente") &&
+				!tipoOrdenacao.trim().equalsIgnoreCase("decrescente")){
+			throw new Exception(Mensagem.ORDENACAO_TIPO_INEXISTENTE.getMensagem());
+			
+		}
+		
+		assertNaoNulo(criterioOrdenacao, Mensagem.ORDENACAO_CRITERIO_INVALIDO.getMensagem());
+		assertStringNaoVazia(criterioOrdenacao, Mensagem.ORDENACAO_CRITERIO_INVALIDO.getMensagem());
+		if( !criterioOrdenacao.trim().equalsIgnoreCase("dataCriacao") &&
+				!criterioOrdenacao.trim().equalsIgnoreCase("reputacao")){
+			throw new Exception(Mensagem.ORDENACAO_CRITERIO_INEXISTENTE.getMensagem());
+			
+		}
+		
+		
+		
+		
+		
+		return null;
 	}
 
 }
