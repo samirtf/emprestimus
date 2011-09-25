@@ -103,5 +103,11 @@ public class ItemRepositorio {
 		}
 		
 	}
+
+
+	public static void zerarRepositorio() {
+		itensCadastrados = new TreeMap<Long, ItemIF>();
+		contadorID = 0;
+	}
 	
 }
