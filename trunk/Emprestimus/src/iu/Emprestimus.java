@@ -632,6 +632,10 @@ public class Emprestimus implements EmprestimusIF {
 	@Override
 	public void zerarSistema() {
 		//Zerar o BD
+		autenticacao.zerarSistema();
+		ChatRepositorio.zerarRepositorio();
+		EmprestimoRepositorio.zerarRepositorio();
+		ItemRepositorio.zerarRepositorio();
 	}
 
 	/*
@@ -642,6 +646,7 @@ public class Emprestimus implements EmprestimusIF {
 	@Override
 	public void encerrarSistema() {
 		//Salva dados em persistencia e encerra.
+		autenticacao.encerrarSistema();
 		//System.exit(0);
 	}
 

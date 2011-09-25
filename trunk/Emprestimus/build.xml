@@ -1,45 +1,68 @@
-<project name="Emprestimus" default="jar" basedir=".">
-    <description>
-        Arquivo de build do sistema Emprestimus
-    </description>
-  <!-- set global properties for this build -->
-  <property name="src"   location="src"/>
-  <property name="build" location="build"/>
-  <property name="dist"  location="dist"/>
-  <property name="teste" location="src/testes/aceitacao/classes"/>
-	
-  <target name="init">
-    <!-- Create the time stamp -->
-    <tstamp/>
-    <!-- Create the build directory structure used by compile -->
-    <mkdir dir="${build}"/>
-  </target>
+<!-- Arquivo de build do projeto Emprestimus para a disciplina Sistemas de Informacao 1 -->
 
-  <target name="compila" depends="init"
-        description="compile the source " >
-    <!-- Compile the java code from ${src} into ${build} -->
-    <javac srcdir="${src}" destdir="${build}"/>
-  </target>
+<project name="Emprestimus" default="testa" basedir=".">
 
-  <target name="jar" depends="compila"
-        description="generate the distribution" >
-    <!-- Create the distribution directory -->
-    <mkdir dir="${dist}/lib"/>
+    <property name="src" value="src" />
+    <property name="build" value="${basedir}/build" />
+    <property name="dist" value="dist" />
+    <property name="javadoc" value="javadoc" />
+    <property name="test" value="test" />
+	<property name="lib" value="${basedir}/lib" />
 
-    <!-- Put everything in ${build} into the Emprestimus-${DSTAMP}.jar file -->
-    <jar jarfile="${dist}/lib/Emprestimus-${DSTAMP}.jar" basedir="${build}"/>
-  </target>
-	
-  <target name="doc" depends="init"
-        description="generate javadoc" >
-    <!-- Create the distribution directory -->
-    <mkdir dir="${dist}/doc"/>
-  </target>
+ 	<path id="classpath">
+		<fileset dir="${lib}">
+        	<include name="**/*.jar" />
+    	</fileset>
+    	<pathelement location="${build}" />
+	</path>
 
-  <target name="limpa"
-        description="clean up" >
-    <!-- Delete the ${build} and ${dist} directory trees -->
-    <delete dir="${build}"/>
-    <delete dir="${dist}"/>
-  </target>
+	<!-- LIMPA --> 
+
+    <target name="limpa">
+        <echo message="Limpando informacoes antigas..." />
+        <delete dir="${build}" />
+        <delete dir="${dist}" />
+        <delete dir="${javadoc}" />
+    </target>
+
+     <!-- COMPILA -->
+     
+	<target name="compila" depends="limpa">
+		<echo message="Compilando o codigo do projeto..." />
+        <mkdir dir="${build}" />
+        <javac srcdir="${src}" destdir="${build}">
+                <classpath refid="classpath" />
+        </javac>
+    </target>
+
+	<!-- TESTA -->
+
+	<target name="testa" depends="compila" description="Executa os testes">
+		<echo message="Testando casos de uso..." />
+        <java classname="testes.aceitacao.TesteCompleto" >
+        	<classpath>
+        	    <pathelement location="${build}" />
+        	    <path refid="classpath" />
+        	</classpath>
+            
+        </java>
+	</target>
+
+	<!-- DOC -->
+
+	<target name="doc" description="Documentacao.">
+		<echo message="Gerando o javadoc..." />
+        <mkdir dir="${javadoc}" />
+        <javadoc sourcepath="${src}" destdir="${javadoc}" />
+	</target>
+
+
+	<!-- JAR -->
+
+    <target name="jar" depends="compila" description="Cria o JAR">
+    	<echo message="Gerando arquivo jar..." />
+        <mkdir dir="${dist}" />
+        <jar jarfile="${dist}/emprestimus.jar" basedir="${build}" />
+    </target>
+        
 </project>

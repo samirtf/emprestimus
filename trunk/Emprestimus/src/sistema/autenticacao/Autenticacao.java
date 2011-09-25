@@ -53,7 +53,7 @@ public class Autenticacao implements AutenticacaoIF {
 
 	@Override
 	public void encerrarSistema() {
-		 System.exit(0);
+		 //System.exit(0);
 	}
 
 	@Override

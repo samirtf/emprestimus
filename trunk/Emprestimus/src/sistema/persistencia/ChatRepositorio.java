@@ -123,6 +123,12 @@ public class ChatRepositorio {
 		
 		return null;
 	}
+
+
+	public static void zerarRepositorio() {
+		conversas = new TreeMap<Long, ChatIF>();
+		contadorID = 0;
+	}
 	
 	
 	

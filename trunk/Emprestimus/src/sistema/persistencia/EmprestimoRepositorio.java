@@ -101,4 +101,10 @@ public class EmprestimoRepositorio {
 		}
 		
 	}
+
+
+	public static void zerarRepositorio() {
+		emprestimosRealizados = new TreeMap<Long, EmprestimoIF>();
+		contadorID = 0;
+	}
 }
