@@ -1,5 +1,6 @@
 package sistema.item;
 
+import java.util.Date;
 import java.util.List;
 
 import sistema.usuario.UsuarioIF;
@@ -146,6 +147,8 @@ public interface ItemIF extends Comparable<ItemIF> {
 	 *            Nova condicao de disponibilidade para o item.
 	 */
 	public void setDisponibilidade(boolean disponibilidade);
+	
+	public Date getDataCriacao();
 
 	/**
 	 * Verifica-se a igualdade dos item.
