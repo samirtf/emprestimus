@@ -89,4 +89,16 @@ public class EmprestimoRepositorio {
 		return emprestimosRealizados.containsKey(Long.valueOf(idEmprestimo));
 	}
 	
+	public static void removerEmprestimo( String idEmprestimo ){
+		Long id;
+		try{
+			id = Long.valueOf(idEmprestimo);
+			if(existeEmprestimo(idEmprestimo)){
+				emprestimosRealizados.remove(id);
+			}
+		}catch(Exception e){
+		
+		}
+		
+	}
 }
