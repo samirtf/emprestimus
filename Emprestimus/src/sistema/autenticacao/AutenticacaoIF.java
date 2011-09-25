@@ -1,5 +1,6 @@
 package sistema.autenticacao;
 
+import java.util.Collection;
 import java.util.List;
 
 import sistema.item.ItemIF;
@@ -27,5 +28,6 @@ public interface AutenticacaoIF {
 	
 	public List<UsuarioIF> getUsuarioEndereco(String endereco);
 	
+	public Collection<UsuarioIF> getListaUsuarios();
 
 }
