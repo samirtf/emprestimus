@@ -6,8 +6,23 @@ import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.item.ItemIF;
 import sistema.usuario.UsuarioIF;
 
+/**
+ * Representa um empréstimo.
+ * 
+ * @author Joeffison Silverio de Andrade, 21011853, joeffisonsa@gmail.com
+ * @since 1.3
+ * @version 1.5
+ */
 public interface EmprestimoIF extends Comparable<EmprestimoIF> {
 	
+	/**
+	 * Altera o id do empréstimo.
+	 * 
+	 * @param idEmprestimo
+	 * 		Novo id para o empréstimo.
+	 * @throws Exception
+	 * 		Caso o parâmetro seja inválido.
+	 */
 	public void setId( String idEmprestimo ) throws Exception;
 	
 	public void setEmprestador( UsuarioIF emprestador ) throws ArgumentoInvalidoException;
