@@ -2,6 +2,8 @@ package iu;
 
 import java.util.Scanner;
 
+import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
+
 import sistema.utilitarios.Mensagem;
 
 public class InterfaceTexto {
@@ -46,7 +48,7 @@ public class InterfaceTexto {
 			
 		case 4:
 			System.out.println(Mensagem.ADEUS.getMensagem());
-			emprestimus.encerrarSistema();
+			encerrarSistema();
 			break;
 			
 		default:
@@ -55,6 +57,12 @@ public class InterfaceTexto {
 		}
 		
 		menuDeslogado();
+		
+	}
+
+	private static void encerrarSistema() {
+		emprestimus.encerrarSistema();
+		System.exit(0);
 		
 	}
 
