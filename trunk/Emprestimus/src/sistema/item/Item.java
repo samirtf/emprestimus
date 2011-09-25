@@ -3,6 +3,8 @@ package sistema.item;
 import static sistema.utilitarios.Validador.*;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import sistema.excecoes.ArgumentoInvalidoException;
@@ -21,6 +23,7 @@ public class Item implements ItemIF {
 
 	private String idItem, nome, descricao;
 	private ItemCategoria categoria;
+	private Date dataCriacao;
 	private boolean estaDisponivel;
 	private List<UsuarioIF> interessados;
 
@@ -35,7 +38,7 @@ public class Item implements ItemIF {
 		setNome(nome);
 		setDescricao(descricao);
 		setCategoria(categoria);
-		
+		setDataCriacao();
 		this.estaDisponivel = true;
 		this.interessados = new ArrayList<UsuarioIF>();
 	}
@@ -45,9 +48,20 @@ public class Item implements ItemIF {
 		setNome(nome);
 		setDescricao(descricao);
 		setCategoria(categoria);
-		
+		setDataCriacao();
 		this.estaDisponivel = true;
 		this.interessados = new ArrayList<UsuarioIF>();
+		
+	}
+	
+	private void setDataCriacao(){
+		try {
+			Thread.sleep(1);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.dataCriacao = new GregorianCalendar().getTime();
 	}
 
 	@Override
@@ -172,6 +186,11 @@ public class Item implements ItemIF {
 	@Override
 	public List<UsuarioIF> getInteresasados() {
 		return interessados;
+	}
+
+	@Override
+	public Date getDataCriacao() {
+		return this.dataCriacao;
 	}
 
 }

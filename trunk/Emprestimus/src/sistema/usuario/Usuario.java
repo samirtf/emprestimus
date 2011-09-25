@@ -1,19 +1,28 @@
 package sistema.usuario;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
+import javax.activation.MailcapCommandMap;
 
 import sistema.autenticacao.Autenticacao;
 import sistema.emprestimo.Emprestimo;
 import sistema.emprestimo.EmprestimoEstado;
 import sistema.emprestimo.EmprestimoIF;
 import sistema.excecoes.ArgumentoInvalidoException;
+import sistema.item.DataCriacaoItemComparator;
 import sistema.item.Item;
 import sistema.item.ItemIF;
+import sistema.item.NomeItemComparator;
 import sistema.mensagem.Chat;
 import sistema.mensagem.ChatIF;
 import sistema.mensagem.MensagemTipo;
@@ -42,6 +51,8 @@ public class Usuario implements UsuarioIF {
 	private String login, nome, endereco;
 
 	private final int id = ID_Prox_Usuario++; // id (codigo unico) do usuario
+	
+	private int reputacao = 0;
 
 	private List<UsuarioIF> amigos; // Grupo de amigos
 	private List<UsuarioIF> queremSerMeusAmigos; // solicitacoes de amizade
@@ -652,6 +663,167 @@ public class Usuario implements UsuarioIF {
 		}
 		return saida.toString().trim().substring(0, saida.toString().trim().length()-1);
 	}
+
+	@Override
+	public String pesquisarItem( String chave, String atributo,
+			String tipoOrdenacao, String criterioOrdenacao) throws Exception {
+		
+		StringBuffer saida = new StringBuffer();
+		
+		if( criterioOrdenacao.trim().equalsIgnoreCase("dataCriacao") ){
+			//List<String> saidaDataCriacao = new LinkedList<String>();
+			List<ItemIF> saidaDataCriacao = new LinkedList<ItemIF>();
+			Iterator<UsuarioIF> iteradorUsuarios = this.amigos.iterator();
+			while(iteradorUsuarios.hasNext()){
+				UsuarioIF amigo = iteradorUsuarios.next();
+				Iterator<ItemIF> iteradorItens = amigo.getItens().iterator();
+				while(iteradorItens.hasNext()){
+					ItemIF item = iteradorItens.next();
+					if(atributo.trim().equalsIgnoreCase("nome")){
+						if(item.getNome().toLowerCase().contains(chave.toLowerCase())){
+							//saidaDataCriacao.add(item.getNome());
+							saidaDataCriacao.add(item);
+						}
+					}else if(atributo.trim().equalsIgnoreCase("descricao")){
+						if(item.getDescricao().toLowerCase().contains(chave.toLowerCase())){
+							//saidaDataCriacao.add(item.getNome());
+							saidaDataCriacao.add(item);
+						}
+					}else if(atributo.trim().equalsIgnoreCase("categoria")){
+						if(item.getCategoria().toLowerCase().contains(chave.trim().toLowerCase())){
+							//saidaDataCriacao.add(item.getNome());
+							saidaDataCriacao.add(item);
+						}
+					}
+				}
+			}
+			
+			if(tipoOrdenacao.trim().equalsIgnoreCase("crescente")){
+				Collections.sort(saidaDataCriacao, new DataCriacaoItemComparator());
+			}else if(tipoOrdenacao.trim().equalsIgnoreCase("decrescente")){
+				Collections.sort(saidaDataCriacao, new DataCriacaoItemComparator());
+				Collections.reverse(saidaDataCriacao);
+			}
+			Iterator<ItemIF> listaItensRefinadosIterator = saidaDataCriacao.iterator();
+			while(listaItensRefinadosIterator.hasNext()){
+				saida.append(listaItensRefinadosIterator.next().getNome()+"; ");
+			}
+			
+		}else if(criterioOrdenacao.trim().equalsIgnoreCase("reputacao")){
+			//List<String> saidaDataCriacao = new LinkedList<String>();
+			List<ItemIF> saidaReputacao = new LinkedList<ItemIF>();
+			Map<Integer, List<ItemIF>> mapaItensPorReputacao = new HashMap<Integer, List<ItemIF>>();
+			
+			Iterator<UsuarioIF> iteradorUsuarios = this.amigos.iterator();
+			while(iteradorUsuarios.hasNext()){
+				
+				List<ItemIF> listaItens = new LinkedList<ItemIF>();
+				UsuarioIF amigo = iteradorUsuarios.next();
+				Iterator<ItemIF> iteradorItens = amigo.getItens().iterator();
+				while(iteradorItens.hasNext()){
+					ItemIF item = iteradorItens.next();
+					if(atributo.trim().equalsIgnoreCase("nome")){
+						if(item.getNome().toLowerCase().contains(chave.toLowerCase())){
+							//saidaDataCriacao.add(item.getNome());
+							listaItens.add(item);
+						}
+					}else if(atributo.trim().equalsIgnoreCase("descricao")){
+						if(item.getDescricao().toLowerCase().contains(chave.toLowerCase())){
+							//saidaDataCriacao.add(item.getNome());
+							listaItens.add(item);
+						}
+					}else if(atributo.trim().equalsIgnoreCase("categoria")){
+						if(item.getCategoria().toLowerCase().contains(chave.trim().toLowerCase())){
+							//saidaDataCriacao.add(item.getNome());
+							listaItens.add(item);
+						}
+					}
+				}
+				//já percorri itens e adicionei na lista
+				//verificar se a lista nao estah vazia
+				if(!listaItens.isEmpty()){
+					int reputacaoAtual = amigo.getReputacao();
+					if(mapaItensPorReputacao.containsKey(reputacaoAtual)){
+						Iterator<ItemIF> iteradorDaListaDeItensSaidaPorUsuario = listaItens.iterator();
+						while(iteradorDaListaDeItensSaidaPorUsuario.hasNext()){
+							mapaItensPorReputacao.get(reputacaoAtual).add(iteradorDaListaDeItensSaidaPorUsuario.next());
+						}
+					}else{
+						mapaItensPorReputacao.put(reputacaoAtual, listaItens);
+					}
+					if(tipoOrdenacao.trim().equalsIgnoreCase("crescente")){
+						Collections.sort(mapaItensPorReputacao.get(reputacaoAtual), new NomeItemComparator());
+					}else if(tipoOrdenacao.trim().equalsIgnoreCase("decrescente")){
+						Collections.sort(mapaItensPorReputacao.get(reputacaoAtual), new NomeItemComparator());
+						Collections.reverse(mapaItensPorReputacao.get(reputacaoAtual));
+					}	
+				}
+				//limpa lista itens
+				listaItens = new LinkedList<ItemIF>();
+				
+			}
+			//após a coleta e adição de cada lista de objetos por usuario, faremos a ordenação
+			Set<Integer> listaChavesReputacao = mapaItensPorReputacao.keySet();
+			Integer[] arrayListaChaves = (Integer[]) listaChavesReputacao.toArray();
+			Arrays.sort(arrayListaChaves);
+			
+			if(arrayListaChaves.length > 0){
+				
+				if(tipoOrdenacao.trim().equalsIgnoreCase("crescente")){
+					for( int i = arrayListaChaves.length-1; i >= 0; i-- ){
+						Iterator<ItemIF> iteradorListaReputadacaoMapaIterator = mapaItensPorReputacao.get(i).iterator();
+						while(iteradorListaReputadacaoMapaIterator.hasNext()){
+							saidaReputacao.add(iteradorListaReputadacaoMapaIterator.next());
+						}
+					}
+					
+				}else if(tipoOrdenacao.trim().equalsIgnoreCase("decrescente")){
+					for( int i = 0; i < arrayListaChaves.length; i++ ){
+						Collections.reverse(mapaItensPorReputacao.get(i));
+						Iterator<ItemIF> iteradorListaReputadacaoMapaIterator = mapaItensPorReputacao.get(i).iterator();
+						while(iteradorListaReputadacaoMapaIterator.hasNext()){
+							saidaReputacao.add(iteradorListaReputadacaoMapaIterator.next());
+						}
+					}
+				}
+				
+				
+			}
+			//verificar saida reputacao
+			if(!saidaReputacao.isEmpty()){
+				Iterator<ItemIF> iteradorDaListaReputacao = saidaReputacao.iterator();
+				while(iteradorDaListaReputacao.hasNext()){
+					saida.append(iteradorDaListaReputacao.next().getNome()+"; ");
+				}
+			}
+			
+		}
+		
+		if(saida.toString().trim().equals(""))
+			return Mensagem.NENHUM_ITEM_ENCONTRADO.getMensagem();
+		
+		
+		return saida.toString().trim().substring(0, saida.toString().trim().length()-1);
+	}
+	
+
+	@Override
+	public int compareTo(UsuarioIF o) {
+		return this.getLogin().compareTo(o.getLogin());
+	}
+
+	@Override
+	public int getReputacao() {
+		return this.reputacao;
+	}
+
+	@Override
+	public void incrementaReputacao() {
+		this.reputacao++;
+		
+	}
+
+	
 
 	
 

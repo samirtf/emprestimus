@@ -1,6 +1,7 @@
 package sistema.usuario;
 
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.List;
 
 import sistema.emprestimo.EmprestimoIF;
@@ -18,7 +19,7 @@ import sistema.mensagem.ChatIF;
  * @version 1.0.2.1
  * @version 1.2
  */
-public interface UsuarioIF {
+public interface UsuarioIF extends Comparable<UsuarioIF> {
 
 	/**
 	 * Configura o login do usuario.
@@ -245,5 +246,14 @@ public interface UsuarioIF {
 	public String enviarMensagemEmprestimo( String destinatario, String assunto, String mensagem, String idRequisicaoEmprestimo ) throws Exception;
 	
 	public String lerTopicos( String tipo ) throws Exception;
+	
+	public String pesquisarItem( String chave, String atributo, 
+			String tipoOrdenacao, String criterioOrdenacao ) throws Exception;
+	
+
+	
+	public void incrementaReputacao();
+	
+	public int getReputacao();
 	
 }
