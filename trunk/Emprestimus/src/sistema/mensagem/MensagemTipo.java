@@ -36,7 +36,7 @@ private final String nome;
 		} else if (categoria.equals("negociacao")) {
 			return MensagemTipo.NEGOCIACAO;
 		}else {
-			throw new Exception("MEnsagemTipo falta mensagem");
+			throw new Exception("MensagemTipo falta mensagem");
 		}
 		
 	}
