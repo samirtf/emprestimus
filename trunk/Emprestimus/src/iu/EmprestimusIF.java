@@ -401,4 +401,6 @@ public interface EmprestimusIF {
 
 	public void desfazerAmizade(String idSessao, String amigo) throws Exception;
 
+	public void apagarItem(String idSessao, String idItem) throws Exception;
+
 }

@@ -263,6 +263,14 @@ public interface UsuarioIF extends Comparable<UsuarioIF> {
 	
 	public void removerEmprestimosRequeridosPorMim( UsuarioIF amigo );
 	
+	public boolean esteItemMePertence( String idItem ) throws Exception;
+
+	public boolean requisiteiEsteItem( String idItem ) throws Exception;
 	
+	public List<UsuarioIF> getListaAmigos();
+	
+	public void apagarItem( String idItem ) throws Exception;
+	
+	public void removerMinhaSolicitacaoEmprestimo( EmprestimoIF emprestimo );
 	
 }

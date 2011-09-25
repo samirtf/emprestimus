@@ -192,7 +192,9 @@ public enum Mensagem {
 	ORDENACAO_CRITERIO_INVALIDO("Critério inválido de ordenação"),
 	ORDENACAO_CRITERIO_INEXISTENTE("Critério de ordenação inexistente"),
 	NENHUM_ITEM_ENCONTRADO("Nenhum item encontrado"),
-    AMIZADE_INEXISTENTE("Amizade inexistente");
+    AMIZADE_INEXISTENTE("Amizade inexistente"),
+    SEM_PERMISSAO_APAGAR_ITEM("O usuário não tem permissão para apagar este item"),
+    NAO_PODE_EMPRESTAR_ITEM_EMPRESTADO("O usuário não pode apagar este item enquanto estiver emprestado");
 	
 	private final String mensagem;
 
