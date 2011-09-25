@@ -13,11 +13,9 @@ import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.item.ItemIF;
 import sistema.usuario.Usuario;
 import sistema.usuario.UsuarioIF;
-import sistema.utilitarios.Log;
 import sistema.utilitarios.Mensagem;
 import sistema.utilitarios.Validador;
 import static sistema.utilitarios.Validador.*;
-import sistema.utilitarios.ValidadorString;
 
 public class Autenticacao implements AutenticacaoIF {
 	private static Autenticacao autenticacao;
@@ -58,12 +56,13 @@ public class Autenticacao implements AutenticacaoIF {
 
 	@Override
 	public ItemIF getItemComID(String id) throws Exception {
-		ValidadorString.pegaCampoSemEspacos(
-				Mensagem.ID_ITEM_INVALIDO.getMensagem(), id);
+		assertNaoNulo(id, Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		assertStringNaoVazia(id, Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		
 		for (UsuarioIF usuario : usuariosCadastrados.values()) {
 			try {
 				for (ItemIF item : usuario.getItens()) {
-					if (item.getId().equals(id)) {
+					if (item.getId().equals(id.trim())) {
 						return item;
 					}
 				}
