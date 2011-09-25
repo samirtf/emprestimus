@@ -665,7 +665,7 @@ public class Usuario implements UsuarioIF {
 	}
 
 	@Override
-	public String pesquisarItem( String chave, String atributo,
+	public synchronized String pesquisarItem( String chave, String atributo,
 			String tipoOrdenacao, String criterioOrdenacao) throws Exception {
 		
 		StringBuffer saida = new StringBuffer();
@@ -764,13 +764,14 @@ public class Usuario implements UsuarioIF {
 			}
 			//após a coleta e adição de cada lista de objetos por usuario, faremos a ordenação
 			Set<Integer> listaChavesReputacao = mapaItensPorReputacao.keySet();
-			Integer[] arrayListaChaves = (Integer[]) listaChavesReputacao.toArray();
+			Object[] arrayListaChaves = listaChavesReputacao.toArray();
 			Arrays.sort(arrayListaChaves);
+			
 			
 			if(arrayListaChaves.length > 0){
 				
 				if(tipoOrdenacao.trim().equalsIgnoreCase("crescente")){
-					for( int i = arrayListaChaves.length-1; i >= 0; i-- ){
+					for( int i = 0; i < arrayListaChaves.length; i++ ){
 						Iterator<ItemIF> iteradorListaReputadacaoMapaIterator = mapaItensPorReputacao.get(i).iterator();
 						while(iteradorListaReputadacaoMapaIterator.hasNext()){
 							saidaReputacao.add(iteradorListaReputadacaoMapaIterator.next());
@@ -778,7 +779,7 @@ public class Usuario implements UsuarioIF {
 					}
 					
 				}else if(tipoOrdenacao.trim().equalsIgnoreCase("decrescente")){
-					for( int i = 0; i < arrayListaChaves.length; i++ ){
+					for( int i = arrayListaChaves.length-1; i >= 0; i-- ){
 						Collections.reverse(mapaItensPorReputacao.get(i));
 						Iterator<ItemIF> iteradorListaReputadacaoMapaIterator = mapaItensPorReputacao.get(i).iterator();
 						while(iteradorListaReputadacaoMapaIterator.hasNext()){
@@ -820,6 +821,12 @@ public class Usuario implements UsuarioIF {
 	@Override
 	public void incrementaReputacao() {
 		this.reputacao++;
+		
+	}
+
+	@Override
+	public void decrementaReputacao() {
+		// TODO Auto-generated method stub
 		
 	}
 
