@@ -28,7 +28,7 @@ public class InterfaceTexto {
 		System.out.println("\n\n" + Mensagem.MENU.getMensagem());
 		System.out.println(Mensagem.PEDIR_OPCAO.getMensagem());
 		
-		opcao = pegarOpcao(1, 3);
+		opcao = pegarOpcao(1, 4);
 
 		// Reage segundo a opcao dada na entrada.
 		switch (opcao) {
@@ -78,7 +78,7 @@ public class InterfaceTexto {
 	private static void menuLogado() {
 		int opcao;
 		System.out.println(Mensagem.MENU_LOGADO.getMensagem());
-		opcao = pegarOpcao(1, 15);
+		opcao = pegarOpcao(1, 27);
 		switch (opcao) {
 		case 1:
 			getAtributo();
@@ -177,6 +177,14 @@ public class InterfaceTexto {
 			break;
 		
 		case 25:
+			pesquisarItem();
+			break;
+			
+		case 26:
+			desfazerAmizade();
+			break;
+			
+		case 27:
 			emprestimus.encerrarSistema();
 			break;
 			
@@ -185,6 +193,38 @@ public class InterfaceTexto {
 			break;
 		}
 		menuLogado();
+	}
+
+	private static void desfazerAmizade() {
+		System.out.println(Mensagem.PEDIR_LOGIN_AMIGO_DELETAR.getMensagem());
+		try {
+			emprestimus.desfazerAmizade(id_sessao, pegaStringDaEntrada());
+			System.out.println(Mensagem.OPERACAO_SUCESSO.getMensagem());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			if(tentarNovamente()){
+				desfazerAmizade();
+			}
+		}
+	}
+
+	private static void pesquisarItem() {
+		String chave, atributo, tipoOrdenacao;
+		System.out.println(Mensagem.PEDIR_CHAVE_BUSCA.getMensagem());
+		chave = pegaStringDaEntrada();
+		System.out.println(Mensagem.PERGUNTAR_ATRIBUTO.getMensagem());
+		atributo = pegaStringDaEntrada();
+		System.out.println(Mensagem.PEDIR_TIPO_ORDENACAO.getMensagem());
+		tipoOrdenacao = pegaStringDaEntrada();
+		System.out.println(Mensagem.PEDIR_CRITERIO_ORDENACAO.getMensagem());
+		try {
+			System.out.println(emprestimus.pesquisarItem(id_sessao, chave, atributo, tipoOrdenacao, pegaStringDaEntrada()));
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			if(tentarNovamente()){
+				pesquisarItem();
+			}
+		}
 	}
 
 	private static void registrarInteresse() {
