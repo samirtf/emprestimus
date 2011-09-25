@@ -3,7 +3,7 @@
 <project name="Emprestimus" default="testa" basedir=".">
 
     <property name="src" value="src" />
-    <property name="build" value="${basedir}/build" />
+    <property name="build" value="bin" />
     <property name="dist" value="dist" />
     <property name="javadoc" value="javadoc" />
     <property name="test" value="test" />
@@ -62,7 +62,11 @@
     <target name="jar" depends="compila" description="Cria o JAR">
     	<echo message="Gerando arquivo jar..." />
         <mkdir dir="${dist}" />
-        <jar jarfile="${dist}/emprestimus.jar" basedir="${build}" />
+        <jar jarfile="${dist}/emprestimus.jar" basedir="${build}" >
+        	<manifest>
+        	<attribute name="Main-Class" value="iu.InterfaceTexto"/>
+        	</manifest>
+        </jar>
     </target>
         
 </project>
