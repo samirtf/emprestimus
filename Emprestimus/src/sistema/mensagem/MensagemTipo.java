@@ -1,8 +1,10 @@
 package sistema.mensagem;
 
+import static sistema.utilitarios.Validador.assertNaoNulo;
+import static sistema.utilitarios.Validador.assertStringNaoVazia;
+import static sistema.utilitarios.Validador.asserteTrue;
 import sistema.emprestimo.EmprestimoEstado;
 import sistema.utilitarios.Mensagem;
-import sistema.utilitarios.ValidadorString;
 
 public enum MensagemTipo {
 	
@@ -25,9 +27,8 @@ private final String nome;
 	 * 		Caso a string, passada como parametro, nao represente nenhum dos enums, lanca excecao. 
 	 */
 	public static MensagemTipo getCategoria(String categoria) throws Exception {
-		if (!ValidadorString.validaString(categoria).equals(Mensagem.OK.getMensagem())) {
-			throw new Exception(Mensagem.CATEGORIA_INVALIDA.getMensagem());
-		}
+		assertNaoNulo(categoria, Mensagem.CATEGORIA_INVALIDA.getMensagem());
+		assertStringNaoVazia(categoria, Mensagem.CATEGORIA_INVALIDA.getMensagem());
 		
 		categoria.toUpperCase();
 		if (categoria.equals("offtopic")) {
