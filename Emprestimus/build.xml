@@ -18,7 +18,7 @@
 
 	<!-- LIMPA --> 
 
-    <target name="limpa">
+    <target name="limpa" description="Remove o javadoc, o jar e os .class ">
         <echo message="Limpando informacoes antigas..." />
         <delete dir="${build}" />
         <delete dir="${dist}" />
@@ -27,7 +27,7 @@
 
      <!-- COMPILA -->
      
-	<target name="compila" depends="limpa">
+	<target name="compila" depends="limpa" description="Compila todo o codigo do projeto ">
 		<echo message="Compilando o codigo do projeto..." />
         <mkdir dir="${build}" />
         <javac srcdir="${src}" destdir="${build}">
@@ -37,7 +37,7 @@
 
 	<!-- TESTA -->
 
-	<target name="testa" depends="compila" description="Executa os testes">
+	<target name="testa" depends="compila" description="Executa os testes de aceitacao que usam o EasyAccept ">
 		<echo message="Testando casos de uso..." />
         <java classname="testes.aceitacao.TesteCompleto" >
         	<classpath>
@@ -50,19 +50,20 @@
 
 	<!-- DOC -->
 
-	<target name="doc" description="Documentacao.">
+	<target name="doc" description="Gera o javadoc do projeto ">
 		<echo message="Gerando o javadoc..." />
         <mkdir dir="${javadoc}" />
-        <javadoc sourcepath="${src}" destdir="${javadoc}" />
+		<javadoc destdir="${javadoc}/" classpath="lib/easyaccept.jar" doctitle="Emprestimus" >
+			<fileset dir="${src}/" includes="**/*.java"/>
+		</javadoc>
 	</target>
-
 
 	<!-- JAR -->
 
-    <target name="jar" depends="compila" description="Cria o JAR">
+    <target name="jar" depends="compila" description="Cria o arquivo jar do sistema ">
     	<echo message="Gerando arquivo jar..." />
         <mkdir dir="${dist}" />
-        <jar jarfile="${dist}/emprestimus.jar" basedir="${build}" >
+        <jar jarfile="${dist}/emprestimos1.jar" basedir="${build}" >
         	<manifest>
         	<attribute name="Main-Class" value="iu.InterfaceTexto"/>
         	</manifest>
