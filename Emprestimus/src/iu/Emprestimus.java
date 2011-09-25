@@ -6,6 +6,7 @@ import static sistema.utilitarios.Validador.asserteTrue;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -699,6 +700,27 @@ public class Emprestimus implements EmprestimusIF {
 		}
 		
 		usuario.desfazerAmizade(amigo);
+		
+	}
+
+	@Override
+	public void apagarItem(String idSessao, String idItem) throws Exception {
+		assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
+		
+		assertNaoNulo(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		asserteTrue(ItemRepositorio.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
+		
+		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
+		asserteTrue(usuario.esteItemMePertence(idItem), Mensagem.SEM_PERMISSAO_APAGAR_ITEM.getMensagem());
+		ItemIF item = ItemRepositorio.recuperarItem(idItem.trim());
+		asserteTrue(item.estahDisponivel(), Mensagem.NAO_PODE_EMPRESTAR_ITEM_EMPRESTADO.getMensagem());
+		
+		usuario.apagarItem( idItem.trim() );
+		ItemRepositorio.removerItem(idItem);
+		
 		
 	}
 

@@ -337,4 +337,17 @@ public class Emprestimo implements EmprestimoIF{
 		
 	}
 
+	@Override
+	public int compareTo(EmprestimoIF outro) {
+		Long id1 = null;
+		Long id2 = null;
+		try{
+			id1 = Long.valueOf(this.getIdEmprestimo());
+			id2 = Long.valueOf(outro.getIdEmprestimo());
+		}catch(Exception e){
+			
+		}
+		return id1.compareTo(id2);
+	}
+
 }

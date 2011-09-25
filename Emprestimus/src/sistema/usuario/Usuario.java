@@ -897,6 +897,72 @@ public class Usuario implements UsuarioIF {
 		}
 		
 	}
+
+	@Override
+	public boolean esteItemMePertence( String idItem ) throws Exception {
+		assertNaoNulo(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		asserteTrue(ItemRepositorio.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
+		
+		Iterator<ItemIF> iteradorItens = this.itens.iterator();
+		while(iteradorItens.hasNext()){
+			if(iteradorItens.next().getId().trim().equalsIgnoreCase(idItem.trim()))
+				return true;
+		}
+		return false;
+	}
+
+	@Override
+	public synchronized boolean requisiteiEsteItem(String idItem) throws Exception {
+		assertNaoNulo(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		asserteTrue(ItemRepositorio.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
+		
+		Iterator<EmprestimoIF> iteradorEmprestimos = this.emprestimosRequeridosPorMimEmEspera.iterator();
+		while(iteradorEmprestimos.hasNext()){
+			
+			if(iteradorEmprestimos.next().getItem().getId().trim().equalsIgnoreCase(idItem.trim())){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public List<UsuarioIF> getListaAmigos() {
+		return this.amigos;
+	}
+
+	@Override
+	public void apagarItem(String idItem) throws Exception {
+		Iterator<EmprestimoIF> iteradorEmprestimosRequeridosPorAmigos 
+		= this.emprestimosRequeridosPorAmigosEmEspera.iterator();
+		while(iteradorEmprestimosRequeridosPorAmigos.hasNext()){
+			EmprestimoIF emprestimo = iteradorEmprestimosRequeridosPorAmigos.next();
+			if(emprestimo.getItem().getId().equalsIgnoreCase(idItem.trim())){
+				
+				UsuarioIF amigoQueSolicitou = emprestimo.getBeneficiado();
+				amigoQueSolicitou.removerMinhaSolicitacaoEmprestimo(emprestimo);
+				EmprestimoRepositorio.removerEmprestimo(emprestimo.getIdEmprestimo());
+				iteradorEmprestimosRequeridosPorAmigos.remove();
+			}
+		}
+		Iterator<ItemIF> iteradorMeusItens = this.itens.iterator();
+		while(iteradorMeusItens.hasNext()){
+			if(iteradorMeusItens.next().getId().equalsIgnoreCase(idItem.trim())){
+				iteradorMeusItens.remove();
+			}
+		}
+
+
+		
+	}
+
+	@Override
+	public void removerMinhaSolicitacaoEmprestimo(EmprestimoIF emprestimo) {
+		this.emprestimosRequeridosPorMimEmEspera.remove(emprestimo);
+	}
+	
 	
 
 	

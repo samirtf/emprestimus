@@ -6,7 +6,7 @@ import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.item.ItemIF;
 import sistema.usuario.UsuarioIF;
 
-public interface EmprestimoIF {
+public interface EmprestimoIF extends Comparable<EmprestimoIF> {
 	
 	public void setId( String idEmprestimo ) throws Exception;
 	

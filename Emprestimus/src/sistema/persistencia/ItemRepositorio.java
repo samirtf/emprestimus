@@ -91,4 +91,17 @@ public class ItemRepositorio {
 		return itensCadastrados.containsKey(Long.valueOf(idItem));
 	}
 
+	public static void removerItem( String idItem ){
+		Long id;
+		try{
+			id = Long.valueOf(idItem);
+			if(existeItem((idItem))){
+				itensCadastrados.remove(id);
+			}
+		}catch(Exception e){
+		
+		}
+		
+	}
+	
 }
