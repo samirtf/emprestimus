@@ -642,7 +642,7 @@ public class Emprestimus implements EmprestimusIF {
 	@Override
 	public void encerrarSistema() {
 		//Salva dados em persistencia e encerra.
-		System.exit(0);
+		//System.exit(0);
 	}
 
 	@Override
