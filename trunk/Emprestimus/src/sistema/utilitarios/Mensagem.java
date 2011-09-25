@@ -185,7 +185,13 @@ public enum Mensagem {
 	NAO_HA_TOPICOS_CRIADOS("Não há tópicos criados"),
 	DEVOLUCAO_JA_REQUISITADA("Devolução já requisitada"),
 	USUARIO_NAO_PARTICIPA_DESTE_EMPRESTIMO("O usuário não participa deste empréstimo"),
-	USUARIO_SEM_PERMISSAO_LEITURA_TOPICO("O usuário não tem permissão para ler as mensagens deste tópico");
+	USUARIO_SEM_PERMISSAO_LEITURA_TOPICO("O usuário não tem permissão para ler as mensagens deste tópico"),
+	CHAVE_INVALIDA("Chave inválida"),
+	ORDENACAO_TIPO_INVALIDO("Tipo inválido de ordenação"),
+	ORDENACAO_TIPO_INEXISTENTE("Tipo de ordenação inexistente"),
+	ORDENACAO_CRITERIO_INVALIDO("Critério inválido de ordenação"),
+	ORDENACAO_CRITERIO_INEXISTENTE("Critério de ordenação inexistente"),
+	NENHUM_ITEM_ENCONTRADO("Nenhum item encontrado");
 	
 	private final String mensagem;
 
