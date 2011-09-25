@@ -1,5 +1,9 @@
 package iu;
 
+import java.util.List;
+
+import sistema.usuario.UsuarioIF;
+
 /**
  * Fachada para as funcionalidades do sistema.
  * 
@@ -386,6 +390,9 @@ public interface EmprestimusIF {
     public String pesquisarItem( String idSessao, String chave, String atributo, 
 			String tipoOrdenacao, String criterioOrdenacao ) throws Exception;
     
+    //US14
+  	public String getRanking( String idSessao, String categoria ) throws Exception;
+    
 	//Utils
     /**
      * Zera as infoprmações do sistema.
@@ -402,5 +409,6 @@ public interface EmprestimusIF {
 	public void desfazerAmizade(String idSessao, String amigo) throws Exception;
 
 	public void apagarItem(String idSessao, String idItem) throws Exception;
+	
 
 }

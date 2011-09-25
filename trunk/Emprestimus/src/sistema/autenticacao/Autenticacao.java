@@ -1,6 +1,7 @@
 package sistema.autenticacao;
 
 import java.lang.reflect.Field;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -197,6 +198,12 @@ public class Autenticacao implements AutenticacaoIF {
 		}
 		return usuarios;
 	}
+
+	@Override
+	public Collection<UsuarioIF> getListaUsuarios() {
+		return this.usuariosCadastrados.values();
+	}
+	
 	
 	
 

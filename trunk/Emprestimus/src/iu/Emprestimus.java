@@ -5,6 +5,8 @@ import static sistema.utilitarios.Validador.assertStringNaoVazia;
 import static sistema.utilitarios.Validador.asserteTrue;
 
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -20,6 +22,7 @@ import sistema.mensagem.ChatIF;
 import sistema.persistencia.ChatRepositorio;
 import sistema.persistencia.EmprestimoRepositorio;
 import sistema.persistencia.ItemRepositorio;
+import sistema.usuario.ReputacaouUsuarioComparator;
 import sistema.usuario.Usuario;
 import sistema.usuario.UsuarioIF;
 import sistema.utilitarios.Mensagem;
@@ -723,5 +726,56 @@ public class Emprestimus implements EmprestimusIF {
 		
 		
 	}
+
+	@Override
+	public String getRanking(String idSessao, String categoria)
+			throws Exception {
+		
+		assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
+		
+		assertNaoNulo(categoria, Mensagem.CATEGORIA_INVALIDA.getMensagem());
+		assertStringNaoVazia(categoria, Mensagem.CATEGORIA_INVALIDA.getMensagem());
+		if( !categoria.trim().equalsIgnoreCase("global") && 
+				!categoria.trim().equalsIgnoreCase("amigos")){
+			throw new Exception(Mensagem.CATEGORIA_INEXISTENTE.getMensagem());
+		}
+		
+		StringBuffer saidaRanking = new StringBuffer();
+		List<UsuarioIF> listaUsuarios = new LinkedList<UsuarioIF>();
+		
+		if(categoria.trim().equalsIgnoreCase("global")){
+			Iterator<UsuarioIF> iteradorColecaoUsuarios = autenticacao.getListaUsuarios().iterator();
+			while(iteradorColecaoUsuarios.hasNext()){
+				listaUsuarios.add(iteradorColecaoUsuarios.next());
+			}
+			Collections.sort(listaUsuarios, new ReputacaouUsuarioComparator());
+			Collections.reverse(listaUsuarios);
+			
+			Iterator<UsuarioIF> iteraListUsuarios = listaUsuarios.iterator();
+			while(iteraListUsuarios.hasNext()){
+				saidaRanking.append(iteraListUsuarios.next().getLogin()+"; ");
+			}
+			
+		}else if(categoria.trim().equalsIgnoreCase("amigos")){
+			UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao.trim());
+			listaUsuarios = usuario.getListaAmigos();
+			//Tenho de ser adicionado na lista para ser comparado com eles
+			listaUsuarios.add(usuario);
+			Collections.sort(listaUsuarios, new ReputacaouUsuarioComparator());
+			Collections.reverse(listaUsuarios);
+			
+			Iterator<UsuarioIF> iteraListUsuarios = listaUsuarios.iterator();
+			while(iteraListUsuarios.hasNext()){
+				saidaRanking.append(iteraListUsuarios.next().getLogin()+"; ");
+			}
+		}
+		if(saidaRanking.toString().trim().equals(""))
+			return "";
+		return saidaRanking.toString().trim().substring(0, saidaRanking.toString().trim().length()-1);
+	}
+
+
 
 }
