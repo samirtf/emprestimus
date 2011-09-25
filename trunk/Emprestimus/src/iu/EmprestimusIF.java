@@ -382,6 +382,10 @@ public interface EmprestimusIF {
      */
     public void registraInteresse(String idSessao, String idItem) throws Exception;
     
+    //US11
+    public String pesquisarItem( String idSessao, String chave, String atributo, 
+			String tipoOrdenacao, String criterioOrdenacao ) throws Exception;
+    
 	//Utils
     /**
      * Zera as infoprmações do sistema.
