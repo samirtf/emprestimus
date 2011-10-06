@@ -15,7 +15,7 @@ import sistema.utilitarios.Mensagem;
 /**
  * Esta classe representa os itens que podem ser cadastrados pelo usuario
  * 
- * @author Joeffison Silverio de Andrade, 21011853, joeffisonsa@gmail.com
+ * @author Joeffison Silverio de Andrade, 21011853
  * @version 1.5.2
  * @since 1.0
  */
