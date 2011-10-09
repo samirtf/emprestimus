@@ -254,7 +254,7 @@ public class InterfaceTexto {
 		String chave, atributo, tipoOrdenacao;
 		System.out.println(Mensagem.PEDIR_CHAVE_BUSCA.getMensagem());
 		chave = pegaStringDaEntrada();
-		System.out.println(Mensagem.PERGUNTAR_ATRIBUTO.getMensagem());
+		System.out.println(Mensagem.PEDIR_ATRIBUTO.getMensagem());
 		atributo = pegaStringDaEntrada();
 		System.out.println(Mensagem.PEDIR_TIPO_ORDENACAO.getMensagem());
 		tipoOrdenacao = pegaStringDaEntrada();
@@ -436,7 +436,7 @@ public class InterfaceTexto {
 		// TODO talvez imprimir o id dos itens cadastrados.
 		System.out.println(Mensagem.PEDIR_ID_TEM_VERIFICAR.getMensagem());
 		String idItem = pegaStringDaEntrada();
-		System.out.println(Mensagem.PERGUNTAR_ATRIBUTO.getMensagem());
+		System.out.println(Mensagem.PEDIR_ATRIBUTO.getMensagem());
 		try {
 			System.out.println(emprestimus.getAtributoItem(idItem, pegaStringDaEntrada()));
 		} catch (Exception e) {
@@ -541,7 +541,7 @@ public class InterfaceTexto {
 		String chave, atributo;
 		System.out.println(Mensagem.PEDIR_CHAVE_BUSCA.getMensagem());
 		chave = pegaStringDaEntrada();
-		System.out.println(Mensagem.PERGUNTAR_ATRIBUTO.getMensagem());
+		System.out.println(Mensagem.PEDIR_ATRIBUTO.getMensagem());
 		atributo = pegaStringDaEntrada();
 		try {
 			System.out.println(emprestimus.localizarUsuario(id_sessao, chave, atributo));
@@ -573,7 +573,7 @@ public class InterfaceTexto {
 	}
 
 	private static void getAtributo() {
-		System.out.println(Mensagem.PERGUNTAR_ATRIBUTO.getMensagem());
+		System.out.println(Mensagem.PEDIR_ATRIBUTO.getMensagem());
 		try {
 			System.out.println(emprestimus.getAtributoUsuario(login_logado, pegaStringDaEntrada()));
 		} catch (Exception e) {
