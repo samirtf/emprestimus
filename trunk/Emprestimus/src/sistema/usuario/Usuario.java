@@ -264,7 +264,7 @@ public class Usuario implements UsuarioIF {
 			}
 			
 		}
-		throw new Exception(Mensagem.REQUISICAO_AMIZADE_INEXISTNTE.getMensagem());
+		throw new Exception(Mensagem.REQUISICAO_AMIZADE_INEXISTENTE.getMensagem());
 		
 	}
 	
