@@ -424,6 +424,37 @@ public interface EmprestimusIF {
     //US14
   	public String getRanking( String idSessao, String categoria ) throws Exception;
         
+  	//US15
+  	/**
+  	 * Permite que o usuário veja as atividades realizadas
+  	 * em ordem de ocorrência (da atividade mais recente à mais antiga).
+  	 * 
+  	 * @param idSessao
+  	 * @return
+  	 * @throws Exception
+  	 */
+  	public String historicoAtividades(String idSessao) throws Exception;
+  	
+  	/**
+  	 * Permite que o usuário visualize suas atividades
+  	 * em conjunto com as atividades passadas dos seus amigos
+  	 * (da atividade mais recente à mais antiga).
+  	 * As atividades consideradas do método acima.
+  	 * Note que não existe a duplicação da atividade “adição de amigo concluída”,
+  	 * portanto mostra apenas a atividade do usuário que requisitou o histórico de atividades em conjunto.
+  	 * 
+  	 * @param idSessao
+  	 * @return
+  	 * @throws Exception
+  	 */
+  	public String historicoAtividadesConjunto(String idSessao) throws Exception;
+  	
+  	//US17
+  	public String publicarPedido(String idSessao, String nomeItem, String descricaoItem) throws Exception;
+  	
+  	//US18
+  	public void oferecerItem(String idSessao, String idPublicacaoPedido, String idItem) throws Exception;
+  	
 	//Utils
     /**
      * Zera as infoprmações do sistema.

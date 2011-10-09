@@ -781,6 +781,32 @@ public class Emprestimus implements EmprestimusIF {
 		return saidaRanking.toString().trim().substring(0, saidaRanking.toString().trim().length()-1);
 	}
 
+	@Override
+	public String historicoAtividades(String idSessao) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String historicoAtividadesConjunto(String idSessao) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String publicarPedido(String idSessao, String nomeItem,
+			String descricaoItem) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void oferecerItem(String idSessao, String idPublicacaoPedido,
+			String idItem) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 
 }
