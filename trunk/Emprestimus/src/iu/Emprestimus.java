@@ -123,7 +123,11 @@ public class Emprestimus implements EmprestimusIF {
 		
 		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
 		
-		return usuario.cadastrarItem(nome, descricao, categoria);
+		String id = usuario.cadastrarItem(nome, descricao, categoria);
+		
+		usuario.addHistorico(usuario.getNome() + " cadastrou " + nome);
+		
+		return id;
 	}
 
 	/*
