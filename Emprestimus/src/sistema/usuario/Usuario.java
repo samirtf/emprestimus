@@ -149,11 +149,15 @@ public class Usuario implements UsuarioIF {
 			throws Exception {
 		ItemIF item = new Item(nome, descricao, categoria);
 		ItemRepositorio.cadastrarItem(item);
-		itens.add(item);// o item eh modificdo pelo repositorio possuindo agora
+		itens.add(item);// o item eh modificado pelo repositorio possuindo agora
 						// um id valido
-		return String
-				.valueOf((Long.valueOf(ItemRepositorio.geraIdProxItem()) - 1));
+		addHistoricoCadastrarItem(nome);
+		return String.valueOf((Long.valueOf(ItemRepositorio.geraIdProxItem()) - 1));
 
+	}
+
+	private void addHistoricoCadastrarItem(String nomeItem) {
+		historico.add(this.nome + " cadastrou " + nomeItem);
 	}
 
 	@Override
@@ -523,6 +527,9 @@ public class Usuario implements UsuarioIF {
 		UsuarioIF amigo = emp.getBeneficiado();
 		amigo.emprestimoAceitoPorAmigo(emp);
 		emp.getItem().setDisponibilidade(false);
+		
+		
+		
 		return emp.getIdEmprestimo();
 		
 	}
@@ -971,11 +978,6 @@ public class Usuario implements UsuarioIF {
 	@Override
 	public void zerarHistorico() {
 		historico = new LinkedList<String>();
-	}
-	
-	@Override
-	public void addHistorico(String atividade) {
-		historico.add(atividade);
 	}
 	
 	@Override
