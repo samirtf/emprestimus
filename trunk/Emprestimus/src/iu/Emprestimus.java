@@ -623,7 +623,6 @@ public class Emprestimus implements EmprestimusIF {
 		
 		item.adicionaInteressado(usuario);
 		
-		
 	}
 	
 	/*

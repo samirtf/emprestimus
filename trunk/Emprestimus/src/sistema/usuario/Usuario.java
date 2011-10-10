@@ -68,7 +68,7 @@ public class Usuario implements UsuarioIF {
 	private List<ChatIF> conversasOfftopic; //lista de conversas offtopic
 	private List<ChatIF> conversasNegociacao; //lista de conversas negociacao
 
-	private List<String> historico;
+	protected List<String> historico;
 	
 	/**
 	 * Construtor padrao eh privado e nao oferece implementacao.
@@ -147,7 +147,7 @@ public class Usuario implements UsuarioIF {
 	@Override
 	public String cadastrarItem(String nome, String descricao, String categoria)
 			throws Exception {
-		ItemIF item = new Item(nome, descricao, categoria);
+		ItemIF item = new Item(nome, descricao, categoria, this);
 		ItemRepositorio.cadastrarItem(item);
 		itens.add(item);// o item eh modificado pelo repositorio possuindo agora
 						// um id valido
@@ -157,7 +157,7 @@ public class Usuario implements UsuarioIF {
 	}
 
 	private void addHistoricoCadastrarItem(String nomeItem) {
-		historico.add(this.nome + " cadastrou " + nomeItem);
+		addHistorico(this.nome + " cadastrou " + nomeItem);
 	}
 
 	@Override
@@ -259,14 +259,15 @@ public class Usuario implements UsuarioIF {
 			throw new Exception(Mensagem.USUARIO_JAH_SAO_AMIGOS.getMensagem());
 		}
 		Iterator<UsuarioIF> iterador = queremSerMeusAmigos.iterator();
-		UsuarioIF u = null;
+		UsuarioIF amigo_solicitante = null;
 		while(iterador.hasNext()){
-			u = iterador.next();
-			if(u.getLogin().trim().equalsIgnoreCase(login.trim())){
-				u.aprovouAmizade(this);
-				amigos.add(u);
+			amigo_solicitante = iterador.next();
+			if(amigo_solicitante.getLogin().trim().equalsIgnoreCase(login.trim())){
+				amigo_solicitante.aprovouAmizade(this);
+				amigos.add(amigo_solicitante);
 				//queremSerMeusAmigos.remove(u);
 				iterador.remove();
+				addHistoricoAmizadeAprovada(amigo_solicitante);
 				return;
 			}
 			
@@ -275,6 +276,12 @@ public class Usuario implements UsuarioIF {
 		
 	}
 	
+	private void addHistoricoAmizadeAprovada(UsuarioIF amigo) {
+		String atividade = this.getNome() + " e " + amigo.getNome() + " são amigos agora";
+		this.addHistorico(atividade);
+		amigo.addHistorico(atividade);
+	}
+
 	public synchronized void aprovouAmizade( UsuarioIF usuario ){
 		
 		if(queroSerAmigoDeles.contains(usuario)){
@@ -528,12 +535,23 @@ public class Usuario implements UsuarioIF {
 		amigo.emprestimoAceitoPorAmigo(emp);
 		emp.getItem().setDisponibilidade(false);
 		
-		
+		addHistoricoEmprestimoEmAndamento(emp);
 		
 		return emp.getIdEmprestimo();
 		
 	}
 	
+	private void addHistoricoEmprestimoEmAndamento(EmprestimoIF emp) {
+		String atividade = emp.getEmprestador().getNome() + " emprestou " + emp.getItem() + " a " + emp.getBeneficiado().getNome();
+		emp.getEmprestador().addHistorico(atividade); // this
+		emp.getBeneficiado().addHistorico(atividade);
+	}
+
+	@Override
+	public void addHistorico(String atividade) {
+		historico.add(atividade);
+	}
+
 	public void emprestimoAceitoPorAmigo( EmprestimoIF emp ) throws Exception {
 //		if(!emp.estahAceito()) throw new Exception("Meu Amigo Recusou Emprestimo - ERRO");
 		this.emprestimosRequeridosPorMimEmEspera.remove(emp);

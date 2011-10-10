@@ -26,14 +26,18 @@ public class Item implements ItemIF {
 	private Date dataCriacao;
 	private boolean estaDisponivel;
 	private List<UsuarioIF> interessados;
+	private UsuarioIF dono;
 
+	@Deprecated
 	/**
 	 * O construtor padrao eh privado e nao oferece implementacao.
 	 */
 	private Item() {
 	}
+	
+	// FIXME Lembrar de não utilizar os métodos deprecated.
 
-	public Item(String nome, String descricao, String categoria)
+	public Item(String nome, String descricao, String categoria, UsuarioIF dono)
 			throws Exception {
 		setNome(nome);
 		setDescricao(descricao);
@@ -41,9 +45,17 @@ public class Item implements ItemIF {
 		setDataCriacao();
 		this.estaDisponivel = true;
 		this.interessados = new ArrayList<UsuarioIF>();
+		setDono(dono);
 	}
 
-	public Item(String nome, String descricao, ItemCategoria categoria)
+	@Deprecated
+	public Item(String nome, String descricao, String categoria)
+	throws Exception {
+		this(nome, descricao, categoria, null);
+	}
+	
+	
+	public Item(String nome, String descricao, ItemCategoria categoria, UsuarioIF dono)
 			throws Exception {
 		setNome(nome);
 		setDescricao(descricao);
@@ -51,7 +63,13 @@ public class Item implements ItemIF {
 		setDataCriacao();
 		this.estaDisponivel = true;
 		this.interessados = new ArrayList<UsuarioIF>();
-		
+		setDono(dono);
+	}
+	
+	@Deprecated
+	public Item(String nome, String descricao, ItemCategoria categoria)
+	throws Exception {
+		this(nome, descricao, categoria, null);
 	}
 	
 	private void setDataCriacao(){
@@ -77,6 +95,14 @@ public class Item implements ItemIF {
 	@Override
 	public String getCategoria() {
 		return this.categoria.getNome();
+	}
+	
+	public UsuarioIF getDono() {
+		return dono;
+	}
+	
+	public void setDono(UsuarioIF dono) {
+		this.dono = dono;
 	}
 
 	@Override
@@ -168,7 +194,7 @@ public class Item implements ItemIF {
 	public void adicionaInteressado(UsuarioIF interessado) throws Exception {
 		asserteTrue(!interessados.contains(interessado), "O usuario já está entre os interessados."); //FIXME utilizar as mensagens constantes do enum Mensagem
 		interessados.add(interessado);
-		
+		interessado.addHistorico(interessado.getNome() + " tem interesse pelo item " + this.getNome() + " de " + this.getDono());
 	}
 
 	@Override
