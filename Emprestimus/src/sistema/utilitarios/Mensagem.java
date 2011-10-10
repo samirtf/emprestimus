@@ -226,7 +226,9 @@ public enum Mensagem {
 	NENHUM_ITEM_ENCONTRADO("Nenhum item encontrado"),
 	
 	AMIZADE_INEXISTENTE("Amizade inexistente"),
-    SEM_PERMISSAO_APAGAR_ITEM("O usuário não tem permissão para apagar este item");
+    SEM_PERMISSAO_APAGAR_ITEM("O usuário não tem permissão para apagar este item"),
+    
+    HISTORICO_VAZIO("Não há atividades");
 	
 	private final String mensagem;
 

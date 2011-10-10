@@ -476,5 +476,13 @@ public interface UsuarioIF extends Comparable<UsuarioIF> {
 	public void apagarItem( String idItem ) throws Exception;
 	
 	public void removerMinhaSolicitacaoEmprestimo( EmprestimoIF emprestimo );
+
+	public void zerarHistorico();
+	
+	public List<String> getHistorico();
+	
+	public void addHistorico(String atividade);
+	
+	public String getHistoricoToString();
 	
 }

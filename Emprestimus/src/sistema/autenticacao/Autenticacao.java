@@ -47,6 +47,15 @@ public class Autenticacao implements AutenticacaoIF {
 	public void zerarSistema() {
 		 usuariosCadastrados = new TreeMap<String, UsuarioIF>();
 		 sessoes = new TreeMap<String, UsuarioIF>();
+		 zerarHistoricoUsuario();
+	}
+
+	private void zerarHistoricoUsuario() {
+		for ( UsuarioIF usuario : usuariosCadastrados.values()) {
+			usuario.zerarHistorico();
+			
+		}
+		
 	}
 
 	@Override

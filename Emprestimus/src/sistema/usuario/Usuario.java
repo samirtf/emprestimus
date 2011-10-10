@@ -68,6 +68,8 @@ public class Usuario implements UsuarioIF {
 	private List<ChatIF> conversasOfftopic; //lista de conversas offtopic
 	private List<ChatIF> conversasNegociacao; //lista de conversas negociacao
 
+	private List<String> historico;
+	
 	/**
 	 * Construtor padrao eh privado e nao oferece implementacao.
 	 */
@@ -100,6 +102,7 @@ public class Usuario implements UsuarioIF {
 		emprestimosRequeridosPorMimEmEspera = new ArrayList<EmprestimoIF>();
 		conversasOfftopic = new LinkedList<ChatIF>();
 		conversasNegociacao = new LinkedList<ChatIF>();
+		historico = new LinkedList<String>();
 	}
 
 	@Override
@@ -584,6 +587,8 @@ public class Usuario implements UsuarioIF {
 		return conversa.getIdMensagem();
 	}
 
+	
+	//TODO Criar classe que envia/gerencia as mensagens. Joeffison
 
 	@Override
 	public synchronized String enviarMensagemEmprestimo(String destinatario, String assunto,
@@ -962,11 +967,31 @@ public class Usuario implements UsuarioIF {
 	public void removerMinhaSolicitacaoEmprestimo(EmprestimoIF emprestimo) {
 		this.emprestimosRequeridosPorMimEmEspera.remove(emprestimo);
 	}
-	
-	
 
+	@Override
+	public void zerarHistorico() {
+		historico = new LinkedList<String>();
+	}
 	
-
+	@Override
+	public void addHistorico(String atividade) {
+		historico.add(atividade);
+	}
 	
-
+	@Override
+	public List<String> getHistorico() {
+		return this.historico;
+	}
+	
+	@Override
+	public String getHistoricoToString() {
+		StringBuffer result = new StringBuffer();
+		for (String atividade : this.historico) {
+			result.append(atividade + "; ");
+		}
+		if(result.toString().trim().equals("")) 
+			return Mensagem.HISTORICO_VAZIO.getMensagem();
+		return result.toString().trim().substring(0, result.toString().length()-2);
+	}
+	
 }
