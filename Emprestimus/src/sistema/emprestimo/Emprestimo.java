@@ -270,12 +270,17 @@ public class Emprestimo implements EmprestimoIF{
 			}
 			setEstadoTermino();
 			this.getItem().setDisponibilidade(true);
+			addHistoricoTerminoEmprestimo();
 		}else if(ehEstadoTermino()){
 			throw new Exception(Mensagem.TERMINO_EMPRESTIMO_JA_CONFIRMADO.getMensagem());
 		}else{
 			throw new Exception("Estado não implementado");
 		}
 		
+	}
+
+	private void addHistoricoTerminoEmprestimo() {
+		this.getEmprestador().addHistorico(getEmprestador().getNome() + " confirmou o término no empréstimo do item " + getItem().getNome());
 	}
 
 	@Override
