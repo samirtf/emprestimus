@@ -481,8 +481,6 @@ public interface UsuarioIF extends Comparable<UsuarioIF> {
 	
 	public List<String> getHistorico();
 	
-	public void addHistorico(String atividade);
-	
 	public String getHistoricoToString();
 	
 }

@@ -125,8 +125,6 @@ public class Emprestimus implements EmprestimusIF {
 		
 		String id = usuario.cadastrarItem(nome, descricao, categoria);
 		
-		usuario.addHistorico(usuario.getNome() + " cadastrou " + nome);
-		
 		return id;
 	}
 
