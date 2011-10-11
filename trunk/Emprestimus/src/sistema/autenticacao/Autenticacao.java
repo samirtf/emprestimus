@@ -65,8 +65,7 @@ public class Autenticacao implements AutenticacaoIF {
 
 	@Override
 	public ItemIF getItemComID(String id) throws Exception {
-		assertNaoNulo(id, Mensagem.ID_ITEM_INVALIDO.getMensagem());
-		assertStringNaoVazia(id, Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		assertStringNaoVazia(id, Mensagem.ID_ITEM_INVALIDO.getMensagem(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
 		
 		for (UsuarioIF usuario : usuariosCadastrados.values()) {
 			try {
@@ -110,10 +109,8 @@ public class Autenticacao implements AutenticacaoIF {
 	@Override
 	public String getAtributoUsuario(String login, String atributo)
 			throws Exception {
-		assertNaoNulo(login, Mensagem.LOGIN_INVALIDO.getMensagem());
-		assertNaoNulo(atributo, Mensagem.ATRIBUTO_INVALIDO.getMensagem());
-		assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem());
-		assertStringNaoVazia(atributo, Mensagem.ATRIBUTO_INVALIDO.getMensagem());
+		assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(), Mensagem.LOGIN_INVALIDO.getMensagem());
+		assertStringNaoVazia(atributo, Mensagem.ATRIBUTO_INVALIDO.getMensagem(), Mensagem.ATRIBUTO_INVALIDO.getMensagem());
 		asserteTrue(existeUsuario(login), Mensagem.USUARIO_INEXISTENTE.getMensagem());
 
 		UsuarioIF usuario = getUsuario(login);
@@ -145,8 +142,7 @@ public class Autenticacao implements AutenticacaoIF {
 	}
 	
 	public static UsuarioIF getUsuarioPorLogin( String login ) throws ArgumentoInvalidoException{
-		Validador.assertNaoNulo(login, Mensagem.LOGIN_INVALIDO.getMensagem());
-		Validador.assertStringNaoVazia(login.trim(), Mensagem.LOGIN_INVALIDO.getMensagem());
+		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(), Mensagem.LOGIN_INVALIDO.getMensagem());
 		Validador.asserteTrue(Autenticacao.existeUsuario(login), Mensagem.LOGIN_INEXISTENTE.getMensagem());
 		return usuariosCadastrados.get(login);
 	}
@@ -157,8 +153,7 @@ public class Autenticacao implements AutenticacaoIF {
 
 	@Override
 	public UsuarioIF getUsuarioPeloIDSessao(String idSessao) throws Exception {
-		assertNaoNulo(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
-		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem());
+		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(), Mensagem.SESSAO_INVALIDA.getMensagem());
 		asserteTrue(existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
 		
 		return sessoes.get(idSessao);
