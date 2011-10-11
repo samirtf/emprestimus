@@ -117,16 +117,14 @@ public class Item implements ItemIF {
 
 	@Override
 	public ItemIF setId(String id) throws Exception {
-		assertNaoNulo(id, "ID do item não pode ser nula");
-		assertStringNaoVazia(id, "ID do item não pode ser vazia");
+		assertStringNaoVazia(id, "ID do item não pode ser nula", "ID do item não pode ser vazia");
 		this.idItem = id;
 		return this;
 	}
 
 	@Override
 	public void setNome(String nome) throws Exception {
-		assertNaoNulo(nome, Mensagem.NOME_INVALIDO.getMensagem());
-		assertStringNaoVazia(nome, Mensagem.NOME_INVALIDO.getMensagem());
+		assertStringNaoVazia(nome, Mensagem.NOME_INVALIDO.getMensagem(), Mensagem.NOME_INVALIDO.getMensagem());
 		this.nome = nome.trim();
 	}
 
@@ -140,9 +138,8 @@ public class Item implements ItemIF {
 
 	@Override
 	public void setCategoria(String categoria) throws Exception {
-		assertNaoNulo(categoria, Mensagem.CATEGORIA_INVALIDA.getMensagem());
 		assertStringNaoVazia(categoria,
-				Mensagem.CATEGORIA_INVALIDA.getMensagem());
+				Mensagem.CATEGORIA_INVALIDA.getMensagem(), Mensagem.CATEGORIA_INVALIDA.getMensagem());
 
 		if (categoria.trim().equalsIgnoreCase("FILME")) {
 			this.categoria = ItemCategoria.FILME;
