@@ -34,8 +34,7 @@ public enum EmprestimoEstado {
 	 * 		Caso a string, passada como parametro, nao represente nenhum dos enums, lanca excecao. 
 	 */
 	public static EmprestimoEstado getCategoria(String categoria) throws Exception {
-		assertNaoNulo(categoria, Mensagem.CATEGORIA_INVALIDA.getMensagem());
-		assertStringNaoVazia(categoria, Mensagem.CATEGORIA_INVALIDA.getMensagem());
+		assertStringNaoVazia(categoria, Mensagem.CATEGORIA_INVALIDA.getMensagem(), Mensagem.CATEGORIA_INVALIDA.getMensagem());
 		
 		if (categoria.equalsIgnoreCase("Em Andamento")) {
 			return EmprestimoEstado.EM_ANDAMENTO;

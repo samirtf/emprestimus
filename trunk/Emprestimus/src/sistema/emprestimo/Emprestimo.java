@@ -30,8 +30,7 @@ public class Emprestimo implements EmprestimoIF{
 		setEmprestador(emprestador);
 		setBeneficiado(beneficiado);
 		setItem(item);
-		Validador.assertNaoNulo(tipo, Mensagem.EMPRESTIMO_TIPO_INVALIDO.getMensagem());
-		Validador.assertStringNaoVazia(tipo.trim(), Mensagem.EMPRESTIMO_TIPO_INVALIDO.getMensagem());
+		Validador.assertStringNaoVazia(tipo, Mensagem.EMPRESTIMO_TIPO_INVALIDO.getMensagem(), Mensagem.EMPRESTIMO_TIPO_INVALIDO.getMensagem());
 		
 		if(tipo.trim().equalsIgnoreCase("emprestador")){
 			setTipoEmprestador();
@@ -47,8 +46,7 @@ public class Emprestimo implements EmprestimoIF{
 	@Override
 	public void setId(String idEmprestimo) throws Exception{
 		
-		Validador.assertNaoNulo(idEmprestimo, Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
-		Validador.assertStringNaoVazia(idEmprestimo.trim(), Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
+		Validador.assertStringNaoVazia(idEmprestimo, Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem(), Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
 		try{
 		    Long id = Long.valueOf(idEmprestimo.trim());
 		}catch(Exception e){
