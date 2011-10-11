@@ -27,8 +27,7 @@ private final String nome;
 	 * 		Caso a string, passada como parametro, nao represente nenhum dos enums, lanca excecao. 
 	 */
 	public static MensagemTipo getCategoria(String categoria) throws Exception {
-		assertNaoNulo(categoria, Mensagem.CATEGORIA_INVALIDA.getMensagem());
-		assertStringNaoVazia(categoria, Mensagem.CATEGORIA_INVALIDA.getMensagem());
+		assertStringNaoVazia(categoria, Mensagem.CATEGORIA_INVALIDA.getMensagem(), Mensagem.CATEGORIA_INVALIDA.getMensagem());
 		
 		categoria.toUpperCase();
 		if (categoria.equals("offtopic")) {

@@ -60,8 +60,7 @@ public class Chat implements ChatIF {
 	
 	@Override
 	public void adicionaMensagem(String mensagem) throws ArgumentoInvalidoException {
-		assertNaoNulo(mensagem, Mensagem.MENSAGEM_INVALIDA.getMensagem());
-		assertStringNaoVazia(mensagem, Mensagem.MENSAGEM_INVALIDA.getMensagem());
+		assertStringNaoVazia(mensagem, Mensagem.MENSAGEM_INVALIDA.getMensagem(), Mensagem.MENSAGEM_INVALIDA.getMensagem());
 		MensagemChat mensagemChat = new MensagemChat(mensagem); 
 		this.conversa.add( mensagemChat );
 		this.dataUltimaAtualizacao = mensagemChat.getData(); 
@@ -69,8 +68,7 @@ public class Chat implements ChatIF {
 
 	@Override
 	public void setAssunto(String assunto) throws ArgumentoInvalidoException {
-		assertNaoNulo(assunto, Mensagem.ASSUNTO_INVALIDO.getMensagem());
-		assertStringNaoVazia(assunto, Mensagem.ASSUNTO_INVALIDO.getMensagem());
+		assertStringNaoVazia(assunto, Mensagem.ASSUNTO_INVALIDO.getMensagem(), Mensagem.ASSUNTO_INVALIDO.getMensagem());
 		this.assunto = assunto;
 	}
 
@@ -92,9 +90,8 @@ public class Chat implements ChatIF {
 	}
 	
 	@Override
-	public void setIdRequisicaEmprestimo(String idRequisicaoEmprestimo) throws ArgumentoInvalidoException {
-		assertNaoNulo(idRequisicaoEmprestimo, Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
-		assertStringNaoVazia(idRequisicaoEmprestimo, Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
+	public void setIdRequisicaEmprestimo(String idRequisicaoEmprestimo) throws ArgumentoInvalidoException {		
+		assertStringNaoVazia(idRequisicaoEmprestimo, Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem(), Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
 		this.idRequisicaoEmprestimo = idRequisicaoEmprestimo;
 	}
 
