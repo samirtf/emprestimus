@@ -42,10 +42,11 @@ public class Validador {
 	 * @throws ArgumentoInvalidoException
 	 * 		Exceção gerada em caso da String for inválida segundo os requisitos acima.
 	 */
-	public static void assertStringNaoVazia(String str, String mensagem)
+	public static void assertStringNaoVazia(String str, String mensagem1, String mensagem2)
 			throws ArgumentoInvalidoException {
+		assertNaoNulo(str, mensagem1);
 		if (str.trim().equals(""))
-			throw new ArgumentoInvalidoException(mensagem);
+			throw new ArgumentoInvalidoException(mensagem2);
 	}
 
 	/**

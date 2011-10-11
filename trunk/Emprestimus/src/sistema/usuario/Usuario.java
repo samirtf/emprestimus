@@ -107,15 +107,13 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public void setLogin(String login) throws Exception {
-		assertNaoNulo(login, Mensagem.LOGIN_INVALIDO.getMensagem());
-		assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem());
+		assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(), Mensagem.LOGIN_INVALIDO.getMensagem());
 		this.login = login.trim();
 	}
 
 	@Override
 	public void setNome(String nome) throws Exception {
-		assertNaoNulo(nome, Mensagem.NOME_INVALIDO.getMensagem());
-		assertStringNaoVazia(nome, Mensagem.NOME_INVALIDO.getMensagem());
+		assertStringNaoVazia(nome, Mensagem.NOME_INVALIDO.getMensagem(), Mensagem.NOME_INVALIDO.getMensagem());
 		this.nome = nome.trim();
 	}
 
@@ -302,8 +300,7 @@ public class Usuario implements UsuarioIF {
 	}
 	
 	public boolean ehAmigo( String login ) throws ArgumentoInvalidoException{
-		Validador.assertNaoNulo(login, Mensagem.LOGIN_INVALIDO.getMensagem());
-		Validador.assertStringNaoVazia(login.trim(), Mensagem.LOGIN_INVALIDO.getMensagem());
+		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(), Mensagem.LOGIN_INVALIDO.getMensagem());
 		Iterator<UsuarioIF> iterador = amigos.iterator();
 		UsuarioIF u = null;
 		while(iterador.hasNext()){
@@ -315,8 +312,7 @@ public class Usuario implements UsuarioIF {
 	}
 	
 	public boolean amizadeDeFoiRequisitada( String login ) throws ArgumentoInvalidoException{
-		Validador.assertNaoNulo(login, Mensagem.LOGIN_INVALIDO.getMensagem());
-		Validador.assertStringNaoVazia(login.trim(), Mensagem.LOGIN_INVALIDO.getMensagem());
+		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(), Mensagem.LOGIN_INVALIDO.getMensagem());
 		Iterator<UsuarioIF> iterador = getQueroSerAmigoDe().iterator();
 		UsuarioIF u = null;
 		while(iterador.hasNext()){
@@ -394,8 +390,7 @@ public class Usuario implements UsuarioIF {
 	}
 	
 	public boolean oItemMePertence( String idItem ) throws ArgumentoInvalidoException{
-		Validador.assertNaoNulo(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem());
-		Validador.assertStringNaoVazia(idItem.trim(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		Validador.assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
 		Validador.asserteTrue(ItemRepositorio.existeItem(idItem.trim()), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
 		Iterator<ItemIF> iterador = getItens().iterator();
 		while(iterador.hasNext()){
@@ -408,8 +403,7 @@ public class Usuario implements UsuarioIF {
 	}
 	
 	public UsuarioIF ehItemDoMeuAmigo( String idItem ) throws Exception{
-		Validador.assertNaoNulo(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem());
-		Validador.assertStringNaoVazia(idItem.trim(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		Validador.assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
 		Validador.asserteTrue(ItemRepositorio.existeItem(idItem.trim()), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
 		Iterator<UsuarioIF> iterador = amigos.iterator();
 		while(iterador.hasNext()){
@@ -428,8 +422,7 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public synchronized String requisitarEmprestimo(String idItem, int duracao) throws Exception{
-		Validador.assertNaoNulo(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem());
-		Validador.assertStringNaoVazia(idItem.trim(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		Validador.assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
 		Validador.asserteTrue(ItemRepositorio.existeItem(idItem.trim()), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
 		Validador.asserteTrue(duracao > 0, Mensagem.EMPRESTIMO_DURACAO_INVALIDA.getMensagem());
 		UsuarioIF amigo = ehItemDoMeuAmigo(idItem);
@@ -462,8 +455,7 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public String getEmprestimos(String tipo) throws Exception {
-		Validador.assertNaoNulo(tipo, Mensagem.EMPRESTIMO_TIPO_INVALIDO.getMensagem());
-		Validador.assertStringNaoVazia(tipo.trim(), Mensagem.EMPRESTIMO_TIPO_INVALIDO.getMensagem());
+		Validador.assertStringNaoVazia(tipo, Mensagem.EMPRESTIMO_TIPO_INVALIDO.getMensagem(), Mensagem.EMPRESTIMO_TIPO_INVALIDO.getMensagem());
 		//"mark-steve:The Social Network:Andamento; steve-mark:Guia do mochileiro das galáxias:Andamento"
 		StringBuffer str = new StringBuffer();
 		List<String> listaSaida = new ArrayList<String>();
@@ -518,9 +510,7 @@ public class Usuario implements UsuarioIF {
 	@Override
 	public String aprovarEmprestimo( String idRequisicaoEmprestimo )
 			throws Exception {
-		
-		assertNaoNulo(idRequisicaoEmprestimo, Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
-		assertStringNaoVazia(idRequisicaoEmprestimo, Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
+		assertStringNaoVazia(idRequisicaoEmprestimo, Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem(), Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
 		asserteTrue(EmprestimoRepositorio.existeEmprestimo(idRequisicaoEmprestimo.trim()), Mensagem.ID_REQUISICAO_EMP_INEXISTENTE.getMensagem());
 		
 		EmprestimoIF emp = EmprestimoRepositorio.recuperarEmprestimo(idRequisicaoEmprestimo.trim());
@@ -560,8 +550,7 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public UsuarioIF possuoAmigoComEsteLogin(String login) throws Exception {
-		assertNaoNulo(login, Mensagem.LOGIN_INVALIDO.getMensagem());
-		assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem());
+		assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(), Mensagem.LOGIN_INVALIDO.getMensagem());
 		
 		Iterator<UsuarioIF> iterador = amigos.iterator();
 		while(iterador.hasNext()){
@@ -585,16 +574,11 @@ public class Usuario implements UsuarioIF {
 	public synchronized String enviarMensagemOffTopic( String destinatario, String assunto,
 			String mensagem) throws Exception {
 		
-		assertNaoNulo(destinatario, Mensagem.DESTINATARIO_INVALIDO.getMensagem());
-		assertStringNaoVazia(destinatario, Mensagem.DESTINATARIO_INVALIDO.getMensagem());
+		assertStringNaoVazia(destinatario, Mensagem.DESTINATARIO_INVALIDO.getMensagem(), Mensagem.DESTINATARIO_INVALIDO.getMensagem());
 		UsuarioIF amigo = this.possuoAmigoComEsteLogin(destinatario);
 		asserteTrue( amigo != null, Mensagem.DESTINATARIO_INEXISTENTE.getMensagem());
-		
-		assertNaoNulo(assunto, Mensagem.ASSUNTO_INVALIDO.getMensagem());
-		assertStringNaoVazia(assunto, Mensagem.ASSUNTO_INVALIDO.getMensagem());
-		
-		assertNaoNulo(mensagem, Mensagem.MENSAGEM_INVALIDA.getMensagem());
-		assertStringNaoVazia(mensagem, Mensagem.MENSAGEM_INVALIDA.getMensagem());
+		assertStringNaoVazia(assunto, Mensagem.ASSUNTO_INVALIDO.getMensagem(), Mensagem.ASSUNTO_INVALIDO.getMensagem());
+		assertStringNaoVazia(mensagem, Mensagem.MENSAGEM_INVALIDA.getMensagem(), Mensagem.MENSAGEM_INVALIDA.getMensagem());
 		
 		ChatIF conversa = ChatRepositorio.existeConversaEntreAsPessoasSobreMesmoAssuntoETipo(this.login, 
 				destinatario, assunto, true);
@@ -619,19 +603,12 @@ public class Usuario implements UsuarioIF {
 	public synchronized String enviarMensagemEmprestimo(String destinatario, String assunto,
 			String mensagem, String idRequisicaoEmprestimo) throws Exception {
 
-		assertNaoNulo(destinatario, Mensagem.DESTINATARIO_INVALIDO.getMensagem());
-		assertStringNaoVazia(destinatario, Mensagem.DESTINATARIO_INVALIDO.getMensagem());
+		assertStringNaoVazia(destinatario, Mensagem.DESTINATARIO_INVALIDO.getMensagem(), Mensagem.DESTINATARIO_INVALIDO.getMensagem());
 		UsuarioIF amigo = this.possuoAmigoComEsteLogin(destinatario);
 		asserteTrue( amigo != null, Mensagem.DESTINATARIO_INEXISTENTE.getMensagem());
-		
-		assertNaoNulo(assunto, Mensagem.ASSUNTO_INVALIDO.getMensagem());
-		assertStringNaoVazia(assunto, Mensagem.ASSUNTO_INVALIDO.getMensagem());
-		
-		assertNaoNulo(mensagem, Mensagem.MENSAGEM_INVALIDA.getMensagem());
-		assertStringNaoVazia(mensagem, Mensagem.MENSAGEM_INVALIDA.getMensagem());
-		
-		assertNaoNulo(idRequisicaoEmprestimo, Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
-		assertStringNaoVazia(idRequisicaoEmprestimo, Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
+		assertStringNaoVazia(assunto, Mensagem.ASSUNTO_INVALIDO.getMensagem(), Mensagem.ASSUNTO_INVALIDO.getMensagem());
+		assertStringNaoVazia(mensagem, Mensagem.MENSAGEM_INVALIDA.getMensagem(), Mensagem.MENSAGEM_INVALIDA.getMensagem());
+		assertStringNaoVazia(idRequisicaoEmprestimo, Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem(), Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
 		asserteTrue(EmprestimoRepositorio.existeEmprestimo(idRequisicaoEmprestimo.trim()), 
 				Mensagem.ID_REQUISICAO_EMP_INEXISTENTE.getMensagem());
 		
@@ -659,8 +636,8 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public String lerTopicos(String tipo) throws Exception {
-		assertNaoNulo(tipo, Mensagem.TIPO_INVALIDO.getMensagem());
-		assertStringNaoVazia(tipo, Mensagem.TIPO_INVALIDO.getMensagem());
+		assertStringNaoVazia(tipo, Mensagem.TIPO_INVALIDO.getMensagem(), Mensagem.TIPO_INVALIDO.getMensagem());
+		
 		List<ChatIF> listaTopicos = new ArrayList<ChatIF>();
 		StringBuffer saida = new StringBuffer();
 		if(tipo.trim().equalsIgnoreCase("negociacao") || tipo.trim().equalsIgnoreCase("todos")){
@@ -862,9 +839,9 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public void desfazerAmizade(String amigo) throws Exception {
-		assertNaoNulo(amigo, Mensagem.LOGIN_INVALIDO.getMensagem());
-		assertStringNaoVazia(amigo, Mensagem.LOGIN_INVALIDO.getMensagem());
+		assertStringNaoVazia(amigo, Mensagem.LOGIN_INVALIDO.getMensagem(), Mensagem.LOGIN_INVALIDO.getMensagem());
 		asserteTrue(Autenticacao.existeUsuario(amigo), Mensagem.USUARIO_INEXISTENTE.getMensagem());
+		
 		if(!ehAmigo(amigo)){
 			throw new Exception(Mensagem.AMIZADE_INEXISTENTE.getMensagem());
 		}
@@ -930,8 +907,7 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public boolean esteItemMePertence( String idItem ) throws Exception {
-		assertNaoNulo(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem());
-		assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
 		asserteTrue(ItemRepositorio.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
 		
 		Iterator<ItemIF> iteradorItens = this.itens.iterator();
@@ -944,8 +920,7 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public synchronized boolean requisiteiEsteItem(String idItem) throws Exception {
-		assertNaoNulo(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem());
-		assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
 		asserteTrue(ItemRepositorio.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
 		
 		Iterator<EmprestimoIF> iteradorEmprestimos = this.emprestimosRequeridosPorMimEmEspera.iterator();
