@@ -23,7 +23,11 @@ public class TesteCompleto {
 		TestUS12.main(null);
 		TestUS13.main(null);
 		TestUS14.main(null);
-
+		TestUS15.main(null);
+		TestUS16.main(null);
+		TestUS17.main(null);
+		TestUS18_19.main(null);
+		TestUS20.main(null);
 	}
 
 }

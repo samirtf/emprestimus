@@ -1,10 +1,10 @@
 package sistema.item;
 
-import java.util.Date;
 import java.util.Comparator;
+import java.util.Date;
 
-public class DataCriacaoItemComparator implements Comparator<ItemIF>{
-
+public class NomeItemComparador implements Comparator<ItemIF>{
+	
 	@Override
 	public int compare(ItemIF item1, ItemIF item2) {
 		
