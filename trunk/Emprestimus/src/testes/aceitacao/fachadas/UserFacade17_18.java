@@ -1,5 +1,5 @@
 package testes.aceitacao.fachadas;
 
-public class UserFacade17 {
+public class UserFacade17_18 {
 
 }
