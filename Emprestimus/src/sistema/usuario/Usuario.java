@@ -19,10 +19,10 @@ import sistema.emprestimo.Emprestimo;
 import sistema.emprestimo.EmprestimoEstado;
 import sistema.emprestimo.EmprestimoIF;
 import sistema.excecoes.ArgumentoInvalidoException;
-import sistema.item.DataCriacaoItemComparator;
+import sistema.item.DataCriacaoItemComparador;
 import sistema.item.Item;
 import sistema.item.ItemIF;
-import sistema.item.NomeItemComparator;
+import sistema.item.NomeItemComparador;
 import sistema.mensagem.Chat;
 import sistema.mensagem.ChatIF;
 import sistema.mensagem.MensagemTipo;
@@ -706,9 +706,9 @@ public class Usuario implements UsuarioIF {
 			}
 			
 			if(tipoOrdenacao.trim().equalsIgnoreCase("crescente")){
-				Collections.sort(saidaDataCriacao, new DataCriacaoItemComparator());
+				Collections.sort(saidaDataCriacao, new DataCriacaoItemComparador());
 			}else if(tipoOrdenacao.trim().equalsIgnoreCase("decrescente")){
-				Collections.sort(saidaDataCriacao, new DataCriacaoItemComparator());
+				Collections.sort(saidaDataCriacao, new DataCriacaoItemComparador());
 				Collections.reverse(saidaDataCriacao);
 			}
 			Iterator<ItemIF> listaItensRefinadosIterator = saidaDataCriacao.iterator();
@@ -759,9 +759,9 @@ public class Usuario implements UsuarioIF {
 						mapaItensPorReputacao.put(reputacaoAtual, listaItens);
 					}
 					if(tipoOrdenacao.trim().equalsIgnoreCase("crescente")){
-						Collections.sort(mapaItensPorReputacao.get(reputacaoAtual), new NomeItemComparator());
+						Collections.sort(mapaItensPorReputacao.get(reputacaoAtual), new NomeItemComparador());
 					}else if(tipoOrdenacao.trim().equalsIgnoreCase("decrescente")){
-						Collections.sort(mapaItensPorReputacao.get(reputacaoAtual), new NomeItemComparator());
+						Collections.sort(mapaItensPorReputacao.get(reputacaoAtual), new NomeItemComparador());
 						Collections.reverse(mapaItensPorReputacao.get(reputacaoAtual));
 					}	
 				}
