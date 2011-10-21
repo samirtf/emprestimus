@@ -1,13 +1,12 @@
 package sistema.usuario;
 
-import java.util.Calendar;
-import java.util.Comparator;
 import java.util.List;
 
 import sistema.emprestimo.EmprestimoIF;
 import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.item.ItemIF;
 import sistema.mensagem.ChatIF;
+import sistema.notificacao.Notificacao;
 
 /**
  * Representa um usuario do sistema. Esta interface assegura que os metodos
@@ -479,10 +478,8 @@ public interface UsuarioIF extends Comparable<UsuarioIF> {
 
 	public void zerarHistorico();
 	
-	public List<String> getHistorico();
-	
 	public String getHistoricoToString();
 
-	public void addHistorico(String atividade);
+	public void addNotificacao(Notificacao notificacao) throws Exception;
 	
 }

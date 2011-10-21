@@ -228,7 +228,8 @@ public enum Mensagem {
 	AMIZADE_INEXISTENTE("Amizade inexistente"),
     SEM_PERMISSAO_APAGAR_ITEM("O usuário não tem permissão para apagar este item"),
     
-    HISTORICO_VAZIO("Não há atividades");
+    HISTORICO_VAZIO("Não há atividades"),
+    NOTIFICACAO_INEXISTENTE("Notificacao inexixtente");
 	
 	private final String mensagem;
 

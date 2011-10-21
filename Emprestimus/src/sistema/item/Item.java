@@ -191,7 +191,9 @@ public class Item implements ItemIF {
 	public void adicionaInteressado(UsuarioIF interessado) throws Exception {
 		asserteTrue(!interessados.contains(interessado), "O usuario já está entre os interessados."); //FIXME utilizar as mensagens constantes do enum Mensagem
 		interessados.add(interessado);
-		interessado.addHistorico(interessado.getNome() + " tem interesse pelo item " + this.getNome() + " de " + this.getDono());
+		
+		//FIXME nao mexam aqui que eu vou ajeitar... [Nathaniel]
+//		interessado.addNotificacao(interessado.getNome() + " tem interesse pelo item " + this.getNome() + " de " + this.getDono());
 	}
 
 	@Override
