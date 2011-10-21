@@ -1,22 +1,21 @@
 package sistema.usuario;
 
+import static sistema.utilitarios.Validador.assertStringNaoVazia;
+import static sistema.utilitarios.Validador.asserteTrue;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
-
-import javax.activation.MailcapCommandMap;
+import java.util.Stack;
 
 import sistema.autenticacao.Autenticacao;
 import sistema.emprestimo.Emprestimo;
-import sistema.emprestimo.EmprestimoEstado;
 import sistema.emprestimo.EmprestimoIF;
 import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.item.DataCriacaoItemComparador;
@@ -25,13 +24,12 @@ import sistema.item.ItemIF;
 import sistema.item.NomeItemComparador;
 import sistema.mensagem.Chat;
 import sistema.mensagem.ChatIF;
-import sistema.mensagem.MensagemTipo;
+import sistema.notificacao.Notificacao;
+import sistema.persistencia.ChatRepositorio;
 import sistema.persistencia.EmprestimoRepositorio;
 import sistema.persistencia.ItemRepositorio;
-import sistema.persistencia.ChatRepositorio;
 import sistema.utilitarios.Mensagem;
 import sistema.utilitarios.Validador;
-import static sistema.utilitarios.Validador.*;
 
 /**
  * Esta classe representa um usuario padrao do sistema.
@@ -68,7 +66,9 @@ public class Usuario implements UsuarioIF {
 	private List<ChatIF> conversasOfftopic; //lista de conversas offtopic
 	private List<ChatIF> conversasNegociacao; //lista de conversas negociacao
 
-	protected List<String> historico;
+//	protected List<String> historico;
+	
+	private Stack<Notificacao> historico;
 	
 	/**
 	 * Construtor padrao eh privado e nao oferece implementacao.
@@ -102,7 +102,7 @@ public class Usuario implements UsuarioIF {
 		emprestimosRequeridosPorMimEmEspera = new ArrayList<EmprestimoIF>();
 		conversasOfftopic = new LinkedList<ChatIF>();
 		conversasNegociacao = new LinkedList<ChatIF>();
-		historico = new LinkedList<String>();
+		historico = new Stack<Notificacao>();
 	}
 
 	@Override
@@ -324,7 +324,6 @@ public class Usuario implements UsuarioIF {
 	}
 	
 	public void requisitarAmizade( String login ) throws Exception{
-		Iterator<UsuarioIF> iterador = getQueroSerAmigoDe().iterator();
 		if(ehAmigo(login)){
 			throw new Exception(Mensagem.USUARIO_JAH_SAO_AMIGOS.getMensagem());
 		}else if(amizadeDeFoiRequisitada(login)){
@@ -539,11 +538,10 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public void addHistorico(String atividade) {
-		historico.add(atividade);
+		//TODO
 	}
 
 	public void emprestimoAceitoPorAmigo( EmprestimoIF emp ) throws Exception {
-//		if(!emp.estahAceito()) throw new Exception("Meu Amigo Recusou Emprestimo - ERRO");
 		this.emprestimosRequeridosPorMimEmEspera.remove(emp);
 		emprestimos.add(emp);
 	}
@@ -595,9 +593,6 @@ public class Usuario implements UsuarioIF {
 		
 		return conversa.getIdMensagem();
 	}
-
-	
-	//TODO Criar classe que envia/gerencia as mensagens. Joeffison
 
 	@Override
 	public synchronized String enviarMensagemEmprestimo(String destinatario, String assunto,
@@ -970,23 +965,26 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public void zerarHistorico() {
-		historico = new LinkedList<String>();
+		historico.removeAllElements();
 	}
 	
 	@Override
 	public List<String> getHistorico() {
-		return this.historico;
+		//TODO
+		return null;
 	}
 	
 	@Override
 	public String getHistoricoToString() {
-		StringBuffer result = new StringBuffer();
-		for (String atividade : this.historico) {
-			result.append(atividade + "; ");
+		StringBuffer sb = new StringBuffer();
+		Iterator<Notificacao> iterador = historico.iterator();
+		while (iterador.hasNext()) {
+			sb.append(iterador.next().getMensagem(this));
+			sb.append("; ");
 		}
-		if(result.toString().trim().equals("")) 
+		if(sb.toString().equals("")) 
 			return Mensagem.HISTORICO_VAZIO.getMensagem();
-		return result.toString().trim().substring(0, result.toString().length()-2);
+		return sb.toString().substring(0, sb.length()-2);
 	}
 	
 }

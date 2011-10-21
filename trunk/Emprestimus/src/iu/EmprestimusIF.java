@@ -441,7 +441,7 @@ public interface EmprestimusIF {
   	 * (da atividade mais recente à mais antiga).
   	 * As atividades consideradas do método acima.
   	 * Note que não existe a duplicação da atividade “adição de amigo concluída”,
-  	 * portanto mostra apenas a atividade do usuário que requisitou o histórico de atividades em conjunto.
+  	 * portanto mostra apenas a atividade do usuario que requisitou o histórico de atividades em conjunto.
   	 * 
   	 * @param idSessao
   	 * @return
