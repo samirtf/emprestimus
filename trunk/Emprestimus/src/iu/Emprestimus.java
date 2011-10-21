@@ -725,6 +725,7 @@ public class Emprestimus implements EmprestimusIF {
 	public String publicarPedido(String idSessao, String nomeItem,
 			String descricaoItem) throws Exception {
 		// TODO Auto-generated method stub
+		//FIXME Criar uma nova notificacao em NotificacaoRepositorio
 		return null;
 	}
 
@@ -732,6 +733,7 @@ public class Emprestimus implements EmprestimusIF {
 	public void oferecerItem(String idSessao, String idPublicacaoPedido,
 			String idItem) throws Exception {
 		// TODO Auto-generated method stub
+		//FIXME Criar uma nova notificacao em NotificacaoRepositorio
 		
 	}
 

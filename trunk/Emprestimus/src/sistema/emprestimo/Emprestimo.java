@@ -278,7 +278,8 @@ public class Emprestimo implements EmprestimoIF{
 	}
 
 	private void addHistoricoTerminoEmprestimo() {
-		this.getEmprestador().addHistorico(getEmprestador().getNome() + " confirmou o término no empréstimo do item " + getItem().getNome());
+		//FIXME nao mexam aqui que eu vou ajeitar... [Nathaniel]
+//		this.getEmprestador().addNotificacao(getEmprestador().getNome() + " confirmou o término no empréstimo do item " + getItem().getNome());
 	}
 
 	@Override

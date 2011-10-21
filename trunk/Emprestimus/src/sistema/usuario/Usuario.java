@@ -25,9 +25,12 @@ import sistema.item.NomeItemComparador;
 import sistema.mensagem.Chat;
 import sistema.mensagem.ChatIF;
 import sistema.notificacao.Notificacao;
+import sistema.notificacao.NotificacaoNovoAmigo;
+import sistema.notificacao.NotificacaoNovoItem;
 import sistema.persistencia.ChatRepositorio;
 import sistema.persistencia.EmprestimoRepositorio;
 import sistema.persistencia.ItemRepositorio;
+import sistema.persistencia.NotificacaoRepositorio;
 import sistema.utilitarios.Mensagem;
 import sistema.utilitarios.Validador;
 
@@ -149,13 +152,13 @@ public class Usuario implements UsuarioIF {
 		ItemRepositorio.cadastrarItem(item);
 		itens.add(item);// o item eh modificado pelo repositorio possuindo agora
 						// um id valido
-		addHistoricoCadastrarItem(nome);
+		addHistoricoCadastrarItem(item);
 		return String.valueOf((Long.valueOf(ItemRepositorio.geraIdProxItem()) - 1));
 
 	}
 
-	private void addHistoricoCadastrarItem(String nomeItem) {
-		addHistorico(this.nome + " cadastrou " + nomeItem);
+	private void addHistoricoCadastrarItem(ItemIF item) throws Exception {
+		addNotificacao(new NotificacaoNovoItem(this, item));
 	}
 
 	@Override
@@ -274,10 +277,10 @@ public class Usuario implements UsuarioIF {
 		
 	}
 	
-	private void addHistoricoAmizadeAprovada(UsuarioIF amigo) {
-		String atividade = this.getNome() + " e " + amigo.getNome() + " são amigos agora";
-		this.addHistorico(atividade);
-		amigo.addHistorico(atividade);
+	private void addHistoricoAmizadeAprovada(UsuarioIF amigo) throws Exception {
+		Notificacao notif = new NotificacaoNovoAmigo(this, amigo);
+		this.addNotificacao(notif);
+		amigo.addNotificacao(notif);
 	}
 
 	public synchronized void aprovouAmizade( UsuarioIF usuario ){
@@ -531,14 +534,17 @@ public class Usuario implements UsuarioIF {
 	}
 	
 	private void addHistoricoEmprestimoEmAndamento(EmprestimoIF emp) {
-		String atividade = emp.getEmprestador().getNome() + " emprestou " + emp.getItem() + " a " + emp.getBeneficiado().getNome();
-		emp.getEmprestador().addHistorico(atividade); // this
-		emp.getBeneficiado().addHistorico(atividade);
+		
+		//TODO não mexam, vou lembrar de consertar isso... [Nathaniel]
+		
+//		String atividade = emp.getEmprestador().getNome() + " emprestou " + emp.getItem() + " a " + emp.getBeneficiado().getNome();
+//		emp.getEmprestador().addNotificacao(atividade); // this
+//		emp.getBeneficiado().addNotificacao(atividade);
 	}
 
-	@Override
-	public void addHistorico(String atividade) {
-		//TODO
+	public void addNotificacao(Notificacao notificacao) throws Exception {
+		NotificacaoRepositorio.getInstance().novaNotificacao(notificacao);
+		historico.add(notificacao);
 	}
 
 	public void emprestimoAceitoPorAmigo( EmprestimoIF emp ) throws Exception {
@@ -953,9 +959,6 @@ public class Usuario implements UsuarioIF {
 				iteradorMeusItens.remove();
 			}
 		}
-
-
-		
 	}
 
 	@Override
@@ -966,12 +969,6 @@ public class Usuario implements UsuarioIF {
 	@Override
 	public void zerarHistorico() {
 		historico.removeAllElements();
-	}
-	
-	@Override
-	public List<String> getHistorico() {
-		//TODO
-		return null;
 	}
 	
 	@Override
