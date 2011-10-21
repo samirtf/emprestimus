@@ -10,7 +10,6 @@ import sistema.usuario.UsuarioIF;
  * 
  * @author Joeffison Silverio de Andrade, 21011853, joeffisonsa@gmail.com
  * @version 1.5
- * @since 1.0
  */
 public interface EmprestimusIF {
 

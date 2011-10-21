@@ -10,9 +10,8 @@ import sistema.utilitarios.Mensagem;
  * Este enum serve para caracterizar itens segundo a sua categoria.
  * 
  * @author Joeffison Silverio de Andrade, 21011853
- * 		   José Ulisses de Brito Lira Filho, 20911806
+ * @author José Ulisses de Brito Lira Filho, 20911806
  * @version 1.0
- * @since 1.0
  */
 public enum ItemCategoria {
 	LIVRO("Livro"), FILME("Filme"), JOGO("Jogo");

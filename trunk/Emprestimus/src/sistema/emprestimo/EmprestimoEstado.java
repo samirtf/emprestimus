@@ -11,7 +11,6 @@ import sistema.utilitarios.Mensagem;
  * 
  * @author Emprestimus grupo 6
  * @version 1.0
- * @since 1.0
  */
 public enum EmprestimoEstado {
 	EM_ANDAMENTO("Em Andamento"), DEVOLVIDO("Devolvido"), DEVOLUCAO_REQUISITADA("Devolucao Requisitada"),

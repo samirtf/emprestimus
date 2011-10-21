@@ -1,9 +1,7 @@
 package iu;
 
 import java.util.Scanner;
-
 import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
-
 import sistema.utilitarios.Mensagem;
 
 public class InterfaceTexto {
@@ -22,17 +20,18 @@ public class InterfaceTexto {
 	}
 	
 	private static void menuDeslogado() {
+		//Scanner já é implementado na funcao interior a pegarOpcao.
 		Scanner sc = new Scanner(System.in);
 		int opcao;
 
 		System.out.println(Mensagem.BOAS_VINDAS.getMensagem());
-		
 		System.out.println("\n\n" + Mensagem.MENU.getMensagem());
 		System.out.println(Mensagem.PEDIR_OPCAO.getMensagem());
 		
 		opcao = pegarOpcao(1, 4);
 
 		// Reage segundo a opcao dada na entrada.
+		//TODO: retirar numero magico aqui.
 		switch (opcao) {
 		case 1:
 			logar();
@@ -68,17 +67,21 @@ public class InterfaceTexto {
 
 	private static void logar() {
 		System.out.println(Mensagem.PEDIR_LOGIN.getMensagem());
+		
 		try {
 			login_logado = pegaStringDaEntrada();
 			id_sessao = emprestimus.abrirSessao(login_logado);
 			menuLogado();
+			
 		} catch (Exception e) {
 			id_sessao = null;
 			login_logado = null;
 			System.out.println(e.getMessage());
+			
 			if(!tentarNovamente()){
 				menuDeslogado();
 			}
+			
 			logar();
 		}
 	}
@@ -86,7 +89,9 @@ public class InterfaceTexto {
 	private static void menuLogado() {
 		int opcao;
 		System.out.println(Mensagem.MENU_LOGADO.getMensagem());
+		
 		opcao = pegarOpcao(1, 29);
+		//TODO: retirar numero magico aqui.
 		switch (opcao) {
 		case 1:
 			getAtributo();
@@ -212,6 +217,8 @@ public class InterfaceTexto {
 		menuLogado();
 	}
 
+	//TODO: daqui pra baixo: separar os algoritmos em blocos. (organização de codigo)
+	
 	private static void verRanking() {
 		System.out.println(Mensagem.PEDIR_CATEGORIA.getMensagem());
 		try {
@@ -629,6 +636,7 @@ public class InterfaceTexto {
 	private static boolean tentarNovamente() {
 		try {
 			System.out.println(Mensagem.PERGUNTAR_TENTAR_NOVAMENTE.getMensagem());
+			//TODO: retirar numero magico aqui.
 			return (Integer.parseInt(pegaStringDaEntrada()) == 1);
 		} catch (Exception e) {
 			System.out.print("Opção Inválida. \n" +

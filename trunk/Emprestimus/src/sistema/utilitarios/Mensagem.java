@@ -3,9 +3,9 @@ package sistema.utilitarios;
 /**
  * Enum que encapsula as mensagens usadas no sistema
  * 
- * @author Joeffison Silverio de Andrade, 21011853, joeffisonsa@gmail.com
+ * @author Joeffison Silverio de Andrade, 21011853
+ * @author José Ulisses de Brito Lira Filho, 20911806
  * @version 1.0
- * @since 1.0
  */
 public enum Mensagem {
 	
