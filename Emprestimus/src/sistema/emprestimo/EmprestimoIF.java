@@ -10,7 +10,6 @@ import sistema.usuario.UsuarioIF;
  * Representa um empréstimo.
  * 
  * @author Joeffison Silverio de Andrade, 21011853, joeffisonsa@gmail.com
- * @since 1.3
  * @version 1.5
  */
 public interface EmprestimoIF extends Comparable<EmprestimoIF> {

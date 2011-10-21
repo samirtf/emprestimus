@@ -9,9 +9,9 @@ import sistema.usuario.UsuarioIF;
  * Esta interface eh utilizada para representar itens que podem ser adicionados
  * pelo usuario de um sistema.
  * 
- * @author Joeffison Silverio de Andrade, 21011853, joeffisonsa@gmail.com
+ * @author Joeffison Silverio de Andrade, 21011853
+ * @author José Ulisses de Brito Lira Filho, 20911806
  * @version 1.2
- * @since 1.0
  */
 public interface ItemIF extends Comparable<ItemIF> {
 
