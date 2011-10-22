@@ -136,12 +136,16 @@ public class Emprestimo implements EmprestimoIF{
 	public String getNomeParaEstado(){
 		if (estado == EmprestimoEstado.EM_ANDAMENTO) {
 			return "EM_ANDAMENTO";
+			
 		} else if (estado == EmprestimoEstado.DEVOLVIDO) {
 			return "DEVOLVIDO";
+			
 		} else if (estado == EmprestimoEstado.DEVOLUCAO_REQUISITADA) {
 			return "DEVOLUCAO_REQUISITADA";
+			
 		} else if (estado == EmprestimoEstado.TERMINAL) {
 			return "TERMINAL";
+			
 		} else {
 			return " => Bug em Emprestimus.getNomeParaEstado()";
 		}
@@ -197,14 +201,19 @@ public class Emprestimo implements EmprestimoIF{
 			setDataAprovacao();
 			setEstadoAndamento();
 			setSituacaoAndamento();
+			
 		}else if(ehEstadoDevolucaoRequisitada()){
 			throw new Exception("Transicao aprovarEmprestimo de Devolucao Requisitada Nao Permitida");
+		
 		}else if(ehEstadoDevolvido()){
 			throw new Exception("Transicao aprovarEmprestimo de Devolvido Nao Permitida");
+		
 		}else if(ehEstadoTermino()){
 			throw new Exception("Transicao aprovarEmprestimo de Terminal Nao Permitida");
+		
 		}else{
 			throw new Exception("Estado não implementado");
+		
 		}
 		this.getItem().setDisponibilidade(false);
 		
@@ -214,17 +223,22 @@ public class Emprestimo implements EmprestimoIF{
 	public void requisitarDevolucaoEmprestimo(boolean noPrazo) throws Exception {
 		if(ehEstadoAndamento()){
 			setEstadoDevolucaoRequisitada();
+			
 			if(noPrazo){
 				setSituacaoCancelado();
 			}else{
 				setSituacaoAndamento();
 			}
+			
 		}else if(ehEstadoDevolucaoRequisitada()){
 			throw new Exception(Mensagem.DEVOLUCAO_JA_REQUISITADA.getMensagem());
+			
 		}else if(ehEstadoDevolvido()){
 			throw new Exception(Mensagem.ITEM_JA_DEVOLVIDO.getMensagem());
+			
 		}else if(ehEstadoTermino()){
 			throw new Exception(Mensagem.ITEM_JA_DEVOLVIDO.getMensagem());
+			
 		}else{
 			throw new Exception("Estado não implementado");
 		}
@@ -236,9 +250,11 @@ public class Emprestimo implements EmprestimoIF{
 		if(ehEstadoAndamento()){
 			setEstadoDevolvido();
 			setSituacaoAndamento();
+			
 		}else if(ehEstadoDevolucaoRequisitada()){
 			if(ehSituacaoAndamento()){
 				setSituacaoAndamento();
+				
 			}else{
 				setSituacaoCancelado();
 			}
@@ -246,8 +262,10 @@ public class Emprestimo implements EmprestimoIF{
 			
 		}else if(ehEstadoDevolvido()){
 			throw new Exception(Mensagem.ITEM_JA_DEVOLVIDO.getMensagem());
+			
 		}else if(ehEstadoTermino()){
 			throw new Exception(Mensagem.ITEM_JA_DEVOLVIDO.getMensagem());
+			
 		}else{
 			throw new Exception("Estado não implementado");
 		}
@@ -258,19 +276,25 @@ public class Emprestimo implements EmprestimoIF{
 	public void confirmarEmprestimo() throws Exception {
 		if(ehEstadoAndamento()){
 			throw new Exception("Item não foi devolvido");
+			
 		}else if(ehEstadoDevolucaoRequisitada()){
 			throw new Exception("Item não foi devolvido");
+			
 		}else if(ehEstadoDevolvido()){
 			if(ehSituacaoAndamento()){
 				setSituacaoCompletado();
+				
 			}else{
 				setSituacaoCancelado();
 			}
+			
 			setEstadoTermino();
 			this.getItem().setDisponibilidade(true);
 			addHistoricoTerminoEmprestimo();
+			
 		}else if(ehEstadoTermino()){
 			throw new Exception(Mensagem.TERMINO_EMPRESTIMO_JA_CONFIRMADO.getMensagem());
+			
 		}else{
 			throw new Exception("Estado não implementado");
 		}
@@ -279,7 +303,7 @@ public class Emprestimo implements EmprestimoIF{
 
 	private void addHistoricoTerminoEmprestimo() {
 		//FIXME nao mexam aqui que eu vou ajeitar... [Nathaniel]
-//		this.getEmprestador().addNotificacao(getEmprestador().getNome() + " confirmou o término no empréstimo do item " + getItem().getNome());
+		//this.getEmprestador().addNotificacao(getEmprestador().getNome() + " confirmou o término no empréstimo do item " + getItem().getNome());
 	}
 
 	@Override
@@ -333,9 +357,10 @@ public class Emprestimo implements EmprestimoIF{
 	public void setDataAprovacao() {
 		try {
 			Thread.sleep(1);
+			
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
 		}
 		this.dataDeAprovacao = new GregorianCalendar();
 		
@@ -345,12 +370,15 @@ public class Emprestimo implements EmprestimoIF{
 	public int compareTo(EmprestimoIF outro) {
 		Long id1 = null;
 		Long id2 = null;
+		
 		try{
 			id1 = Long.valueOf(this.getIdEmprestimo());
 			id2 = Long.valueOf(outro.getIdEmprestimo());
-		}catch(Exception e){
 			
+		}catch(Exception e){
+			//TODO: Adicionar Tratamento de Exception!
 		}
+		
 		return id1.compareTo(id2);
 	}
 

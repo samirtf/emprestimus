@@ -9,6 +9,8 @@ import sistema.utilitarios.Mensagem;
 /**
  * Este enum serve para caracterizar itens segundo a sua categoria.
  * 
+ * @deprecated Classe a ser deletada.
+ * 
  * @author Joeffison Silverio de Andrade, 21011853
  * @author José Ulisses de Brito Lira Filho, 20911806
  * @version 1.0
