@@ -20,8 +20,14 @@ public class InterfaceTexto {
 	}
 	
 	private static void menuDeslogado() {
-		//Scanner já é implementado na funcao interior a pegarOpcao.
+		
+		//FIXME: Scanner já é implementado na funcao interior a pegarOpcao.
 		Scanner sc = new Scanner(System.in);
+		
+		final int logar = 1;
+		final int criaUsuario = 2;
+		final int zerarSistema = 3;
+		final int encerrarSistema = 4;
 		int opcao;
 
 		System.out.println(Mensagem.BOAS_VINDAS.getMensagem());
@@ -29,24 +35,21 @@ public class InterfaceTexto {
 		System.out.println(Mensagem.PEDIR_OPCAO.getMensagem());
 		
 		opcao = pegarOpcao(1, 4);
-
-		// Reage segundo a opcao dada na entrada.
-		//FIXME: Ulisses vai fazer isto!
-		//TODO: retirar numero magico aqui.
+		
 		switch (opcao) {
-		case 1:
+		case logar:
 			logar();
 			break;
 			
-		case 2:
+		case criaUsuario:
 			criarUsuario();
 			break;
 			
-		case 3:
+		case zerarSistema:
 			emprestimus.zerarSistema();
 			break;
 			
-		case 4:
+		case encerrarSistema:
 			System.out.println(Mensagem.ADEUS.getMensagem());
 			encerrarSistema();
 			break;
@@ -503,7 +506,7 @@ public class InterfaceTexto {
 
 	private static void getAtributoItem() {
 		//FIXME: sem implentacao. Como passar idItem?
-		//TODO: talvez imprimir o id dos itens cadastrados.
+		//RESPONSE[1]: talvez imprimir o id dos itens cadastrados.
 		System.out.println(Mensagem.PEDIR_ID_TEM_VERIFICAR.getMensagem());
 		String idItem = pegaStringDaEntrada();
 		System.out.println(Mensagem.PEDIR_ATRIBUTO.getMensagem());
@@ -743,12 +746,11 @@ public class InterfaceTexto {
 	}
 	
 	private static boolean tentarNovamente() {
+		final int UM = 1;
+		
 		try {
 			System.out.println(Mensagem.PERGUNTAR_TENTAR_NOVAMENTE.getMensagem());
-
-			//FIXME: Ulisses vai fazer isto!
-			//TODO: retirar numero magico aqui.
-			return (Integer.parseInt(pegaStringDaEntrada()) == 1);
+			return (Integer.parseInt(pegaStringDaEntrada()) == UM);
 			
 		} catch (Exception e) {
 			System.out.print("Opção Inválida. \n" +
