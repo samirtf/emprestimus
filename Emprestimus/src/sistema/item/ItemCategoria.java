@@ -27,6 +27,7 @@ public enum ItemCategoria {
 	/**
 	 * A partir do nome da categoria, este metodo retorna o enum indicado.
 	 * 
+	 * @deprecated
 	 * @param categoria
 	 * 		Nome da categoria que deve ser retornada.
 	 * @return
@@ -50,10 +51,17 @@ public enum ItemCategoria {
 		
 	}
 
+	/**
+	 * @deprecated
+	 * @return
+	 */
 	public String getNome() {
 		return this.nome;
 	}
 	
+	/**
+	 * @deprecated
+	 */
 	@Override
 	public String toString() {
 		return getNome();
