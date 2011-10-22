@@ -69,13 +69,12 @@ public interface ItemIF extends Comparable<ItemIF> {
 	public String getCategoria();
 
 	/**
+	 * -METODO DELETADO-
 	 * Recupera o tipo da categoria do item.
-	 * 
+	 * @deprecated
 	 * @return O tipo da categoria do item.
 	 */
-	//FIXME: Ulisses vai fazer isto!
-	//TODO: Esta funcao deve retornar o tipo de categoria na forma de String.
-	public ItemCategoria getCategoriaType();
+//	public ItemCategoria getCategoriaType();
 
 	/**
 	 * Recupera a descricao do item.
@@ -116,16 +115,15 @@ public interface ItemIF extends Comparable<ItemIF> {
 	public void setCategoria(String categoria) throws Exception;
 
 	/**
+	 * -METODO DELETADO-
 	 * Altera a categoria do item.
-	 * 
+	 * @deprecated
 	 * @param categoria
 	 *            A categoria do item (ItemCategoria).
 	 * @throws Exception
 	 *             Caso o parametro passado seja nulo, ele lanca excecao.
 	 */
-	//FIXME: Ulisses vai fazer isto!
-	//TODO: Esta funcao deve receber o tipo de categoria na forma de String.
-	public void setCategoria(ItemCategoria categoria) throws Exception;
+//	public void setCategoria(ItemCategoria categoria) throws Exception;
 
 	/**
 	 * Altera a descricao do item.

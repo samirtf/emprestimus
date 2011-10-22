@@ -22,9 +22,7 @@ import sistema.utilitarios.Mensagem;
 public class Item implements ItemIF {
 
 	private String idItem, nome, descricao;
-	//FIXME: Ulisses vai fazer isto!
-	//TODO: Esta variavel deve armazenar o tipo de categoria na forma de String
-	private ItemCategoria categoria;
+	private String categoria;
 	private Date dataCriacao;
 	private boolean estaDisponivel;
 	private List<UsuarioIF> interessados;
@@ -54,27 +52,6 @@ public class Item implements ItemIF {
 		this(nome, descricao, categoria, null);
 	}
 	
-	//FIXME: Ulisses vai fazer isto!
-	//TODO: Esta funcao deve receber o tipo de categoria na forma de String
-	public Item(String nome, String descricao, ItemCategoria categoria, UsuarioIF dono)
-			throws Exception {
-		setNome(nome);
-		setDescricao(descricao);
-		setCategoria(categoria);
-		setDataCriacao();
-		this.estaDisponivel = true;
-		this.interessados = new ArrayList<UsuarioIF>();
-		setDono(dono);
-	}
-	
-	@Deprecated
-	//FIXME: Ulisses vai fazer isto!
-	//TODO: Esta funcao deve receber o tipo de categoria na forma de String
-	public Item(String nome, String descricao, ItemCategoria categoria)
-	throws Exception {
-		this(nome, descricao, categoria, null);
-	}
-	
 	private void setDataCriacao(){
 		try {
 			Thread.sleep(1);
@@ -94,11 +71,9 @@ public class Item implements ItemIF {
 		return this.nome;
 	}
 
-	//FIXME: Ulisses vai fazer isto!
-	//TODO: Esta funcao deve retornar o tipo de categoria na forma de String
 	@Override
 	public String getCategoria() {
-		return this.categoria.getNome();
+		return this.categoria;
 	}
 	
 	public UsuarioIF getDono() {
@@ -107,13 +82,6 @@ public class Item implements ItemIF {
 	
 	public void setDono(UsuarioIF dono) {
 		this.dono = dono;
-	}
-
-	//FIXME: Ulisses vai fazer isto!
-	//TODO: Esta funcao deve retornar o tipo de categoria na forma de String
-	@Override
-	public ItemCategoria getCategoriaType() {
-		return this.categoria;
 	}
 
 	@Override
@@ -134,33 +102,10 @@ public class Item implements ItemIF {
 		this.nome = nome.trim();
 	}
 
-	//FIXME: Ulisses vai fazer isto!
-	//TODO: Esta funcao deve receber o tipo de categoria na forma de String
-	@Override
-	public void setCategoria(ItemCategoria categoria) throws Exception {
-		assertNaoNulo(categoria, Mensagem.CATEGORIA_INVALIDA.getMensagem());
-
-		this.categoria = categoria;
-		// TODO Aprimorar tratamento do tipo de exceção.
-	}
-
-	//FIXME: Ulisses vai fazer isto!
-	//TODO: Esta funcao deve gravar o tipo de categoria na forma de String
 	@Override
 	public void setCategoria(String categoria) throws Exception {
-		assertStringNaoVazia(categoria,
-				Mensagem.CATEGORIA_INVALIDA.getMensagem(), Mensagem.CATEGORIA_INVALIDA.getMensagem());
-
-		if (categoria.trim().equalsIgnoreCase("FILME")) {
-			this.categoria = ItemCategoria.FILME;
-		} else if (categoria.trim().equalsIgnoreCase("JOGO")) {
-			this.categoria = ItemCategoria.JOGO;
-		} else if (categoria.trim().equalsIgnoreCase("LIVRO")) {
-			this.categoria = ItemCategoria.LIVRO;
-		} else {
-			throw new ArgumentoInvalidoException(
-					Mensagem.CATEGORIA_INEXISTENTE.getMensagem());
-		}
+		this.categoria = categoria;
+		//TODO: tratar erros de entrada.
 
 	}
 
