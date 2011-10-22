@@ -22,6 +22,8 @@ import sistema.utilitarios.Mensagem;
 public class Item implements ItemIF {
 
 	private String idItem, nome, descricao;
+	//FIXME: Ulisses vai fazer isto!
+	//TODO: Esta variavel deve armazenar o tipo de categoria na forma de String
 	private ItemCategoria categoria;
 	private Date dataCriacao;
 	private boolean estaDisponivel;
@@ -34,8 +36,6 @@ public class Item implements ItemIF {
 	 */
 	private Item() {
 	}
-	
-	// FIXME Lembrar de não utilizar os métodos deprecated.
 
 	public Item(String nome, String descricao, String categoria, UsuarioIF dono)
 			throws Exception {
@@ -54,7 +54,8 @@ public class Item implements ItemIF {
 		this(nome, descricao, categoria, null);
 	}
 	
-	
+	//FIXME: Ulisses vai fazer isto!
+	//TODO: Esta funcao deve receber o tipo de categoria na forma de String
 	public Item(String nome, String descricao, ItemCategoria categoria, UsuarioIF dono)
 			throws Exception {
 		setNome(nome);
@@ -67,6 +68,8 @@ public class Item implements ItemIF {
 	}
 	
 	@Deprecated
+	//FIXME: Ulisses vai fazer isto!
+	//TODO: Esta funcao deve receber o tipo de categoria na forma de String
 	public Item(String nome, String descricao, ItemCategoria categoria)
 	throws Exception {
 		this(nome, descricao, categoria, null);
@@ -76,7 +79,6 @@ public class Item implements ItemIF {
 		try {
 			Thread.sleep(1);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		this.dataCriacao = new GregorianCalendar().getTime();
@@ -92,6 +94,8 @@ public class Item implements ItemIF {
 		return this.nome;
 	}
 
+	//FIXME: Ulisses vai fazer isto!
+	//TODO: Esta funcao deve retornar o tipo de categoria na forma de String
 	@Override
 	public String getCategoria() {
 		return this.categoria.getNome();
@@ -105,6 +109,8 @@ public class Item implements ItemIF {
 		this.dono = dono;
 	}
 
+	//FIXME: Ulisses vai fazer isto!
+	//TODO: Esta funcao deve retornar o tipo de categoria na forma de String
 	@Override
 	public ItemCategoria getCategoriaType() {
 		return this.categoria;
@@ -128,6 +134,8 @@ public class Item implements ItemIF {
 		this.nome = nome.trim();
 	}
 
+	//FIXME: Ulisses vai fazer isto!
+	//TODO: Esta funcao deve receber o tipo de categoria na forma de String
 	@Override
 	public void setCategoria(ItemCategoria categoria) throws Exception {
 		assertNaoNulo(categoria, Mensagem.CATEGORIA_INVALIDA.getMensagem());
@@ -136,6 +144,8 @@ public class Item implements ItemIF {
 		// TODO Aprimorar tratamento do tipo de exceção.
 	}
 
+	//FIXME: Ulisses vai fazer isto!
+	//TODO: Esta funcao deve gravar o tipo de categoria na forma de String
 	@Override
 	public void setCategoria(String categoria) throws Exception {
 		assertStringNaoVazia(categoria,
@@ -193,7 +203,7 @@ public class Item implements ItemIF {
 		interessados.add(interessado);
 		
 		//FIXME nao mexam aqui que eu vou ajeitar... [Nathaniel]
-//		interessado.addNotificacao(interessado.getNome() + " tem interesse pelo item " + this.getNome() + " de " + this.getDono());
+		//interessado.addNotificacao(interessado.getNome() + " tem interesse pelo item " + this.getNome() + " de " + this.getDono());
 	}
 
 	@Override

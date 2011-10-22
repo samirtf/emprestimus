@@ -73,6 +73,8 @@ public interface ItemIF extends Comparable<ItemIF> {
 	 * 
 	 * @return O tipo da categoria do item.
 	 */
+	//FIXME: Ulisses vai fazer isto!
+	//TODO: Esta funcao deve retornar o tipo de categoria na forma de String.
 	public ItemCategoria getCategoriaType();
 
 	/**
@@ -121,6 +123,8 @@ public interface ItemIF extends Comparable<ItemIF> {
 	 * @throws Exception
 	 *             Caso o parametro passado seja nulo, ele lanca excecao.
 	 */
+	//FIXME: Ulisses vai fazer isto!
+	//TODO: Esta funcao deve receber o tipo de categoria na forma de String.
 	public void setCategoria(ItemCategoria categoria) throws Exception;
 
 	/**

@@ -31,6 +31,7 @@ public class InterfaceTexto {
 		opcao = pegarOpcao(1, 4);
 
 		// Reage segundo a opcao dada na entrada.
+		//FIXME: Ulisses vai fazer isto!
 		//TODO: retirar numero magico aqui.
 		switch (opcao) {
 		case 1:
@@ -91,6 +92,7 @@ public class InterfaceTexto {
 		System.out.println(Mensagem.MENU_LOGADO.getMensagem());
 		
 		opcao = pegarOpcao(1, 29);
+		//FIXME: Ulisses vai fazer isto!
 		//TODO: retirar numero magico aqui.
 		switch (opcao) {
 		case 1:
@@ -217,14 +219,16 @@ public class InterfaceTexto {
 		menuLogado();
 	}
 
-	//TODO: daqui pra baixo: separar os algoritmos em blocos. (organização de codigo)
 	
 	private static void verRanking() {
 		System.out.println(Mensagem.PEDIR_CATEGORIA.getMensagem());
+		
 		try {
 			System.out.println(emprestimus.getRanking(id_sessao, pegaStringDaEntrada()));
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			
 			if(tentarNovamente()){
 				verRanking();
 			}
@@ -233,11 +237,14 @@ public class InterfaceTexto {
 
 	private static void apagarItem() {
 		System.out.println(Mensagem.PEDIR_ID_TEM.getMensagem());
+		
 		try {
 			emprestimus.apagarItem(id_sessao, pegaStringDaEntrada());
 			System.out.println(Mensagem.OPERACAO_SUCESSO.getMensagem());
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			
 			if(tentarNovamente()){
 				apagarItem();
 			}
@@ -246,11 +253,14 @@ public class InterfaceTexto {
 
 	private static void desfazerAmizade() {
 		System.out.println(Mensagem.PEDIR_LOGIN_AMIGO_DELETAR.getMensagem());
+		
 		try {
 			emprestimus.desfazerAmizade(id_sessao, pegaStringDaEntrada());
 			System.out.println(Mensagem.OPERACAO_SUCESSO.getMensagem());
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			
 			if(tentarNovamente()){
 				desfazerAmizade();
 			}
@@ -260,16 +270,23 @@ public class InterfaceTexto {
 	private static void pesquisarItem() {
 		String chave, atributo, tipoOrdenacao;
 		System.out.println(Mensagem.PEDIR_CHAVE_BUSCA.getMensagem());
+		
 		chave = pegaStringDaEntrada();
 		System.out.println(Mensagem.PEDIR_ATRIBUTO.getMensagem());
+		
 		atributo = pegaStringDaEntrada();
 		System.out.println(Mensagem.PEDIR_TIPO_ORDENACAO.getMensagem());
+		
 		tipoOrdenacao = pegaStringDaEntrada();
 		System.out.println(Mensagem.PEDIR_CRITERIO_ORDENACAO.getMensagem());
+		
 		try {
-			System.out.println(emprestimus.pesquisarItem(id_sessao, chave, atributo, tipoOrdenacao, pegaStringDaEntrada()));
+			System.out.println(emprestimus.pesquisarItem(id_sessao, chave, 
+									atributo, tipoOrdenacao, pegaStringDaEntrada()));
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			
 			if(tentarNovamente()){
 				pesquisarItem();
 			}
@@ -278,11 +295,14 @@ public class InterfaceTexto {
 
 	private static void registrarInteresse() {
 		System.out.println(Mensagem.PEDIR_ID_TEM.getMensagem());
+		
 		try {
 			emprestimus.registraInteresse(id_sessao, pegaStringDaEntrada());
 			System.out.println(Mensagem.OPERACAO_SUCESSO.getMensagem());
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			
 			if(tentarNovamente()) {
 				registrarInteresse();
 			}
@@ -291,11 +311,14 @@ public class InterfaceTexto {
 
 	private static void incrementarDias() {
 		System.out.println(Mensagem.PEDIR_INCREMENTO_DIAS.getMensagem());
+		
 		try {
 			emprestimus.adicionarDias(pegaStringDaEntrada());
 			System.out.println(Mensagem.OPERACAO_SUCESSO.getMensagem());
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			
 			if(tentarNovamente()) {
 				incrementarDias();
 			}
@@ -304,11 +327,14 @@ public class InterfaceTexto {
 
 	private static void requisitarDevolucao() {
 		System.out.println(Mensagem.PEDIR_ID_EMPRESTIMO.getMensagem());
+		
 		try {
 			emprestimus.requisitarDevolucao(id_sessao, pegaStringDaEntrada());
 			System.out.println(Mensagem.OPERACAO_SUCESSO.getMensagem());
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			
 			if(tentarNovamente()){
 				requisitarDevolucao();
 			}
@@ -317,10 +343,13 @@ public class InterfaceTexto {
 
 	private static void lerMensagens() {
 		System.out.println(Mensagem.PEDIR_ID_TOPICO.getMensagem());
+		
 		try {
 			System.out.println(emprestimus.lerMensagens(id_sessao, pegaStringDaEntrada()));
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			
 			if(tentarNovamente()){
 				lerMensagens();
 			}
@@ -329,10 +358,13 @@ public class InterfaceTexto {
 
 	private static void lerTopicos() {
 		System.out.println(Mensagem.PEDIR_TIPO.getMensagem());
+		
 		try {
 			System.out.println(emprestimus.lerTopicos(id_sessao, pegaStringDaEntrada()));
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			
 			if(tentarNovamente()){
 				lerTopicos();
 			}
@@ -341,16 +373,24 @@ public class InterfaceTexto {
 
 	private static void enviarMensagemNegociacao() {
 		System.out.println(Mensagem.PEDIR_DESTINATARIO.getMensagem());
+		
 		String destinatario = pegaStringDaEntrada();
 		System.out.println(Mensagem.PEDIR_ASSUNTO.getMensagem());
+		
 		String assunto = pegaStringDaEntrada();
 		System.out.println(Mensagem.PEDIR_MENSAGEM.getMensagem());
+		
 		String mensagem = pegaStringDaEntrada();
 		System.out.println(Mensagem.PEDIR_ID_REQUISITACAO_EMPRESTIMO.getMensagem());
+		
 		try {
-			System.out.println("O id do tópico é: "+emprestimus.enviarMensagem(id_sessao, destinatario, assunto, mensagem, pegaStringDaEntrada()));
+			System.out.println("O id do tópico é: "+
+									emprestimus.enviarMensagem(id_sessao, destinatario, 
+											assunto, mensagem, pegaStringDaEntrada()));
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			
 			if(tentarNovamente()) {
 				enviarMensagemNegociacao();
 			}
@@ -364,9 +404,13 @@ public class InterfaceTexto {
 		String assunto = pegaStringDaEntrada();
 		System.out.println(Mensagem.PEDIR_MENSAGEM.getMensagem());
 		try {
-			System.out.println("O id do tópico é: "+emprestimus.enviarMensagem(id_sessao, destinatario, assunto, pegaStringDaEntrada()));
+			System.out.println("O id do tópico é: "+
+									emprestimus.enviarMensagem(id_sessao, destinatario, 
+											assunto, pegaStringDaEntrada()));
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			
 			if(tentarNovamente()) {
 				enviarMensagemOFFTopic();
 			}
@@ -375,11 +419,14 @@ public class InterfaceTexto {
 
 	private static void confirmarTerminoEmprestimo() {
 		System.out.println(Mensagem.PEDIR_ID_EMPRESTIMO.getMensagem());
+		
 		try {
 			emprestimus.confirmarTerminoEmprestimo(id_sessao, pegaStringDaEntrada());
 			System.out.println(Mensagem.OPERACAO_SUCESSO.getMensagem());
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			
 			if (tentarNovamente()) {
 				confirmarTerminoEmprestimo();
 			}
@@ -388,23 +435,29 @@ public class InterfaceTexto {
 
 	private static void devolverItem() {
 		System.out.println(Mensagem.PEDIR_ID_EMPRESTIMO.getMensagem());
+		
 		try {
 			emprestimus.devolverItem(id_sessao, pegaStringDaEntrada());
 			System.out.println(Mensagem.OPERACAO_SUCESSO.getMensagem());
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			
 			if(tentarNovamente()) {
-				
+				//TODO: Adicionar acao ao tentar novamente()?
 			}
 		}
 	}
 
 	private static void visualizarEmprestimos() {
 		System.out.println(Mensagem.PEDIR_TIPO_EMPRESTIMO.getMensagem());
+		
 		try {
 			System.out.println(emprestimus.getEmprestimos(id_sessao, pegaStringDaEntrada()));
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			
 			if(tentarNovamente()) {
 				visualizarEmprestimos();
 			}
@@ -413,11 +466,16 @@ public class InterfaceTexto {
 
 	private static void aprovarEmprestimo() {
 		System.out.println(Mensagem.PEDIR_ID_EMPRESTIMO_APROVAR.getMensagem());
+		
 		try {
-			System.out.println("ID do emprestimo: "+emprestimus.aprovarEmprestimo(id_sessao, pegaStringDaEntrada()));
+			System.out.println("ID do emprestimo: "+
+								emprestimus.aprovarEmprestimo(id_sessao, 
+										pegaStringDaEntrada()));
 			System.out.println(Mensagem.OPERACAO_SUCESSO.getMensagem());
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			
 			if(tentarNovamente()) {
 				aprovarEmprestimo();
 			}
@@ -428,10 +486,15 @@ public class InterfaceTexto {
 		System.out.println(Mensagem.PEDIR_ID_TEM_VERIFICAR.getMensagem());
 		String idItem = pegaStringDaEntrada();
 		System.out.println(Mensagem.PEDIR_DURACAO_EMPRESTIMO.getMensagem());
+		
 		try {
-			System.out.println("O id do emprestrimo eh "+emprestimus.requisitarEmprestimo(id_sessao, idItem, 15));
+			System.out.println("O id do emprestrimo eh "+
+									emprestimus.requisitarEmprestimo(id_sessao, 
+											idItem, 15));
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			
 			if (tentarNovamente()) {
 				requisitarEmprestimo();
 			}
@@ -439,15 +502,18 @@ public class InterfaceTexto {
 	}
 
 	private static void getAtributoItem() {
-		// FIXME sem implentacao. Como passar idItem?
-		// TODO talvez imprimir o id dos itens cadastrados.
+		//FIXME: sem implentacao. Como passar idItem?
+		//TODO: talvez imprimir o id dos itens cadastrados.
 		System.out.println(Mensagem.PEDIR_ID_TEM_VERIFICAR.getMensagem());
 		String idItem = pegaStringDaEntrada();
 		System.out.println(Mensagem.PEDIR_ATRIBUTO.getMensagem());
+		
 		try {
 			System.out.println(emprestimus.getAtributoItem(idItem, pegaStringDaEntrada()));
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			
 			if(tentarNovamente()) {
 				getAtributoItem();
 			}
@@ -456,10 +522,13 @@ public class InterfaceTexto {
 
 	private static void verItensOutroUsuario() {
 		System.out.println(Mensagem.PEDIR_LOGIN_USUARIO_VERIFICAR.getMensagem());
+		
 		try {
 			System.out.println(emprestimus.getItens(id_sessao, pegaStringDaEntrada()));
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			
 			if(tentarNovamente()) {
 				verItensOutroUsuario();
 			}
@@ -469,6 +538,7 @@ public class InterfaceTexto {
 	private static void verItens() {
 		try {
 			System.out.println(emprestimus.getItens(id_sessao));
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -476,9 +546,11 @@ public class InterfaceTexto {
 
 	private static void verAmigosOutroUsuario() {
 		System.out.println(Mensagem.PEDIR_LOGIN_USUARIO_VERIFICAR.getMensagem());
+		
 		try {
 			System.out.println(emprestimus.getAmigos(id_sessao, pegaStringDaEntrada()));
 		} catch (Exception e) {
+			
 			System.out.println(e.getMessage());
 			if(tentarNovamente()) {
 				verAmigosOutroUsuario();
@@ -489,6 +561,7 @@ public class InterfaceTexto {
 	private static void verAmigos() {
 		try {
 			System.out.println(emprestimus.getAmigos(id_sessao));
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -496,14 +569,18 @@ public class InterfaceTexto {
 
 	private static void verificarAmizade() {
 		System.out.println(Mensagem.PEDIR_LOGIN_AMIGO_VERIFICAR.getMensagem());
+		
 		try {
 			if (emprestimus.ehAmigo(id_sessao, pegaStringDaEntrada()).equalsIgnoreCase("true")) {
 				System.out.println(Mensagem.INFO_SAO_AMIGOS.getMensagem());
+				
 			} else {
 				System.out.println(Mensagem.INFO_NAO_SAO_AMIGOS.getMensagem());
 			}
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			
 			if (tentarNovamente()) {
 				verificarAmizade();
 			}
@@ -512,11 +589,14 @@ public class InterfaceTexto {
 
 	private static void aprovarAmizade() {
 		System.out.println(Mensagem.PEDIR_LOGIN_AMIGO_APROVAR.getMensagem());
+		
 		try {
 			emprestimus.aprovarAmizade(id_sessao, pegaStringDaEntrada());
 			System.out.println(Mensagem.OPERACAO_SUCESSO.getMensagem());
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			
 			if(tentarNovamente()) {
 				aprovarAmizade();
 			}
@@ -526,6 +606,7 @@ public class InterfaceTexto {
 	private static void visualizarRequisitacoesAmizade() {
 		try {
 			System.out.println(emprestimus.getRequisicoesDeAmizade(id_sessao));
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -533,11 +614,14 @@ public class InterfaceTexto {
 
 	private static void requisitarAmizade() {
 		System.out.println(Mensagem.PEDIR_LOGIN_AMIGO_ADICIONAR.getMensagem());
+		
 		try {
 			emprestimus.requisitarAmizade(id_sessao, pegaStringDaEntrada());
 			System.out.println(Mensagem.INFO_AGUARDE_APROVACAO_AMIZADE.getMensagem());
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			
 			if(tentarNovamente()){
 				requisitarAmizade();
 			}
@@ -547,13 +631,17 @@ public class InterfaceTexto {
 	private static void localizarUsuario() {
 		String chave, atributo;
 		System.out.println(Mensagem.PEDIR_CHAVE_BUSCA.getMensagem());
+		
 		chave = pegaStringDaEntrada();
 		System.out.println(Mensagem.PEDIR_ATRIBUTO.getMensagem());
+		
 		atributo = pegaStringDaEntrada();
+		
 		try {
 			System.out.println(emprestimus.localizarUsuario(id_sessao, chave, atributo));
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			
 			if (tentarNovamente()) {
 				localizarUsuario();
 			}
@@ -563,16 +651,23 @@ public class InterfaceTexto {
 	private static void cadastrarItem() {
 		String nome, descricao, categoria;
 		System.out.println(Mensagem.PEDIR_NOME_ITEM_CADASTRAR.getMensagem());
+		
 		nome = pegaStringDaEntrada();
 		System.out.println(Mensagem.PEDIR_DESCRICAO_ITEM_CADASTRAR.getMensagem());
+		
 		descricao = pegaStringDaEntrada();
 		System.out.println(Mensagem.PEDIR_CATEGORIA_ITEM_CADASTRAR.getMensagem());
+		
 		categoria = pegaStringDaEntrada();
 		
 		try {
-			System.out.println("O id do item eh: " + emprestimus.cadastrarItem(id_sessao, nome, descricao, categoria));
+			System.out.println("O id do item eh: "+
+									emprestimus.cadastrarItem(id_sessao, nome, 
+											descricao, categoria));
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			
 			if(tentarNovamente()) {
 				cadastrarItem();
 			}
@@ -581,10 +676,13 @@ public class InterfaceTexto {
 
 	private static void getAtributo() {
 		System.out.println(Mensagem.PEDIR_ATRIBUTO.getMensagem());
+		
 		try {
 			System.out.println(emprestimus.getAtributoUsuario(login_logado, pegaStringDaEntrada()));
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			
 			if(tentarNovamente()){
 				getAtributo();
 			}
@@ -594,17 +692,24 @@ public class InterfaceTexto {
 	private static void criarUsuario() {
 		String login, nome, endereco;
 		System.out.println(Mensagem.LOGIN_PARA_CADASTRAR.getMensagem());
+		
 		login = pegaStringDaEntrada();
 		System.out.println(Mensagem.NOME_PARA_CADASTRAR.getMensagem());
+		
 		nome = pegaStringDaEntrada();
 		System.out.println(Mensagem.ENDERECO_PARA_CADASTRAR.getMensagem());
+		
 		endereco = pegaStringDaEntrada();
+		
 		try {
 			emprestimus.criarUsuario(login, nome, endereco);
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			
 			if (!tentarNovamente()) {
 				menuDeslogado();
+				
 			} else {
 				criarUsuario();
 			}
@@ -615,14 +720,18 @@ public class InterfaceTexto {
 		int entrada;
 		try {
 			entrada = Integer.parseInt(pegaStringDaEntrada());
+			
 			if ( !((entrada >= primeira_opcao) && (entrada <= ultima_opcao)) ) {
 				throw new Exception();
+				
 			} else {
 				return entrada;
 			}
+			
 		} catch (Exception e) {
 			System.out.println("Você deve digitar um numero inteiro entre "+primeira_opcao+"e "+ultima_opcao);
 			System.out.print("\nDigite novamente: ");
+			
 			return pegarOpcao(primeira_opcao, ultima_opcao);
 		}	
 	}
@@ -636,8 +745,11 @@ public class InterfaceTexto {
 	private static boolean tentarNovamente() {
 		try {
 			System.out.println(Mensagem.PERGUNTAR_TENTAR_NOVAMENTE.getMensagem());
+
+			//FIXME: Ulisses vai fazer isto!
 			//TODO: retirar numero magico aqui.
 			return (Integer.parseInt(pegaStringDaEntrada()) == 1);
+			
 		} catch (Exception e) {
 			System.out.print("Opção Inválida. \n" +
 							 "Digite novamente: ");
