@@ -3,7 +3,7 @@ package sistema.emprestimo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Conta {
+public class Conta implements Comparable<Conta>{
 
 	private String proprietario;
 	private List<EmprestimoIF> emprestimos;
@@ -32,5 +32,12 @@ public class Conta {
 	public List<EmprestimoIF> getEmprestimosRequeridosPorMimEmEspera(){
 		return this.emprestimosRequeridosPorMimEmEspera;
 	}
+
+	@Override
+	public int compareTo(Conta o) {
+		return this.proprietario.compareTo(o.getProprietario());
+	}
+	
+	
 
 }

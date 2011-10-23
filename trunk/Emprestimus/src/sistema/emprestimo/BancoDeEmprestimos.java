@@ -33,7 +33,7 @@ import sistema.utilitarios.Validador;
 public class BancoDeEmprestimos {
 	
 	private static BancoDeEmprestimos bancoDeEmprestimos;
-	private static Map<String, Conta> contas = new TreeMap<String, Conta>();
+	private static Map<String, Conta> contas;
 
 	private BancoDeEmprestimos() {
 		contas = new TreeMap<String, Conta>();
@@ -48,12 +48,13 @@ public class BancoDeEmprestimos {
 		return bancoDeEmprestimos;
 	}
 
-	public static void adicionaContaAoUsuario(String usuario) throws Exception {
+	public void adicionaContaAoUsuario(String usuario) throws Exception {
 		if(contas.containsKey(usuario)) throw new Exception(Mensagem.PROPRIETARIO_CONTA_JAH_CADASTRADO.getMensagem());
 		contas.put(usuario, new Conta(usuario));
+		
 	}
 	
-	public static void removeContaDoUsuario(String usuario) throws Exception {
+	public void removeContaDoUsuario(String usuario) throws Exception {
 		contas.remove(usuario);
 	}
 	
@@ -110,13 +111,14 @@ public class BancoDeEmprestimos {
 		//"mark-steve:The Social Network:Andamento; steve-mark:Guia do mochileiro das galáxias:Andamento"
 		StringBuffer str = new StringBuffer();
 		List<String> listaSaida = new ArrayList<String>();
+		UsuarioIF usuario = Autenticacao.getUsuarioPorLogin(login);
 		Iterator<EmprestimoIF> iterador = contas.get(login).getEmprestimos().iterator();
 		
 		while(iterador.hasNext()){
 			EmprestimoIF emp = iterador.next();
 			if(tipo.trim().equalsIgnoreCase("emprestador")){
 				
-				if(this.equals(emp.getEmprestador())){
+				if(usuario.equals(emp.getEmprestador())){
 					
 					listaSaida.add(emp.getEmprestador().getLogin()+"-"+
 				               emp.getBeneficiado().getLogin()+":"+
@@ -124,7 +126,7 @@ public class BancoDeEmprestimos {
 					Collections.sort(listaSaida);
 				}
 			}else if (tipo.trim().equalsIgnoreCase("beneficiado")){
-				if(this.equals(emp.getBeneficiado())){
+				if(usuario.equals(emp.getBeneficiado())){
 					
 					listaSaida.add(emp.getEmprestador().getLogin()+"-"+
 				               emp.getBeneficiado().getLogin()+":"+
@@ -133,13 +135,13 @@ public class BancoDeEmprestimos {
 				}
 			}else if (tipo.trim().equalsIgnoreCase("todos")){
 				
-				if(this.equals(emp.getEmprestador())){
+				if(usuario.equals(emp.getEmprestador())){
 					listaSaida.add(0, emp.getEmprestador().getLogin()+"-"+
 				               emp.getBeneficiado().getLogin()+":"+
 				               emp.getItem().getNome()+":"+emp.getSituacao()+"; ");
 				}
 				
-				if(this.equals(emp.getBeneficiado())){
+				if(usuario.equals(emp.getBeneficiado())){
 					listaSaida.add(emp.getEmprestador().getLogin()+"-"+
 				               emp.getBeneficiado().getLogin()+":"+
 				               emp.getItem().getNome()+":"+emp.getSituacao()+"; ");
@@ -164,9 +166,9 @@ public class BancoDeEmprestimos {
 		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(), Mensagem.LOGIN_INVALIDO.getMensagem());
 		assertStringNaoVazia(idRequisicaoEmprestimo, Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem(), Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
 		asserteTrue(EmprestimoRepositorio.existeEmprestimo(idRequisicaoEmprestimo.trim()), Mensagem.ID_REQUISICAO_EMP_INEXISTENTE.getMensagem());
-		
+		UsuarioIF usuario = Autenticacao.getUsuarioPorLogin(login);
 		EmprestimoIF emp = EmprestimoRepositorio.recuperarEmprestimo(idRequisicaoEmprestimo.trim());
-				asserteTrue(this.equals(emp.getEmprestador()), Mensagem.EMPRESTIMO_SEM_PERMISSAO_APROVAR.getMensagem());
+				asserteTrue(usuario.equals(emp.getEmprestador()), Mensagem.EMPRESTIMO_SEM_PERMISSAO_APROVAR.getMensagem());
 				
 		if(!emp.estaAprovado()) throw new Exception(Mensagem.EMPRESTIMO_JA_APROVADO.getMensagem());
 		emp.aprovarEmprestimo();

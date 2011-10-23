@@ -9,6 +9,7 @@ import java.util.Random;
 import java.util.TreeMap;
 import java.util.logging.Logger;
 
+import sistema.emprestimo.BancoDeEmprestimos;
 import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.item.ItemIF;
 import sistema.mensagem.Correio;
@@ -92,6 +93,7 @@ public class Autenticacao implements AutenticacaoIF {
 		usuariosCadastrados.put(login, novoUsuario);
 		//adicionando caixa postal ao usuario
 		Correio.adicionaCaixaPostalAoUsuario(login);
+		BancoDeEmprestimos.getInstance().adicionaContaAoUsuario(login);
 	}
 
 	@Override

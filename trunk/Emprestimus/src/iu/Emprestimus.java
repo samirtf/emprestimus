@@ -22,7 +22,7 @@ import sistema.mensagem.ChatIF;
 import sistema.persistencia.ChatRepositorio;
 import sistema.persistencia.EmprestimoRepositorio;
 import sistema.persistencia.ItemRepositorio;
-import sistema.usuario.ReputacaouUsuarioComparator;
+import sistema.usuario.ReputacaoUsuarioComparator;
 import sistema.usuario.UsuarioIF;
 import sistema.utilitarios.Mensagem;
 import sistema.utilitarios.Validador;
@@ -370,7 +370,8 @@ public class Emprestimus implements EmprestimusIF {
 		asserteTrue(autenticacao.existeIdSessao(idSessao.trim()), Mensagem.SESSAO_INEXISTENTE.getMensagem());
 		assertStringNaoVazia(tipo, Mensagem.TIPO_INVALIDO.getMensagem(), Mensagem.TIPO_INVALIDO.getMensagem());
 		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao.trim());
-		return usuario.getEmprestimos(tipo);
+		String result = null;
+		return usuario.getEmprestimos(tipo); 
 		
 	}
 
@@ -682,7 +683,7 @@ public class Emprestimus implements EmprestimusIF {
 			while(iteradorColecaoUsuarios.hasNext()){
 				listaUsuarios.add(iteradorColecaoUsuarios.next());
 			}
-			Collections.sort(listaUsuarios, new ReputacaouUsuarioComparator());
+			Collections.sort(listaUsuarios, new ReputacaoUsuarioComparator());
 			Collections.reverse(listaUsuarios);
 			
 			Iterator<UsuarioIF> iteraListUsuarios = listaUsuarios.iterator();
@@ -695,7 +696,7 @@ public class Emprestimus implements EmprestimusIF {
 			listaUsuarios = usuario.getListaAmigos();
 			//Tenho de ser adicionado na lista para ser comparado com eles
 			listaUsuarios.add(usuario);
-			Collections.sort(listaUsuarios, new ReputacaouUsuarioComparator());
+			Collections.sort(listaUsuarios, new ReputacaoUsuarioComparator());
 			Collections.reverse(listaUsuarios);
 			
 			Iterator<UsuarioIF> iteraListUsuarios = listaUsuarios.iterator();
