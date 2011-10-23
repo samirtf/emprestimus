@@ -410,7 +410,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF> {
 	 * @param conversa
 	 * 		Conversa a ser adicionada.
 	 */
-	public void adicionaConversaOfftopicNaLista( ChatIF conversa );
+	public void adicionaConversaOfftopicNaLista( ChatIF conversa ) throws Exception;
 	
 	/**
 	 * Adiciona uma conversa sobre uma negociação à lista de conversas do usuário.
@@ -418,7 +418,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF> {
 	 * @param conversa
 	 * 		Conversa a ser adicionada.
 	 */
-	public void adicionaConversaNegociacaoNaLista( ChatIF conversa );
+	public void adicionaConversaNegociacaoNaLista( ChatIF conversa ) throws Exception;
 
 	/**
 	 * Envia uma mensagem off-topic.
