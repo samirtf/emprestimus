@@ -43,7 +43,7 @@ public class NotificacaoNovoItem implements Notificacao {
 
 	@Override
 	public Long getId() {
-		return id;
+		return Long.valueOf(id);
 	}
 
 	@Override

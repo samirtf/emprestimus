@@ -434,6 +434,7 @@ public interface EmprestimusIF {
   	 */
   	public String historicoAtividades(String idSessao) throws Exception;
   	
+  	//US16
   	/**
   	 * Permite que o usuário visualize suas atividades
   	 * em conjunto com as atividades passadas dos seus amigos

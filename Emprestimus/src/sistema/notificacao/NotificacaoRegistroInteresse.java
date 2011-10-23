@@ -7,29 +7,26 @@ import sistema.usuario.Usuario;
 import sistema.usuario.UsuarioIF;
 
 /**
- * 
  * @author José Nathaniel L de Abrante - nathaniel.una@gmail.com
- * @since 23/11/2011
- * @version 1.0
  *
  */
-public class NotificacaoEmprestimoAndamento implements Notificacao {
+public class NotificacaoRegistroInteresse implements Notificacao {
+	private UsuarioIF interessado;
 	private UsuarioIF dono;
-	private UsuarioIF beneficiado;
 	private ItemIF item;
-
+	
 	private Date data;
 	private Long id;
 
 	/**
+	 * @param interessado
 	 * @param dono
-	 * @param beneficiado
 	 * @param item
 	 */
-	public NotificacaoEmprestimoAndamento(UsuarioIF dono,
-			UsuarioIF beneficiado, ItemIF item) {
+	public NotificacaoRegistroInteresse(UsuarioIF interessado, UsuarioIF dono,
+			ItemIF item) {
+		this.interessado = interessado;
 		this.dono = dono;
-		this.beneficiado = beneficiado;
 		this.item = item;
 	}
 
@@ -46,8 +43,7 @@ public class NotificacaoEmprestimoAndamento implements Notificacao {
 
 	@Override
 	public String getMensagem(Usuario usuario) {
-		return dono.getNome() + " emprestou " + item.getNome() + " a "
-				+ beneficiado.getNome();
+		return interessado.getNome() + " tem interesse pelo item " + item.getNome() + " de " + dono.getNome();
 	}
 
 	@Override
@@ -59,15 +55,6 @@ public class NotificacaoEmprestimoAndamento implements Notificacao {
 	public Notificacao setId(String novoId) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (obj instanceof NotificacaoEmprestimoAndamento) {
-			NotificacaoEmprestimoAndamento notificacao = (NotificacaoEmprestimoAndamento) obj;
-			return id.equals(notificacao.getId());
-		}
-		return false;
 	}
 
 }

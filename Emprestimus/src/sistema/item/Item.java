@@ -1,14 +1,16 @@
 package sistema.item;
 
-import static sistema.utilitarios.Validador.*;
+import static sistema.utilitarios.Validador.assertStringNaoVazia;
+import static sistema.utilitarios.Validador.asserteTrue;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import sistema.excecoes.ArgumentoInvalidoException;
-import sistema.usuario.Usuario;
+import sistema.notificacao.Notificacao;
+import sistema.notificacao.NotificacaoRegistroInteresse;
+import sistema.persistencia.NotificacaoRepositorio;
 import sistema.usuario.UsuarioIF;
 import sistema.utilitarios.Mensagem;
 
@@ -146,8 +148,9 @@ public class Item implements ItemIF {
 		asserteTrue(!interessados.contains(interessado), "O usuario já está entre os interessados."); //FIXME utilizar as mensagens constantes do enum Mensagem
 		interessados.add(interessado);
 		
-		//FIXME nao mexam aqui que eu vou ajeitar... [Nathaniel]
-		//interessado.addNotificacao(interessado.getNome() + " tem interesse pelo item " + this.getNome() + " de " + this.getDono());
+		Notificacao notif = new NotificacaoRegistroInteresse(interessado, this.getDono(), this);
+		NotificacaoRepositorio.getInstance().novaNotificacao(notif);
+		interessado.addNotificacao(notif);
 	}
 
 	@Override
