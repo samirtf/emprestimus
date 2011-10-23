@@ -366,7 +366,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF> {
 	 * @param emp
 	 * 		Empréstimo requerido.
 	 */
-	public void adicionarRequisicaoEmprestimoEmEsperaDeAmigo(EmprestimoIF emp);
+	public void adicionarRequisicaoEmprestimoEmEsperaDeAmigo(EmprestimoIF emp) throws Exception;
 	
 	/**
 	 * Aprova um empréstimo.
@@ -480,5 +480,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF> {
 	public String getHistoricoToString();
 
 	public void addNotificacao(Notificacao notificacao) throws Exception;
+
+	public void addHistoricoEmprestimoEmAndamento(UsuarioIF amigo, ItemIF item) throws Exception;
 	
 }
