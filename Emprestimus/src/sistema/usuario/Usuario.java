@@ -24,6 +24,7 @@ import sistema.item.ItemIF;
 import sistema.item.NomeItemComparador;
 import sistema.mensagem.Chat;
 import sistema.mensagem.ChatIF;
+import sistema.mensagem.Correio;
 import sistema.notificacao.Notificacao;
 import sistema.notificacao.NotificacaoEmprestimoAndamento;
 import sistema.notificacao.NotificacaoNovoAmigo;
@@ -588,98 +589,19 @@ public class Usuario implements UsuarioIF {
 	public synchronized String enviarMensagemOffTopic( String destinatario, String assunto,
 			String mensagem) throws Exception {
 		
-		assertStringNaoVazia(destinatario, Mensagem.DESTINATARIO_INVALIDO.getMensagem(), Mensagem.DESTINATARIO_INVALIDO.getMensagem());
-		UsuarioIF amigo = this.possuoAmigoComEsteLogin(destinatario);
-		asserteTrue( amigo != null, Mensagem.DESTINATARIO_INEXISTENTE.getMensagem());
-		assertStringNaoVazia(assunto, Mensagem.ASSUNTO_INVALIDO.getMensagem(), Mensagem.ASSUNTO_INVALIDO.getMensagem());
-		assertStringNaoVazia(mensagem, Mensagem.MENSAGEM_INVALIDA.getMensagem(), Mensagem.MENSAGEM_INVALIDA.getMensagem());
-		
-		ChatIF conversa = ChatRepositorio.existeConversaEntreAsPessoasSobreMesmoAssuntoETipo(this.login, 
-				destinatario, assunto, true);
-		
-		if(conversa == null){
-			conversa = new Chat(this, amigo, assunto.trim(), mensagem.trim());
-			conversa.setTipoOffTopicMsg();
-			ChatRepositorio.registrarConversa(conversa);
-			this.conversasOfftopic.add(conversa);
-			amigo.adicionaConversaOfftopicNaLista(conversa);
-		}else{
-			conversa.adicionaMensagem(mensagem);		
-		}
-		
-		return conversa.getIdMensagem();
+		return Correio.enviarMensagemOffTopic(this.getLogin(), destinatario, assunto, mensagem);
 	}
 
 	@Override
 	public synchronized String enviarMensagemEmprestimo(String destinatario, String assunto,
 			String mensagem, String idRequisicaoEmprestimo) throws Exception {
 
-		assertStringNaoVazia(destinatario, Mensagem.DESTINATARIO_INVALIDO.getMensagem(), Mensagem.DESTINATARIO_INVALIDO.getMensagem());
-		UsuarioIF amigo = this.possuoAmigoComEsteLogin(destinatario);
-		asserteTrue( amigo != null, Mensagem.DESTINATARIO_INEXISTENTE.getMensagem());
-		assertStringNaoVazia(assunto, Mensagem.ASSUNTO_INVALIDO.getMensagem(), Mensagem.ASSUNTO_INVALIDO.getMensagem());
-		assertStringNaoVazia(mensagem, Mensagem.MENSAGEM_INVALIDA.getMensagem(), Mensagem.MENSAGEM_INVALIDA.getMensagem());
-		assertStringNaoVazia(idRequisicaoEmprestimo, Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem(), Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
-		asserteTrue(EmprestimoRepositorio.existeEmprestimo(idRequisicaoEmprestimo.trim()), 
-				Mensagem.ID_REQUISICAO_EMP_INEXISTENTE.getMensagem());
-		
-		EmprestimoIF emprestimo = EmprestimoRepositorio.recuperarEmprestimo(idRequisicaoEmprestimo);
-		if(!this.equals(emprestimo.getEmprestador()) && !this.equals(emprestimo.getBeneficiado()))
-			throw new Exception(Mensagem.USUARIO_NAO_PARTICIPA_DESTE_EMPRESTIMO.getMensagem());
-		
-		ChatIF conversa = ChatRepositorio.existeConversaEntreAsPessoasSobreMesmoAssuntoETipo(this.login, 
-				destinatario, assunto, false);
-		
-		if( conversa == null ){
-			conversa = new Chat(this, amigo, assunto.trim(), 
-					mensagem, idRequisicaoEmprestimo );
-			conversa.setTipoNegociacaoMsg();
-			ChatRepositorio.registrarConversa(conversa);
-			this.conversasNegociacao.add(conversa);
-			amigo.adicionaConversaNegociacaoNaLista(conversa);
-		}else{
-		    conversa.adicionaMensagem(mensagem);
-		}
-		
-		return conversa.getIdMensagem();
-		
+		return Correio.enviarMensagemEmprestimo(this.getLogin(), destinatario, assunto, mensagem, idRequisicaoEmprestimo);
 	}
 
 	@Override
 	public String lerTopicos(String tipo) throws Exception {
-		assertStringNaoVazia(tipo, Mensagem.TIPO_INVALIDO.getMensagem(), Mensagem.TIPO_INVALIDO.getMensagem());
-		
-		List<ChatIF> listaTopicos = new ArrayList<ChatIF>();
-		StringBuffer saida = new StringBuffer();
-		if(tipo.trim().equalsIgnoreCase("negociacao") || tipo.trim().equalsIgnoreCase("todos")){
-			Iterator<ChatIF> iterador = conversasNegociacao.iterator();
-			
-			while(iterador.hasNext()){
-				listaTopicos.add(iterador.next());
-				//saida.append(iterador.next().getAssunto()+"; ");
-			}
-		}
-		if(tipo.trim().equalsIgnoreCase("offtopic") || tipo.trim().equalsIgnoreCase("todos")){
-			Iterator<ChatIF> iterador = conversasOfftopic.iterator();
-			
-			while(iterador.hasNext()){
-				listaTopicos.add(iterador.next());
-				//saida.append(iterador.next().getAssunto()+"; ");
-			}
-		}
-		if(!tipo.trim().equalsIgnoreCase("negociacao") && 
-				!tipo.trim().equalsIgnoreCase("offtopic") && !tipo.trim().equalsIgnoreCase("todos")){
-			throw new Exception(Mensagem.TIPO_INEXISTENTE.getMensagem());
-		}
-
-		if(listaTopicos.isEmpty())
-			return Mensagem.NAO_HA_TOPICOS_CRIADOS.getMensagem();
-		Collections.sort(listaTopicos);
-		Collections.reverse(listaTopicos);
-		for (ChatIF c : listaTopicos) {
-			saida.append(c.getAssunto()+"; ");
-		}
-		return saida.toString().trim().substring(0, saida.toString().trim().length()-1);
+		return Correio.lerTopicos(this.getLogin(), tipo);
 	}
 
 	@Override
@@ -839,13 +761,11 @@ public class Usuario implements UsuarioIF {
 	@Override
 	public void incrementaReputacao() {
 		this.reputacao++;
-		
 	}
 
 	@Override
 	public void decrementaReputacao() {
 		this.reputacao--;
-		
 	}
 
 	@Override
@@ -872,12 +792,8 @@ public class Usuario implements UsuarioIF {
 				//remover usuario da lista
 				umAmigo.removerAmigoDaLista(this);
 				iteradorAmigos.remove();
-				
-				
 			}
-			
 		}
-		
 	}
 
 	@Override
