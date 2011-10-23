@@ -72,9 +72,7 @@ public class Emprestimus implements EmprestimusIF {
 	 */
 	@Override
 	public void criarUsuario(String login, String nome, String endereco) throws Exception{
-		
         autenticacao.criarUsuario(login, nome, endereco);
-        
 	}
 
 	/*
@@ -84,9 +82,7 @@ public class Emprestimus implements EmprestimusIF {
 	 */
 	@Override
 	public String abrirSessao(String login) throws Exception{
-		
 	    return autenticacao.abrirSessao(login);
-		
 	}
 
 	/*

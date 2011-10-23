@@ -234,7 +234,9 @@ public enum Mensagem {
 	PROPRIETARIO_CAIXA_POSTAL_INEXISTENTE("Proprietário inexistente"),
 	PROPRIETARIO_CAIXA_POSTAL_JAH_CADASTRADO("Proprietário já cadastrado"),
 	PROPRIETARIO_CONTA_INEXISTENTE("Proprietário inexistente"),
-	PROPRIETARIO_CONTA_JAH_CADASTRADO("Proprietário da conta já cadastrado");
+	PROPRIETARIO_CONTA_JAH_CADASTRADO("Proprietário da conta já cadastrado"),
+	PROPRIETARIO_BAUH_INEXISTENTE("Proprietário inexistente"),
+	PROPRIETARIO_BAUH_JAH_CADASTRADO("Proprietario do baú já cadastrado");
 	
 	private final String mensagem;
 
