@@ -229,7 +229,10 @@ public enum Mensagem {
     SEM_PERMISSAO_APAGAR_ITEM("O usuário não tem permissão para apagar este item"),
     
     HISTORICO_VAZIO("Não há atividades"),
-    NOTIFICACAO_INEXISTENTE("Notificacao inexixtente");
+    NOTIFICACAO_INEXISTENTE("Notificacao inexixtente"),
+	
+	PROPRIETARIO_CAIXA_POSTAL_INEXISTENTE("Proprietário inexistente"),
+	PROPRIETARIO_CAIXA_POSTAL_JAH_CADASTRADO("Proprietário já cadastrado");
 	
 	private final String mensagem;
 

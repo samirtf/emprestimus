@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 
 import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.item.ItemIF;
+import sistema.mensagem.Correio;
 import sistema.usuario.Usuario;
 import sistema.usuario.UsuarioIF;
 import sistema.utilitarios.Mensagem;
@@ -87,7 +88,10 @@ public class Autenticacao implements AutenticacaoIF {
 		if (usuariosCadastrados.containsKey(login.trim())) {
 			throw new Exception(Mensagem.LOGIN_JAH_CADASTRADO.getMensagem());
 		}
+		
 		usuariosCadastrados.put(login, novoUsuario);
+		//adicionando caixa postal ao usuario
+		Correio.adicionaCaixaPostalAoUsuario(login);
 	}
 
 	@Override
@@ -141,10 +145,10 @@ public class Autenticacao implements AutenticacaoIF {
 		return usuariosCadastrados.containsKey(login);
 	}
 	
-	public static UsuarioIF getUsuarioPorLogin(String login) throws ArgumentoInvalidoException{
-		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(), Mensagem.LOGIN_INVALIDO.getMensagem());
-		Validador.asserteTrue(Autenticacao.existeUsuario(login), Mensagem.LOGIN_INEXISTENTE.getMensagem());
-		return usuariosCadastrados.get(login);
+	public static UsuarioIF getUsuarioPorLogin(String remetente) throws ArgumentoInvalidoException{
+		Validador.assertStringNaoVazia(remetente, Mensagem.LOGIN_INVALIDO.getMensagem(), Mensagem.LOGIN_INVALIDO.getMensagem());
+		Validador.asserteTrue(Autenticacao.existeUsuario(remetente), Mensagem.LOGIN_INEXISTENTE.getMensagem());
+		return usuariosCadastrados.get(remetente);
 	}
 
 	private UsuarioIF getUsuario(String login) throws Exception {

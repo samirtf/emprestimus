@@ -3,6 +3,7 @@
  */
 package sistema.mensagem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,6 +19,8 @@ public class CaixaPostal {
 	
 	public CaixaPostal( String proprietario ){
 		this.proprietario = proprietario;
+		conversasOfftopic = new ArrayList<ChatIF>();
+		conversasNegociacao = new ArrayList<ChatIF>();
 	}
 	
 	public List<ChatIF> getConversasOffTopic() {
