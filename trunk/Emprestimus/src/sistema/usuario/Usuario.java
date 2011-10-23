@@ -59,14 +59,11 @@ public class Usuario implements UsuarioIF {
 	
 	private int reputacao = 0;
 
-	private List<UsuarioIF> amigos; // Grupo de amigos
-	private List<UsuarioIF> queremSerMeusAmigos; // solicitacoes de amizade
-	private List<UsuarioIF> queroSerAmigoDeles; // solicitacoes de amizade
+	//private List<UsuarioIF> amigos; // Grupo de amigos
+	//private List<UsuarioIF> queremSerMeusAmigos; // solicitacoes de amizade
+	//private List<UsuarioIF> queroSerAmigoDeles; // solicitacoes de amizade
 	
-	//private List<ItemIF> itens; // itens do usuario
-	//private List<ItemIF> itensEmprestados; // lista de itens que o usuario
-											// emprestou e ainda nao recebeu
-//	protected List<String> historico;
+	//	protected List<String> historico;
 	
 	private Stack<Notificacao> historico;
 	
@@ -95,9 +92,9 @@ public class Usuario implements UsuarioIF {
 
 		//itens = new ArrayList<ItemIF>();
 		//itensEmprestados = new ArrayList<ItemIF>();
-		amigos = new ArrayList<UsuarioIF>();
-		queremSerMeusAmigos = new ArrayList<UsuarioIF>();
-		queroSerAmigoDeles = new ArrayList<UsuarioIF>();
+		//amigos = new ArrayList<UsuarioIF>();
+		//queremSerMeusAmigos = new ArrayList<UsuarioIF>();
+		//queroSerAmigoDeles = new ArrayList<UsuarioIF>();
 		//emprestimos = new ArrayList<EmprestimoIF>();
 		//emprestimosRequeridosPorAmigosEmEspera = new ArrayList<EmprestimoIF>();
 		//emprestimosRequeridosPorMimEmEspera = new ArrayList<EmprestimoIF>();
@@ -228,97 +225,44 @@ public class Usuario implements UsuarioIF {
 	}
 	
 	public synchronized void aprovarAmizade( String login ) throws Exception{
-		UsuarioIF amigo = Autenticacao.getUsuarioPorLogin(login);
-		if(amigos.contains(amigo)){
-			throw new Exception(Mensagem.USUARIO_JAH_SAO_AMIGOS.getMensagem());
-		}
-		Iterator<UsuarioIF> iterador = queremSerMeusAmigos.iterator();
-		UsuarioIF amigo_solicitante = null;
-		while(iterador.hasNext()){
-			amigo_solicitante = iterador.next();
-			if(amigo_solicitante.getLogin().trim().equalsIgnoreCase(login.trim())){
-				amigo_solicitante.aprovouAmizade(this);
-				amigos.add(amigo_solicitante);
-				//queremSerMeusAmigos.remove(u);
-				iterador.remove();
-				addHistoricoAmizadeAprovada(amigo_solicitante);
-				return;
-			}
-			
-		}
-		throw new Exception(Mensagem.REQUISICAO_AMIZADE_INEXISTENTE.getMensagem());
-		
+		RelacionamentosUsuarios.getInstance().aprovarAmizade(this.getLogin(), login);
 	}
 	
-	private void addHistoricoAmizadeAprovada(UsuarioIF amigo) throws Exception {
+	public void addHistoricoAmizadeAprovada(UsuarioIF amigo) throws Exception {
 		Notificacao notif = new NotificacaoNovoAmigo(this, amigo);
 		NotificacaoRepositorio.getInstance().novaNotificacao(notif);
 		this.addNotificacao(notif);
 		amigo.addNotificacao(notif);
 	}
 
-	public synchronized void aprovouAmizade( UsuarioIF usuario ){
-		
-		if(queroSerAmigoDeles.contains(usuario)){
-			queroSerAmigoDeles.remove(usuario);
-			amigos.add(usuario);
-		}
-		
+	public synchronized void aprovouAmizade( UsuarioIF usuario ) throws ArgumentoInvalidoException {
+		RelacionamentosUsuarios.getInstance().aprovouAmizade(this.getLogin(), usuario);
 	}
 	
 	@Override
-	public List<UsuarioIF> getQueremSerMeusAmigos(){
-		return this.queremSerMeusAmigos;
+	public List<UsuarioIF> getQueremSerMeusAmigos() throws Exception{
+		return RelacionamentosUsuarios.getInstance().getCicloDeAmizade(this.getLogin()).getQueremSerMeusAmigos();
 	}
 	
 	@Override
-	public List<UsuarioIF> getQueroSerAmigoDe(){
-		return this.queroSerAmigoDeles;
+	public List<UsuarioIF> getQueroSerAmigoDe() throws Exception {
+		return RelacionamentosUsuarios.getInstance().getCicloDeAmizade(this.getLogin()).getQueroSerAmigoDeles();
 	}
 	
 	public boolean ehAmigo( String login ) throws ArgumentoInvalidoException{
-		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(), Mensagem.LOGIN_INVALIDO.getMensagem());
-		Iterator<UsuarioIF> iterador = amigos.iterator();
-		UsuarioIF u = null;
-		while(iterador.hasNext()){
-			u = iterador.next();
-			if ( u.getLogin().trim().equalsIgnoreCase(login.trim()) ) 
-				return true;
-		}
-		return false;
+		return RelacionamentosUsuarios.getInstance().ehAmigo(this.getLogin(), login);
 	}
 	
-	public boolean amizadeDeFoiRequisitada( String login ) throws ArgumentoInvalidoException{
-		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(), Mensagem.LOGIN_INVALIDO.getMensagem());
-		Iterator<UsuarioIF> iterador = getQueroSerAmigoDe().iterator();
-		UsuarioIF u = null;
-		while(iterador.hasNext()){
-			u = iterador.next();
-			if ( u.getLogin().trim().equalsIgnoreCase(login.trim()) ) 
-				return true;
-		}
-		return false;
+	public boolean amizadeDeFoiRequisitada( String login ) throws ArgumentoInvalidoException {
+		return RelacionamentosUsuarios.getInstance().amizadeDeFoiRequisitada(this.getLogin(), login);
 	}
 	
-	public void requisitarAmizade( String login ) throws Exception{
-		if(ehAmigo(login)){
-			throw new Exception(Mensagem.USUARIO_JAH_SAO_AMIGOS.getMensagem());
-		}else if(amizadeDeFoiRequisitada(login)){
-			throw new Exception(Mensagem.AMIZADE_JAH_SOLICITADA.getMensagem());
-		}
-
-		UsuarioIF futuroAmigo = Autenticacao.getUsuarioPorLogin(login);
-		if( Autenticacao.existeUsuario(login.trim()) ){
-			queroSerAmigoDeles.add(futuroAmigo);
-			futuroAmigo.usuarioQuerSerMeuAmigo(this);
-		}
+	public void requisitarAmizade( String login ) throws Exception {
+		RelacionamentosUsuarios.getInstance().requisitarAmizade(this.getLogin(), login);
 	}
 	
-	public void usuarioQuerSerMeuAmigo( UsuarioIF usuario ){
-		for( UsuarioIF u : getQueremSerMeusAmigos() ){
-			if(u.equals(usuario)) return;
-		}
-		queremSerMeusAmigos.add(usuario);
+	public void usuarioQuerSerMeuAmigo( UsuarioIF usuarioSolicitante ) throws ArgumentoInvalidoException{
+		RelacionamentosUsuarios.getInstance().usuarioQuerSerMeuAmigo(this.getLogin(), usuarioSolicitante);
 	}
 
 	@Override
@@ -337,15 +281,7 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public String getAmigos() throws Exception{
-		Iterator<UsuarioIF> iterador = amigos.iterator();
-		StringBuffer str = new StringBuffer();
-		while(iterador.hasNext()){
-			str.append(iterador.next().getLogin()+"; ");
-		}
-		if(str.toString().trim().equals("")) 
-			return Mensagem.USUARIO_NAO_POSSUI_AMIGOS.getMensagem();
-		return str.toString().trim().substring(0, str.toString().length()-2);
-		
+		return RelacionamentosUsuarios.getInstance().getAmigos(this.getLogin());
 	}
 
 	@Override
@@ -367,17 +303,7 @@ public class Usuario implements UsuarioIF {
 	}
 	
 	public UsuarioIF ehItemDoMeuAmigo( String idItem ) throws Exception{
-		Validador.assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
-		Validador.asserteTrue(ItemRepositorio.existeItem(idItem.trim()), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
-		Iterator<UsuarioIF> iterador = amigos.iterator();
-		while(iterador.hasNext()){
-			UsuarioIF amigo = iterador.next();
-			if(amigo.oItemMePertence(idItem)){
-				return amigo;
-			}
-		}
-		return null;
-		
+		return RelacionamentosUsuarios.getInstance().ehItemDoMeuAmigo(this.getLogin(), idItem);
 	}
 	
 	public void adicionarRequisicaoEmprestimoEmEsperaDeAmigo(EmprestimoIF emp) throws Exception{
@@ -426,17 +352,8 @@ public class Usuario implements UsuarioIF {
 	}
 
 	@Override
-	public UsuarioIF possuoAmigoComEsteLogin(String login) throws Exception {
-		assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(), Mensagem.LOGIN_INVALIDO.getMensagem());
-		
-		Iterator<UsuarioIF> iterador = amigos.iterator();
-		while(iterador.hasNext()){
-			UsuarioIF amigo = iterador.next();
-			if(amigo.getLogin().equals(login.trim()))
-				return amigo;
-		}
-		
-		return null;
+	public UsuarioIF possuoAmigoComEsteLogin(String loginDoAmigo) throws Exception {
+		return RelacionamentosUsuarios.getInstance().possuoAmigoComEsteLogin(this.getLogin(), loginDoAmigo);
 	}
 	
 	public void adicionaConversaOfftopicNaLista( ChatIF conversa ) throws Exception{
@@ -472,143 +389,7 @@ public class Usuario implements UsuarioIF {
 	public synchronized String pesquisarItem( String chave, String atributo,
 			String tipoOrdenacao, String criterioOrdenacao) throws Exception {
 		
-		StringBuffer saida = new StringBuffer();
-		
-		if( criterioOrdenacao.trim().equalsIgnoreCase("dataCriacao") ){
-			//List<String> saidaDataCriacao = new LinkedList<String>();
-			List<ItemIF> saidaDataCriacao = new LinkedList<ItemIF>();
-			Iterator<UsuarioIF> iteradorUsuarios = this.amigos.iterator();
-			while(iteradorUsuarios.hasNext()){
-				UsuarioIF amigo = iteradorUsuarios.next();
-				Iterator<ItemIF> iteradorItens = amigo.getItens().iterator();
-				while(iteradorItens.hasNext()){
-					ItemIF item = iteradorItens.next();
-					if(atributo.trim().equalsIgnoreCase("nome")){
-						if(item.getNome().toLowerCase().contains(chave.toLowerCase())){
-							//saidaDataCriacao.add(item.getNome());
-							saidaDataCriacao.add(item);
-						}
-					}else if(atributo.trim().equalsIgnoreCase("descricao")){
-						if(item.getDescricao().toLowerCase().contains(chave.toLowerCase())){
-							//saidaDataCriacao.add(item.getNome());
-							saidaDataCriacao.add(item);
-						}
-					}else if(atributo.trim().equalsIgnoreCase("categoria")){
-						if(item.getCategoria().toLowerCase().contains(chave.trim().toLowerCase())){
-							//saidaDataCriacao.add(item.getNome());
-							saidaDataCriacao.add(item);
-						}
-					}
-				}
-			}
-			
-			if(tipoOrdenacao.trim().equalsIgnoreCase("crescente")){
-				Collections.sort(saidaDataCriacao, new DataCriacaoItemComparador());
-			}else if(tipoOrdenacao.trim().equalsIgnoreCase("decrescente")){
-				Collections.sort(saidaDataCriacao, new DataCriacaoItemComparador());
-				Collections.reverse(saidaDataCriacao);
-			}
-			Iterator<ItemIF> listaItensRefinadosIterator = saidaDataCriacao.iterator();
-			while(listaItensRefinadosIterator.hasNext()){
-				saida.append(listaItensRefinadosIterator.next().getNome()+"; ");
-			}
-			
-		}else if(criterioOrdenacao.trim().equalsIgnoreCase("reputacao")){
-			//List<String> saidaDataCriacao = new LinkedList<String>();
-			List<ItemIF> saidaReputacao = new LinkedList<ItemIF>();
-			Map<Integer, List<ItemIF>> mapaItensPorReputacao = new HashMap<Integer, List<ItemIF>>();
-			
-			Iterator<UsuarioIF> iteradorUsuarios = this.amigos.iterator();
-			while(iteradorUsuarios.hasNext()){
-				
-				List<ItemIF> listaItens = new LinkedList<ItemIF>();
-				UsuarioIF amigo = iteradorUsuarios.next();
-				Iterator<ItemIF> iteradorItens = amigo.getItens().iterator();
-				while(iteradorItens.hasNext()){
-					ItemIF item = iteradorItens.next();
-					if(atributo.trim().equalsIgnoreCase("nome")){
-						if(item.getNome().toLowerCase().contains(chave.toLowerCase())){
-							//saidaDataCriacao.add(item.getNome());
-							listaItens.add(item);
-						}
-					}else if(atributo.trim().equalsIgnoreCase("descricao")){
-						if(item.getDescricao().toLowerCase().contains(chave.toLowerCase())){
-							//saidaDataCriacao.add(item.getNome());
-							listaItens.add(item);
-						}
-					}else if(atributo.trim().equalsIgnoreCase("categoria")){
-						if(item.getCategoria().toLowerCase().contains(chave.trim().toLowerCase())){
-							//saidaDataCriacao.add(item.getNome());
-							listaItens.add(item);
-						}
-					}
-				}
-				//já percorri itens e adicionei na lista
-				//verificar se a lista nao estah vazia
-				if(!listaItens.isEmpty()){
-					int reputacaoAtual = amigo.getReputacao();
-					if(mapaItensPorReputacao.containsKey(reputacaoAtual)){
-						Iterator<ItemIF> iteradorDaListaDeItensSaidaPorUsuario = listaItens.iterator();
-						while(iteradorDaListaDeItensSaidaPorUsuario.hasNext()){
-							mapaItensPorReputacao.get(reputacaoAtual).add(iteradorDaListaDeItensSaidaPorUsuario.next());
-						}
-					}else{
-						mapaItensPorReputacao.put(reputacaoAtual, listaItens);
-					}
-					if(tipoOrdenacao.trim().equalsIgnoreCase("crescente")){
-						Collections.sort(mapaItensPorReputacao.get(reputacaoAtual), new NomeItemComparador());
-					}else if(tipoOrdenacao.trim().equalsIgnoreCase("decrescente")){
-						Collections.sort(mapaItensPorReputacao.get(reputacaoAtual), new NomeItemComparador());
-						Collections.reverse(mapaItensPorReputacao.get(reputacaoAtual));
-					}	
-				}
-				//limpa lista itens
-				listaItens = new LinkedList<ItemIF>();
-				
-			}
-			//após a coleta e adição de cada lista de objetos por usuario, faremos a ordenação
-			Set<Integer> listaChavesReputacao = mapaItensPorReputacao.keySet();
-			Object[] arrayListaChaves = listaChavesReputacao.toArray();
-			Arrays.sort(arrayListaChaves);
-			
-			
-			if(arrayListaChaves.length > 0){
-				
-				if(tipoOrdenacao.trim().equalsIgnoreCase("crescente")){
-					for( int i = 0; i < arrayListaChaves.length; i++ ){
-						Iterator<ItemIF> iteradorListaReputadacaoMapaIterator = mapaItensPorReputacao.get(i).iterator();
-						while(iteradorListaReputadacaoMapaIterator.hasNext()){
-							saidaReputacao.add(iteradorListaReputadacaoMapaIterator.next());
-						}
-					}
-					
-				}else if(tipoOrdenacao.trim().equalsIgnoreCase("decrescente")){
-					for( int i = arrayListaChaves.length-1; i >= 0; i-- ){
-						Collections.reverse(mapaItensPorReputacao.get(i));
-						Iterator<ItemIF> iteradorListaReputadacaoMapaIterator = mapaItensPorReputacao.get(i).iterator();
-						while(iteradorListaReputadacaoMapaIterator.hasNext()){
-							saidaReputacao.add(iteradorListaReputadacaoMapaIterator.next());
-						}
-					}
-				}
-				
-				
-			}
-			//verificar saida reputacao
-			if(!saidaReputacao.isEmpty()){
-				Iterator<ItemIF> iteradorDaListaReputacao = saidaReputacao.iterator();
-				while(iteradorDaListaReputacao.hasNext()){
-					saida.append(iteradorDaListaReputacao.next().getNome()+"; ");
-				}
-			}
-			
-		}
-		
-		if(saida.toString().trim().equals(""))
-			return Mensagem.NENHUM_ITEM_ENCONTRADO.getMensagem();
-		
-		
-		return saida.toString().trim().substring(0, saida.toString().trim().length()-1);
+		return RelacionamentosUsuarios.getInstance().pesquisarItem(this.getLogin(), chave, atributo, tipoOrdenacao, criterioOrdenacao);
 	}
 	
 
@@ -634,35 +415,12 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public void desfazerAmizade(String amigo) throws Exception {
-		assertStringNaoVazia(amigo, Mensagem.LOGIN_INVALIDO.getMensagem(), Mensagem.LOGIN_INVALIDO.getMensagem());
-		asserteTrue(Autenticacao.existeUsuario(amigo), Mensagem.USUARIO_INEXISTENTE.getMensagem());
-		
-		if(!ehAmigo(amigo)){
-			throw new Exception(Mensagem.AMIZADE_INEXISTENTE.getMensagem());
-		}
-		
-		Iterator<UsuarioIF> iteradorAmigos = amigos.iterator();
-		while(iteradorAmigos.hasNext()){
-			
-			UsuarioIF umAmigo = iteradorAmigos.next();
-			if(amigo.trim().equalsIgnoreCase(umAmigo.getLogin().trim())){
-				
-				//remover requisições do usuário
-				umAmigo.removerEmprestimosRequeridosPorAmigo(this);
-				umAmigo.removerEmprestimosRequeridosPorMim(this);
-				this.removerEmprestimosRequeridosPorMim(umAmigo);
-				this.removerEmprestimosRequeridosPorAmigo(umAmigo);
-				
-				//remover usuario da lista
-				umAmigo.removerAmigoDaLista(this);
-				iteradorAmigos.remove();
-			}
-		}
+		RelacionamentosUsuarios.getInstance().desfazerAmizade(this.getLogin(), amigo);
 	}
 
 	@Override
 	public void removerAmigoDaLista(UsuarioIF amigo) {
-		this.amigos.remove(amigo);		
+		RelacionamentosUsuarios.getInstance().removerAmigoDaLista(this.getLogin(), amigo);
 	}
 
 	@Override
@@ -689,7 +447,7 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public List<UsuarioIF> getListaAmigos() {
-		return this.amigos;
+		return RelacionamentosUsuarios.getInstance().getListaAmigos(this.getLogin());
 	}
 
 	@Override

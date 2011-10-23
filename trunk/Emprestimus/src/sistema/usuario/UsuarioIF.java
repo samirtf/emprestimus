@@ -207,8 +207,9 @@ public interface UsuarioIF extends Comparable<UsuarioIF> {
 	 * 
 	 * @param usuario
 	 * 		Usuario a ser adicionado.
+	 * @throws ArgumentoInvalidoException 
 	 */
-	public void usuarioQuerSerMeuAmigo( UsuarioIF usuario );
+	public void usuarioQuerSerMeuAmigo( UsuarioIF usuario ) throws ArgumentoInvalidoException;
 	
 	/**
 	 * Requisita a amizade do usuário com o login informado.
@@ -223,14 +224,14 @@ public interface UsuarioIF extends Comparable<UsuarioIF> {
 	/**
 	 * Verifica se os usuários já são amigos.
 	 * 
-	 * @param login
+	 * @param amigoProcurado
 	 * 		Login do outro usuário.
 	 * @return
 	 * 		Retorna true em caso afirmativo e false no inverso. 
 	 * @throws ArgumentoInvalidoException
 	 * 		Parâmetro inválido.
 	 */
-	public boolean ehAmigo( String login ) throws ArgumentoInvalidoException;
+	public boolean ehAmigo( String amigoProcurado ) throws ArgumentoInvalidoException;
 	
 	/**
 	 * Verifica se a amizade já foi requisitada.
@@ -250,7 +251,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF> {
 	 * @return
 	 * 		Lista de usuários que requisitaram a amizade do usuário.
 	 */
-	public List<UsuarioIF> getQueremSerMeusAmigos();
+	public List<UsuarioIF> getQueremSerMeusAmigos() throws Exception;
 	
 	/**
 	 * Recupera a lista de usuários dos quais o usuário requisitou a amizade.
@@ -258,7 +259,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF> {
 	 * @return
 	 * 		Lista de usuários dos quais o usuário requisitou a amizade.
 	 */
-	public List<UsuarioIF> getQueroSerAmigoDe();
+	public List<UsuarioIF> getQueroSerAmigoDe() throws Exception;
 
 	/**
 	 * Verifica se dois Usuarios sao iguais. A verificacao eh feita a nivel de
@@ -307,7 +308,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF> {
 	 * @param usuario
 	 * 		Outro usuário, para fazer a verificação.
 	 */
-	public void aprovouAmizade(UsuarioIF usuario);
+	public void aprovouAmizade(UsuarioIF usuario) throws ArgumentoInvalidoException;
 	
 	/**
 	 * Verifica se o item seja do usuário.
@@ -481,5 +482,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF> {
 	public void addNotificacao(Notificacao notificacao) throws Exception;
 
 	public void addHistoricoEmprestimoEmAndamento(UsuarioIF amigo, ItemIF item) throws Exception;
+	
+	public void addHistoricoAmizadeAprovada(UsuarioIF amigo) throws Exception;
 	
 }
