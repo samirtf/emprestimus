@@ -25,6 +25,7 @@ import sistema.item.NomeItemComparador;
 import sistema.mensagem.Chat;
 import sistema.mensagem.ChatIF;
 import sistema.notificacao.Notificacao;
+import sistema.notificacao.NotificacaoEmprestimoAndamento;
 import sistema.notificacao.NotificacaoNovoAmigo;
 import sistema.notificacao.NotificacaoNovoItem;
 import sistema.persistencia.ChatRepositorio;
@@ -158,7 +159,9 @@ public class Usuario implements UsuarioIF {
 	}
 
 	private void addHistoricoCadastrarItem(ItemIF item) throws Exception {
-		addNotificacao(new NotificacaoNovoItem(this, item));
+		Notificacao notif = new NotificacaoNovoItem(this, item);
+		NotificacaoRepositorio.getInstance().novaNotificacao(notif);
+		addNotificacao(notif);
 	}
 
 	@Override
@@ -279,6 +282,7 @@ public class Usuario implements UsuarioIF {
 	
 	private void addHistoricoAmizadeAprovada(UsuarioIF amigo) throws Exception {
 		Notificacao notif = new NotificacaoNovoAmigo(this, amigo);
+		NotificacaoRepositorio.getInstance().novaNotificacao(notif);
 		this.addNotificacao(notif);
 		amigo.addNotificacao(notif);
 	}
@@ -457,6 +461,9 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public String getEmprestimos(String tipo) throws Exception {
+		
+		//FIXME: este método está muito grande e precisa ser dividido!!!
+		
 		Validador.assertStringNaoVazia(tipo, Mensagem.EMPRESTIMO_TIPO_INVALIDO.getMensagem(), Mensagem.EMPRESTIMO_TIPO_INVALIDO.getMensagem());
 		//"mark-steve:The Social Network:Andamento; steve-mark:Guia do mochileiro das galáxias:Andamento"
 		StringBuffer str = new StringBuffer();
@@ -527,23 +534,26 @@ public class Usuario implements UsuarioIF {
 		amigo.emprestimoAceitoPorAmigo(emp);
 		emp.getItem().setDisponibilidade(false);
 		
-		addHistoricoEmprestimoEmAndamento(emp);
+		addHistoricoEmprestimoEmAndamento(amigo, emp.getItem());
 		
 		return emp.getIdEmprestimo();
 		
 	}
 	
-	private void addHistoricoEmprestimoEmAndamento(EmprestimoIF emp) {
+	/**
+	 * @param amigo
+	 * @param item
+	 * @throws Exception 
+	 */
+	private void addHistoricoEmprestimoEmAndamento(UsuarioIF amigo, ItemIF item) throws Exception {
+		Notificacao notif = new NotificacaoEmprestimoAndamento(this, amigo, item);
+		NotificacaoRepositorio.getInstance().novaNotificacao(notif);
+		this.addNotificacao(notif);
+		amigo.addNotificacao(notif);
 		
-		//TODO não mexam, vou lembrar de consertar isso... [Nathaniel]
-		
-//		String atividade = emp.getEmprestador().getNome() + " emprestou " + emp.getItem() + " a " + emp.getBeneficiado().getNome();
-//		emp.getEmprestador().addNotificacao(atividade); // this
-//		emp.getBeneficiado().addNotificacao(atividade);
 	}
 
 	public void addNotificacao(Notificacao notificacao) throws Exception {
-		NotificacaoRepositorio.getInstance().novaNotificacao(notificacao);
 		historico.add(notificacao);
 	}
 

@@ -4,6 +4,13 @@ import java.util.Date;
 
 import sistema.usuario.Usuario;
 
+/**
+ * 
+ * @author José Nathaniel L de Abrante - nathaniel.una@gmail.com
+ * @since 19/11/2011
+ * @version 1.0
+ *
+ */
 public interface Notificacao {
 
 	/**
@@ -40,7 +47,7 @@ public interface Notificacao {
 	 * 
 	 * @return
 	 */
-	public String getId();
+	public Long getId();
 
 	/**
 	 * Atribue um novo id a esta notificacao
@@ -51,7 +58,5 @@ public interface Notificacao {
 	 *             Caso o ID não seja válido
 	 */
 	public Notificacao setId(String novoId) throws Exception;
-
-	public boolean equals(Object obj);
 	
 }

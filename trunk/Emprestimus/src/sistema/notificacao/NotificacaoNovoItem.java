@@ -1,27 +1,33 @@
 package sistema.notificacao;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import sistema.item.ItemIF;
 import sistema.usuario.Usuario;
 import sistema.usuario.UsuarioIF;
 
+/**
+ * 
+ * @author José Nathaniel L de Abrante - nathaniel.una@gmail.com
+ * @since 20/11/2011
+ * @version 1.0
+ *
+ */
 public class NotificacaoNovoItem implements Notificacao {
-	UsuarioIF usuario;
-	ItemIF item;
-	Date data;
-	Long id;
+	private ItemIF item;
+	private Date data;
+	private Long id;
 
 	
 	public NotificacaoNovoItem(UsuarioIF usuario, ItemIF item) {
-		this.usuario = usuario;
 		this.item = item;
+		this.data = new GregorianCalendar().getTime();
 	}
 
 	@Override
 	public Date getData() {
-		// TODO Auto-generated method stub
-		return null;
+		return data;
 	}
 
 	@Override
@@ -36,9 +42,8 @@ public class NotificacaoNovoItem implements Notificacao {
 	}
 
 	@Override
-	public String getId() {
-		// TODO Auto-generated method stub
-		return null;
+	public Long getId() {
+		return id;
 	}
 
 	@Override
@@ -49,8 +54,11 @@ public class NotificacaoNovoItem implements Notificacao {
 	
 	@Override
 	public boolean equals(Object obj) {
-		// TODO Auto-generated method stub
-		return super.equals(obj);
+		if (obj instanceof NotificacaoNovoItem) {
+			NotificacaoNovoItem notificacao = (NotificacaoNovoItem) obj;
+			return id.equals(notificacao.getId());
+		}
+		return false;
 	}
 
 }
