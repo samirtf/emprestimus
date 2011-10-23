@@ -95,7 +95,7 @@ public class InterfaceTexto {
 		System.out.println(Mensagem.MENU_LOGADO.getMensagem());
 		
 		opcao = pegarOpcao(1, 29);
-		//FIXME: Ulisses vai fazer isto!
+		
 		//TODO: retirar numero magico aqui.
 		switch (opcao) {
 		case 1:
