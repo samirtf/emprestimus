@@ -141,7 +141,7 @@ public class Autenticacao implements AutenticacaoIF {
 		return usuariosCadastrados.containsKey(login);
 	}
 	
-	public static UsuarioIF getUsuarioPorLogin( String login ) throws ArgumentoInvalidoException{
+	public static UsuarioIF getUsuarioPorLogin(String login) throws ArgumentoInvalidoException{
 		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(), Mensagem.LOGIN_INVALIDO.getMensagem());
 		Validador.asserteTrue(Autenticacao.existeUsuario(login), Mensagem.LOGIN_INEXISTENTE.getMensagem());
 		return usuariosCadastrados.get(login);
