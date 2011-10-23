@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 
 import sistema.emprestimo.BancoDeEmprestimos;
 import sistema.excecoes.ArgumentoInvalidoException;
+import sistema.item.AcervoDeItens;
 import sistema.item.ItemIF;
 import sistema.mensagem.Correio;
 import sistema.usuario.Usuario;
@@ -94,6 +95,7 @@ public class Autenticacao implements AutenticacaoIF {
 		//adicionando caixa postal ao usuario
 		Correio.adicionaCaixaPostalAoUsuario(login);
 		BancoDeEmprestimos.getInstance().adicionaContaAoUsuario(login);
+		AcervoDeItens.getInstance().adicionaBauhAoUsuario(login);
 	}
 
 	@Override

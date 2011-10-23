@@ -101,7 +101,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF> {
 	 * @return True - Se o item for removido. False - Se o item a ser removido
 	 *         nao existir.
 	 */
-	public boolean removerItem(String idItem);
+	public boolean removerItem(String idItem) throws Exception;
 
 	/**
 	 * Recupera a lista ordenada de idItens de itens cadastrados.
@@ -109,7 +109,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF> {
 	 * @return Uma lista de idItens ordenada. Formatacao: "7 17 18 20 21"
 	 *         Retorna-se uma string vazia caso nao haja elementos.
 	 */
-	public String getListaIdItens();
+	public String getListaIdItens() throws ArgumentoInvalidoException;
 	
 	/**
 	 * Recupera a lista de itens do usário.
@@ -127,11 +127,10 @@ public interface UsuarioIF extends Comparable<UsuarioIF> {
 	 * @param idItem
 	 *            O idItem do item a ser procurado.
 	 * @return
-	 * 		A instancia de ItemIF. null - Caso o item nao exista.
+	 * 		A instancia de ItemIF. 
+	 *      <code>null</code> - Caso o item nao exista.
 	 */
-	// TODO: o que acontece se o item não for encontrado?
-	// ADICIONAR aqui na interface para que eu possa implementar
-	public ItemIF getItem(String idItem);
+	public ItemIF getItem(String idItem) throws ArgumentoInvalidoException;
 
 	/**
 	 * Verifica se o usuario possui o item com id especifico cadastrado.
@@ -141,14 +140,14 @@ public interface UsuarioIF extends Comparable<UsuarioIF> {
 	 * @return
 	 * 		True - Se o item existir. False - Caso nao exista.
 	 */
-	public boolean existeItemID(String idItem);
+	public boolean existeItemID(String idItem) throws ArgumentoInvalidoException;
 
 	/**
 	 * Calcula a quantidade total de itens cadastrados.
 	 * 
 	 * @return int: quantidade de itens cadastrados.
 	 */
-	public int qntItens();
+	public int qntItens() throws ArgumentoInvalidoException;
 
 	/**
 	 * Calcula a quantidade de itens atualmente concedidos em emprestimo, ou
@@ -156,7 +155,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF> {
 	 * 
 	 * @return int: quantidade de itens atualmente emprestados.
 	 */
-	public int qntItensEmprestados();
+	public int qntItensEmprestados() throws ArgumentoInvalidoException;
 
 	/**
 	 * Recupera a lista ordenada de idItens de itens emprestados (concedidos a
@@ -164,7 +163,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF> {
 	 * 
 	 * @return Uma lista ordenada de idItens emprestados.
 	 */
-	public String getListaIdItensEmprestados();
+	public String getListaIdItensEmprestados() throws ArgumentoInvalidoException;
 
 	/**
 	 * Calcula a quantidade de itens atualmente beneficiados em emprestimo, ou

@@ -19,6 +19,7 @@ import sistema.emprestimo.BancoDeEmprestimos;
 import sistema.emprestimo.Emprestimo;
 import sistema.emprestimo.EmprestimoIF;
 import sistema.excecoes.ArgumentoInvalidoException;
+import sistema.item.AcervoDeItens;
 import sistema.item.DataCriacaoItemComparador;
 import sistema.item.Item;
 import sistema.item.ItemIF;
@@ -61,14 +62,10 @@ public class Usuario implements UsuarioIF {
 	private List<UsuarioIF> amigos; // Grupo de amigos
 	private List<UsuarioIF> queremSerMeusAmigos; // solicitacoes de amizade
 	private List<UsuarioIF> queroSerAmigoDeles; // solicitacoes de amizade
-	private List<ItemIF> itens; // itens do usuario
-	private List<ItemIF> itens_emprestados; // lista de itens que o usuario
+	
+	//private List<ItemIF> itens; // itens do usuario
+	//private List<ItemIF> itensEmprestados; // lista de itens que o usuario
 											// emprestou e ainda nao recebeu
-	
-	//private List<EmprestimoIF> emprestimos; //lista de emprestimos do tipo emprestimo/beneficios
-	//private List<EmprestimoIF> emprestimosRequeridosPorAmigosEmEspera; //lista de emprestimos em espera que amigos fizeram a mim
-	//private List<EmprestimoIF> emprestimosRequeridosPorMimEmEspera; //lista de emprestimos em espera que fiz a amigos
-	
 //	protected List<String> historico;
 	
 	private Stack<Notificacao> historico;
@@ -96,7 +93,8 @@ public class Usuario implements UsuarioIF {
 		setNome(nome);
 		setEndereco(endereco);
 
-		itens = new ArrayList<ItemIF>();
+		//itens = new ArrayList<ItemIF>();
+		//itensEmprestados = new ArrayList<ItemIF>();
 		amigos = new ArrayList<UsuarioIF>();
 		queremSerMeusAmigos = new ArrayList<UsuarioIF>();
 		queroSerAmigoDeles = new ArrayList<UsuarioIF>();
@@ -148,12 +146,10 @@ public class Usuario implements UsuarioIF {
 	@Override
 	public String cadastrarItem(String nome, String descricao, String categoria)
 			throws Exception {
-		ItemIF item = new Item(nome, descricao, categoria, this);
-		ItemRepositorio.cadastrarItem(item);
-		itens.add(item);// o item eh modificado pelo repositorio possuindo agora
-						// um id valido
+		String idItem = AcervoDeItens.getInstance().cadastrarItem(this.getLogin(), nome, descricao, categoria);
+		ItemIF item = ItemRepositorio.recuperarItem(idItem);
 		addHistoricoCadastrarItem(item);
-		return String.valueOf((Long.valueOf(ItemRepositorio.geraIdProxItem()) - 1));
+		return item.getId();
 
 	}
 
@@ -164,25 +160,13 @@ public class Usuario implements UsuarioIF {
 	}
 
 	@Override
-	public boolean removerItem(String idItem) {
-		for (ItemIF item : itens) {
-			if (idItem.equals(item.getId())) {
-				itens.remove(item);
-				return true;
-			}
-		}
-		return false;
+	public boolean removerItem(String idItem) throws ArgumentoInvalidoException {
+		return AcervoDeItens.getInstance().removerItem(this.getLogin(), idItem);
 	}
 
 	@Override
-	public String getListaIdItens() {
-		StringBuilder listaIdItensString = new StringBuilder();
-		Collections.sort(this.itens);
-		for (ItemIF item : this.itens) {
-			listaIdItensString.append(item.getId() + " ");
-		}
-
-		return listaIdItensString.toString().trim();
+	public String getListaIdItens() throws ArgumentoInvalidoException{
+		return AcervoDeItens.getInstance().getListaIdItens(login);
 	}
 
 	/**
@@ -192,40 +176,27 @@ public class Usuario implements UsuarioIF {
 	 */
 	@Override
 	public List<ItemIF> getItens() {
-		return this.itens;
+		return AcervoDeItens.getInstance().getItens(this.getLogin());
 	}
 
 	@Override
-	public ItemIF getItem(String idItem) {
-		for (ItemIF item : this.itens) {
-			if (item.getId().equals(idItem)) {
-				return item;
-			}
-		}
-
-		return null;
+	public ItemIF getItem(String idItem) throws ArgumentoInvalidoException{
+		return AcervoDeItens.getInstance().getItem(this.getLogin(), idItem);
 	}
 
 	@Override
-	public int qntItens() {
-		return this.itens.size();
+	public int qntItens() throws ArgumentoInvalidoException{
+		return AcervoDeItens.getInstance().qntItens(login);
 	}
 
 	@Override
-	public int qntItensEmprestados() {
-		return this.itens_emprestados.size();
+	public int qntItensEmprestados() throws ArgumentoInvalidoException{
+		return AcervoDeItens.getInstance().qntItensEmprestados(login);
 	}
 
 	@Override
-	public String getListaIdItensEmprestados() {
-		StringBuilder listaIdItensEmprestadosString = new StringBuilder();
-
-		for (ItemIF itensEmprestados : this.itens_emprestados) {
-			listaIdItensEmprestadosString
-					.append(itensEmprestados.getId() + " ");
-		}
-
-		return listaIdItensEmprestadosString.toString().trim();
+	public String getListaIdItensEmprestados() throws ArgumentoInvalidoException{
+		return AcervoDeItens.getInstance().getListaIdItensEmprestados(login);
 	}
 
 	@Override
@@ -360,13 +331,8 @@ public class Usuario implements UsuarioIF {
 	}
 
 	@Override
-	public boolean existeItemID(String idItem) {
-		try {
-			return itens.contains(new Item("placebo", "placebo", "FILME").setId(idItem));
-		} catch (Exception e) {
-		}// nao lanca excecao.
-		return false;
-
+	public boolean existeItemID(String idItem) throws ArgumentoInvalidoException{
+		return AcervoDeItens.getInstance().existeItemID(this.getLogin(), idItem);
 	}
 
 	@Override
@@ -383,15 +349,8 @@ public class Usuario implements UsuarioIF {
 	}
 
 	@Override
-	public String getListaItens() throws Exception{
-		Iterator<ItemIF> iterador = itens.iterator();
-		StringBuffer str = new StringBuffer();
-		while(iterador.hasNext()){
-			str.append(iterador.next().getNome()+"; ");
-		}
-		if(str.toString().trim().equals(""))
-			return Mensagem.USUARIO_SEM_ITENS_CADASTRADOS.getMensagem();
-		return str.toString().substring(0, str.toString().length()-2);
+	public String getListaItens() throws Exception {
+		return AcervoDeItens.getInstance().getListaItens(login);
 	}
 	
 	public boolean oItemMePertence( String idItem ) throws ArgumentoInvalidoException{
@@ -720,13 +679,7 @@ public class Usuario implements UsuarioIF {
 	public boolean esteItemMePertence( String idItem ) throws Exception {
 		assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
 		asserteTrue(ItemRepositorio.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
-		
-		Iterator<ItemIF> iteradorItens = this.itens.iterator();
-		while(iteradorItens.hasNext()){
-			if(iteradorItens.next().getId().trim().equalsIgnoreCase(idItem.trim()))
-				return true;
-		}
-		return false;
+		return AcervoDeItens.getInstance().esteItemMePertence(this.getLogin(), idItem);
 	}
 
 	@Override
@@ -741,25 +694,7 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public void apagarItem(String idItem) throws Exception {
-		BancoDeEmprestimos banco = BancoDeEmprestimos.getInstance();
-		Iterator<EmprestimoIF> iteradorEmprestimosRequeridosPorAmigos 
-		= banco.getConta(this.getLogin()).getEmprestimosRequeridosPorAmigosEmEspera().iterator();
-		while(iteradorEmprestimosRequeridosPorAmigos.hasNext()){
-			EmprestimoIF emprestimo = iteradorEmprestimosRequeridosPorAmigos.next();
-			if(emprestimo.getItem().getId().equalsIgnoreCase(idItem.trim())){
-				
-				UsuarioIF amigoQueSolicitou = emprestimo.getBeneficiado();
-				amigoQueSolicitou.removerMinhaSolicitacaoEmprestimo(emprestimo);
-				EmprestimoRepositorio.removerEmprestimo(emprestimo.getIdEmprestimo());
-				iteradorEmprestimosRequeridosPorAmigos.remove();
-			}
-		}
-		Iterator<ItemIF> iteradorMeusItens = this.itens.iterator();
-		while(iteradorMeusItens.hasNext()){
-			if(iteradorMeusItens.next().getId().equalsIgnoreCase(idItem.trim())){
-				iteradorMeusItens.remove();
-			}
-		}
+		AcervoDeItens.getInstance().apagarItem(this.getLogin(), idItem);
 	}
 
 	@Override
