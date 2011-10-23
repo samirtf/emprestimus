@@ -28,7 +28,6 @@ public class Item implements ItemIF {
 	private List<UsuarioIF> interessados;
 	private UsuarioIF dono;
 
-	@Deprecated
 	/**
 	 * O construtor padrao eh privado e nao oferece implementacao.
 	 */
