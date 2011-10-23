@@ -1,7 +1,6 @@
 package testes.unidade.sistema.usuario;
 
 
-import sistema.item.ItemCategoria;
 import sistema.persistencia.ItemRepositorio;
 import sistema.usuario.Usuario;
 import sistema.usuario.UsuarioIF;
