@@ -106,7 +106,7 @@ public class Correio {
 	 * @throws Exception
 	 *             Caso os parâmetros sejam inválidos.
 	 */
-	public static String enviarMensagemOffTopic(String remetente,
+	public synchronized static String enviarMensagemOffTopic(String remetente,
 			String destinatario, String assunto, String mensagem)
 			throws Exception {
 
@@ -158,7 +158,7 @@ public class Correio {
 	 * @return
 	 * @throws Exception
 	 */
-	public static String enviarMensagemEmprestimo(String remetente,
+	public synchronized static String enviarMensagemEmprestimo(String remetente,
 			String destinatario, String assunto, String mensagem,
 			String idRequisicaoEmprestimo) throws Exception {
 

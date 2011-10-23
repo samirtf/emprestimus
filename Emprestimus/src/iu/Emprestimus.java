@@ -515,7 +515,6 @@ public class Emprestimus implements EmprestimusIF {
 		assertStringNaoVazia(idRequisicaoEmprestimo, Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem(), Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
 		asserteTrue(EmprestimoRepositorio.existeEmprestimo(idRequisicaoEmprestimo.trim()), 
 				Mensagem.ID_REQUISICAO_EMP_INEXISTENTE.getMensagem());
-		
 		return usuario.enviarMensagemEmprestimo(destinatario, assunto, mensagem, idRequisicaoEmprestimo);
 	}
 

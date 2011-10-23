@@ -68,8 +68,8 @@ public class Usuario implements UsuarioIF {
 	private List<EmprestimoIF> emprestimosRequeridosPorAmigosEmEspera; //lista de emprestimos em espera que amigos fizeram a mim
 	private List<EmprestimoIF> emprestimosRequeridosPorMimEmEspera; //lista de emprestimos em espera que fiz a amigos
 	
-	private List<ChatIF> conversasOfftopic; //lista de conversas offtopic
-	private List<ChatIF> conversasNegociacao; //lista de conversas negociacao
+	//private List<ChatIF> conversasOfftopic; //lista de conversas offtopic
+	//private List<ChatIF> conversasNegociacao; //lista de conversas negociacao
 
 //	protected List<String> historico;
 	
@@ -105,8 +105,8 @@ public class Usuario implements UsuarioIF {
 		emprestimos = new ArrayList<EmprestimoIF>();
 		emprestimosRequeridosPorAmigosEmEspera = new ArrayList<EmprestimoIF>();
 		emprestimosRequeridosPorMimEmEspera = new ArrayList<EmprestimoIF>();
-		conversasOfftopic = new LinkedList<ChatIF>();
-		conversasNegociacao = new LinkedList<ChatIF>();
+		//conversasOfftopic = new LinkedList<ChatIF>();
+		//conversasNegociacao = new LinkedList<ChatIF>();
 		historico = new Stack<Notificacao>();
 	}
 
@@ -577,12 +577,14 @@ public class Usuario implements UsuarioIF {
 		return null;
 	}
 	
-	public void adicionaConversaOfftopicNaLista( ChatIF conversa ){
-		this.conversasOfftopic.add(conversa);
+	public void adicionaConversaOfftopicNaLista( ChatIF conversa ) throws Exception{
+		//this.conversasOfftopic.add(conversa);
+		Correio.adicionaConversaOfftopicNaLista(this.getLogin(), conversa);
 	}
 	
-	public void adicionaConversaNegociacaoNaLista( ChatIF conversa ){
-		this.conversasNegociacao.add(conversa);
+	public void adicionaConversaNegociacaoNaLista( ChatIF conversa ) throws Exception{
+		//this.conversasNegociacao.add(conversa);
+		Correio.adicionaConversaNegociacaoNaLista(this.getLogin(), conversa);
 	}
 
 	@Override
@@ -600,7 +602,7 @@ public class Usuario implements UsuarioIF {
 	}
 
 	@Override
-	public String lerTopicos(String tipo) throws Exception {
+	public synchronized String lerTopicos(String tipo) throws Exception {
 		return Correio.lerTopicos(this.getLogin(), tipo);
 	}
 
