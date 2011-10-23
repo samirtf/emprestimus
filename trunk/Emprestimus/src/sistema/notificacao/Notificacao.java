@@ -52,4 +52,6 @@ public interface Notificacao {
 	 */
 	public Notificacao setId(String novoId) throws Exception;
 
+	public boolean equals(Object obj);
+	
 }
