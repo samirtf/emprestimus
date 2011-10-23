@@ -15,6 +15,7 @@ import java.util.Set;
 import java.util.Stack;
 
 import sistema.autenticacao.Autenticacao;
+import sistema.emprestimo.BancoDeEmprestimos;
 import sistema.emprestimo.Emprestimo;
 import sistema.emprestimo.EmprestimoIF;
 import sistema.excecoes.ArgumentoInvalidoException;
@@ -64,13 +65,10 @@ public class Usuario implements UsuarioIF {
 	private List<ItemIF> itens_emprestados; // lista de itens que o usuario
 											// emprestou e ainda nao recebeu
 	
-	private List<EmprestimoIF> emprestimos; //lista de emprestimos do tipo emprestimo/beneficios
-	private List<EmprestimoIF> emprestimosRequeridosPorAmigosEmEspera; //lista de emprestimos em espera que amigos fizeram a mim
-	private List<EmprestimoIF> emprestimosRequeridosPorMimEmEspera; //lista de emprestimos em espera que fiz a amigos
+	//private List<EmprestimoIF> emprestimos; //lista de emprestimos do tipo emprestimo/beneficios
+	//private List<EmprestimoIF> emprestimosRequeridosPorAmigosEmEspera; //lista de emprestimos em espera que amigos fizeram a mim
+	//private List<EmprestimoIF> emprestimosRequeridosPorMimEmEspera; //lista de emprestimos em espera que fiz a amigos
 	
-	//private List<ChatIF> conversasOfftopic; //lista de conversas offtopic
-	//private List<ChatIF> conversasNegociacao; //lista de conversas negociacao
-
 //	protected List<String> historico;
 	
 	private Stack<Notificacao> historico;
@@ -102,9 +100,9 @@ public class Usuario implements UsuarioIF {
 		amigos = new ArrayList<UsuarioIF>();
 		queremSerMeusAmigos = new ArrayList<UsuarioIF>();
 		queroSerAmigoDeles = new ArrayList<UsuarioIF>();
-		emprestimos = new ArrayList<EmprestimoIF>();
-		emprestimosRequeridosPorAmigosEmEspera = new ArrayList<EmprestimoIF>();
-		emprestimosRequeridosPorMimEmEspera = new ArrayList<EmprestimoIF>();
+		//emprestimos = new ArrayList<EmprestimoIF>();
+		//emprestimosRequeridosPorAmigosEmEspera = new ArrayList<EmprestimoIF>();
+		//emprestimosRequeridosPorMimEmEspera = new ArrayList<EmprestimoIF>();
 		//conversasOfftopic = new LinkedList<ChatIF>();
 		//conversasNegociacao = new LinkedList<ChatIF>();
 		historico = new Stack<Notificacao>();
@@ -423,122 +421,26 @@ public class Usuario implements UsuarioIF {
 		
 	}
 	
-	public void adicionarRequisicaoEmprestimoEmEsperaDeAmigo(EmprestimoIF emp){
-		this.emprestimosRequeridosPorAmigosEmEspera.add(emp);
+	public void adicionarRequisicaoEmprestimoEmEsperaDeAmigo(EmprestimoIF emp) throws Exception{
+		BancoDeEmprestimos.getInstance().adicionarRequisicaoEmprestimoEmEsperaDeAmigo(this.getLogin(), emp);
+		//this.emprestimosRequeridosPorAmigosEmEspera.add(emp);
 	}
 
 	@Override
 	public synchronized String requisitarEmprestimo(String idItem, int duracao) throws Exception{
-		Validador.assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
-		Validador.asserteTrue(ItemRepositorio.existeItem(idItem.trim()), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
-		Validador.asserteTrue(duracao > 0, Mensagem.EMPRESTIMO_DURACAO_INVALIDA.getMensagem());
-		UsuarioIF amigo = ehItemDoMeuAmigo(idItem);
-		Validador.asserteTrue( amigo != null , Mensagem.USUARIO_NAO_TEM_PERMISSAO_REQUISITAR_EMPREST_ITEM.getMensagem());
-		
-		
-		ItemIF item = ItemRepositorio.recuperarItem(idItem);
-		
-		//verifica se jah fiz o pedido do item
-		Iterator<EmprestimoIF> iterador = emprestimosRequeridosPorMimEmEspera.iterator();
-		while(iterador.hasNext()){
-			if(iterador.next().getItem().equals(item))
-				throw new Exception(Mensagem.REQUISICAO_EMPRESTIMO_JA_SOLICITADA.getMensagem());
-		}
-		
-		EmprestimoIF emp = new Emprestimo(amigo, this, item, "beneficiado", duracao);
-		
-		//vou atualizar estado do emprestimo
-		EmprestimoRepositorio.requisitarEmprestimo(emp);
-		emprestimosRequeridosPorMimEmEspera.add(emp);// o emprestimo eh modificdo pelo repositorio possuindo agora
-						// um id valido
-		amigo.adicionarRequisicaoEmprestimoEmEsperaDeAmigo(emp);
-		String assunto = "Empréstimo do item "+item.getNome()+" a "+this.getNome()+"";
-		String mensagem = this.getNome()+" solicitou o empréstimo do item "+item.getNome();
-		this.enviarMensagemEmprestimo(amigo.getLogin(), assunto, mensagem, emp.getIdEmprestimo());
-		return emp.getIdEmprestimo();
-		
+		return BancoDeEmprestimos.getInstance().requisitarEmprestimo(this.getLogin(), idItem, duracao);		
 	}
 	
 
 	@Override
 	public String getEmprestimos(String tipo) throws Exception {
-		
-		//FIXME: este método está muito grande e precisa ser dividido!!!
-		
-		Validador.assertStringNaoVazia(tipo, Mensagem.EMPRESTIMO_TIPO_INVALIDO.getMensagem(), Mensagem.EMPRESTIMO_TIPO_INVALIDO.getMensagem());
-		//"mark-steve:The Social Network:Andamento; steve-mark:Guia do mochileiro das galáxias:Andamento"
-		StringBuffer str = new StringBuffer();
-		List<String> listaSaida = new ArrayList<String>();
-		Iterator<EmprestimoIF> iterador = emprestimos.iterator();
-		
-		while(iterador.hasNext()){
-			EmprestimoIF emp = iterador.next();
-			if(tipo.trim().equalsIgnoreCase("emprestador")){
-				
-				if(this.equals(emp.getEmprestador())){
-					
-					listaSaida.add(emp.getEmprestador().getLogin()+"-"+
-				               emp.getBeneficiado().getLogin()+":"+
-				               emp.getItem().getNome()+":"+emp.getSituacao()+"; ");
-					Collections.sort(listaSaida);
-				}
-			}else if (tipo.trim().equalsIgnoreCase("beneficiado")){
-				if(this.equals(emp.getBeneficiado())){
-					
-					listaSaida.add(emp.getEmprestador().getLogin()+"-"+
-				               emp.getBeneficiado().getLogin()+":"+
-				               emp.getItem().getNome()+":"+emp.getSituacao()+"; ");
-					Collections.sort(listaSaida);
-				}
-			}else if (tipo.trim().equalsIgnoreCase("todos")){
-				
-				if(this.equals(emp.getEmprestador())){
-					listaSaida.add(0, emp.getEmprestador().getLogin()+"-"+
-				               emp.getBeneficiado().getLogin()+":"+
-				               emp.getItem().getNome()+":"+emp.getSituacao()+"; ");
-				}
-				
-				if(this.equals(emp.getBeneficiado())){
-					listaSaida.add(emp.getEmprestador().getLogin()+"-"+
-				               emp.getBeneficiado().getLogin()+":"+
-				               emp.getItem().getNome()+":"+emp.getSituacao()+"; ");
-				}
-				
-			}else{
-				throw new Exception(Mensagem.EMPRESTIMO_TIPO_INXISTENTE.getMensagem());
-			}
-		}
-		
-		for(String s : listaSaida){
-			str.append(s);
-		}
-		
-		if(str.toString().trim().equals("")) return Mensagem.NAO_HA_EMPRESTIMOS_DESTE_TIPO.getMensagem();
-		return str.toString().trim().substring(0, str.toString().length()-2);
+		return BancoDeEmprestimos.getInstance().getEmprestimos(this.getLogin(), tipo);
 	}
 
 	@Override
 	public String aprovarEmprestimo( String idRequisicaoEmprestimo )
 			throws Exception {
-		assertStringNaoVazia(idRequisicaoEmprestimo, Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem(), Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
-		asserteTrue(EmprestimoRepositorio.existeEmprestimo(idRequisicaoEmprestimo.trim()), Mensagem.ID_REQUISICAO_EMP_INEXISTENTE.getMensagem());
-		
-		EmprestimoIF emp = EmprestimoRepositorio.recuperarEmprestimo(idRequisicaoEmprestimo.trim());
-				asserteTrue(this.equals(emp.getEmprestador()), Mensagem.EMPRESTIMO_SEM_PERMISSAO_APROVAR.getMensagem());
-				
-		if(!emp.estaAprovado()) throw new Exception(Mensagem.EMPRESTIMO_JA_APROVADO.getMensagem());
-		emp.aprovarEmprestimo();
-		
-		emprestimosRequeridosPorAmigosEmEspera.remove(emp);
-		emprestimos.add(emp);
-		UsuarioIF amigo = emp.getBeneficiado();
-		amigo.emprestimoAceitoPorAmigo(emp);
-		emp.getItem().setDisponibilidade(false);
-		
-		addHistoricoEmprestimoEmAndamento(amigo, emp.getItem());
-		
-		return emp.getIdEmprestimo();
-		
+		return BancoDeEmprestimos.getInstance().aprovarEmprestimo(this.getLogin(), idRequisicaoEmprestimo);
 	}
 	
 	/**
@@ -546,7 +448,7 @@ public class Usuario implements UsuarioIF {
 	 * @param item
 	 * @throws Exception 
 	 */
-	private void addHistoricoEmprestimoEmAndamento(UsuarioIF amigo, ItemIF item) throws Exception {
+	public void addHistoricoEmprestimoEmAndamento(UsuarioIF amigo, ItemIF item) throws Exception {
 		Notificacao notif = new NotificacaoEmprestimoAndamento(this, amigo, item);
 		NotificacaoRepositorio.getInstance().novaNotificacao(notif);
 		this.addNotificacao(notif);
@@ -559,8 +461,9 @@ public class Usuario implements UsuarioIF {
 	}
 
 	public void emprestimoAceitoPorAmigo( EmprestimoIF emp ) throws Exception {
-		this.emprestimosRequeridosPorMimEmEspera.remove(emp);
-		emprestimos.add(emp);
+		BancoDeEmprestimos.getInstance().emprestimoAceitoPorAmigo(this.getLogin(), emp);
+		//this.emprestimosRequeridosPorMimEmEspera.remove(emp);
+		//emprestimos.add(emp);
 	}
 
 	@Override
@@ -805,33 +708,12 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public void removerEmprestimosRequeridosPorAmigo(UsuarioIF amigo) {
-		Iterator<EmprestimoIF> iteradorListaEmprestimosRequeridosPorAmigo 
-		= this.emprestimosRequeridosPorAmigosEmEspera.iterator();
-		
-		while(iteradorListaEmprestimosRequeridosPorAmigo.hasNext()){
-			EmprestimoIF emprestimo = iteradorListaEmprestimosRequeridosPorAmigo.next();
-			if(emprestimo.getBeneficiado().equals(amigo)){
-				EmprestimoRepositorio.removerEmprestimo(emprestimo.getIdEmprestimo());
-				iteradorListaEmprestimosRequeridosPorAmigo.remove();
-			}
-		}
-		
-		
+		BancoDeEmprestimos.getInstance().removerEmprestimosRequeridosPorAmigo(this.getLogin(), amigo);		
 	}
 
 	@Override
 	public void removerEmprestimosRequeridosPorMim(UsuarioIF amigo) {
-		Iterator<EmprestimoIF> iteradorListaEmprestimosRequeridosPorMim 
-		= this.emprestimosRequeridosPorMimEmEspera.iterator();
-		
-		while(iteradorListaEmprestimosRequeridosPorMim.hasNext()){
-			EmprestimoIF emprestimo = iteradorListaEmprestimosRequeridosPorMim.next();
-			if(emprestimo.getEmprestador().equals(amigo)){
-				EmprestimoRepositorio.removerEmprestimo(emprestimo.getIdEmprestimo());
-				iteradorListaEmprestimosRequeridosPorMim.remove();
-			}
-		}
-		
+		BancoDeEmprestimos.getInstance().removerEmprestimosRequeridosPorMim(this.getLogin(), amigo);
 	}
 
 	@Override
@@ -849,17 +731,7 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public synchronized boolean requisiteiEsteItem(String idItem) throws Exception {
-		assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
-		asserteTrue(ItemRepositorio.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
-		
-		Iterator<EmprestimoIF> iteradorEmprestimos = this.emprestimosRequeridosPorMimEmEspera.iterator();
-		while(iteradorEmprestimos.hasNext()){
-			
-			if(iteradorEmprestimos.next().getItem().getId().trim().equalsIgnoreCase(idItem.trim())){
-				return true;
-			}
-		}
-		return false;
+		return BancoDeEmprestimos.getInstance().requisiteiEsteItem(this.getLogin(), idItem);
 	}
 
 	@Override
@@ -869,8 +741,9 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public void apagarItem(String idItem) throws Exception {
+		BancoDeEmprestimos banco = BancoDeEmprestimos.getInstance();
 		Iterator<EmprestimoIF> iteradorEmprestimosRequeridosPorAmigos 
-		= this.emprestimosRequeridosPorAmigosEmEspera.iterator();
+		= banco.getConta(this.getLogin()).getEmprestimosRequeridosPorAmigosEmEspera().iterator();
 		while(iteradorEmprestimosRequeridosPorAmigos.hasNext()){
 			EmprestimoIF emprestimo = iteradorEmprestimosRequeridosPorAmigos.next();
 			if(emprestimo.getItem().getId().equalsIgnoreCase(idItem.trim())){
@@ -891,7 +764,8 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public void removerMinhaSolicitacaoEmprestimo(EmprestimoIF emprestimo) {
-		this.emprestimosRequeridosPorMimEmEspera.remove(emprestimo);
+		BancoDeEmprestimos.getInstance().removerMinhaSolicitacaoEmprestimo(this.getLogin(), emprestimo);
+		//this.emprestimosRequeridosPorMimEmEspera.remove(emprestimo);
 	}
 
 	@Override

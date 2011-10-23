@@ -232,7 +232,9 @@ public enum Mensagem {
     NOTIFICACAO_INEXISTENTE("Notificacao inexixtente"),
 	
 	PROPRIETARIO_CAIXA_POSTAL_INEXISTENTE("Proprietário inexistente"),
-	PROPRIETARIO_CAIXA_POSTAL_JAH_CADASTRADO("Proprietário já cadastrado");
+	PROPRIETARIO_CAIXA_POSTAL_JAH_CADASTRADO("Proprietário já cadastrado"),
+	PROPRIETARIO_CONTA_INEXISTENTE("Proprietário inexistente"),
+	PROPRIETARIO_CONTA_JAH_CADASTRADO("Proprietário da conta já cadastrado");
 	
 	private final String mensagem;
 
