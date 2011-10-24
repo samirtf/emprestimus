@@ -479,8 +479,6 @@ public interface UsuarioIF extends Comparable<UsuarioIF> {
 	
 	public String getHistoricoToString();
 
-	public void addNotificacao(Notificacao notificacao) throws Exception;
-
 	public void addHistoricoEmprestimoEmAndamento(UsuarioIF amigo, ItemIF item) throws Exception;
 	
 	public void addHistoricoAmizadeAprovada(UsuarioIF amigo) throws Exception;

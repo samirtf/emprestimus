@@ -333,11 +333,6 @@ public class Usuario implements UsuarioIF {
 		GerenciadorDeNotificacoes.getInstance().addHistoricoEmprestimoEmAndamento(this.getLogin(), amigo, item);
 	}
 
-	public void addNotificacao(Notificacao notificacao) throws Exception {
-		//historico.add(notificacao);
-		historico.push(notificacao);
-	}
-
 	public void emprestimoAceitoPorAmigo( EmprestimoIF emp ) throws Exception {
 		BancoDeEmprestimos.getInstance().emprestimoAceitoPorAmigo(this.getLogin(), emp);
 		//this.emprestimosRequeridosPorMimEmEspera.remove(emp);
