@@ -20,9 +20,9 @@ public class NotificacaoNovoItem implements Notificacao {
 	private Long id;
 
 	
-	public NotificacaoNovoItem(UsuarioIF usuario, ItemIF item) {
+	public NotificacaoNovoItem(UsuarioIF usuario, ItemIF item) throws Exception {
 		this.item = item;
-		this.data = new GregorianCalendar().getTime();
+		inicializarData();
 	}
 
 	@Override
@@ -31,13 +31,13 @@ public class NotificacaoNovoItem implements Notificacao {
 	}
 
 	@Override
-	public Notificacao setNewData(Date novaData) throws Exception {
-		data = new GregorianCalendar().getTime();
+	public Notificacao setNovaData(Date novaData) throws Exception {
+		data = novaData;
 		return this;
 	}
 	
 	@Override
-	public void setData(Date novaData) throws Exception {
+	public void inicializarData() throws Exception {
 		data = new GregorianCalendar().getTime();
 	}
 

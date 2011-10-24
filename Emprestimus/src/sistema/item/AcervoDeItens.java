@@ -3,6 +3,7 @@
  */
 package sistema.item;
 
+import static sistema.utilitarios.Validador.assertNaoNulo;
 import static sistema.utilitarios.Validador.assertStringNaoVazia;
 import static sistema.utilitarios.Validador.asserteTrue;
 
@@ -19,8 +20,10 @@ import sistema.emprestimo.Conta;
 import sistema.emprestimo.Emprestimo;
 import sistema.emprestimo.EmprestimoIF;
 import sistema.excecoes.ArgumentoInvalidoException;
+import sistema.notificacao.GerenciadorDeNotificacoes;
 import sistema.persistencia.EmprestimoRepositorio;
 import sistema.persistencia.ItemRepositorio;
+import sistema.usuario.RelacionamentosUsuarios;
 import sistema.usuario.UsuarioIF;
 import sistema.utilitarios.Mensagem;
 import sistema.utilitarios.Validador;
@@ -208,6 +211,26 @@ public class AcervoDeItens {
 				iteradorMeusItens.remove();
 			}
 		}
+	}
+
+	
+	public void registrarInteressePorItem(String seuLogin, String idItem)
+			throws Exception {
+
+		Validador.assertStringNaoVazia(seuLogin, Mensagem.LOGIN_INVALIDO.getMensagem(), Mensagem.LOGIN_INVALIDO.getMensagem());
+		assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		asserteTrue(ItemRepositorio.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
+		
+		ItemIF item = ItemRepositorio.recuperarItem(idItem);
+		
+		//FIXME usar as mensagens constantes do enum Mensagem
+		
+		asserteTrue(!item.getInteresasados().contains(this), "O usuário já registrou interesse neste item");
+		asserteTrue(!esteItemMePertence(seuLogin, idItem), "O usuário não pode registrar interesse no próprio item");
+		UsuarioIF amigo = RelacionamentosUsuarios.getInstance().ehItemDoMeuAmigo(seuLogin, idItem);
+		assertNaoNulo(amigo, "O usuário não tem permissão para registrar interesse neste item");
+		item.adicionaInteressado(Autenticacao.getUsuarioPorLogin(seuLogin));
+		GerenciadorDeNotificacoes.getInstance().addHistoricoInteressePorItem(seuLogin, amigo, item);
 	}
 
 
