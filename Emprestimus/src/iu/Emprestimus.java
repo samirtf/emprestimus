@@ -712,8 +712,8 @@ public class Emprestimus implements EmprestimusIF {
 
 	@Override
 	public String historicoAtividadesConjunto(String idSessao) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return GerenciadorDeNotificacoes.getInstance().
+		    getHistoricoAtividadesConjunto(autenticacao.getUsuarioPeloIDSessao(idSessao));
 	}
 
 	@Override

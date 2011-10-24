@@ -1,6 +1,7 @@
 package sistema.notificacao;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import sistema.item.ItemIF;
 import sistema.usuario.Usuario;
@@ -22,12 +23,15 @@ public class NotificacaoRegistroInteresse implements Notificacao {
 	 * @param interessado
 	 * @param dono
 	 * @param item
+	 * @throws InterruptedException 
 	 */
 	public NotificacaoRegistroInteresse(UsuarioIF interessado, UsuarioIF dono,
-			ItemIF item) {
+			ItemIF item) throws InterruptedException {
 		this.interessado = interessado;
 		this.dono = dono;
 		this.item = item;
+		Thread.sleep(1);
+		this.data = new GregorianCalendar().getTime();
 	}
 
 	@Override
@@ -48,19 +52,18 @@ public class NotificacaoRegistroInteresse implements Notificacao {
 
 	@Override
 	public Long getId() {
-		return Long.valueOf(id);
+		return id;
 	}
 
 	@Override
 	public Notificacao setId(String novoId) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		this.id = Long.valueOf(novoId);
+		return this;
 	}
 
 	@Override
 	public int compareTo(Notificacao o) {
-		// TODO Auto-generated method stub
-		return 0;
+		return getId().compareTo(o.getId());
 	}
 
 }

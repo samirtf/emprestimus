@@ -3,7 +3,10 @@
  */
 package sistema.notificacao;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -124,6 +127,45 @@ public class GerenciadorDeNotificacoes {
 		NotificacaoRepositorio.getInstance().novaNotificacao(notif);
 		historicos.get(seuLogin).addNotificacao(notif);
 		
+	}
+
+	public String getHistoricoAtividadesConjunto(UsuarioIF usuario) throws Exception{
+		List<Notificacao> historico = new ArrayList<Notificacao>();
+		List<UsuarioIF> amigos = usuario.getListaAmigos();
+		Iterator<UsuarioIF> iteradorAmigos = amigos.iterator();
+		while(iteradorAmigos.hasNext()){
+			String loginAmigo = iteradorAmigos.next().getLogin();
+			Iterator<Notificacao> iteradorNotificacoes = historicos.get(loginAmigo).iterador();
+			
+			while(iteradorNotificacoes.hasNext()){
+				Notificacao not = iteradorNotificacoes.next();
+				if(!historico.contains(not)){
+					historico.add(not);
+				}
+			}
+		}
+		Iterator<Notificacao> iteradorMinhasNotificacoes = historicos.get(usuario.getLogin()).iterador();
+		
+		while(iteradorMinhasNotificacoes.hasNext()){
+			Notificacao not = iteradorMinhasNotificacoes.next();
+			if(!historico.contains(not)){
+				historico.add(not);
+			}
+			
+		}
+		Collections.sort(historico);
+		Collections.reverse(historico);
+		StringBuffer sb = new StringBuffer();
+		Iterator<Notificacao> iterador = historico.iterator();
+		while (iterador.hasNext()) {
+			Notificacao not = iterador.next();
+			sb.append(not.getMensagem(usuario));
+			sb.append("; ");
+		}
+		
+		if(sb.toString().equals("")) 
+			return Mensagem.HISTORICO_VAZIO.getMensagem();
+		return sb.toString().substring(0, sb.length()-2);
 	}
 
 }

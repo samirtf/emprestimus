@@ -58,4 +58,8 @@ public interface Notificacao extends Comparable<Notificacao>{
 	 */
 	public Notificacao setId(String novoId) throws Exception;
 	
+	public int compareTo(Notificacao notificacao);
+	
+	
+	
 }

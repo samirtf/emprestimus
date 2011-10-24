@@ -87,7 +87,8 @@ public class RelacionamentosUsuarios {
 				amigo_solicitante.aprovouAmizade(usuario);
 				amigos.add(amigo_solicitante);
 				iterador.remove();
-			    usuario.addHistoricoAmizadeAprovada(amigo_solicitante);
+			    //usuario.addHistoricoAmizadeAprovada(amigo_solicitante);
+				amigo_solicitante.addHistoricoAmizadeAprovada(usuario);
 				return;
 			}
 			

@@ -48,6 +48,7 @@ public class Rack {
 		return historico.iterator();
 	}
 	
+	
 //	public List<Notificacao> getHistoricoOrdenadoPorDataDecrescente(){
 //		Collections.sort(historico, new HistoricoDataDecrescenteComparator());
 //		return getHistorico();
