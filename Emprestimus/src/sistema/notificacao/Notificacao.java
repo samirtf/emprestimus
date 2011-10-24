@@ -1,8 +1,7 @@
 package sistema.notificacao;
 
 import java.util.Date;
-
-import sistema.usuario.Usuario;
+import sistema.usuario.UsuarioIF;
 
 /**
  * 
@@ -43,7 +42,7 @@ public interface Notificacao extends Comparable<Notificacao>{
 	 *            na sua timeline
 	 * @return notificação
 	 */
-	public String getMensagem(Usuario usuario);
+	public String getMensagem(UsuarioIF usuario);
 
 	/**
 	 * Devolve o ID da notificação

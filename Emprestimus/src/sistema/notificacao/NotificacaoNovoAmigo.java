@@ -42,7 +42,7 @@ public class NotificacaoNovoAmigo implements Notificacao {
 	}
 
 	@Override
-	public String getMensagem(Usuario usuario) {
+	public String getMensagem(UsuarioIF usuario) {
 		if (usuario1.equals(usuario)) {
 			return usuario1.getNome() + " e " + usuario2.getNome()
 					+ " são amigos agora";

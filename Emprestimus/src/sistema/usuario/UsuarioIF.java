@@ -477,7 +477,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF> {
 
 	public void zerarHistorico();
 	
-	public String getHistoricoToString();
+	public String getHistoricoToString() throws ArgumentoInvalidoException;
 
 	public void addHistoricoEmprestimoEmAndamento(UsuarioIF amigo, ItemIF item) throws Exception;
 	
