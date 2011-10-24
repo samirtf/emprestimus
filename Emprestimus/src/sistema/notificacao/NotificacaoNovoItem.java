@@ -22,7 +22,7 @@ public class NotificacaoNovoItem implements Notificacao {
 	
 	public NotificacaoNovoItem(UsuarioIF usuario, ItemIF item) throws Exception {
 		this.item = item;
-		inicializarData();
+		data = new GregorianCalendar().getTime();
 	}
 
 	@Override
@@ -34,11 +34,6 @@ public class NotificacaoNovoItem implements Notificacao {
 	public Notificacao setNovaData(Date novaData) throws Exception {
 		data = novaData;
 		return this;
-	}
-	
-	@Override
-	public void inicializarData() throws Exception {
-		data = new GregorianCalendar().getTime();
 	}
 
 	@Override

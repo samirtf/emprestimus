@@ -484,5 +484,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF> {
 	public void addHistoricoAmizadeAprovada(UsuarioIF amigo) throws Exception;
 
 	public void registrarInteressePorItem(String idItem) throws Exception;
+
+	public void addHistoricoTerminoEmprestimo(ItemIF item) throws Exception;
 	
 }

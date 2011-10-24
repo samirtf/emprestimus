@@ -3,9 +3,10 @@
  */
 package sistema.notificacao;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.LinkedList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -19,31 +20,43 @@ public class Rack {
 	
 	public Rack(String proprietario) {
 		this.proprietario = proprietario;
-		historico = new LinkedList<Notificacao>();
+		historico = new ArrayList<Notificacao>();
 	}
 	
 	public String getProprietario(){
 		return proprietario;
 	}
 	
-	public List<Notificacao> getHistorico(){
-		return historico; // FIXME: Não gostei disso, quem deve fazer as
-		// operções sobre os dados é quem tem os dados. Isto
-		// é, aqui deveria ter métodos para mexer com o
-		// histórico e não somente mandar ele pra outra
-		// pessoa mexer. adicionaNotificacao(),
-		// removeNotificacao(), getIterador(), etc.
+//	public List<Notificacao> getHistorico(){
+//		return historico; // FIXME: Não gostei disso, quem deve fazer as
+//		// operções sobre os dados é quem tem os dados. Isto
+//		// é, aqui deveria ter métodos para mexer com o
+//		// histórico e não somente mandar ele pra outra
+//		// pessoa mexer. adicionaNotificacao(),
+//		// removeNotificacao(), getIterador(), etc.
+//	}
+	
+	public void addNotificacao(Notificacao notificacao){
+		historico.add(0, notificacao);
 	}
 	
-	public List<Notificacao> getHistoricoOrdenadoPorDataDecrescente(){
-		Collections.sort(historico, new HistoricoDataDecrescenteComparator());
-		return getHistorico();
+	public void zerarHistorico(){
+		historico.clear();
 	}
 	
-	public List<Notificacao> getHistoricoOrdenadoPorDataCrescente(){
-		Collections.sort(historico, new HistoricoDataCrescenteComparator());
-		return getHistorico();
+	public Iterator<Notificacao> iterador(){
+		return historico.iterator();
 	}
+	
+//	public List<Notificacao> getHistoricoOrdenadoPorDataDecrescente(){
+//		Collections.sort(historico, new HistoricoDataDecrescenteComparator());
+//		return getHistorico();
+//	}
+//	
+//	public List<Notificacao> getHistoricoOrdenadoPorDataCrescente(){
+//		Collections.sort(historico, new HistoricoDataCrescenteComparator());
+//		return getHistorico();
+//	}
 
 	class HistoricoDataDecrescenteComparator implements Comparator<Notificacao>{
 		

@@ -30,9 +30,6 @@ public interface Notificacao extends Comparable<Notificacao>{
 	 */
 	public Notificacao setNovaData(Date novaData) throws Exception;
 
-	
-	public void inicializarData() throws Exception;
-
 	/**
 	 * Devolve a mensagem formatada ponta para para ser mostrada na timeline do
 	 * usuario

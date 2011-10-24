@@ -25,10 +25,10 @@ import sistema.utilitarios.Validador;
 public class GerenciadorDeNotificacoes {
 	
 	private static GerenciadorDeNotificacoes gerenciadorDeNotificacoes;
-	private static Map<String, Rack> rackDeNotificacoes;
+	private static Map<String, Rack> historicos;
 
 	private GerenciadorDeNotificacoes() {
-		rackDeNotificacoes = new TreeMap<String, Rack>();
+		historicos = new TreeMap<String, Rack>();
 	}
 
 	public static GerenciadorDeNotificacoes getInstance() {
@@ -41,26 +41,26 @@ public class GerenciadorDeNotificacoes {
 	}
 
 	public void adicionaRackAoUsuario(String usuario) throws Exception {
-		if(rackDeNotificacoes.containsKey(usuario)) throw new Exception(Mensagem.PROPRIETARIO_RACK_JAH_CADASTRADO.getMensagem());
-		rackDeNotificacoes.put(usuario, new Rack(usuario));
+		if(historicos.containsKey(usuario)) throw new Exception(Mensagem.PROPRIETARIO_RACK_JAH_CADASTRADO.getMensagem());
+		historicos.put(usuario, new Rack(usuario));
 		
 	}
 	
 	public void removeRackDoUsuario(String usuario) throws Exception {
-		rackDeNotificacoes.remove(usuario);
+		historicos.remove(usuario);
 	}
 	
 	public Rack getRack(String login) throws Exception {
-		return rackDeNotificacoes.get(login);
+		return historicos.get(login);
 	}
 	
 	
-	public void addHistoricoCadastrarItem(String seuLogin, ItemIF item) throws Exception {
+	public void addHistoricoNovoItem(String seuLogin, ItemIF item) throws Exception {
 		Validador.assertStringNaoVazia(seuLogin, Mensagem.LOGIN_INVALIDO.getMensagem(), Mensagem.LOGIN_INVALIDO.getMensagem());
 		UsuarioIF usuario = Autenticacao.getUsuarioPorLogin(seuLogin);
 		Notificacao notif = new NotificacaoNovoItem(usuario, item);
 		NotificacaoRepositorio.getInstance().novaNotificacao(notif);
-		rackDeNotificacoes.get(seuLogin).getHistorico().add(notif);
+		historicos.get(seuLogin).addNotificacao(notif);
 		//addNotificacao(notif);
 	}
 	
@@ -69,8 +69,8 @@ public class GerenciadorDeNotificacoes {
 		UsuarioIF usuario = Autenticacao.getUsuarioPorLogin(seuLogin);
 		Notificacao notif = new NotificacaoNovoAmigo(usuario, amigo);
 		NotificacaoRepositorio.getInstance().novaNotificacao(notif);
-		rackDeNotificacoes.get(seuLogin).getHistorico().add(notif);
-		rackDeNotificacoes.get(amigo.getLogin()).getHistorico().add(notif);
+		historicos.get(seuLogin).addNotificacao(notif);
+		historicos.get(amigo.getLogin()).addNotificacao(notif);
 //		this.addNotificacao(notif);
 //		amigo.addNotificacao(notif);
 	}
@@ -80,8 +80,8 @@ public class GerenciadorDeNotificacoes {
 		UsuarioIF usuario = Autenticacao.getUsuarioPorLogin(seuLogin);
 		Notificacao notif = new NotificacaoEmprestimoAndamento(usuario, amigo, item);
 		NotificacaoRepositorio.getInstance().novaNotificacao(notif);
-		rackDeNotificacoes.get(seuLogin).getHistorico().add(notif);
-		rackDeNotificacoes.get(amigo.getLogin()).getHistorico().add(notif);
+		historicos.get(seuLogin).addNotificacao(notif);
+		historicos.get(amigo.getLogin()).addNotificacao(notif);
 //		this.addNotificacao(notif);
 //		amigo.addNotificacao(notif);
 		
@@ -89,16 +89,16 @@ public class GerenciadorDeNotificacoes {
 
 	
 	public void zerarHistorico(String seuLogin) {
-		rackDeNotificacoes.get(seuLogin).getHistorico().clear();
+		historicos.get(seuLogin).zerarHistorico();
 	}
 	
 
-	public String getHistoricoDecrescenteDataToString(String seuLogin) throws ArgumentoInvalidoException {
+	public String getHistoricoToString(String seuLogin) throws ArgumentoInvalidoException {
 		Validador.assertStringNaoVazia(seuLogin, Mensagem.LOGIN_INVALIDO.getMensagem(), Mensagem.LOGIN_INVALIDO.getMensagem());
 		UsuarioIF usuario = Autenticacao.getUsuarioPorLogin(seuLogin);
 		
 		StringBuffer sb = new StringBuffer();
-		Iterator<Notificacao> iterador = rackDeNotificacoes.get(seuLogin).getHistoricoOrdenadoPorDataDecrescente().iterator();
+		Iterator<Notificacao> iterador = historicos.get(seuLogin).iterador();
 		while (iterador.hasNext()) {
 			sb.append(iterador.next().getMensagem(usuario));
 			sb.append("; ");
@@ -111,12 +111,18 @@ public class GerenciadorDeNotificacoes {
 	public void addHistoricoInteressePorItem(String seuLogin, UsuarioIF amigo, ItemIF item) throws Exception {
 		Validador.assertStringNaoVazia(seuLogin, Mensagem.LOGIN_INVALIDO.getMensagem(), Mensagem.LOGIN_INVALIDO.getMensagem());
 		UsuarioIF usuario = Autenticacao.getUsuarioPorLogin(seuLogin);
-		Notificacao notif = new NotificacaoRegistrarInteresseItem(usuario.getNome(), amigo.getNome(), item);
+		Notificacao notif = new NotificacaoRegistrarInteresseItem(usuario, amigo, item);
 		NotificacaoRepositorio.getInstance().novaNotificacao(notif);
-		rackDeNotificacoes.get(seuLogin).getHistorico().add(notif);
-		rackDeNotificacoes.get(amigo.getLogin()).getHistorico().add(notif);
-//		this.addNotificacao(notif);
-//		amigo.addNotificacao(notif);
+		historicos.get(seuLogin).addNotificacao(notif);
+		
+	}
+
+	public void addHistoricoTerminoEmprestimo(String seuLogin, ItemIF item) throws Exception {
+		Validador.assertStringNaoVazia(seuLogin, Mensagem.LOGIN_INVALIDO.getMensagem(), Mensagem.LOGIN_INVALIDO.getMensagem());
+		UsuarioIF usuario = Autenticacao.getUsuarioPorLogin(seuLogin);
+		Notificacao notif = new NotificacaoTerminoEmprestimo(usuario, item);
+		NotificacaoRepositorio.getInstance().novaNotificacao(notif);
+		historicos.get(seuLogin).addNotificacao(notif);
 		
 	}
 
