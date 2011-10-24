@@ -1,4 +1,4 @@
-package iu;
+package maps;
 
 public interface Coordenadas {
 	

@@ -1,6 +1,5 @@
 package maps;
 
-import iu.Coordenadas;
 
 public class RefCoordenadas implements Coordenadas {
 

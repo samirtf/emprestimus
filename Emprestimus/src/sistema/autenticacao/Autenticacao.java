@@ -1,6 +1,5 @@
 package sistema.autenticacao;
 
-import iu.ComparaDistancia;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -12,6 +11,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
 import java.util.logging.Logger;
+
+import maps.ComparaDistancia;
 
 import sistema.emprestimo.BancoDeEmprestimos;
 import sistema.excecoes.ArgumentoInvalidoException;

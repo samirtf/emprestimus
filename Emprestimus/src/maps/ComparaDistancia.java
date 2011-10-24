@@ -1,6 +1,7 @@
-package iu;
+package maps;
 
 import java.util.Comparator;
+
 
 public class ComparaDistancia implements Comparator<Coordenadas> {
 
