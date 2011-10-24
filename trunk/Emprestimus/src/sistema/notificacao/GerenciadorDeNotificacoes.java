@@ -3,14 +3,17 @@
  */
 package sistema.notificacao;
 
+import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
 import sistema.autenticacao.Autenticacao;
 import sistema.emprestimo.BancoDeEmprestimos;
 import sistema.emprestimo.Conta;
+import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.item.ItemIF;
 import sistema.persistencia.NotificacaoRepositorio;
+import sistema.usuario.Usuario;
 import sistema.usuario.UsuarioIF;
 import sistema.utilitarios.Mensagem;
 import sistema.utilitarios.Validador;
@@ -84,5 +87,26 @@ public class GerenciadorDeNotificacoes {
 		
 	}
 
+	
+	public void zerarHistorico(String seuLogin) {
+		rackDeNotificacoes.get(seuLogin).getHistorico().clear();
+	}
+	
+
+	public String getHistoricoDecrescenteDataToString(String seuLogin) throws ArgumentoInvalidoException {
+		Validador.assertStringNaoVazia(seuLogin, Mensagem.LOGIN_INVALIDO.getMensagem(), Mensagem.LOGIN_INVALIDO.getMensagem());
+		UsuarioIF usuario = Autenticacao.getUsuarioPorLogin(seuLogin);
+		
+		StringBuffer sb = new StringBuffer();
+		Iterator<Notificacao> iterador = rackDeNotificacoes.get(seuLogin).getHistoricoOrdenadoPorDataDecrescente().iterator();
+		while (iterador.hasNext()) {
+			sb.append(iterador.next().getMensagem(usuario));
+			sb.append("; ");
+		}
+		if(sb.toString().equals("")) 
+			return Mensagem.HISTORICO_VAZIO.getMensagem();
+		return sb.toString().substring(0, sb.length()-2);
+	}
+	
 
 }
