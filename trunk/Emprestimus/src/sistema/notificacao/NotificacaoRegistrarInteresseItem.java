@@ -27,13 +27,13 @@ public class NotificacaoRegistrarInteresseItem implements Notificacao {
 		this.interessado = interessado;
 		this.amigo = amigo;
 		this.item = item;
+		Thread.sleep(1);
 		data = new GregorianCalendar().getTime();
 	}
 
 	@Override
 	public int compareTo(Notificacao o) {
-		// TODO Auto-generated method stub
-		return 0;
+		return getId().compareTo(o.getId());
 	}
 
 	@Override
@@ -77,14 +77,13 @@ public class NotificacaoRegistrarInteresseItem implements Notificacao {
 
 	@Override
 	public Long getId() {
-		// TODO Auto-generated method stub
-		return null;
+		return id;
 	}
 
 	@Override
 	public Notificacao setId(String novoId) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		this.id = Long.valueOf(novoId);
+		return this;
 	}
 
 }

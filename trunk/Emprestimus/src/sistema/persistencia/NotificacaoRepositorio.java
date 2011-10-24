@@ -37,7 +37,7 @@ public class NotificacaoRepositorio {
 	}
 
 	public String novaNotificacao(Notificacao notif) throws Exception {
-		notif.setId(EmprestimoRepositorio.geraIdProxNotificacao());
+		notif.setId(NotificacaoRepositorio.geraIdProxNotificacao());
 		notificacoesCadastradas.put(++contadorID, notif);
 		return String.valueOf(contadorID);
 	}

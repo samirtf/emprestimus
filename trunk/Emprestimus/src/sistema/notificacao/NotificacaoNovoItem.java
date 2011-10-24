@@ -15,13 +15,16 @@ import sistema.usuario.UsuarioIF;
  *
  */
 public class NotificacaoNovoItem implements Notificacao {
+	private UsuarioIF usuario;
 	private ItemIF item;
 	private Date data;
 	private Long id;
 
 	
 	public NotificacaoNovoItem(UsuarioIF usuario, ItemIF item) throws Exception {
+		this.usuario = usuario;
 		this.item = item;
+		Thread.sleep(1);
 		data = new GregorianCalendar().getTime();
 	}
 
@@ -38,7 +41,8 @@ public class NotificacaoNovoItem implements Notificacao {
 
 	@Override
 	public String getMensagem(UsuarioIF usuario) {
-		return usuario.getNome() + " cadastrou " + item.getNome();
+		//O usuário passado como argumento não será usado.
+		return this.usuario.getNome() + " cadastrou " + item.getNome();
 	}
 
 	@Override
@@ -48,8 +52,8 @@ public class NotificacaoNovoItem implements Notificacao {
 
 	@Override
 	public Notificacao setId(String novoId) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		this.id = Long.valueOf(novoId);
+		return this;
 	}
 	
 	@Override
@@ -63,8 +67,7 @@ public class NotificacaoNovoItem implements Notificacao {
 
 	@Override
 	public int compareTo(Notificacao o) {
-		// TODO Auto-generated method stub
-		return 0;
+		return getId().compareTo(o.getId());
 	}
 
 }

@@ -33,6 +33,7 @@ public class NotificacaoEmprestimoAndamento implements Notificacao {
 		this.dono = dono;
 		this.beneficiado = beneficiado;
 		this.item = item;
+		Thread.sleep(1);
 		data = new GregorianCalendar().getTime();
 	}
 
@@ -56,13 +57,13 @@ public class NotificacaoEmprestimoAndamento implements Notificacao {
 
 	@Override
 	public Long getId() {
-		return Long.valueOf(id);
+		return id;
 	}
 
 	@Override
 	public Notificacao setId(String novoId) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		this.id = Long.valueOf(novoId);
+		return this;
 	}
 
 	@Override
@@ -75,9 +76,8 @@ public class NotificacaoEmprestimoAndamento implements Notificacao {
 	}
 
 	@Override
-	public int compareTo(Notificacao o) {
-		
-		return 0;
+	public int compareTo(Notificacao o) {		
+		return getId().compareTo(o.getId());
 	}
 
 }
