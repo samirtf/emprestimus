@@ -1,6 +1,7 @@
 package sistema.notificacao;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import sistema.item.ItemIF;
 import sistema.usuario.Usuario;
@@ -39,9 +40,14 @@ public class NotificacaoEmprestimoAndamento implements Notificacao {
 	}
 
 	@Override
-	public Notificacao setData(Date novaData) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public Notificacao setNewData(Date novaData) throws Exception {
+		data = new GregorianCalendar().getTime();
+		return this;
+	}
+	
+	@Override
+	public void setData(Date novaData) throws Exception {
+		data = new GregorianCalendar().getTime();
 	}
 
 	@Override
@@ -68,6 +74,12 @@ public class NotificacaoEmprestimoAndamento implements Notificacao {
 			return id.equals(notificacao.getId());
 		}
 		return false;
+	}
+
+	@Override
+	public int compareTo(Notificacao o) {
+		
+		return 0;
 	}
 
 }

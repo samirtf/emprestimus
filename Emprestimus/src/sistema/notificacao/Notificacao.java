@@ -11,7 +11,7 @@ import sistema.usuario.Usuario;
  * @version 1.0
  *
  */
-public interface Notificacao {
+public interface Notificacao extends Comparable<Notificacao>{
 
 	/**
 	 * Devolve a data de criacao da notificação
@@ -19,7 +19,7 @@ public interface Notificacao {
 	 * @return data
 	 */
 	public Date getData();
-
+	
 	/**
 	 * Atribue uma nova data de atualizacao da notificacao
 	 * 
@@ -29,7 +29,10 @@ public interface Notificacao {
 	 * @throws Exception
 	 *             Caso a data não seja válida
 	 */
-	public Notificacao setData(Date novaData) throws Exception;
+	public Notificacao setNewData(Date novaData) throws Exception;
+
+	
+	public void setData(Date novaData) throws Exception;
 
 	/**
 	 * Devolve a mensagem formatada ponta para para ser mostrada na timeline do
