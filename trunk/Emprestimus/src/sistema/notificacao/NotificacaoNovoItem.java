@@ -42,7 +42,7 @@ public class NotificacaoNovoItem implements Notificacao {
 	}
 
 	@Override
-	public String getMensagem(Usuario usuario) {
+	public String getMensagem(UsuarioIF usuario) {
 		return usuario.getNome() + " cadastrou " + item.getNome();
 	}
 

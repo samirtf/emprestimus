@@ -11,4 +11,5 @@ public class ReputacaoUsuarioComparator implements Comparator<UsuarioIF>{
 		int reputacaoUsuario1 = usuario1.getReputacao();        
 	    int reputacaoUsuario2 = usuario2.getReputacao();
 		return reputacaoUsuario1 - reputacaoUsuario2;
-	}}
+	}
+}

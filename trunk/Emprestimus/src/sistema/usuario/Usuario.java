@@ -66,7 +66,7 @@ public class Usuario implements UsuarioIF {
 	
 	//	protected List<String> historico;
 	
-	private Stack<Notificacao> historico;
+	//private Stack<Notificacao> historico;
 	
 	/**
 	 * Construtor padrao eh privado e nao oferece implementacao.
@@ -101,7 +101,7 @@ public class Usuario implements UsuarioIF {
 		//emprestimosRequeridosPorMimEmEspera = new ArrayList<EmprestimoIF>();
 		//conversasOfftopic = new LinkedList<ChatIF>();
 		//conversasNegociacao = new LinkedList<ChatIF>();
-		historico = new Stack<Notificacao>();
+		//historico = new Stack<Notificacao>();
 	}
 
 	@Override
@@ -335,8 +335,6 @@ public class Usuario implements UsuarioIF {
 
 	public void emprestimoAceitoPorAmigo( EmprestimoIF emp ) throws Exception {
 		BancoDeEmprestimos.getInstance().emprestimoAceitoPorAmigo(this.getLogin(), emp);
-		//this.emprestimosRequeridosPorMimEmEspera.remove(emp);
-		//emprestimos.add(emp);
 	}
 
 	@Override
@@ -345,12 +343,10 @@ public class Usuario implements UsuarioIF {
 	}
 	
 	public void adicionaConversaOfftopicNaLista( ChatIF conversa ) throws Exception{
-		//this.conversasOfftopic.add(conversa);
 		Correio.adicionaConversaOfftopicNaLista(this.getLogin(), conversa);
 	}
 	
 	public void adicionaConversaNegociacaoNaLista( ChatIF conversa ) throws Exception{
-		//this.conversasNegociacao.add(conversa);
 		Correio.adicionaConversaNegociacaoNaLista(this.getLogin(), conversa);
 	}
 
@@ -451,20 +447,12 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public void zerarHistorico() {
-		historico.removeAllElements();
+		GerenciadorDeNotificacoes.getInstance().zerarHistorico(this.getLogin());
 	}
 	
 	@Override
-	public String getHistoricoToString() {
-		StringBuffer sb = new StringBuffer();
-		Iterator<Notificacao> iterador = historico.iterator();
-		while (iterador.hasNext()) {
-			sb.append(iterador.next().getMensagem(this));
-			sb.append("; ");
-		}
-		if(sb.toString().equals("")) 
-			return Mensagem.HISTORICO_VAZIO.getMensagem();
-		return sb.toString().substring(0, sb.length()-2);
+	public String getHistoricoToString() throws ArgumentoInvalidoException {
+		return GerenciadorDeNotificacoes.getInstance().getHistoricoDecrescenteDataToString(this.getLogin());
 	}
 	
 	public static void main(String[] args){

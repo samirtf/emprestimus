@@ -51,7 +51,7 @@ public class NotificacaoEmprestimoAndamento implements Notificacao {
 	}
 
 	@Override
-	public String getMensagem(Usuario usuario) {
+	public String getMensagem(UsuarioIF usuario) {
 		return dono.getNome() + " emprestou " + item.getNome() + " a "
 				+ beneficiado.getNome();
 	}
