@@ -22,13 +22,11 @@ public interface Notificacao extends Comparable<Notificacao>{
 	/**
 	 * Atribue uma nova data de atualizacao da notificacao
 	 * 
-	 * @param novaData
-	 *            Data da última atualização na notificação
 	 * @return A notifação com a nova data
 	 * @throws Exception
 	 *             Caso a data não seja válida
 	 */
-	public Notificacao setNovaData(Date novaData) throws Exception;
+	public Notificacao setNovaData() throws Exception;
 
 	/**
 	 * Devolve a mensagem formatada ponta para para ser mostrada na timeline do

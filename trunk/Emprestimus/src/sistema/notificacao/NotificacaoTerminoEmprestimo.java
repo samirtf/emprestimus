@@ -33,7 +33,7 @@ public class NotificacaoTerminoEmprestimo implements Notificacao {
 	 */
 	@Override
 	public int compareTo(Notificacao o) {
-		return getId().compareTo(o.getId());
+		return getData().compareTo(o.getData());
 	}
 
 	/* (non-Javadoc)
@@ -48,9 +48,9 @@ public class NotificacaoTerminoEmprestimo implements Notificacao {
 	 * @see sistema.notificacao.Notificacao#setNovaData(java.util.Date)
 	 */
 	@Override
-	public Notificacao setNovaData(Date novaData) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public Notificacao setNovaData() throws Exception {
+		data = new GregorianCalendar().getTime();
+		return this;
 	}
 
 	/* (non-Javadoc)

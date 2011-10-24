@@ -38,9 +38,9 @@ public class NotificacaoPublicarPedido implements Notificacao {
 	 * @see sistema.notificacao.Notificacao#setNovaData(java.util.Date)
 	 */
 	@Override
-	public Notificacao setNovaData(Date novaData) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public Notificacao setNovaData() throws Exception {
+		data = new GregorianCalendar().getTime();
+		return this;
 	}
 
 	/* (non-Javadoc)
@@ -48,8 +48,8 @@ public class NotificacaoPublicarPedido implements Notificacao {
 	 */
 	@Override
 	public String getMensagem(UsuarioIF usuario) {
-		// TODO Auto-generated method stub
-		return null;
+		//Steven Paul Jobs precisa do item The Social Network
+		return String.format("%s precisa do item %s", this.usuario.getNome(), item.getNome());
 	}
 
 	/* (non-Javadoc)
@@ -74,7 +74,7 @@ public class NotificacaoPublicarPedido implements Notificacao {
 	 */
 	@Override
 	public int compareTo(Notificacao notificacao) {
-		return getId().compareTo(notificacao.getId());
+		return getData().compareTo(notificacao.getData());
 	}
 
 }
