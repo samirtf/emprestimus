@@ -733,6 +733,18 @@ public class Emprestimus implements EmprestimusIF {
 		
 	}
 
+	@Override
+	public void republicarPedido(String idSessao, String idPublicacaoPedido) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String localizarUsuario(String idSessao) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 
 }

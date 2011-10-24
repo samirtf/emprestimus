@@ -471,6 +471,10 @@ public interface EmprestimusIF {
 	
 
 	public void apagarItem(String idSessao, String idItem) throws Exception;
+
+	public void republicarPedido(String idSessao, String idPublicacaoPedido);
+
+	public String localizarUsuario(String idSessao);
 	
 
 }
