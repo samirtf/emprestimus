@@ -9,7 +9,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import sistema.notificacao.Notificacao;
-import sistema.notificacao.NotificacaoRegistroInteresse;
+import sistema.notificacao.NotificacaoRegistrarInteresseItem;
 import sistema.persistencia.NotificacaoRepositorio;
 import sistema.usuario.UsuarioIF;
 import sistema.utilitarios.Mensagem;
@@ -148,7 +148,7 @@ public class Item implements ItemIF {
 		asserteTrue(!interessados.contains(interessado), "O usuario já está entre os interessados."); 
 		//FIXME utilizar as mensagens constantes do enum Mensagem
 		interessados.add(interessado);
-		Notificacao notif = new NotificacaoRegistroInteresse(interessado, this.getDono(), this);
+		Notificacao notif = new NotificacaoRegistrarInteresseItem(interessado, this.getDono(), this);
 		NotificacaoRepositorio.getInstance().novaNotificacao(notif);
 	}
 
