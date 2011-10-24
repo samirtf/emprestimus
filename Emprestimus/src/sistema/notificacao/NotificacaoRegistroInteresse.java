@@ -36,13 +36,13 @@ public class NotificacaoRegistroInteresse implements Notificacao {
 	}
 
 	@Override
-	public Notificacao setData(Date novaData) throws Exception {
+	public Notificacao setNovaData(Date novaData) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String getMensagem(Usuario usuario) {
+	public String getMensagem(UsuarioIF usuario) {
 		return interessado.getNome() + " tem interesse pelo item " + item.getNome() + " de " + dono.getNome();
 	}
 
@@ -55,6 +55,12 @@ public class NotificacaoRegistroInteresse implements Notificacao {
 	public Notificacao setId(String novoId) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public int compareTo(Notificacao o) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
