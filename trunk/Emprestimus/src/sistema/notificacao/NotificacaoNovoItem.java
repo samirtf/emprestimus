@@ -31,9 +31,14 @@ public class NotificacaoNovoItem implements Notificacao {
 	}
 
 	@Override
-	public Notificacao setData(Date novaData) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public Notificacao setNewData(Date novaData) throws Exception {
+		data = new GregorianCalendar().getTime();
+		return this;
+	}
+	
+	@Override
+	public void setData(Date novaData) throws Exception {
+		data = new GregorianCalendar().getTime();
 	}
 
 	@Override
@@ -43,7 +48,7 @@ public class NotificacaoNovoItem implements Notificacao {
 
 	@Override
 	public Long getId() {
-		return Long.valueOf(id);
+		return id;
 	}
 
 	@Override
@@ -59,6 +64,12 @@ public class NotificacaoNovoItem implements Notificacao {
 			return id.equals(notificacao.getId());
 		}
 		return false;
+	}
+
+	@Override
+	public int compareTo(Notificacao o) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
