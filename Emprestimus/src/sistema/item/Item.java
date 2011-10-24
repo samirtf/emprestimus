@@ -148,10 +148,8 @@ public class Item implements ItemIF {
 		asserteTrue(!interessados.contains(interessado), "O usuario já está entre os interessados."); 
 		//FIXME utilizar as mensagens constantes do enum Mensagem
 		interessados.add(interessado);
-		
 		Notificacao notif = new NotificacaoRegistroInteresse(interessado, this.getDono(), this);
 		NotificacaoRepositorio.getInstance().novaNotificacao(notif);
-		interessado.addNotificacao(notif);
 	}
 
 	@Override
