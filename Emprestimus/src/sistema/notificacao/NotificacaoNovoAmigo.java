@@ -32,7 +32,7 @@ public class NotificacaoNovoAmigo implements Notificacao {
 	}
 
 	@Override
-	public Notificacao setNovaData(Date novaData) throws Exception {
+	public Notificacao setNovaData() throws Exception {
 		data = new GregorianCalendar().getTime();
 		return this;
 	}
@@ -69,7 +69,7 @@ public class NotificacaoNovoAmigo implements Notificacao {
 
 	@Override
 	public int compareTo(Notificacao o) {
-		return getId().compareTo(o.getId());
+		return getData().compareTo(o.getData());
 	}
 
 }
