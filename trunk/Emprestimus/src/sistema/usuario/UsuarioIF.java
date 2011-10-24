@@ -1,8 +1,9 @@
 package sistema.usuario;
 
-import iu.Coordenadas;
 
 import java.util.List;
+
+import maps.Coordenadas;
 
 import sistema.emprestimo.EmprestimoIF;
 import sistema.excecoes.ArgumentoInvalidoException;
