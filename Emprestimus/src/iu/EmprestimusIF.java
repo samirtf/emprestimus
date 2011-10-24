@@ -474,7 +474,7 @@ public interface EmprestimusIF {
 
 	public void republicarPedido(String idSessao, String idPublicacaoPedido);
 
-	public String localizarUsuario(String idSessao);
+	public String localizarUsuario(String idSessao) throws Exception;
 	
 
 }

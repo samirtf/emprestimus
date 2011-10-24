@@ -15,6 +15,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
+import maps.GetCoordenadas;
+import maps.RefCoordenadas;
+
 import sistema.autenticacao.Autenticacao;
 import sistema.emprestimo.BancoDeEmprestimos;
 import sistema.emprestimo.Emprestimo;
@@ -60,6 +63,8 @@ public class Usuario implements UsuarioIF {
 	private final int id = ID_Prox_Usuario++; // id (codigo unico) do usuario
 	
 	private int reputacao = 0;
+	
+	private double longitude, latitude;
 
 	//private List<UsuarioIF> amigos; // Grupo de amigos
 	//private List<UsuarioIF> queremSerMeusAmigos; // solicitacoes de amizade
@@ -91,6 +96,7 @@ public class Usuario implements UsuarioIF {
 		setLogin(login);
 		setNome(nome);
 		setEndereco(endereco);
+		
 
 		//itens = new ArrayList<ItemIF>();
 		//itensEmprestados = new ArrayList<ItemIF>();
@@ -123,8 +129,15 @@ public class Usuario implements UsuarioIF {
 			this.endereco = "";
 		} else {
 			this.endereco = endereco.trim();
+			setCoordenadas();
 		}
+	}
 
+	private void setCoordenadas() {
+		GetCoordenadas g1 = new GetCoordenadas();
+		RefCoordenadas r1 = g1.getCoordenadas(endereco);
+		this.latitude = r1.getLatitude();
+		this.longitude = r1.getLongitude();
 	}
 
 	@Override
@@ -482,6 +495,18 @@ public class Usuario implements UsuarioIF {
 	@Override
 	public void addHistoricoTerminoEmprestimo(ItemIF item) throws Exception {
 		GerenciadorDeNotificacoes.getInstance().addHistoricoTerminoEmprestimo(this.getLogin(), item);
+	}
+
+	@Override
+	public double getLongitude() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double getLatitude() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 }

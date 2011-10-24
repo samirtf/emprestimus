@@ -1,7 +1,11 @@
 package sistema.autenticacao;
 
+import iu.ComparaDistancia;
+
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -219,7 +223,10 @@ public class Autenticacao implements AutenticacaoIF {
 		return this.usuariosCadastrados.values();
 	}
 	
-	
-	
-
+	public List<UsuarioIF> getUsuarios(UsuarioIF userCorrente) {
+		List<UsuarioIF> usuarios = new ArrayList<UsuarioIF>(usuariosCadastrados.values());
+		usuarios.remove(userCorrente);
+		Collections.sort(usuarios, new ComparaDistancia(userCorrente));
+		return usuarios;
+	}
 }

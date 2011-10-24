@@ -1,5 +1,7 @@
 package sistema.usuario;
 
+import iu.Coordenadas;
+
 import java.util.List;
 
 import sistema.emprestimo.EmprestimoIF;
@@ -17,7 +19,7 @@ import sistema.notificacao.Notificacao;
  * @author José Ulisses de Brito Lira Filho, 20911806
  * @version 1.2
  */
-public interface UsuarioIF extends Comparable<UsuarioIF> {
+public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 
 	/**
 	 * Configura o login do usuario.
