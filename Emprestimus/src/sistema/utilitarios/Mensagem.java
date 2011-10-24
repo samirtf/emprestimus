@@ -1,10 +1,9 @@
 package sistema.utilitarios;
 
 /**
- * Enum que encapsula as mensagens usadas no sistema
+ * Enum que encapsula as mensagens usadas no sistema.
  * 
- * @author Joeffison Silverio de Andrade, 21011853
- * @author José Ulisses de Brito Lira Filho, 20911806
+ * @author Joeffison Silverio de Andrade, 21011853, joeffisonsa@gmail.com
  * @version 1.0
  */
 public enum Mensagem {
@@ -40,7 +39,9 @@ public enum Mensagem {
 		 "2 - Cadastrar novo usuario\n" +
 		 "3 - Zerar Sistema\n" +
 		 "4 - Sair\n"),
-	MENU_LOGADO("\n--Voce esta logado--\n" +
+		 
+// Enum comentado para fins didáticos (como NÃO fazer um menu para a interface do sistema com o usuário). Joeffison
+/*	MENU_LOGADO("\n--Voce esta logado--\n" +
 			" 1 - Ver atributo do usuário\n" +
 			" 2 - Cadastrar Item\n" +
 			" 3 - Ver atributo de item\n" +
@@ -70,6 +71,67 @@ public enum Mensagem {
 			"27 - Apagar item\n" +
 			"28 - Ver ranking\n" +
 			"29 - Sair"),
+*/
+			
+	MENU_LOGADO("\n" +
+			"--Voce esta logado--\n" +
+			" 1 - Menu do seu perfil\n" +
+			" 2 - Menu do perfil de outros usuários\n" +
+			" 3 - Menu da caixa de mensagens\n" +
+			" 4 - Menu de seus itens\n" +
+			" 5 - Menu de empréstimos\n" +
+			" 6 - Deslogar"),
+			
+	MENU_CAIXA_DE_MENSAGENS("\n" +
+			"--Menu da caixa de mensagens--\n" +
+			" 1 - Enviar Mensagem Off-Topic\n" +
+			" 2 - Enviar Mensagem sobre emprestimo\n" +
+			" 3 - Ler Topicos\n" +
+			" 4 - Ler Mensagens\n" +
+			" 5 - Voltar"),
+			
+	MENU_PERFIL_PROPRIO("\n" +
+			"--Menu do seu Perfil--\n" +
+			" 1 - Ver atributo\n" +
+			" 2 - Localizar usuário\n" +
+			" 3 - Solicitar amizade\n" +
+			" 4 - Visualizar solicitações de amizade\n" +
+			" 5 - Aprovar amizade\n" +
+			" 6 - Verificar se tem amizade com outro usuário\n" +
+			" 7 - Visualizar lista de amigos\n" +
+			" 8 - Desfazer amizade\n" +
+			" 9 - Ver ranking\n" +
+			"10 - Adicionar Dias\n" +
+			"11 - Voltar"),
+			
+	MENU_PERFIL_ALHEIO("\n" +
+			"--Menu do perfil de outros usuários--\n" +
+			" 1 - Ver atributo do usuário\n" +
+			" 2 - Visualizar lista de amigos do usuário\n" +
+			" 3 - Visualizar itens do usuário\n" +
+			" 4 - Voltar"),
+	
+	MENU_ITENS_PROPRIOS("\n" +
+			"--Menu de Itens--\n" +
+			" 1 - Cadastrar Item\n" +
+			" 2 - Ver atributo de item\n" +
+			" 3 - Visualizar itens\n" +
+			" 4 - Pesquisar item\n" +
+			" 5 - Apagar item\n" +
+			" 6 - Voltar"),
+	
+	MENU_EMPRESTIMOS("\n" +
+			"--Menu de empréstimos--\n" +
+			" 1 - Requisitar emprestimo\n" +
+			" 2 - Aprovar Emprestimo\n" +
+			" 3 - Visualizar Emprestimos\n" +
+			" 4 - Devolver Item\n" +
+			" 5 - Confirmar Termino do Emprestimo\n" +
+			" 6 - Enviar Mensagem sobre emprestimo\n" +
+			" 7 - Requisitar Devolucao\n" +
+			" 8 - Registrar Interesse\n" +
+			" 9 - Voltar"),
+			
 	MENU_ITEMCATEGORIA("\n--Escolha uma categoria:--\n" +
 					   "1 - Livro\n" +
 					   "2 - Filme\n" +
@@ -83,12 +145,14 @@ public enum Mensagem {
 	ENTER("\n"),
 	OK("OK"),
 	MEUS_AMIGOS("\n--Meus Amigos--"),
+	DESLOGAR("Você está sendo deslogado... \n\n\n"),
 					 
 	/*Mensagens para a entrada de dados */
 	PEDIR_OPCAO("Por favor, digite uma opcao: "),
 	
 	PEDIR_SENHA("Entre com a sua senha: "),
 	PEDIR_LOGIN("Entre com o seu login: "),
+	PEDIR_LOGIN_USUARIO("Digite o login do usuário."),
 	PEDIR_LOGIN_AMIGO_ADICIONAR("Digite o login do amigo a ser adicionado."),
 	PEDIR_LOGIN_AMIGO_APROVAR("Digite o login do amigo a ser aprovado."),
 	PEDIR_LOGIN_AMIGO_VERIFICAR("Digite o login do amigo a ser verificado."),
