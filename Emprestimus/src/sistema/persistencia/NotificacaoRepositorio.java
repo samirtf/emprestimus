@@ -36,13 +36,13 @@ public class NotificacaoRepositorio {
 		return String.valueOf(contadorID + 1);
 	}
 
-	public static String novaNotificacao(Notificacao notif) throws Exception {
+	public String novaNotificacao(Notificacao notif) throws Exception {
 		notif.setId(EmprestimoRepositorio.geraIdProxNotificacao());
 		notificacoesCadastradas.put(++contadorID, notif);
 		return String.valueOf(contadorID);
 	}
 
-	public static Notificacao recuperarNotificacao(String idNotificacao)
+	public Notificacao recuperarNotificacao(String idNotificacao)
 			throws Exception {
 		Long idLong = null;
 		try {
@@ -62,7 +62,7 @@ public class NotificacaoRepositorio {
 	 * 
 	 * @return A quantidade de notificações cadastradas.
 	 */
-	public static int qntNotificacoes() {
+	public int qntNotificacoes() {
 		return notificacoesCadastradas.size();
 	}
 
@@ -74,7 +74,7 @@ public class NotificacaoRepositorio {
 	 * @return True - Se a notificação procurado existir. False - Se a
 	 *         notificação não existir.
 	 */
-	public static boolean existeNotificacao(String idNotificacao) {
+	public boolean existeNotificacao(String idNotificacao) {
 		Long id;
 		try {
 			id = Long.valueOf(idNotificacao);
@@ -84,7 +84,7 @@ public class NotificacaoRepositorio {
 		return notificacoesCadastradas.containsKey(id);
 	}
 
-	public static void removerNotificacao(String idNotificacao) {
+	public void removerNotificacao(String idNotificacao) {
 		Long id;
 		try {
 			id = Long.valueOf(idNotificacao);
