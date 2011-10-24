@@ -33,7 +33,7 @@ public class NotificacaoEmprestimoAndamento implements Notificacao {
 		this.dono = dono;
 		this.beneficiado = beneficiado;
 		this.item = item;
-		inicializarData();
+		data = new GregorianCalendar().getTime();
 	}
 
 	@Override
@@ -47,10 +47,6 @@ public class NotificacaoEmprestimoAndamento implements Notificacao {
 		return this;
 	}
 	
-	@Override
-	public void inicializarData() throws Exception {
-		data = new GregorianCalendar().getTime();
-	}
 
 	@Override
 	public String getMensagem(UsuarioIF usuario) {

@@ -15,19 +15,19 @@ import sistema.usuario.UsuarioIF;
  */
 public class NotificacaoRegistrarInteresseItem implements Notificacao {
 	
-	private String nomeDoInteressado;
-	private String nomeDoAmigo;
+	private UsuarioIF interessado;
+	private UsuarioIF amigo;
 	private ItemIF item;
 	private Date data;
 	private Long id;
 	
 	private NotificacaoRegistrarInteresseItem(){}
 	
-	public NotificacaoRegistrarInteresseItem(String nomeDoInteressado, String nomeDoAmigo, ItemIF item) throws Exception {
-		this.nomeDoInteressado = nomeDoInteressado;
-		this.nomeDoAmigo = nomeDoAmigo;
+	public NotificacaoRegistrarInteresseItem(UsuarioIF interessado, UsuarioIF amigo, ItemIF item) throws Exception {
+		this.interessado = interessado;
+		this.amigo = amigo;
 		this.item = item;
-		inicializarData();
+		data = new GregorianCalendar().getTime();
 	}
 
 	@Override
@@ -47,10 +47,6 @@ public class NotificacaoRegistrarInteresseItem implements Notificacao {
 		return this;
 	}
 
-	@Override
-	public void inicializarData() throws Exception {
-		data = new GregorianCalendar().getTime();
-	}
 
 	@Override
 	public String getMensagem(UsuarioIF usuario) {
@@ -59,11 +55,11 @@ public class NotificacaoRegistrarInteresseItem implements Notificacao {
 	}
 	
 	private String getNomeDoAmigo() {
-		return this.nomeDoAmigo;
+		return this.amigo.getNome();
 	}
 
 	private String getNomeDoInteressado() {
-		return this.nomeDoInteressado;
+		return this.interessado.getNome();
 	}
 
 	private String getNomeItem() {

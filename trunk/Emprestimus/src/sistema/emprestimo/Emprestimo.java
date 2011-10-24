@@ -6,6 +6,7 @@ import java.util.GregorianCalendar;
 import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.item.Item;
 import sistema.item.ItemIF;
+import sistema.notificacao.GerenciadorDeNotificacoes;
 import sistema.notificacao.Notificacao;
 import sistema.notificacao.NotificacaoTerminoEmprestimo;
 import sistema.persistencia.NotificacaoRepositorio;
@@ -275,7 +276,7 @@ public class Emprestimo implements EmprestimoIF{
 	}
 
 	@Override
-	public void confirmarEmprestimo() throws Exception {
+	public void confirmarTerminoEmprestimo() throws Exception {
 		if(ehEstadoAndamento()){
 			throw new Exception("Item não foi devolvido");
 			
@@ -292,7 +293,7 @@ public class Emprestimo implements EmprestimoIF{
 			
 			setEstadoTermino();
 			this.getItem().setDisponibilidade(true);
-			addNotificacaoTerminoEmprestimo();
+			addHistoricoTerminoEmprestimo();
 			
 		}else if(ehEstadoTermino()){
 			throw new Exception(Mensagem.TERMINO_EMPRESTIMO_JA_CONFIRMADO.getMensagem());
@@ -303,10 +304,9 @@ public class Emprestimo implements EmprestimoIF{
 		
 	}
 
-	private void addNotificacaoTerminoEmprestimo() throws Exception {
-		Notificacao notif = new NotificacaoTerminoEmprestimo(this.getBeneficiado(), this.getItem());
-		NotificacaoRepositorio.getInstance().novaNotificacao(notif);
-		this.getEmprestador().addNotificacao(notif);
+	private void addHistoricoTerminoEmprestimo() throws Exception {
+		emprestador.addHistoricoTerminoEmprestimo(item);
+		//this.getEmprestador().addNotificacao(getEmprestador().getNome() + " confirmou o término no empréstimo do item " + getItem().getNome());
 	}
 
 	@Override

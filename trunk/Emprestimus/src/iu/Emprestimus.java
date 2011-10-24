@@ -448,7 +448,7 @@ public class Emprestimus implements EmprestimusIF {
 		asserteTrue(emp.getEmprestador().equals(usuario),Mensagem.EMPRESTIMO_DEVOLUCAO_CONFIRMADA_APENAS_EMPRESTADOR.getMensagem());
 		//asserteTrue(!emp.getEstadoEnum().equals(EmprestimoEstado.CONFIRMADO), Mensagem.TERMINO_EMPRESTIMO_JA_CONFIRMADO.getMensagem());
 		
-		emp.confirmarEmprestimo();
+		emp.confirmarTerminoEmprestimo();
 		liberaItem(idSessao, idEmprestimo);
 		//verificar a situacao do emprestimo
 		if(emp.getSituacao().equals("Completado")){
@@ -456,6 +456,7 @@ public class Emprestimus implements EmprestimusIF {
 		}else if(emp.getSituacao().equals("Cancelado")){
 			usuario.decrementaReputacao();
 		}
+		
 		
 	}
 

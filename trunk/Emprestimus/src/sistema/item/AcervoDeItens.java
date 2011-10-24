@@ -225,7 +225,7 @@ public class AcervoDeItens {
 		
 		//FIXME usar as mensagens constantes do enum Mensagem
 		
-		asserteTrue(!item.getInteresasados().contains(this), "O usuário já registrou interesse neste item");
+		asserteTrue(!item.getInteresasados().contains(Autenticacao.getUsuarioPorLogin(seuLogin)), "O usuário já registrou interesse neste item");
 		asserteTrue(!esteItemMePertence(seuLogin, idItem), "O usuário não pode registrar interesse no próprio item");
 		UsuarioIF amigo = RelacionamentosUsuarios.getInstance().ehItemDoMeuAmigo(seuLogin, idItem);
 		assertNaoNulo(amigo, "O usuário não tem permissão para registrar interesse neste item");

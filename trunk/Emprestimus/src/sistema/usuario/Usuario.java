@@ -153,7 +153,7 @@ public class Usuario implements UsuarioIF {
 	}
 
 	public void addHistoricoCadastrarItem(ItemIF item) throws Exception {
-		GerenciadorDeNotificacoes.getInstance().addHistoricoCadastrarItem(this.getLogin(), item);
+		GerenciadorDeNotificacoes.getInstance().addHistoricoNovoItem(this.getLogin(), item);
 	}
 
 	@Override
@@ -453,7 +453,7 @@ public class Usuario implements UsuarioIF {
 	
 	@Override
 	public String getHistoricoToString() throws ArgumentoInvalidoException {
-		return GerenciadorDeNotificacoes.getInstance().getHistoricoDecrescenteDataToString(this.getLogin());
+		return GerenciadorDeNotificacoes.getInstance().getHistoricoToString(this.getLogin());
 	}
 	
 	public void registrarInteressePorItem(String idItem)
@@ -477,6 +477,11 @@ public class Usuario implements UsuarioIF {
 		}
 		
 		System.out.println(pilha.pop());
+	}
+
+	@Override
+	public void addHistoricoTerminoEmprestimo(ItemIF item) throws Exception {
+		GerenciadorDeNotificacoes.getInstance().addHistoricoTerminoEmprestimo(this.getLogin(), item);
 	}
 	
 }

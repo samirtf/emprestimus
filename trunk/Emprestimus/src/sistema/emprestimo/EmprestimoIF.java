@@ -305,7 +305,7 @@ public interface EmprestimoIF extends Comparable<EmprestimoIF> {
 	 * @throws Exception
 	 * 		Caso o item não tenha sido devolvido.
 	 */
-	public void confirmarEmprestimo() throws Exception;
+	public void confirmarTerminoEmprestimo() throws Exception;
 	
 	/**
 	 * Recupera a situação do empréstimo.
