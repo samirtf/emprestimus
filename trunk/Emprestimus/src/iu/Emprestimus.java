@@ -4,6 +4,7 @@ import static sistema.utilitarios.Validador.assertNaoNulo;
 import static sistema.utilitarios.Validador.assertStringNaoVazia;
 import static sistema.utilitarios.Validador.asserteTrue;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
@@ -739,11 +740,18 @@ public class Emprestimus implements EmprestimusIF {
 	}
 
 	@Override
-	public String localizarUsuario(String idSessao) {
-		// TODO Auto-generated method stub
-		return null;
+	public String localizarUsuario(String idSessao) throws Exception {
+		List<UsuarioIF> usuarios = autenticacao.getUsuarios(autenticacao.getUsuarioPeloIDSessao(idSessao));	
+		String saida ="";
+		for (int i = 0; i<usuarios.size(); i++) {
+			saida += usuarios.get(i).getNome() + " - " + usuarios.get(i).getEndereco();
+			if(i != usuarios.size() -1) {
+				saida += "; ";
+			}
+		}
+		if (saida.trim().equals(""))
+			saida = Mensagem.PALAVRA_CHAVE_INEXISTENTE.getMensagem();
+		return saida;
 	}
-
-
 
 }
