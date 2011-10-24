@@ -14,6 +14,7 @@ import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.item.AcervoDeItens;
 import sistema.item.ItemIF;
 import sistema.mensagem.Correio;
+import sistema.notificacao.GerenciadorDeNotificacoes;
 import sistema.usuario.RelacionamentosUsuarios;
 import sistema.usuario.Usuario;
 import sistema.usuario.UsuarioIF;
@@ -98,6 +99,7 @@ public class Autenticacao implements AutenticacaoIF {
 		BancoDeEmprestimos.getInstance().adicionaContaAoUsuario(login);
 		AcervoDeItens.getInstance().adicionaBauhAoUsuario(login);
 		RelacionamentosUsuarios.getInstance().adicionaCicloDeAmizadeAoUsuario(login);
+		GerenciadorDeNotificacoes.getInstance().adicionaRackAoUsuario(login);
 	}
 
 	@Override
