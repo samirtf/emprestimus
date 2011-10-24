@@ -27,6 +27,7 @@ import sistema.item.NomeItemComparador;
 import sistema.mensagem.Chat;
 import sistema.mensagem.ChatIF;
 import sistema.mensagem.Correio;
+import sistema.notificacao.GerenciadorDeNotificacoes;
 import sistema.notificacao.Notificacao;
 import sistema.notificacao.NotificacaoEmprestimoAndamento;
 import sistema.notificacao.NotificacaoNovoAmigo;
@@ -151,9 +152,7 @@ public class Usuario implements UsuarioIF {
 	}
 
 	private void addHistoricoCadastrarItem(ItemIF item) throws Exception {
-		Notificacao notif = new NotificacaoNovoItem(this, item);
-		NotificacaoRepositorio.getInstance().novaNotificacao(notif);
-		addNotificacao(notif);
+		GerenciadorDeNotificacoes.getInstance().addHistoricoCadastrarItem(this.getLogin(), item);
 	}
 
 	@Override
@@ -342,7 +341,8 @@ public class Usuario implements UsuarioIF {
 	}
 
 	public void addNotificacao(Notificacao notificacao) throws Exception {
-		historico.add(notificacao);
+		//historico.add(notificacao);
+		historico.push(notificacao);
 	}
 
 	public void emprestimoAceitoPorAmigo( EmprestimoIF emp ) throws Exception {
@@ -477,6 +477,21 @@ public class Usuario implements UsuarioIF {
 		if(sb.toString().equals("")) 
 			return Mensagem.HISTORICO_VAZIO.getMensagem();
 		return sb.toString().substring(0, sb.length()-2);
+	}
+	
+	public static void main(String[] args){
+		Stack<String> pilha = new Stack<String>();
+		pilha.push("samir");
+		pilha.push("musculos");
+		pilha.push("etcetara");
+		pilha.push("caos");
+		Collections.reverse(pilha);
+		Iterator<String> iteraString = pilha.iterator();
+		while(iteraString.hasNext()){
+			System.out.println(iteraString.next());
+		}
+		
+		System.out.println(pilha.pop());
 	}
 	
 }
