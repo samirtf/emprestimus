@@ -28,10 +28,10 @@ public interface Notificacao extends Comparable<Notificacao>{
 	 * @throws Exception
 	 *             Caso a data não seja válida
 	 */
-	public Notificacao setNewData(Date novaData) throws Exception;
+	public Notificacao setNovaData(Date novaData) throws Exception;
 
 	
-	public void setData(Date novaData) throws Exception;
+	public void inicializarData() throws Exception;
 
 	/**
 	 * Devolve a mensagem formatada ponta para para ser mostrada na timeline do

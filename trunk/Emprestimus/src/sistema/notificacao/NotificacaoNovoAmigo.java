@@ -19,10 +19,10 @@ public class NotificacaoNovoAmigo implements Notificacao {
 	private Date data;
 	private Long id;
 
-	public NotificacaoNovoAmigo(UsuarioIF usuario1, UsuarioIF usuario2) {
+	public NotificacaoNovoAmigo(UsuarioIF usuario1, UsuarioIF usuario2) throws Exception {
 		this.usuario1 = usuario1;
 		this.usuario2 = usuario2;
-		this.data = new GregorianCalendar().getTime();
+		inicializarData();
 	}
 
 	@Override
@@ -31,13 +31,13 @@ public class NotificacaoNovoAmigo implements Notificacao {
 	}
 
 	@Override
-	public Notificacao setNewData(Date novaData) throws Exception {
+	public Notificacao setNovaData(Date novaData) throws Exception {
 		data = new GregorianCalendar().getTime();
 		return this;
 	}
 	
 	@Override
-	public void setData(Date novaData) throws Exception {
+	public void inicializarData() throws Exception {
 		data = new GregorianCalendar().getTime();
 	}
 

@@ -19,6 +19,7 @@ import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.item.ItemIF;
 import sistema.mensagem.Chat;
 import sistema.mensagem.ChatIF;
+import sistema.notificacao.GerenciadorDeNotificacoes;
 import sistema.persistencia.ChatRepositorio;
 import sistema.persistencia.EmprestimoRepositorio;
 import sistema.persistencia.ItemRepositorio;
@@ -551,16 +552,7 @@ public class Emprestimus implements EmprestimusIF {
 		asserteTrue(ItemRepositorio.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
 		
 		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
-		ItemIF item = ItemRepositorio.recuperarItem(idItem);
-		
-		//FIXME usar as mensagens constantes do enum Mensagem
-		
-		asserteTrue(!item.getInteresasados().contains(usuario), "O usuário já registrou interesse neste item");
-		asserteTrue(!usuario.oItemMePertence(idItem), "O usuário não pode registrar interesse no próprio item");
-		assertNaoNulo(usuario.ehItemDoMeuAmigo(idItem), "O usuário não tem permissão para registrar interesse neste item");
-//		asserteTrue(!item.estahDisponivel(), "--O item está disponível");
-		
-		item.adicionaInteressado(usuario);
+		usuario.registrarInteressePorItem(idItem);
 		
 	}
 	
@@ -708,7 +700,13 @@ public class Emprestimus implements EmprestimusIF {
 	@Override
 	public String historicoAtividades(String idSessao) throws Exception {
 		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
-		return usuario.getHistoricoToString();
+		String result = null;
+		try{
+			result = usuario.getHistoricoToString();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 	@Override

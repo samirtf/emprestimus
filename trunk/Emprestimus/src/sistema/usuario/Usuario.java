@@ -1,5 +1,6 @@
 package sistema.usuario;
 
+import static sistema.utilitarios.Validador.assertNaoNulo;
 import static sistema.utilitarios.Validador.assertStringNaoVazia;
 import static sistema.utilitarios.Validador.asserteTrue;
 
@@ -453,6 +454,14 @@ public class Usuario implements UsuarioIF {
 	@Override
 	public String getHistoricoToString() throws ArgumentoInvalidoException {
 		return GerenciadorDeNotificacoes.getInstance().getHistoricoDecrescenteDataToString(this.getLogin());
+	}
+	
+	public void registrarInteressePorItem(String idItem)
+			throws Exception {
+
+		assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		asserteTrue(ItemRepositorio.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
+		AcervoDeItens.getInstance().registrarInteressePorItem(this.getLogin(), idItem);
 	}
 	
 	public static void main(String[] args){

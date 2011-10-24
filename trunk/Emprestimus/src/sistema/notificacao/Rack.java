@@ -49,7 +49,7 @@ public class Rack {
 		
 		@Override
 		public int compare(Notificacao o1, Notificacao o2) {
-			return o2.getData().compareTo(o1.getData());
+			return -(o1.getData().compareTo(o2.getData()));
 		}
 	}
 	

@@ -26,12 +26,14 @@ public class NotificacaoEmprestimoAndamento implements Notificacao {
 	 * @param dono
 	 * @param beneficiado
 	 * @param item
+	 * @throws Exception 
 	 */
 	public NotificacaoEmprestimoAndamento(UsuarioIF dono,
-			UsuarioIF beneficiado, ItemIF item) {
+			UsuarioIF beneficiado, ItemIF item) throws Exception {
 		this.dono = dono;
 		this.beneficiado = beneficiado;
 		this.item = item;
+		inicializarData();
 	}
 
 	@Override
@@ -40,13 +42,13 @@ public class NotificacaoEmprestimoAndamento implements Notificacao {
 	}
 
 	@Override
-	public Notificacao setNewData(Date novaData) throws Exception {
+	public Notificacao setNovaData(Date novaData) throws Exception {
 		data = new GregorianCalendar().getTime();
 		return this;
 	}
 	
 	@Override
-	public void setData(Date novaData) throws Exception {
+	public void inicializarData() throws Exception {
 		data = new GregorianCalendar().getTime();
 	}
 

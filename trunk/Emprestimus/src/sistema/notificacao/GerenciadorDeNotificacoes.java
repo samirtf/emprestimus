@@ -108,5 +108,16 @@ public class GerenciadorDeNotificacoes {
 		return sb.toString().substring(0, sb.length()-2);
 	}
 	
+	public void addHistoricoInteressePorItem(String seuLogin, UsuarioIF amigo, ItemIF item) throws Exception {
+		Validador.assertStringNaoVazia(seuLogin, Mensagem.LOGIN_INVALIDO.getMensagem(), Mensagem.LOGIN_INVALIDO.getMensagem());
+		UsuarioIF usuario = Autenticacao.getUsuarioPorLogin(seuLogin);
+		Notificacao notif = new NotificacaoRegistrarInteresseItem(usuario.getNome(), amigo.getNome(), item);
+		NotificacaoRepositorio.getInstance().novaNotificacao(notif);
+		rackDeNotificacoes.get(seuLogin).getHistorico().add(notif);
+		rackDeNotificacoes.get(amigo.getLogin()).getHistorico().add(notif);
+//		this.addNotificacao(notif);
+//		amigo.addNotificacao(notif);
+		
+	}
 
 }
