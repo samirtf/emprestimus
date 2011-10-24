@@ -151,7 +151,7 @@ public class Usuario implements UsuarioIF {
 
 	}
 
-	private void addHistoricoCadastrarItem(ItemIF item) throws Exception {
+	public void addHistoricoCadastrarItem(ItemIF item) throws Exception {
 		GerenciadorDeNotificacoes.getInstance().addHistoricoCadastrarItem(this.getLogin(), item);
 	}
 
@@ -228,10 +228,7 @@ public class Usuario implements UsuarioIF {
 	}
 	
 	public void addHistoricoAmizadeAprovada(UsuarioIF amigo) throws Exception {
-		Notificacao notif = new NotificacaoNovoAmigo(this, amigo);
-		NotificacaoRepositorio.getInstance().novaNotificacao(notif);
-		this.addNotificacao(notif);
-		amigo.addNotificacao(notif);
+		GerenciadorDeNotificacoes.getInstance().addHistoricoAmizadeAprovada(this.getLogin(), amigo);
 	}
 
 	public synchronized void aprovouAmizade( UsuarioIF usuario ) throws ArgumentoInvalidoException {
@@ -333,11 +330,7 @@ public class Usuario implements UsuarioIF {
 	 * @throws Exception 
 	 */
 	public void addHistoricoEmprestimoEmAndamento(UsuarioIF amigo, ItemIF item) throws Exception {
-		Notificacao notif = new NotificacaoEmprestimoAndamento(this, amigo, item);
-		NotificacaoRepositorio.getInstance().novaNotificacao(notif);
-		this.addNotificacao(notif);
-		amigo.addNotificacao(notif);
-		
+		GerenciadorDeNotificacoes.getInstance().addHistoricoEmprestimoEmAndamento(this.getLogin(), amigo, item);
 	}
 
 	public void addNotificacao(Notificacao notificacao) throws Exception {
