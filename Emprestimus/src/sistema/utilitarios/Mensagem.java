@@ -1,14 +1,16 @@
 package sistema.utilitarios;
 
-
 /**
  * Emprestimus
  * Projeto de Sistemas de Informação I
  * Universidade Federal de Campina Grande
  * 
  * Enum que encapsula as mensagens usadas no sistema.
+ * 
+ * 
+ * @author Joeffison Silverio de Andrade, 21011853, joeffisonsa@gmail.com
+ * @version 1.0
  */
-
 public enum Mensagem {
 	
 	/*Especiais*/
@@ -96,7 +98,8 @@ public enum Mensagem {
 	MENU_PERFIL_PROPRIO("\n" +
 			"--Menu do seu Perfil--\n" +
 			" 1 - Ver atributo\n" +
-			" 2 - Localizar usuário\n" +
+			" 2 - Localizar usuário por uma chave\n" +
+			" - Localizar usuário\n" +
 			" 3 - Solicitar amizade\n" +
 			" 4 - Visualizar solicitações de amizade\n" +
 			" 5 - Aprovar amizade\n" +
@@ -105,6 +108,8 @@ public enum Mensagem {
 			" 8 - Desfazer amizade\n" +
 			" 9 - Ver ranking\n" +
 			"10 - Adicionar Dias\n" +
+			" - Visualizar seu histórico\n" +
+			" - Visualizar seu histórico junto com o de seus amigos\n" +
 			"11 - Voltar"),
 			
 	MENU_PERFIL_ALHEIO("\n" +
@@ -133,6 +138,9 @@ public enum Mensagem {
 			" 6 - Enviar Mensagem sobre emprestimo\n" +
 			" 7 - Requisitar Devolucao\n" +
 			" 8 - Registrar Interesse\n" +
+			" - Publicar pedido\n" +
+			" - Oferecer item\n" +
+			" - Republicar pedido\n" +
 			" 9 - Voltar"),
 			
 	MENU_ITEMCATEGORIA("\n--Escolha uma categoria:--\n" +
@@ -305,7 +313,11 @@ public enum Mensagem {
 	PROPRIETARIO_BAUH_INEXISTENTE("Proprietário inexistente"),
 	PROPRIETARIO_BAUH_JAH_CADASTRADO("Proprietario do baú já cadastrado"), 
 	PROPRIETARIO_RACK_JAH_CADASTRADO("Proprietário do rack já cadastrado"),
-	PROPRIETARIO_RACK_INEXISTENTE("Proprietário inexistente");
+	PROPRIETARIO_RACK_INEXISTENTE("Proprietário inexistente"),
+	PEDIR_NOME_ITEM("Qual o nome do item?"),
+	PEDIR_DESCRICAO_ITEM("Qual a descrição do item?"),
+	PEDIR_ID_PUBLICACAO_PEDIDO("Informe o id da publicação do pedido."),
+	PEDIR_ID_ITEM("Informe o id do item.");
 	
 	private final String mensagem;
 
