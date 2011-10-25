@@ -237,8 +237,8 @@ public class JSONArray {
 	public double getDouble(int index) throws JSONException {
 		Object object = get(index);
 		try {
-			return object instanceof Number ? ((Number) object).doubleValue()
-					: Double.parseDouble((String) object);
+			return object instanceof Number ? ((Number) object).doubleValue() : Double
+					.parseDouble((String) object);
 		} catch (Exception e) {
 			throw new JSONException("JSONArray[" + index + "] is not a number.");
 		}
@@ -256,8 +256,8 @@ public class JSONArray {
 	public int getInt(int index) throws JSONException {
 		Object object = get(index);
 		try {
-			return object instanceof Number ? ((Number) object).intValue()
-					: Integer.parseInt((String) object);
+			return object instanceof Number ? ((Number) object).intValue() : Integer
+					.parseInt((String) object);
 		} catch (Exception e) {
 			throw new JSONException("JSONArray[" + index + "] is not a number.");
 		}
@@ -312,8 +312,8 @@ public class JSONArray {
 	public long getLong(int index) throws JSONException {
 		Object object = get(index);
 		try {
-			return object instanceof Number ? ((Number) object).longValue()
-					: Long.parseLong((String) object);
+			return object instanceof Number ? ((Number) object).longValue() : Long
+					.parseLong((String) object);
 		} catch (Exception e) {
 			throw new JSONException("JSONArray[" + index + "] is not a number.");
 		}
@@ -388,8 +388,7 @@ public class JSONArray {
 	 * @return An object value, or null if there is no object at that index.
 	 */
 	public Object opt(int index) {
-		return (index < 0 || index >= length()) ? null : this.myArrayList
-				.get(index);
+		return (index < 0 || index >= length()) ? null : this.myArrayList.get(index);
 	}
 
 	/**
@@ -572,8 +571,7 @@ public class JSONArray {
 	 */
 	public String optString(int index, String defaultValue) {
 		Object object = opt(index);
-		return JSONObject.NULL.equals(object) ? object.toString()
-				: defaultValue;
+		return JSONObject.NULL.equals(object) ? object.toString() : defaultValue;
 	}
 
 	/**
@@ -900,8 +898,8 @@ public class JSONArray {
 		int i;
 		StringBuffer sb = new StringBuffer("[");
 		if (len == 1) {
-			sb.append(JSONObject.valueToString(this.myArrayList.get(0),
-					indentFactor, indent));
+			sb.append(JSONObject.valueToString(this.myArrayList.get(0), indentFactor,
+					indent));
 		} else {
 			int newindent = indent + indentFactor;
 			sb.append('\n');
@@ -912,8 +910,8 @@ public class JSONArray {
 				for (int j = 0; j < newindent; j += 1) {
 					sb.append(' ');
 				}
-				sb.append(JSONObject.valueToString(this.myArrayList.get(i),
-						indentFactor, newindent));
+				sb.append(JSONObject.valueToString(this.myArrayList.get(i), indentFactor,
+						newindent));
 			}
 			sb.append('\n');
 			for (i = 0; i < indent; i += 1) {

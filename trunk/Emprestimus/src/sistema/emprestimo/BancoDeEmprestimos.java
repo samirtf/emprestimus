@@ -61,29 +61,25 @@ public class BancoDeEmprestimos {
 	public void adicionarRequisicaoEmprestimoEmEsperaDeAmigo(String login,
 			EmprestimoIF emp) throws Exception {
 		if (!contas.containsKey(login))
-			throw new Exception(
-					Mensagem.PROPRIETARIO_CONTA_INEXISTENTE.getMensagem());
+			throw new Exception(Mensagem.PROPRIETARIO_CONTA_INEXISTENTE.getMensagem());
 		contas.get(login).getEmprestimosRequeridosPorAmigosEmEspera().add(emp);
 		// this.emprestimosRequeridosPorAmigosEmEspera.add(emp);
 	}
 
-	public synchronized String requisitarEmprestimo(String login,
-			String idItem, int duracao) throws Exception {
-		Validador.assertStringNaoVazia(login,
-				Mensagem.LOGIN_INVALIDO.getMensagem(),
+	public synchronized String requisitarEmprestimo(String login, String idItem,
+			int duracao) throws Exception {
+		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
-		Validador.assertStringNaoVazia(idItem,
-				Mensagem.ID_ITEM_INVALIDO.getMensagem(),
+		Validador.assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem(),
 				Mensagem.ID_ITEM_INVALIDO.getMensagem());
 		Validador.asserteTrue(ItemRepositorio.existeItem(idItem.trim()),
 				Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
-		Validador.asserteTrue(duracao > 0,
-				Mensagem.EMPRESTIMO_DURACAO_INVALIDA.getMensagem());
+		Validador.asserteTrue(duracao > 0, Mensagem.EMPRESTIMO_DURACAO_INVALIDA
+				.getMensagem());
 		UsuarioIF usuario = Autenticacao.getUsuarioPorLogin(login);
 		UsuarioIF amigo = usuario.ehItemDoMeuAmigo(idItem);
 		Validador.asserteTrue(amigo != null,
-				Mensagem.USUARIO_NAO_TEM_PERMISSAO_REQUISITAR_EMPREST_ITEM
-						.getMensagem());
+				Mensagem.USUARIO_NAO_TEM_PERMISSAO_REQUISITAR_EMPREST_ITEM.getMensagem());
 
 		ItemIF item = ItemRepositorio.recuperarItem(idItem);
 
@@ -92,13 +88,11 @@ public class BancoDeEmprestimos {
 				.getEmprestimosRequeridosPorMimEmEspera().iterator();
 		while (iterador.hasNext()) {
 			if (iterador.next().getItem().equals(item))
-				throw new Exception(
-						Mensagem.REQUISICAO_EMPRESTIMO_JA_SOLICITADA
-								.getMensagem());
+				throw new Exception(Mensagem.REQUISICAO_EMPRESTIMO_JA_SOLICITADA
+						.getMensagem());
 		}
 
-		EmprestimoIF emp = new Emprestimo(amigo, usuario, item, "beneficiado",
-				duracao);
+		EmprestimoIF emp = new Emprestimo(amigo, usuario, item, "beneficiado", duracao);
 
 		// vou atualizar estado do emprestimo
 		EmprestimoRepositorio.requisitarEmprestimo(emp);
@@ -114,30 +108,26 @@ public class BancoDeEmprestimos {
 		amigo.adicionarRequisicaoEmprestimoEmEsperaDeAmigo(emp);
 		String assunto = "Empréstimo do item " + item.getNome() + " a "
 				+ usuario.getNome() + "";
-		String mensagem = usuario.getNome()
-				+ " solicitou o empréstimo do item " + item.getNome();
-		usuario.enviarMensagemEmprestimo(amigo.getLogin(), assunto, mensagem,
-				emp.getIdEmprestimo());
+		String mensagem = usuario.getNome() + " solicitou o empréstimo do item "
+				+ item.getNome();
+		usuario.enviarMensagemEmprestimo(amigo.getLogin(), assunto, mensagem, emp
+				.getIdEmprestimo());
 		return emp.getIdEmprestimo();
 
 	}
 
-	public synchronized String getEmprestimos(String login, String tipo)
-			throws Exception {
+	public synchronized String getEmprestimos(String login, String tipo) throws Exception {
 
 		// FIXME: este método está muito grande e precisa ser dividido!!!
-		Validador.assertStringNaoVazia(login,
-				Mensagem.LOGIN_INVALIDO.getMensagem(),
+		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
-		Validador.assertStringNaoVazia(tipo,
-				Mensagem.EMPRESTIMO_TIPO_INVALIDO.getMensagem(),
-				Mensagem.EMPRESTIMO_TIPO_INVALIDO.getMensagem());
+		Validador.assertStringNaoVazia(tipo, Mensagem.EMPRESTIMO_TIPO_INVALIDO
+				.getMensagem(), Mensagem.EMPRESTIMO_TIPO_INVALIDO.getMensagem());
 		// "mark-steve:The Social Network:Andamento; steve-mark:Guia do mochileiro das galáxias:Andamento"
 		StringBuffer str = new StringBuffer();
 		List<String> listaSaida = new ArrayList<String>();
 		UsuarioIF usuario = Autenticacao.getUsuarioPorLogin(login);
-		Iterator<EmprestimoIF> iterador = contas.get(login).getEmprestimos()
-				.iterator();
+		Iterator<EmprestimoIF> iterador = contas.get(login).getEmprestimos().iterator();
 
 		while (iterador.hasNext()) {
 			EmprestimoIF emp = iterador.next();
@@ -147,8 +137,7 @@ public class BancoDeEmprestimos {
 
 					listaSaida.add(emp.getEmprestador().getLogin() + "-"
 							+ emp.getBeneficiado().getLogin() + ":"
-							+ emp.getItem().getNome() + ":" + emp.getSituacao()
-							+ "; ");
+							+ emp.getItem().getNome() + ":" + emp.getSituacao() + "; ");
 					Collections.sort(listaSaida);
 				}
 			} else if (tipo.trim().equalsIgnoreCase("beneficiado")) {
@@ -156,8 +145,7 @@ public class BancoDeEmprestimos {
 
 					listaSaida.add(emp.getEmprestador().getLogin() + "-"
 							+ emp.getBeneficiado().getLogin() + ":"
-							+ emp.getItem().getNome() + ":" + emp.getSituacao()
-							+ "; ");
+							+ emp.getItem().getNome() + ":" + emp.getSituacao() + "; ");
 					Collections.sort(listaSaida);
 				}
 			} else if (tipo.trim().equalsIgnoreCase("todos")) {
@@ -165,20 +153,17 @@ public class BancoDeEmprestimos {
 				if (usuario.equals(emp.getEmprestador())) {
 					listaSaida.add(0, emp.getEmprestador().getLogin() + "-"
 							+ emp.getBeneficiado().getLogin() + ":"
-							+ emp.getItem().getNome() + ":" + emp.getSituacao()
-							+ "; ");
+							+ emp.getItem().getNome() + ":" + emp.getSituacao() + "; ");
 				}
 
 				if (usuario.equals(emp.getBeneficiado())) {
 					listaSaida.add(emp.getEmprestador().getLogin() + "-"
 							+ emp.getBeneficiado().getLogin() + ":"
-							+ emp.getItem().getNome() + ":" + emp.getSituacao()
-							+ "; ");
+							+ emp.getItem().getNome() + ":" + emp.getSituacao() + "; ");
 				}
 
 			} else {
-				throw new Exception(
-						Mensagem.EMPRESTIMO_TIPO_INXISTENTE.getMensagem());
+				throw new Exception(Mensagem.EMPRESTIMO_TIPO_INXISTENTE.getMensagem());
 			}
 		}
 
@@ -193,15 +178,13 @@ public class BancoDeEmprestimos {
 
 	public synchronized String aprovarEmprestimo(String login,
 			String idRequisicaoEmprestimo) throws Exception {
-		Validador.assertStringNaoVazia(login,
-				Mensagem.LOGIN_INVALIDO.getMensagem(),
+		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
 		assertStringNaoVazia(idRequisicaoEmprestimo,
 				Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem(),
 				Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
 		asserteTrue(
-				EmprestimoRepositorio.existeEmprestimo(idRequisicaoEmprestimo
-						.trim()),
+				EmprestimoRepositorio.existeEmprestimo(idRequisicaoEmprestimo.trim()),
 				Mensagem.ID_REQUISICAO_EMP_INEXISTENTE.getMensagem());
 		UsuarioIF usuario = Autenticacao.getUsuarioPorLogin(login);
 		EmprestimoIF emp = EmprestimoRepositorio
@@ -213,42 +196,35 @@ public class BancoDeEmprestimos {
 			throw new Exception(Mensagem.EMPRESTIMO_JA_APROVADO.getMensagem());
 		emp.aprovarEmprestimo();
 
-		contas.get(login).getEmprestimosRequeridosPorAmigosEmEspera()
-				.remove(emp);
+		contas.get(login).getEmprestimosRequeridosPorAmigosEmEspera().remove(emp);
 		contas.get(login).getEmprestimos().add(emp);
 		UsuarioIF amigo = emp.getBeneficiado();
 		amigo.emprestimoAceitoPorAmigo(emp);
 		emp.getItem().setDisponibilidade(false);
 
-		Autenticacao.getUsuarioPorLogin(login)
-				.addHistoricoEmprestimoEmAndamento(amigo, emp.getItem());
+		Autenticacao.getUsuarioPorLogin(login).addHistoricoEmprestimoEmAndamento(amigo,
+				emp.getItem());
 
 		return emp.getIdEmprestimo();
 
 	}
 
-	public void emprestimoAceitoPorAmigo(String login, EmprestimoIF emp)
-			throws Exception {
-		Validador.assertStringNaoVazia(login,
-				Mensagem.LOGIN_INVALIDO.getMensagem(),
+	public void emprestimoAceitoPorAmigo(String login, EmprestimoIF emp) throws Exception {
+		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
 		Conta conta = contas.get(login);
 		conta.getEmprestimosRequeridosPorMimEmEspera().remove(emp);
 		conta.getEmprestimos().add(emp);
 	}
 
-	public void removerEmprestimosRequeridosPorAmigo(String login,
-			UsuarioIF amigo) {
-		Iterator<EmprestimoIF> iteradorListaEmprestimosRequeridosPorAmigo = contas
-				.get(login).getEmprestimosRequeridosPorAmigosEmEspera()
-				.iterator();
+	public void removerEmprestimosRequeridosPorAmigo(String login, UsuarioIF amigo) {
+		Iterator<EmprestimoIF> iteradorListaEmprestimosRequeridosPorAmigo = contas.get(
+				login).getEmprestimosRequeridosPorAmigosEmEspera().iterator();
 
 		while (iteradorListaEmprestimosRequeridosPorAmigo.hasNext()) {
-			EmprestimoIF emprestimo = iteradorListaEmprestimosRequeridosPorAmigo
-					.next();
+			EmprestimoIF emprestimo = iteradorListaEmprestimosRequeridosPorAmigo.next();
 			if (emprestimo.getBeneficiado().equals(amigo)) {
-				EmprestimoRepositorio.removerEmprestimo(emprestimo
-						.getIdEmprestimo());
+				EmprestimoRepositorio.removerEmprestimo(emprestimo.getIdEmprestimo());
 				iteradorListaEmprestimosRequeridosPorAmigo.remove();
 			}
 		}
@@ -256,44 +232,39 @@ public class BancoDeEmprestimos {
 	}
 
 	public void removerEmprestimosRequeridosPorMim(String login, UsuarioIF amigo) {
-		Iterator<EmprestimoIF> iteradorListaEmprestimosRequeridosPorMim = contas
-				.get(login).getEmprestimosRequeridosPorMimEmEspera().iterator();
+		Iterator<EmprestimoIF> iteradorListaEmprestimosRequeridosPorMim = contas.get(
+				login).getEmprestimosRequeridosPorMimEmEspera().iterator();
 
 		while (iteradorListaEmprestimosRequeridosPorMim.hasNext()) {
-			EmprestimoIF emprestimo = iteradorListaEmprestimosRequeridosPorMim
-					.next();
+			EmprestimoIF emprestimo = iteradorListaEmprestimosRequeridosPorMim.next();
 			if (emprestimo.getEmprestador().equals(amigo)) {
-				EmprestimoRepositorio.removerEmprestimo(emprestimo
-						.getIdEmprestimo());
+				EmprestimoRepositorio.removerEmprestimo(emprestimo.getIdEmprestimo());
 				iteradorListaEmprestimosRequeridosPorMim.remove();
 			}
 		}
 
 	}
 
-	public synchronized boolean requisiteiEsteItem(String login, String idItem)
-			throws Exception {
+	public synchronized boolean requisiteiEsteItem(String login, String idItem) throws Exception {
 		assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem(),
 				Mensagem.ID_ITEM_INVALIDO.getMensagem());
-		asserteTrue(ItemRepositorio.existeItem(idItem),
-				Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
+		asserteTrue(ItemRepositorio.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE
+				.getMensagem());
 
 		Iterator<EmprestimoIF> iteradorEmprestimos = contas.get(login)
 				.getEmprestimosRequeridosPorMimEmEspera().iterator();
 		while (iteradorEmprestimos.hasNext()) {
 
-			if (iteradorEmprestimos.next().getItem().getId().trim()
-					.equalsIgnoreCase(idItem.trim())) {
+			if (iteradorEmprestimos.next().getItem().getId().trim().equalsIgnoreCase(
+					idItem.trim())) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	public void removerMinhaSolicitacaoEmprestimo(String login,
-			EmprestimoIF emprestimo) {
-		contas.get(login).getEmprestimosRequeridosPorMimEmEspera()
-				.remove(emprestimo);
+	public void removerMinhaSolicitacaoEmprestimo(String login, EmprestimoIF emprestimo) {
+		contas.get(login).getEmprestimosRequeridosPorMimEmEspera().remove(emprestimo);
 	}
 
 	public void zerarSistema() {

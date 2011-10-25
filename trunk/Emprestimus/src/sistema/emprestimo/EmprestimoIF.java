@@ -32,8 +32,7 @@ public interface EmprestimoIF extends Comparable<EmprestimoIF> {
 	 * @throws ArgumentoInvalidoException
 	 *             Caso o parâmetro seja nulo.
 	 */
-	public void setEmprestador(UsuarioIF emprestador)
-			throws ArgumentoInvalidoException;
+	public void setEmprestador(UsuarioIF emprestador) throws ArgumentoInvalidoException;
 
 	/**
 	 * Altera o usuário que pegou emprestado.
@@ -43,8 +42,7 @@ public interface EmprestimoIF extends Comparable<EmprestimoIF> {
 	 * @throws ArgumentoInvalidoException
 	 *             Caso o parâmetro seja nulo.
 	 */
-	public void setBeneficiado(UsuarioIF beneficiado)
-			throws ArgumentoInvalidoException;
+	public void setBeneficiado(UsuarioIF beneficiado) throws ArgumentoInvalidoException;
 
 	/**
 	 * Recupera o nome do estado do empréstimo.

@@ -27,8 +27,8 @@ public class NotificacaoEmprestimoAndamento implements Notificacao {
 	 * @param item
 	 * @throws Exception
 	 */
-	public NotificacaoEmprestimoAndamento(UsuarioIF dono,
-			UsuarioIF beneficiado, ItemIF item) throws Exception {
+	public NotificacaoEmprestimoAndamento(UsuarioIF dono, UsuarioIF beneficiado,
+			ItemIF item) throws Exception {
 		this.dono = dono;
 		this.beneficiado = beneficiado;
 		this.item = item;

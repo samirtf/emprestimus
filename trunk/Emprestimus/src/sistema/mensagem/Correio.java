@@ -42,17 +42,14 @@ public class Correio {
 		return correio;
 	}
 
-	public static void adicionaCaixaPostalAoUsuario(String usuario)
-			throws Exception {
+	public static void adicionaCaixaPostalAoUsuario(String usuario) throws Exception {
 		if (caixasPostais.containsKey(usuario))
-			throw new Exception(
-					Mensagem.PROPRIETARIO_CAIXA_POSTAL_JAH_CADASTRADO
-							.getMensagem());
+			throw new Exception(Mensagem.PROPRIETARIO_CAIXA_POSTAL_JAH_CADASTRADO
+					.getMensagem());
 		caixasPostais.put(usuario, new CaixaPostal(usuario));
 	}
 
-	public static void removeCaixaPostalDoUsuario(String usuario)
-			throws Exception {
+	public static void removeCaixaPostalDoUsuario(String usuario) throws Exception {
 		caixasPostais.remove(usuario);
 	}
 
@@ -65,13 +62,11 @@ public class Correio {
 	 *            Conversa a ser adicionada.
 	 * @throws Exception
 	 */
-	public static void adicionaConversaOfftopicNaLista(String usuario,
-			ChatIF conversa) throws Exception {
+	public static void adicionaConversaOfftopicNaLista(String usuario, ChatIF conversa) throws Exception {
 		CaixaPostal caixaPostal = caixasPostais.get(usuario);
 		if (caixaPostal == null)
-			throw new Exception(
-					Mensagem.PROPRIETARIO_CAIXA_POSTAL_INEXISTENTE
-							.getMensagem());
+			throw new Exception(Mensagem.PROPRIETARIO_CAIXA_POSTAL_INEXISTENTE
+					.getMensagem());
 		caixaPostal.getConversasOffTopic().add(conversa);
 	}
 
@@ -85,13 +80,11 @@ public class Correio {
 	 *            Conversa a ser adicionada.
 	 * @throws Exception
 	 */
-	public static void adicionaConversaNegociacaoNaLista(String usuario,
-			ChatIF conversa) throws Exception {
+	public static void adicionaConversaNegociacaoNaLista(String usuario, ChatIF conversa) throws Exception {
 		CaixaPostal caixaPostal = caixasPostais.get(usuario);
 		if (caixaPostal == null)
-			throw new Exception(
-					Mensagem.PROPRIETARIO_CAIXA_POSTAL_INEXISTENTE
-							.getMensagem());
+			throw new Exception(Mensagem.PROPRIETARIO_CAIXA_POSTAL_INEXISTENTE
+					.getMensagem());
 		caixaPostal.getConversasNegociacao().add(conversa);
 	}
 
@@ -111,30 +104,25 @@ public class Correio {
 	 *             Caso os parâmetros sejam inválidos.
 	 */
 	public synchronized static String enviarMensagemOffTopic(String remetente,
-			String destinatario, String assunto, String mensagem)
-			throws Exception {
+			String destinatario, String assunto, String mensagem) throws Exception {
 
-		assertStringNaoVazia(remetente,
-				Mensagem.REMETENTE_INVALIDO.getMensagem(),
+		assertStringNaoVazia(remetente, Mensagem.REMETENTE_INVALIDO.getMensagem(),
 				Mensagem.REMETENTE_INVALIDO.getMensagem());
 
-		assertStringNaoVazia(destinatario,
-				Mensagem.DESTINATARIO_INVALIDO.getMensagem(),
+		assertStringNaoVazia(destinatario, Mensagem.DESTINATARIO_INVALIDO.getMensagem(),
 				Mensagem.DESTINATARIO_INVALIDO.getMensagem());
 		UsuarioIF usuario = Autenticacao.getUsuarioPorLogin(remetente);
 		UsuarioIF amigo = usuario.possuoAmigoComEsteLogin(destinatario);
 
-		asserteTrue(amigo != null,
-				Mensagem.DESTINATARIO_INEXISTENTE.getMensagem());
+		asserteTrue(amigo != null, Mensagem.DESTINATARIO_INEXISTENTE.getMensagem());
 		assertStringNaoVazia(assunto, Mensagem.ASSUNTO_INVALIDO.getMensagem(),
 				Mensagem.ASSUNTO_INVALIDO.getMensagem());
-		assertStringNaoVazia(mensagem,
-				Mensagem.MENSAGEM_INVALIDA.getMensagem(),
+		assertStringNaoVazia(mensagem, Mensagem.MENSAGEM_INVALIDA.getMensagem(),
 				Mensagem.MENSAGEM_INVALIDA.getMensagem());
 
 		ChatIF conversa = ChatRepositorio
-				.existeConversaEntreAsPessoasSobreMesmoAssuntoETipo(
-						usuario.getLogin(), destinatario, assunto, true);
+				.existeConversaEntreAsPessoasSobreMesmoAssuntoETipo(usuario.getLogin(),
+						destinatario, assunto, true);
 
 		if (conversa == null) {
 			conversa = new Chat(usuario, amigo, assunto.trim(), mensagem.trim());
@@ -162,44 +150,38 @@ public class Correio {
 	 * @return
 	 * @throws Exception
 	 */
-	public synchronized static String enviarMensagemEmprestimo(
-			String remetente, String destinatario, String assunto,
-			String mensagem, String idRequisicaoEmprestimo) throws Exception {
+	public synchronized static String enviarMensagemEmprestimo(String remetente,
+			String destinatario, String assunto, String mensagem,
+			String idRequisicaoEmprestimo) throws Exception {
 
-		assertStringNaoVazia(remetente,
-				Mensagem.REMETENTE_INVALIDO.getMensagem(),
+		assertStringNaoVazia(remetente, Mensagem.REMETENTE_INVALIDO.getMensagem(),
 				Mensagem.REMETENTE_INVALIDO.getMensagem());
-		assertStringNaoVazia(destinatario,
-				Mensagem.DESTINATARIO_INVALIDO.getMensagem(),
+		assertStringNaoVazia(destinatario, Mensagem.DESTINATARIO_INVALIDO.getMensagem(),
 				Mensagem.DESTINATARIO_INVALIDO.getMensagem());
 		UsuarioIF usuario = Autenticacao.getUsuarioPorLogin(remetente);
 		UsuarioIF amigo = usuario.possuoAmigoComEsteLogin(destinatario);
-		asserteTrue(amigo != null,
-				Mensagem.DESTINATARIO_INEXISTENTE.getMensagem());
+		asserteTrue(amigo != null, Mensagem.DESTINATARIO_INEXISTENTE.getMensagem());
 		assertStringNaoVazia(assunto, Mensagem.ASSUNTO_INVALIDO.getMensagem(),
 				Mensagem.ASSUNTO_INVALIDO.getMensagem());
-		assertStringNaoVazia(mensagem,
-				Mensagem.MENSAGEM_INVALIDA.getMensagem(),
+		assertStringNaoVazia(mensagem, Mensagem.MENSAGEM_INVALIDA.getMensagem(),
 				Mensagem.MENSAGEM_INVALIDA.getMensagem());
 		assertStringNaoVazia(idRequisicaoEmprestimo,
 				Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem(),
 				Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
 		asserteTrue(
-				EmprestimoRepositorio.existeEmprestimo(idRequisicaoEmprestimo
-						.trim()),
+				EmprestimoRepositorio.existeEmprestimo(idRequisicaoEmprestimo.trim()),
 				Mensagem.ID_REQUISICAO_EMP_INEXISTENTE.getMensagem());
 
 		EmprestimoIF emprestimo = EmprestimoRepositorio
 				.recuperarEmprestimo(idRequisicaoEmprestimo);
 		if (!usuario.equals(emprestimo.getEmprestador())
 				&& !usuario.equals(emprestimo.getBeneficiado()))
-			throw new Exception(
-					Mensagem.USUARIO_NAO_PARTICIPA_DESTE_EMPRESTIMO
-							.getMensagem());
+			throw new Exception(Mensagem.USUARIO_NAO_PARTICIPA_DESTE_EMPRESTIMO
+					.getMensagem());
 
 		ChatIF conversa = ChatRepositorio
-				.existeConversaEntreAsPessoasSobreMesmoAssuntoETipo(
-						usuario.getLogin(), destinatario, assunto, false);
+				.existeConversaEntreAsPessoasSobreMesmoAssuntoETipo(usuario.getLogin(),
+						destinatario, assunto, false);
 
 		if (conversa == null) {
 			conversa = new Chat(usuario, amigo, assunto.trim(), mensagem,
@@ -223,12 +205,11 @@ public class Correio {
 	 * @return
 	 * @throws Exception
 	 */
-	public static String lerTopicos(String proprietario, String tipo)
-			throws Exception {
+	public static String lerTopicos(String proprietario, String tipo) throws Exception {
 
-		assertStringNaoVazia(proprietario,
-				Mensagem.PROPRIETARIO_CAIXA_POSTAL_INEXISTENTE.getMensagem(),
-				Mensagem.PROPRIETARIO_CAIXA_POSTAL_INEXISTENTE.getMensagem());
+		assertStringNaoVazia(proprietario, Mensagem.PROPRIETARIO_CAIXA_POSTAL_INEXISTENTE
+				.getMensagem(), Mensagem.PROPRIETARIO_CAIXA_POSTAL_INEXISTENTE
+				.getMensagem());
 		assertStringNaoVazia(tipo, Mensagem.TIPO_INVALIDO.getMensagem(),
 				Mensagem.TIPO_INVALIDO.getMensagem());
 
@@ -267,39 +248,32 @@ public class Correio {
 		for (ChatIF c : listaTopicos) {
 			saida.append(c.getAssunto() + "; ");
 		}
-		return saida.toString().trim()
-				.substring(0, saida.toString().trim().length() - 1);
+		return saida.toString().trim().substring(0, saida.toString().trim().length() - 1);
 	}
 
-	public static String enviarMensagemOferecimentoItemOffTopic(
-			String remetente, String destinatario, String assunto,
-			String mensagem) throws Exception {
+	public static String enviarMensagemOferecimentoItemOffTopic(String remetente,
+			String destinatario, String assunto, String mensagem) throws Exception {
 
-		assertStringNaoVazia(remetente,
-				Mensagem.REMETENTE_INVALIDO.getMensagem(),
+		assertStringNaoVazia(remetente, Mensagem.REMETENTE_INVALIDO.getMensagem(),
 				Mensagem.REMETENTE_INVALIDO.getMensagem());
 
-		assertStringNaoVazia(destinatario,
-				Mensagem.DESTINATARIO_INVALIDO.getMensagem(),
+		assertStringNaoVazia(destinatario, Mensagem.DESTINATARIO_INVALIDO.getMensagem(),
 				Mensagem.DESTINATARIO_INVALIDO.getMensagem());
 		UsuarioIF usuario = Autenticacao.getUsuarioPorLogin(remetente);
 		UsuarioIF amigoDeAmigo = Autenticacao.getUsuarioPorLogin(destinatario);
 
-		asserteTrue(amigoDeAmigo != null,
-				Mensagem.DESTINATARIO_INEXISTENTE.getMensagem());
+		asserteTrue(amigoDeAmigo != null, Mensagem.DESTINATARIO_INEXISTENTE.getMensagem());
 		assertStringNaoVazia(assunto, Mensagem.ASSUNTO_INVALIDO.getMensagem(),
 				Mensagem.ASSUNTO_INVALIDO.getMensagem());
-		assertStringNaoVazia(mensagem,
-				Mensagem.MENSAGEM_INVALIDA.getMensagem(),
+		assertStringNaoVazia(mensagem, Mensagem.MENSAGEM_INVALIDA.getMensagem(),
 				Mensagem.MENSAGEM_INVALIDA.getMensagem());
 
 		ChatIF conversa = ChatRepositorio
-				.existeConversaEntreAsPessoasSobreMesmoAssuntoETipo(
-						usuario.getLogin(), destinatario, assunto, true);
+				.existeConversaEntreAsPessoasSobreMesmoAssuntoETipo(usuario.getLogin(),
+						destinatario, assunto, true);
 
 		if (conversa == null) {
-			conversa = new Chat(usuario, amigoDeAmigo, assunto.trim(),
-					mensagem.trim());
+			conversa = new Chat(usuario, amigoDeAmigo, assunto.trim(), mensagem.trim());
 			conversa.setTipoOffTopicMsg();
 			ChatRepositorio.registrarConversa(conversa);
 			caixasPostais.get(remetente).getConversasOffTopic().add(conversa);

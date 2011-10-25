@@ -48,8 +48,8 @@ public class MensagemChat implements MensagemChatIF, Comparable<MensagemChatIF> 
 
 	@Override
 	public String toString() {
-		return "DATA:" + (String.format("%1$te/%1$tm/%1$tY - %tT", data))
-				+ " MENSAGEM:" + mensagem;
+		return "DATA:" + (String.format("%1$te/%1$tm/%1$tY - %tT", data)) + " MENSAGEM:"
+				+ mensagem;
 	}
 
 	@Override

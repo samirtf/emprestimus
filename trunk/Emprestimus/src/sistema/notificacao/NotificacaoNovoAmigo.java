@@ -18,8 +18,7 @@ public class NotificacaoNovoAmigo implements Notificacao {
 	private Date data;
 	private String id;
 
-	public NotificacaoNovoAmigo(UsuarioIF usuario1, UsuarioIF usuario2)
-			throws Exception {
+	public NotificacaoNovoAmigo(UsuarioIF usuario1, UsuarioIF usuario2) throws Exception {
 		this.usuario1 = usuario1;
 		this.usuario2 = usuario2;
 		Thread.sleep(1);
@@ -40,11 +39,9 @@ public class NotificacaoNovoAmigo implements Notificacao {
 	@Override
 	public String getMensagem(UsuarioIF usuario) {
 		if (usuario1.equals(usuario)) {
-			return usuario1.getNome() + " e " + usuario2.getNome()
-					+ " são amigos agora";
+			return usuario1.getNome() + " e " + usuario2.getNome() + " são amigos agora";
 		}
-		return usuario2.getNome() + " e " + usuario1.getNome()
-				+ " são amigos agora";
+		return usuario2.getNome() + " e " + usuario1.getNome() + " são amigos agora";
 	}
 
 	@Override

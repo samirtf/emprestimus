@@ -109,8 +109,7 @@ public class UsuarioIFTeste extends TestCase implements Test {
 		}
 
 		try {
-			UsuarioIF us1 = new Usuario(" umLogin   ", "   umNome   ",
-					"  umEndereco   ");
+			UsuarioIF us1 = new Usuario(" umLogin   ", "   umNome   ", "  umEndereco   ");
 			Assert.assertEquals("umLogin", us1.getLogin());
 			Assert.assertEquals("umNome", us1.getNome());
 			Assert.assertEquals("umEndereco", us1.getEndereco());
@@ -230,12 +229,9 @@ public class UsuarioIFTeste extends TestCase implements Test {
 		UsuarioIF us1, us2, us3;
 
 		try {
-			us1 = new Usuario(" samirtf ", " Samir Trajano Feitosa ",
-					" um endereco X");
-			us2 = new Usuario(" Terrenus ", " Samir Trajano Feitosa ",
-					" um endereco X");
-			us3 = new Usuario(" Terry ", " Samir Trajano Feitosa ",
-					" um endereco X");
+			us1 = new Usuario(" samirtf ", " Samir Trajano Feitosa ", " um endereco X");
+			us2 = new Usuario(" Terrenus ", " Samir Trajano Feitosa ", " um endereco X");
+			us3 = new Usuario(" Terry ", " Samir Trajano Feitosa ", " um endereco X");
 
 			try {
 				us1.cadastrarItem(null, " uma descricao ", " FILME ");
@@ -255,52 +251,44 @@ public class UsuarioIFTeste extends TestCase implements Test {
 				// cadastrando item para Usuario1
 				Assert.assertEquals(0, ItemRepositorio.qntItens());
 				Assert.assertEquals(0, us1.qntItens());
-				String idItem01 = us1.cadastrarItem("  nomeItem  ", null,
-						" FILME ");
+				String idItem01 = us1.cadastrarItem("  nomeItem  ", null, " FILME ");
 				System.out.println(idItem01);
 				Assert.assertEquals("1", idItem01);
 				Assert.assertEquals(1, us1.qntItens());
-				Assert.assertTrue("O item deveria estar cadastrado",
-						us1.existeItemID(idItem01));
+				Assert.assertTrue("O item deveria estar cadastrado", us1
+						.existeItemID(idItem01));
 				Assert.assertEquals("nomeItem", us1.getItem(idItem01).getNome());
 				Assert.assertEquals("", us1.getItem(idItem01).getDescricao());
-				Assert.assertEquals("Filme", us1.getItem(idItem01)
-						.getCategoria());
+				Assert.assertEquals("Filme", us1.getItem(idItem01).getCategoria());
 				Assert.assertEquals("1", us1.getListaIdItens());
 				Assert.assertEquals(1, ItemRepositorio.qntItens());
 
 				// cadastrando item para Usuario2
 				Assert.assertEquals(0, us2.qntItens());
-				String idItem02 = us2.cadastrarItem("  nome Item  ", "  ",
-						" FiLmE ");
+				String idItem02 = us2.cadastrarItem("  nome Item  ", "  ", " FiLmE ");
 				Assert.assertEquals("2", idItem02);
 				System.out.println(idItem02);
 				Assert.assertEquals(1, us2.qntItens());
-				Assert.assertTrue("O item deveria estar cadastrado",
-						us2.existeItemID(idItem02));
-				Assert.assertEquals("nome Item", us2.getItem(idItem02)
-						.getNome());
+				Assert.assertTrue("O item deveria estar cadastrado", us2
+						.existeItemID(idItem02));
+				Assert.assertEquals("nome Item", us2.getItem(idItem02).getNome());
 				Assert.assertEquals("", us2.getItem(idItem02).getDescricao());
-				Assert.assertEquals("Filme", us2.getItem(idItem02)
-						.getCategoria());
+				Assert.assertEquals("Filme", us2.getItem(idItem02).getCategoria());
 				Assert.assertEquals("2", us2.getListaIdItens());
 				Assert.assertEquals(2, ItemRepositorio.qntItens());
 
 				// cadastrando item para Usuario3
 				Assert.assertEquals(0, us3.qntItens());
-				String idItem03 = us3.cadastrarItem("  nome Item  ",
-						" um jogo legal ", " jogo ");
+				String idItem03 = us3.cadastrarItem("  nome Item  ", " um jogo legal ",
+						" jogo ");
 				Assert.assertEquals("3", idItem03);
 				System.out.println(idItem03);
 				Assert.assertEquals(1, us3.qntItens());
-				Assert.assertTrue("O item deveria estar cadastrado",
-						us3.existeItemID(idItem03));
-				Assert.assertEquals("nome Item", us3.getItem(idItem03)
-						.getNome());
-				Assert.assertEquals("um jogo legal", us3.getItem(idItem03)
-						.getDescricao());
-				Assert.assertEquals("Jogo", us3.getItem(idItem03)
-						.getCategoria());
+				Assert.assertTrue("O item deveria estar cadastrado", us3
+						.existeItemID(idItem03));
+				Assert.assertEquals("nome Item", us3.getItem(idItem03).getNome());
+				Assert.assertEquals("um jogo legal", us3.getItem(idItem03).getDescricao());
+				Assert.assertEquals("Jogo", us3.getItem(idItem03).getCategoria());
 				Assert.assertEquals("3", us3.getListaIdItens());
 				Assert.assertEquals(3, ItemRepositorio.qntItens());
 
@@ -308,65 +296,56 @@ public class UsuarioIFTeste extends TestCase implements Test {
 
 				// cadastrando outro item 4 para Usuario1
 				Assert.assertEquals(1, us1.qntItens());
-				String idItem04 = us1.cadastrarItem("  nomeI4  ",
-						"descricaoI4", " JOGO ");
+				String idItem04 = us1
+						.cadastrarItem("  nomeI4  ", "descricaoI4", " JOGO ");
 				System.out.println(idItem04);
 				Assert.assertEquals("4", idItem04);
 				Assert.assertEquals(2, us1.qntItens());
-				Assert.assertTrue("O item deveria estar cadastrado",
-						us1.existeItemID(idItem04));
+				Assert.assertTrue("O item deveria estar cadastrado", us1
+						.existeItemID(idItem04));
 				Assert.assertEquals("nomeI4", us1.getItem(idItem04).getNome());
-				Assert.assertEquals("descricaoI4", us1.getItem(idItem04)
-						.getDescricao());
-				Assert.assertEquals("Jogo", us1.getItem(idItem04)
-						.getCategoria());
+				Assert.assertEquals("descricaoI4", us1.getItem(idItem04).getDescricao());
+				Assert.assertEquals("Jogo", us1.getItem(idItem04).getCategoria());
 				Assert.assertEquals("1 4", us1.getListaIdItens());
 				Assert.assertEquals(4, ItemRepositorio.qntItens());
 
 				// cadastrando item 5 ao usuario 1
 				Assert.assertEquals(2, us1.qntItens());
-				String idItem05 = us1.cadastrarItem("  nomeI5  ",
-						"descricaoI5", " JOGO ");
+				String idItem05 = us1
+						.cadastrarItem("  nomeI5  ", "descricaoI5", " JOGO ");
 				System.out.println(idItem05);
 				Assert.assertEquals("5", idItem05);
 				Assert.assertEquals(3, us1.qntItens());
-				Assert.assertTrue("O item deveria estar cadastrado",
-						us1.existeItemID(idItem05));
+				Assert.assertTrue("O item deveria estar cadastrado", us1
+						.existeItemID(idItem05));
 				Assert.assertEquals("nomeI5", us1.getItem(idItem05).getNome());
-				Assert.assertEquals("descricaoI5", us1.getItem(idItem05)
-						.getDescricao());
-				Assert.assertEquals("Jogo", us1.getItem(idItem05)
-						.getCategoria());
+				Assert.assertEquals("descricaoI5", us1.getItem(idItem05).getDescricao());
+				Assert.assertEquals("Jogo", us1.getItem(idItem05).getCategoria());
 				Assert.assertEquals("1 4 5", us1.getListaIdItens());
 				Assert.assertEquals(5, ItemRepositorio.qntItens());
 
 				// cadastrando item 6 ao usuario 2
 				Assert.assertEquals(1, us2.qntItens());
-				String idItem06 = us2.cadastrarItem("  nomeI6  ",
-						"descricaoI6", " JOGO ");
+				String idItem06 = us2
+						.cadastrarItem("  nomeI6  ", "descricaoI6", " JOGO ");
 				System.out.println(idItem06);
 				Assert.assertEquals("6", idItem06);
 				Assert.assertEquals(2, us2.qntItens());
-				Assert.assertTrue("O item deveria estar cadastrado",
-						us2.existeItemID(idItem06));
+				Assert.assertTrue("O item deveria estar cadastrado", us2
+						.existeItemID(idItem06));
 				Assert.assertEquals("nomeI6", us2.getItem(idItem06).getNome());
-				Assert.assertEquals("descricaoI6", us2.getItem(idItem06)
-						.getDescricao());
-				Assert.assertEquals("Jogo", us2.getItem(idItem06)
-						.getCategoria());
+				Assert.assertEquals("descricaoI6", us2.getItem(idItem06).getDescricao());
+				Assert.assertEquals("Jogo", us2.getItem(idItem06).getCategoria());
 				Assert.assertEquals("2 6", us2.getListaIdItens());
 				Assert.assertEquals(6, ItemRepositorio.qntItens());
 
 				// testes de carga
 
-				Assert.assertTrue(
-						"Usuario 1 deve possuir ate entao 3 itens cadastrados",
+				Assert.assertTrue("Usuario 1 deve possuir ate entao 3 itens cadastrados",
 						us1.qntItens() == 3);
-				Assert.assertTrue(
-						"Usuario 2 deve possuir ate entao 2 itens cadastrados",
+				Assert.assertTrue("Usuario 2 deve possuir ate entao 2 itens cadastrados",
 						us2.qntItens() == 2);
-				Assert.assertTrue(
-						"Usuario 1 deve possuir ate entao 1 itens cadastrados",
+				Assert.assertTrue("Usuario 1 deve possuir ate entao 1 itens cadastrados",
 						us3.qntItens() == 1);
 
 				// iniciando testes de carga para usuario 1

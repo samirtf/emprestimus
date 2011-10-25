@@ -23,8 +23,7 @@ public class Validador {
 	 * @throws ArgumentoInvalidoException
 	 *             Exceção gerada em caso do objeto ser nulo.
 	 */
-	public static void assertNaoNulo(Object obj, String mensagem)
-			throws ArgumentoInvalidoException {
+	public static void assertNaoNulo(Object obj, String mensagem) throws ArgumentoInvalidoException {
 		if (obj == null)
 			throw new ArgumentoInvalidoException(mensagem);
 	}
@@ -43,8 +42,7 @@ public class Validador {
 	 *             Exceção gerada em caso da String for inválida segundo os
 	 *             requisitos acima.
 	 */
-	public static void assertStringNaoVazia(String str, String mensagem1,
-			String mensagem2) throws ArgumentoInvalidoException {
+	public static void assertStringNaoVazia(String str, String mensagem1, String mensagem2) throws ArgumentoInvalidoException {
 		assertNaoNulo(str, mensagem1);
 		if (str.trim().equals(""))
 			throw new ArgumentoInvalidoException(mensagem2);
@@ -61,8 +59,7 @@ public class Validador {
 	 * @throws ArgumentoInvalidoException
 	 *             Exceção gerada em caso do boolean ser false.
 	 */
-	public static void asserteTrue(boolean bool, String mensagem)
-			throws ArgumentoInvalidoException {
+	public static void asserteTrue(boolean bool, String mensagem) throws ArgumentoInvalidoException {
 		if (!bool)
 			throw new ArgumentoInvalidoException(mensagem);
 	}

@@ -377,8 +377,7 @@ public class InterfaceTexto {
 		iuExibirMensagem(Mensagem.PEDIR_CATEGORIA.getMensagem());
 
 		try {
-			iuExibirMensagem(emprestimus.getRanking(id_sessao,
-					pegaStringDaEntrada()));
+			iuExibirMensagem(emprestimus.getRanking(id_sessao, pegaStringDaEntrada()));
 
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
@@ -435,8 +434,8 @@ public class InterfaceTexto {
 		iuExibirMensagem(Mensagem.PEDIR_CRITERIO_ORDENACAO.getMensagem());
 
 		try {
-			iuExibirMensagem(emprestimus.pesquisarItem(id_sessao, chave,
-					atributo, tipoOrdenacao, pegaStringDaEntrada()));
+			iuExibirMensagem(emprestimus.pesquisarItem(id_sessao, chave, atributo,
+					tipoOrdenacao, pegaStringDaEntrada()));
 
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
@@ -499,8 +498,7 @@ public class InterfaceTexto {
 		iuExibirMensagem(Mensagem.PEDIR_ID_TOPICO.getMensagem());
 
 		try {
-			iuExibirMensagem(emprestimus.lerMensagens(id_sessao,
-					pegaStringDaEntrada()));
+			iuExibirMensagem(emprestimus.lerMensagens(id_sessao, pegaStringDaEntrada()));
 
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
@@ -515,8 +513,7 @@ public class InterfaceTexto {
 		iuExibirMensagem(Mensagem.PEDIR_TIPO.getMensagem());
 
 		try {
-			iuExibirMensagem(emprestimus.lerTopicos(id_sessao,
-					pegaStringDaEntrada()));
+			iuExibirMensagem(emprestimus.lerTopicos(id_sessao, pegaStringDaEntrada()));
 
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
@@ -537,13 +534,12 @@ public class InterfaceTexto {
 		iuExibirMensagem(Mensagem.PEDIR_MENSAGEM.getMensagem());
 
 		String mensagem = pegaStringDaEntrada();
-		iuExibirMensagem(Mensagem.PEDIR_ID_REQUISITACAO_EMPRESTIMO
-				.getMensagem());
+		iuExibirMensagem(Mensagem.PEDIR_ID_REQUISITACAO_EMPRESTIMO.getMensagem());
 
 		try {
 			iuExibirMensagem("O id do tópico é: "
-					+ emprestimus.enviarMensagem(id_sessao, destinatario,
-							assunto, mensagem, pegaStringDaEntrada()));
+					+ emprestimus.enviarMensagem(id_sessao, destinatario, assunto,
+							mensagem, pegaStringDaEntrada()));
 
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
@@ -562,8 +558,8 @@ public class InterfaceTexto {
 		iuExibirMensagem(Mensagem.PEDIR_MENSAGEM.getMensagem());
 		try {
 			iuExibirMensagem("O id do tópico é: "
-					+ emprestimus.enviarMensagem(id_sessao, destinatario,
-							assunto, pegaStringDaEntrada()));
+					+ emprestimus.enviarMensagem(id_sessao, destinatario, assunto,
+							pegaStringDaEntrada()));
 
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
@@ -578,8 +574,7 @@ public class InterfaceTexto {
 		iuExibirMensagem(Mensagem.PEDIR_ID_EMPRESTIMO.getMensagem());
 
 		try {
-			emprestimus.confirmarTerminoEmprestimo(id_sessao,
-					pegaStringDaEntrada());
+			emprestimus.confirmarTerminoEmprestimo(id_sessao, pegaStringDaEntrada());
 			iuExibirMensagem(Mensagem.OPERACAO_SUCESSO.getMensagem());
 
 		} catch (Exception e) {
@@ -611,8 +606,7 @@ public class InterfaceTexto {
 		iuExibirMensagem(Mensagem.PEDIR_TIPO_EMPRESTIMO.getMensagem());
 
 		try {
-			iuExibirMensagem(emprestimus.getEmprestimos(id_sessao,
-					pegaStringDaEntrada()));
+			iuExibirMensagem(emprestimus.getEmprestimos(id_sessao, pegaStringDaEntrada()));
 
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
@@ -628,8 +622,7 @@ public class InterfaceTexto {
 
 		try {
 			iuExibirMensagem("ID do emprestimo: "
-					+ emprestimus.aprovarEmprestimo(id_sessao,
-							pegaStringDaEntrada()));
+					+ emprestimus.aprovarEmprestimo(id_sessao, pegaStringDaEntrada()));
 			iuExibirMensagem(Mensagem.OPERACAO_SUCESSO.getMensagem());
 
 		} catch (Exception e) {
@@ -665,8 +658,7 @@ public class InterfaceTexto {
 		iuExibirMensagem(Mensagem.PEDIR_ATRIBUTO.getMensagem());
 
 		try {
-			iuExibirMensagem(emprestimus.getAtributoItem(idItem,
-					pegaStringDaEntrada()));
+			iuExibirMensagem(emprestimus.getAtributoItem(idItem, pegaStringDaEntrada()));
 
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
@@ -681,8 +673,7 @@ public class InterfaceTexto {
 		iuExibirMensagem(Mensagem.PEDIR_LOGIN_USUARIO_VERIFICAR.getMensagem());
 
 		try {
-			iuExibirMensagem(emprestimus.getItens(id_sessao,
-					pegaStringDaEntrada()));
+			iuExibirMensagem(emprestimus.getItens(id_sessao, pegaStringDaEntrada()));
 
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
@@ -706,8 +697,7 @@ public class InterfaceTexto {
 		iuExibirMensagem(Mensagem.PEDIR_LOGIN_USUARIO_VERIFICAR.getMensagem());
 
 		try {
-			iuExibirMensagem(emprestimus.getAmigos(id_sessao,
-					pegaStringDaEntrada()));
+			iuExibirMensagem(emprestimus.getAmigos(id_sessao, pegaStringDaEntrada()));
 		} catch (Exception e) {
 
 			iuExibirMensagem(e.getMessage());
@@ -730,8 +720,8 @@ public class InterfaceTexto {
 		iuExibirMensagem(Mensagem.PEDIR_LOGIN_AMIGO_VERIFICAR.getMensagem());
 
 		try {
-			if (emprestimus.ehAmigo(id_sessao, pegaStringDaEntrada())
-					.equalsIgnoreCase("true")) {
+			if (emprestimus.ehAmigo(id_sessao, pegaStringDaEntrada()).equalsIgnoreCase(
+					"true")) {
 				iuExibirMensagem(Mensagem.INFO_SAO_AMIGOS.getMensagem());
 
 			} else {
@@ -777,8 +767,7 @@ public class InterfaceTexto {
 
 		try {
 			emprestimus.requisitarAmizade(id_sessao, pegaStringDaEntrada());
-			iuExibirMensagem(Mensagem.INFO_AGUARDE_APROVACAO_AMIZADE
-					.getMensagem());
+			iuExibirMensagem(Mensagem.INFO_AGUARDE_APROVACAO_AMIZADE.getMensagem());
 
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
@@ -799,8 +788,7 @@ public class InterfaceTexto {
 		atributo = pegaStringDaEntrada();
 
 		try {
-			iuExibirMensagem(emprestimus.localizarUsuario(id_sessao, chave,
-					atributo));
+			iuExibirMensagem(emprestimus.localizarUsuario(id_sessao, chave, atributo));
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
 
@@ -835,8 +823,7 @@ public class InterfaceTexto {
 
 		try {
 			iuExibirMensagem("O id do item eh: "
-					+ emprestimus.cadastrarItem(id_sessao, nome, descricao,
-							categoria));
+					+ emprestimus.cadastrarItem(id_sessao, nome, descricao, categoria));
 
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
@@ -869,8 +856,7 @@ public class InterfaceTexto {
 		iuExibirMensagem(Mensagem.PEDIR_ATRIBUTO.getMensagem());
 
 		try {
-			iuExibirMensagem(emprestimus.getAtributoUsuario(login,
-					pegaStringDaEntrada()));
+			iuExibirMensagem(emprestimus.getAtributoUsuario(login, pegaStringDaEntrada()));
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
 			if (tentarNovamente()) {
@@ -1002,8 +988,7 @@ public class InterfaceTexto {
 
 		try {
 			iuExibirMensagem("O id da publicação do pedido eh: "
-					+ emprestimus.publicarPedido(id_sessao, nome,
-							pegaStringDaEntrada()));
+					+ emprestimus.publicarPedido(id_sessao, nome, pegaStringDaEntrada()));
 
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());

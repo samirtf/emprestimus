@@ -43,8 +43,7 @@ public class NotificacaoRepositorio {
 		return String.valueOf(contadorID);
 	}
 
-	public Notificacao recuperarNotificacao(String idNotificacao)
-			throws Exception {
+	public Notificacao recuperarNotificacao(String idNotificacao) throws Exception {
 		Long idLong = null;
 		try {
 			idLong = Long.parseLong(idNotificacao);

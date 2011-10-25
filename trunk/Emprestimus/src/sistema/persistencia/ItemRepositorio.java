@@ -42,8 +42,7 @@ public class ItemRepositorio {
 		return item;
 	}
 
-	public static String getAtributoItem(String idItem, String atributo)
-			throws Exception {
+	public static String getAtributoItem(String idItem, String atributo) throws Exception {
 		ItemIF item = recuperarItem(idItem);
 
 		String valor = null;

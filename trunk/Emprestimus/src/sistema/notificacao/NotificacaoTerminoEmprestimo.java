@@ -15,8 +15,7 @@ public class NotificacaoTerminoEmprestimo implements Notificacao {
 	private Date data;
 	private String id;
 
-	public NotificacaoTerminoEmprestimo(UsuarioIF usuario, ItemIF item)
-			throws InterruptedException {
+	public NotificacaoTerminoEmprestimo(UsuarioIF usuario, ItemIF item) throws InterruptedException {
 		this.usuario = usuario;
 		this.item = item;
 		Thread.sleep(1);
