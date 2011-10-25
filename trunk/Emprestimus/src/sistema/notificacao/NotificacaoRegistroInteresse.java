@@ -40,7 +40,7 @@ public class NotificacaoRegistroInteresse implements Notificacao {
 	}
 
 	@Override
-	public Notificacao setNovaData(Date novaData) throws Exception {
+	public Notificacao setNovaData() throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
