@@ -99,18 +99,18 @@ public enum Mensagem {
 			"--Menu do seu Perfil--\n" +
 			" 1 - Ver atributo\n" +
 			" 2 - Localizar usuário por uma chave\n" +
-			" - Localizar usuário\n" +
-			" 3 - Solicitar amizade\n" +
-			" 4 - Visualizar solicitações de amizade\n" +
-			" 5 - Aprovar amizade\n" +
-			" 6 - Verificar se tem amizade com outro usuário\n" +
-			" 7 - Visualizar lista de amigos\n" +
-			" 8 - Desfazer amizade\n" +
-			" 9 - Ver ranking\n" +
-			"10 - Adicionar Dias\n" +
-			" - Visualizar seu histórico\n" +
-			" - Visualizar seu histórico junto com o de seus amigos\n" +
-			"11 - Voltar"),
+			" 3- Localizar usuário\n" +
+			" 4 - Solicitar amizade\n" +
+			" 5 - Visualizar solicitações de amizade\n" +
+			" 6 - Aprovar amizade\n" +
+			" 7 - Verificar se tem amizade com outro usuário\n" +
+			" 8 - Visualizar lista de amigos\n" +
+			" 9 - Desfazer amizade\n" +
+			"10 - Ver ranking\n" +
+			"11 - Adicionar Dias\n" +
+			"12 - Visualizar seu histórico\n" +
+			"13 - Visualizar seu histórico junto com o de seus amigos\n" +
+			"14 - Voltar"),
 			
 	MENU_PERFIL_ALHEIO("\n" +
 			"--Menu do perfil de outros usuários--\n" +
@@ -138,10 +138,10 @@ public enum Mensagem {
 			" 6 - Enviar Mensagem sobre emprestimo\n" +
 			" 7 - Requisitar Devolucao\n" +
 			" 8 - Registrar Interesse\n" +
-			" - Publicar pedido\n" +
-			" - Oferecer item\n" +
-			" - Republicar pedido\n" +
-			" 9 - Voltar"),
+			" 9 - Publicar pedido\n" +
+			"10 - Oferecer item\n" +
+			"11 - Republicar pedido\n" +
+			"12 - Voltar"),
 			
 	MENU_ITEMCATEGORIA("\n--Escolha uma categoria:--\n" +
 					   "1 - Livro\n" +
