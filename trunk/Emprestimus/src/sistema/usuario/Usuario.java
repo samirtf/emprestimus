@@ -1,9 +1,7 @@
 package sistema.usuario;
-
 import static sistema.utilitarios.Validador.assertNaoNulo;
 import static sistema.utilitarios.Validador.assertStringNaoVazia;
 import static sistema.utilitarios.Validador.asserteTrue;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -14,10 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
-
 import maps.GetCoordenadas;
 import maps.RefCoordenadas;
-
 import sistema.autenticacao.Autenticacao;
 import sistema.emprestimo.BancoDeEmprestimos;
 import sistema.emprestimo.Emprestimo;
@@ -44,14 +40,13 @@ import sistema.utilitarios.Mensagem;
 import sistema.utilitarios.Validador;
 
 /**
- * Esta classe representa um usuario padrao do sistema.
+ * Emprestimus
+ * Projeto de Sistemas de Informação I
+ * Universidade Federal de Campina Grande
  * 
- * @author Joeffison Silverio de Andrade, 21011853
- * @author José Nathaniel L. de Abrante, 21011091
- * @author José Ulisses de Brito Lira Filho, 20911806
- * @author Samir Trajano Feitosa, 20921299
- * @version 1.2.3
+ * Esta classe representa um usuario padrao do sistema.
  */
+
 public class Usuario implements UsuarioIF {
 	/* Atributos estaticos. */
 	private static int ID_Prox_Usuario = 1; // ID do proximo usuario sera

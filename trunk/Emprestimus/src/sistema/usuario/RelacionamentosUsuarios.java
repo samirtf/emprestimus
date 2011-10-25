@@ -1,11 +1,6 @@
-/**
- * 
- */
 package sistema.usuario;
-
 import static sistema.utilitarios.Validador.assertStringNaoVazia;
 import static sistema.utilitarios.Validador.asserteTrue;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -16,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-
 import sistema.autenticacao.Autenticacao;
 import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.item.DataCriacaoItemComparador;
@@ -33,9 +27,11 @@ import sistema.utilitarios.Mensagem;
 import sistema.utilitarios.Validador;
 
 /**
- * @author Mobile
- *
+ * Emprestimus
+ * Projeto de Sistemas de Informação I
+ * Universidade Federal de Campina Grande
  */
+
 public class RelacionamentosUsuarios {
 	
 	private static RelacionamentosUsuarios relacionamentosUsuarios;
