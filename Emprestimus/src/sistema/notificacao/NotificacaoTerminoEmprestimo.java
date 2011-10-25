@@ -1,19 +1,13 @@
 package sistema.notificacao;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Iterator;
-import java.util.List;
-
-import sistema.item.Item;
 import sistema.item.ItemIF;
-import sistema.usuario.Usuario;
 import sistema.usuario.UsuarioIF;
 
 /**
  * @author Mobile
- *
+ * 
  */
 public class NotificacaoTerminoEmprestimo implements Notificacao {
 	private UsuarioIF usuario;
@@ -21,14 +15,17 @@ public class NotificacaoTerminoEmprestimo implements Notificacao {
 	private Date data;
 	private String id;
 
-	public NotificacaoTerminoEmprestimo(UsuarioIF usuario, ItemIF item) throws InterruptedException {
+	public NotificacaoTerminoEmprestimo(UsuarioIF usuario, ItemIF item)
+			throws InterruptedException {
 		this.usuario = usuario;
 		this.item = item;
 		Thread.sleep(1);
 		this.data = new GregorianCalendar().getTime();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
 	@Override
@@ -36,7 +33,9 @@ public class NotificacaoTerminoEmprestimo implements Notificacao {
 		return getData().compareTo(o.getData());
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see sistema.notificacao.Notificacao#getData()
 	 */
 	@Override
@@ -44,7 +43,9 @@ public class NotificacaoTerminoEmprestimo implements Notificacao {
 		return data;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see sistema.notificacao.Notificacao#setNovaData(java.util.Date)
 	 */
 	@Override
@@ -53,16 +54,22 @@ public class NotificacaoTerminoEmprestimo implements Notificacao {
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see sistema.notificacao.Notificacao#getMensagem(sistema.usuario.UsuarioIF)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * sistema.notificacao.Notificacao#getMensagem(sistema.usuario.UsuarioIF)
 	 */
 	@Override
 	public String getMensagem(UsuarioIF usuario) {
 		// usuario não será usado.
-		return String.format("%s confirmou o término do empréstimo do item %s", this.usuario.getNome(), item.getNome());
+		return String.format("%s confirmou o término do empréstimo do item %s",
+				this.usuario.getNome(), item.getNome());
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see sistema.notificacao.Notificacao#getId()
 	 */
 	@Override
@@ -70,7 +77,9 @@ public class NotificacaoTerminoEmprestimo implements Notificacao {
 		return id;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see sistema.notificacao.Notificacao#setId(java.lang.String)
 	 */
 	@Override
@@ -78,6 +87,5 @@ public class NotificacaoTerminoEmprestimo implements Notificacao {
 		this.id = novoId;
 		return this;
 	}
-
 
 }

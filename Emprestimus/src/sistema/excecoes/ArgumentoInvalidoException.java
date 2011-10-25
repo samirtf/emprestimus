@@ -7,7 +7,7 @@ package sistema.excecoes;
  * @since 14/09/2011
  * @version 1.0
  */
-public class ArgumentoInvalidoException extends Exception{
+public class ArgumentoInvalidoException extends Exception {
 
 	private static final long serialVersionUID = -3102382115380877513L;
 

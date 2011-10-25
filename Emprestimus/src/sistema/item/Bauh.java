@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * @author Mobile
- *
+ * 
  */
 public class Bauh {
 
@@ -21,16 +21,16 @@ public class Bauh {
 		this.itens = new ArrayList<ItemIF>();
 		itensEmprestados = new ArrayList<ItemIF>();
 	}
-	
-	public String getProprietario(){
+
+	public String getProprietario() {
 		return proprietario;
 	}
-	
-	public List<ItemIF> getItens(){
+
+	public List<ItemIF> getItens() {
 		return itens;
 	}
-	
-	public List<ItemIF> getItensEmprestados(){
+
+	public List<ItemIF> getItensEmprestados() {
 		return itensEmprestados;
 	}
 

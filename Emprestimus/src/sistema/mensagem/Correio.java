@@ -6,7 +6,6 @@ package sistema.mensagem;
 import static sistema.utilitarios.Validador.assertStringNaoVazia;
 import static sistema.utilitarios.Validador.asserteTrue;
 
-import java.awt.MenuShortcut;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -16,7 +15,6 @@ import java.util.TreeMap;
 
 import sistema.autenticacao.Autenticacao;
 import sistema.emprestimo.EmprestimoIF;
-import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.persistencia.ChatRepositorio;
 import sistema.persistencia.EmprestimoRepositorio;
 import sistema.usuario.UsuarioIF;
@@ -44,12 +42,17 @@ public class Correio {
 		return correio;
 	}
 
-	public static void adicionaCaixaPostalAoUsuario(String usuario) throws Exception {
-		if(caixasPostais.containsKey(usuario)) throw new Exception(Mensagem.PROPRIETARIO_CAIXA_POSTAL_JAH_CADASTRADO.getMensagem());
+	public static void adicionaCaixaPostalAoUsuario(String usuario)
+			throws Exception {
+		if (caixasPostais.containsKey(usuario))
+			throw new Exception(
+					Mensagem.PROPRIETARIO_CAIXA_POSTAL_JAH_CADASTRADO
+							.getMensagem());
 		caixasPostais.put(usuario, new CaixaPostal(usuario));
 	}
-	
-	public static void removeCaixaPostalDoUsuario(String usuario) throws Exception {
+
+	public static void removeCaixaPostalDoUsuario(String usuario)
+			throws Exception {
 		caixasPostais.remove(usuario);
 	}
 
@@ -159,9 +162,9 @@ public class Correio {
 	 * @return
 	 * @throws Exception
 	 */
-	public synchronized static String enviarMensagemEmprestimo(String remetente,
-			String destinatario, String assunto, String mensagem,
-			String idRequisicaoEmprestimo) throws Exception {
+	public synchronized static String enviarMensagemEmprestimo(
+			String remetente, String destinatario, String assunto,
+			String mensagem, String idRequisicaoEmprestimo) throws Exception {
 
 		assertStringNaoVazia(remetente,
 				Mensagem.REMETENTE_INVALIDO.getMensagem(),
@@ -268,9 +271,9 @@ public class Correio {
 				.substring(0, saida.toString().trim().length() - 1);
 	}
 
-	public static String enviarMensagemOferecimentoItemOffTopic(String remetente,
-			String destinatario, String assunto, String mensagem) throws Exception {
-
+	public static String enviarMensagemOferecimentoItemOffTopic(
+			String remetente, String destinatario, String assunto,
+			String mensagem) throws Exception {
 
 		assertStringNaoVazia(remetente,
 				Mensagem.REMETENTE_INVALIDO.getMensagem(),
@@ -295,7 +298,8 @@ public class Correio {
 						usuario.getLogin(), destinatario, assunto, true);
 
 		if (conversa == null) {
-			conversa = new Chat(usuario, amigoDeAmigo, assunto.trim(), mensagem.trim());
+			conversa = new Chat(usuario, amigoDeAmigo, assunto.trim(),
+					mensagem.trim());
 			conversa.setTipoOffTopicMsg();
 			ChatRepositorio.registrarConversa(conversa);
 			caixasPostais.get(remetente).getConversasOffTopic().add(conversa);
@@ -308,9 +312,9 @@ public class Correio {
 		return conversa.getIdMensagem();
 
 	}
-	
-	public void zerarSistema(){
-		this.caixasPostais.clear();
+
+	public void zerarSistema() {
+		Correio.caixasPostais.clear();
 	}
 
 }

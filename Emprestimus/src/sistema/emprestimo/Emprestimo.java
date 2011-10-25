@@ -1,173 +1,183 @@
 package sistema.emprestimo;
+
 import sistema.emprestimo.EmprestimoIF;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import sistema.excecoes.ArgumentoInvalidoException;
-import sistema.item.Item;
 import sistema.item.ItemIF;
-import sistema.notificacao.GerenciadorDeNotificacoes;
-import sistema.notificacao.Notificacao;
-import sistema.notificacao.NotificacaoTerminoEmprestimo;
-import sistema.persistencia.NotificacaoRepositorio;
-import sistema.usuario.Usuario;
 import sistema.usuario.UsuarioIF;
 import sistema.utilitarios.Mensagem;
 import sistema.utilitarios.Validador;
 
+public class Emprestimo implements EmprestimoIF {
 
-public class Emprestimo implements EmprestimoIF{
-	
-	
 	String id;
-	int duracao; //Em dias
-	UsuarioIF emprestador; //quem concedeu De
-	UsuarioIF beneficiado; // quem pediu   Para
+	int duracao; // Em dias
+	UsuarioIF emprestador; // quem concedeu De
+	UsuarioIF beneficiado; // quem pediu Para
 	ItemIF item;
 	String tipo;
 	EmprestimoEstado estado;
 	String situacao;
 	GregorianCalendar dataDeAprovacao;
-	
-	public Emprestimo( UsuarioIF emprestador, UsuarioIF beneficiado, ItemIF item, String tipo, int duracao ) throws Exception{
+
+	public Emprestimo(UsuarioIF emprestador, UsuarioIF beneficiado,
+			ItemIF item, String tipo, int duracao) throws Exception {
 		setEmprestador(emprestador);
 		setBeneficiado(beneficiado);
 		setItem(item);
 		setDuracao(duracao);
-		Validador.assertStringNaoVazia(tipo, Mensagem.EMPRESTIMO_TIPO_INVALIDO.getMensagem(), Mensagem.EMPRESTIMO_TIPO_INVALIDO.getMensagem());
-		
-		if(tipo.trim().equalsIgnoreCase("emprestador")){
+		Validador.assertStringNaoVazia(tipo,
+				Mensagem.EMPRESTIMO_TIPO_INVALIDO.getMensagem(),
+				Mensagem.EMPRESTIMO_TIPO_INVALIDO.getMensagem());
+
+		if (tipo.trim().equalsIgnoreCase("emprestador")) {
 			setTipoEmprestador();
-		}else if(tipo.trim().equalsIgnoreCase("beneficiado")){
+		} else if (tipo.trim().equalsIgnoreCase("beneficiado")) {
 			setTipoBeneficiado();
-		}else{
-			throw new Exception(Mensagem.EMPRESTIMO_TIPO_INXISTENTE.getMensagem());
-		}		
+		} else {
+			throw new Exception(
+					Mensagem.EMPRESTIMO_TIPO_INXISTENTE.getMensagem());
+		}
 		this.estado = EmprestimoEstado.EM_ANDAMENTO;
 		this.situacao = "Andamento";
 	}
-	
+
 	@Override
-	public void setId(String idEmprestimo) throws Exception{
-		
-		Validador.assertStringNaoVazia(idEmprestimo, Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem(), Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
-		try{
-		    Long id = Long.valueOf(idEmprestimo.trim());
-		}catch(Exception e){
-			throw new Exception(Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
+	public void setId(String idEmprestimo) throws Exception {
+
+		Validador.assertStringNaoVazia(idEmprestimo,
+				Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem(),
+				Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
+		try {
+			Long id = Long.valueOf(idEmprestimo.trim());
+		} catch (Exception e) {
+			throw new Exception(
+					Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
 		}
 		id = idEmprestimo.trim();
-		
+
 	}
-	
+
 	@Override
 	public String getIdEmprestimo() {
 		return this.id;
 	}
-	
+
 	public void setItem(ItemIF item) throws ArgumentoInvalidoException {
 		Validador.assertNaoNulo(item, "ItemIF não pode ser nulo");
 		this.item = item;
 	}
-	
-	public ItemIF getItem(){
+
+	@Override
+	public ItemIF getItem() {
 		return this.item;
 	}
-	
-	public void setDuracao( int duracao ) throws Exception{
-		if(duracao <= 0) throw new Exception(Mensagem.EMPRESTIMO_DURACAO_INVALIDA.getMensagem());
+
+	@Override
+	public void setDuracao(int duracao) throws Exception {
+		if (duracao <= 0)
+			throw new Exception(
+					Mensagem.EMPRESTIMO_DURACAO_INVALIDA.getMensagem());
 		this.duracao = duracao;
 	}
-	
-	public int getDuracao(){
+
+	@Override
+	public int getDuracao() {
 		return this.duracao;
 	}
-	
-	public void setEmprestador( UsuarioIF emprestador ) throws ArgumentoInvalidoException{
+
+	@Override
+	public void setEmprestador(UsuarioIF emprestador)
+			throws ArgumentoInvalidoException {
 		Validador.assertNaoNulo(emprestador, "UsuarioIF não deve ser null");
 		this.emprestador = emprestador;
 	}
-	
-	public UsuarioIF getEmprestador(){
+
+	@Override
+	public UsuarioIF getEmprestador() {
 		return this.emprestador;
 	}
-	
-	public void setBeneficiado( UsuarioIF beneficiado ) throws ArgumentoInvalidoException {
+
+	@Override
+	public void setBeneficiado(UsuarioIF beneficiado)
+			throws ArgumentoInvalidoException {
 		Validador.assertNaoNulo(emprestador, "UsuarioIF não deve ser null");
 		this.beneficiado = beneficiado;
 	}
-	
-	public UsuarioIF getBeneficiado(){
+
+	@Override
+	public UsuarioIF getBeneficiado() {
 		return this.beneficiado;
 	}
-	
+
 	@Override
 	public void setTipoEmprestador() {
 		tipo = "emprestador";
 	}
-	
+
 	@Override
 	public void setTipoBeneficiado() {
 		tipo = "beneficiado";
 	}
-	
+
 	@Override
 	public boolean ehTipoEmprestador() {
 		return tipo.equalsIgnoreCase("emprestador");
 	}
-	
+
 	@Override
 	public boolean ehTipoBeneficiado() {
 		return tipo.equalsIgnoreCase("beneficiado");
 	}
 
-
-	public boolean estaAprovado(){
+	@Override
+	public boolean estaAprovado() {
 		return this.dataDeAprovacao == null;
 	}
-	
-	
 
 	@Override
 	public String getEstado() {
 		return estado.getNome();
 	}
-	
+
+	@Override
 	public EmprestimoEstado getEstadoEnum() {
 		return estado;
 	}
-	
-	public String getNomeParaEstado(){
+
+	@Override
+	public String getNomeParaEstado() {
 		if (estado == EmprestimoEstado.EM_ANDAMENTO) {
 			return "EM_ANDAMENTO";
-			
+
 		} else if (estado == EmprestimoEstado.DEVOLVIDO) {
 			return "DEVOLVIDO";
-			
+
 		} else if (estado == EmprestimoEstado.DEVOLUCAO_REQUISITADA) {
 			return "DEVOLUCAO_REQUISITADA";
-			
+
 		} else if (estado == EmprestimoEstado.TERMINAL) {
 			return "TERMINAL";
-			
+
 		} else {
 			return " => Bug em Emprestimus.getNomeParaEstado()";
 		}
-			
-	}
-	
-	@Override
-	public EmprestimoEstado getTipoEstado(){
-		return this.estado;
-	}
-	
-	public synchronized Calendar getDataDeDevolucao() {
-		Calendar dataDevolucao = (Calendar) dataDeAprovacao.clone();
-		dataDevolucao.add(GregorianCalendar.DAY_OF_YEAR, duracao);
-		return dataDevolucao;
+
 	}
 
-	
+	@Override
+	public EmprestimoEstado getTipoEstado() {
+		return this.estado;
+	}
+
+	@Override
+	public synchronized Calendar getDataDeDevolucao() {
+		Calendar dataDevolucao = (Calendar) dataDeAprovacao.clone();
+		dataDevolucao.add(Calendar.DAY_OF_YEAR, duracao);
+		return dataDevolucao;
+	}
 
 	@Override
 	public void setSituacaoAndamento() {
@@ -201,113 +211,119 @@ public class Emprestimo implements EmprestimoIF{
 
 	@Override
 	public synchronized void aprovarEmprestimo() throws Exception {
-		if(ehEstadoAndamento()){
+		if (ehEstadoAndamento()) {
 			setDataAprovacao();
 			setEstadoAndamento();
 			setSituacaoAndamento();
-			
-		}else if(ehEstadoDevolucaoRequisitada()){
-			throw new Exception("Transicao aprovarEmprestimo de Devolucao Requisitada Nao Permitida");
-		
-		}else if(ehEstadoDevolvido()){
-			throw new Exception("Transicao aprovarEmprestimo de Devolvido Nao Permitida");
-		
-		}else if(ehEstadoTermino()){
-			throw new Exception("Transicao aprovarEmprestimo de Terminal Nao Permitida");
-		
-		}else{
+
+		} else if (ehEstadoDevolucaoRequisitada()) {
+			throw new Exception(
+					"Transicao aprovarEmprestimo de Devolucao Requisitada Nao Permitida");
+
+		} else if (ehEstadoDevolvido()) {
+			throw new Exception(
+					"Transicao aprovarEmprestimo de Devolvido Nao Permitida");
+
+		} else if (ehEstadoTermino()) {
+			throw new Exception(
+					"Transicao aprovarEmprestimo de Terminal Nao Permitida");
+
+		} else {
 			throw new Exception("Estado não implementado");
-		
+
 		}
 		this.getItem().setDisponibilidade(false);
-		
+
 	}
 
 	@Override
-	public synchronized void requisitarDevolucaoEmprestimo(boolean noPrazo) throws Exception {
-		if(ehEstadoAndamento()){
+	public synchronized void requisitarDevolucaoEmprestimo(boolean noPrazo)
+			throws Exception {
+		if (ehEstadoAndamento()) {
 			setEstadoDevolucaoRequisitada();
-			
-			if(noPrazo){
+
+			if (noPrazo) {
 				setSituacaoCancelado();
-			}else{
+			} else {
 				setSituacaoAndamento();
 			}
-			
-		}else if(ehEstadoDevolucaoRequisitada()){
+
+		} else if (ehEstadoDevolucaoRequisitada()) {
 			throw new Exception(Mensagem.DEVOLUCAO_JA_REQUISITADA.getMensagem());
-			
-		}else if(ehEstadoDevolvido()){
+
+		} else if (ehEstadoDevolvido()) {
 			throw new Exception(Mensagem.ITEM_JA_DEVOLVIDO.getMensagem());
-			
-		}else if(ehEstadoTermino()){
+
+		} else if (ehEstadoTermino()) {
 			throw new Exception(Mensagem.ITEM_JA_DEVOLVIDO.getMensagem());
-			
-		}else{
+
+		} else {
 			throw new Exception("Estado não implementado");
 		}
-		
+
 	}
 
 	@Override
 	public synchronized void devolverEmprestimo() throws Exception {
-		if(ehEstadoAndamento()){
+		if (ehEstadoAndamento()) {
 			setEstadoDevolvido();
 			setSituacaoAndamento();
-			
-		}else if(ehEstadoDevolucaoRequisitada()){
-			if(ehSituacaoAndamento()){
+
+		} else if (ehEstadoDevolucaoRequisitada()) {
+			if (ehSituacaoAndamento()) {
 				setSituacaoAndamento();
-				
-			}else{
+
+			} else {
 				setSituacaoCancelado();
 			}
 			setEstadoDevolvido();
-			
-		}else if(ehEstadoDevolvido()){
+
+		} else if (ehEstadoDevolvido()) {
 			throw new Exception(Mensagem.ITEM_JA_DEVOLVIDO.getMensagem());
-			
-		}else if(ehEstadoTermino()){
+
+		} else if (ehEstadoTermino()) {
 			throw new Exception(Mensagem.ITEM_JA_DEVOLVIDO.getMensagem());
-			
-		}else{
+
+		} else {
 			throw new Exception("Estado não implementado");
 		}
-		
+
 	}
 
 	@Override
 	public synchronized void confirmarTerminoEmprestimo() throws Exception {
-		if(ehEstadoAndamento()){
+		if (ehEstadoAndamento()) {
 			throw new Exception("Item não foi devolvido");
-			
-		}else if(ehEstadoDevolucaoRequisitada()){
+
+		} else if (ehEstadoDevolucaoRequisitada()) {
 			throw new Exception("Item não foi devolvido");
-			
-		}else if(ehEstadoDevolvido()){
-			if(ehSituacaoAndamento()){
+
+		} else if (ehEstadoDevolvido()) {
+			if (ehSituacaoAndamento()) {
 				setSituacaoCompletado();
-				
-			}else{
+
+			} else {
 				setSituacaoCancelado();
 			}
-			
+
 			setEstadoTermino();
 			this.getItem().setDisponibilidade(true);
 			addHistoricoTerminoEmprestimo();
-			
-		}else if(ehEstadoTermino()){
-			throw new Exception(Mensagem.TERMINO_EMPRESTIMO_JA_CONFIRMADO.getMensagem());
-			
-		}else{
+
+		} else if (ehEstadoTermino()) {
+			throw new Exception(
+					Mensagem.TERMINO_EMPRESTIMO_JA_CONFIRMADO.getMensagem());
+
+		} else {
 			throw new Exception("Estado não implementado");
 		}
-		
+
 	}
 
 	private void addHistoricoTerminoEmprestimo() throws Exception {
 		emprestador.addHistoricoTerminoEmprestimo(item);
-		//this.getEmprestador().addNotificacao(getEmprestador().getNome() + " confirmou o término no empréstimo do item " + getItem().getNome());
+		// this.getEmprestador().addNotificacao(getEmprestador().getNome() +
+		// " confirmou o término no empréstimo do item " + getItem().getNome());
 	}
 
 	@Override
@@ -332,7 +348,7 @@ public class Emprestimo implements EmprestimoIF{
 
 	@Override
 	public void setEstadoAndamento() {
-		estado = EmprestimoEstado.EM_ANDAMENTO;		
+		estado = EmprestimoEstado.EM_ANDAMENTO;
 	}
 
 	@Override
@@ -350,8 +366,6 @@ public class Emprestimo implements EmprestimoIF{
 		estado = EmprestimoEstado.TERMINAL;
 	}
 
-
-
 	@Override
 	public String getSituacao() {
 		return situacao;
@@ -363,28 +377,26 @@ public class Emprestimo implements EmprestimoIF{
 			Thread.sleep(1);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-			
+
 		}
 		this.dataDeAprovacao = new GregorianCalendar();
-		
+
 	}
 
 	@Override
 	public int compareTo(EmprestimoIF outro) {
 		Long id1 = null;
 		Long id2 = null;
-		
-		try{
+
+		try {
 			id1 = Long.valueOf(this.getIdEmprestimo());
 			id2 = Long.valueOf(outro.getIdEmprestimo());
-			
-		}catch(Exception e){
-			//TODO: Adicionar Tratamento de Exception!
+
+		} catch (Exception e) {
+			// TODO: Adicionar Tratamento de Exception!
 		}
-		
+
 		return id1.compareTo(id2);
 	}
-
-	
 
 }

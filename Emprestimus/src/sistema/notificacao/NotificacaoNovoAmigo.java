@@ -3,7 +3,6 @@ package sistema.notificacao;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import sistema.usuario.Usuario;
 import sistema.usuario.UsuarioIF;
 
 /**
@@ -11,7 +10,7 @@ import sistema.usuario.UsuarioIF;
  * @author José Nathaniel L de Abrante - nathaniel.una@gmail.com
  * @since 20/11/2011
  * @version 1.0
- *
+ * 
  */
 public class NotificacaoNovoAmigo implements Notificacao {
 	private UsuarioIF usuario1;
@@ -19,7 +18,8 @@ public class NotificacaoNovoAmigo implements Notificacao {
 	private Date data;
 	private String id;
 
-	public NotificacaoNovoAmigo(UsuarioIF usuario1, UsuarioIF usuario2) throws Exception {
+	public NotificacaoNovoAmigo(UsuarioIF usuario1, UsuarioIF usuario2)
+			throws Exception {
 		this.usuario1 = usuario1;
 		this.usuario2 = usuario2;
 		Thread.sleep(1);

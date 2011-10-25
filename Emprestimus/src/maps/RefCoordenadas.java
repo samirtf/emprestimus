@@ -1,9 +1,8 @@
 package maps;
 
 /**
- * Emprestimus
- * Projeto de Sistemas de Informação I
- * Universidade Federal de Campina Grande
+ * Emprestimus Projeto de Sistemas de Informação I Universidade Federal de
+ * Campina Grande
  */
 
 public class RefCoordenadas implements Coordenadas {
@@ -12,6 +11,7 @@ public class RefCoordenadas implements Coordenadas {
 
 	/**
 	 * Determina as coordenadas do usuario
+	 * 
 	 * @param latitude
 	 * @param longitude
 	 */
@@ -19,7 +19,7 @@ public class RefCoordenadas implements Coordenadas {
 		this.latitude = latitude;
 		this.longitude = longitude;
 	}
-	
+
 	/**
 	 * @return longitude do usuario
 	 */

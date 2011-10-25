@@ -3,7 +3,7 @@ package sistema.mensagem;
 import java.util.Date;
 
 public interface MensagemChatIF {
-	
+
 	public String getMensagem();
 
 	public void setMensagem(String mensagem);
@@ -14,6 +14,5 @@ public interface MensagemChatIF {
 
 	@Override
 	public String toString();
-	
 
 }
