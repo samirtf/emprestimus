@@ -237,15 +237,13 @@ public class AcervoDeItens {
 
 	public void oferecerItem(String login, String idPublicacaoPedido,
 			String idItem) throws Exception {
-		System.out.println(idPublicacaoPedido+"IDDDDDDDDDD");
+		
 		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(), Mensagem.LOGIN_INVALIDO.getMensagem());
 		assertStringNaoVazia(idPublicacaoPedido, Mensagem.PUBLICACAO_ID_INVALIDO.getMensagem(),
 				Mensagem.PUBLICACAO_ID_INVALIDO.getMensagem());
 		NotificacaoPublicarPedido notificacao = null;
 		try{
-			System.out.println("IDPBLICACAO "+idPublicacaoPedido);
 			notificacao = (NotificacaoPublicarPedido) NotificacaoRepositorio.getInstance().recuperarNotificacao(idPublicacaoPedido);
-			System.out.println("IDPBLICACAO xxxx"+idPublicacaoPedido);
 		}catch(Exception e){
 			throw new Exception(Mensagem.PUBLICACAO_ID_INEXISTENTE.getMensagem());
 		}
