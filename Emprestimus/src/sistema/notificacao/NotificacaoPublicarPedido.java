@@ -57,8 +57,7 @@ public class NotificacaoPublicarPedido implements Notificacao {
 	@Override
 	public String getMensagem(UsuarioIF usuario) {
 		// Steven Paul Jobs precisa do item The Social Network
-		return String.format("%s precisa do item %s", this.usuario.getNome(),
-				nomeItem);
+		return String.format("%s precisa do item %s", this.usuario.getNome(), nomeItem);
 	}
 
 	/*

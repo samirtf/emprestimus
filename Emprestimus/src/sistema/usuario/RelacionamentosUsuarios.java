@@ -44,12 +44,10 @@ public class RelacionamentosUsuarios {
 		return relacionamentosUsuarios;
 	}
 
-	public void adicionaCicloDeAmizadeAoUsuario(String usuario)
-			throws Exception {
+	public void adicionaCicloDeAmizadeAoUsuario(String usuario) throws Exception {
 		if (ciclosDeAmizade.containsKey(usuario))
-			throw new Exception(
-					Mensagem.PROPRIETARIO_CONTA_CICLO_AMIZADE_JAH_CADASTRADO
-							.getMensagem());
+			throw new Exception(Mensagem.PROPRIETARIO_CONTA_CICLO_AMIZADE_JAH_CADASTRADO
+					.getMensagem());
 		ciclosDeAmizade.put(usuario, new CicloDeAmizade(usuario));
 
 	}
@@ -63,11 +61,9 @@ public class RelacionamentosUsuarios {
 	}
 
 	// ###
-	public synchronized void aprovarAmizade(String seuLogin, String novoAmigo)
-			throws Exception {
+	public synchronized void aprovarAmizade(String seuLogin, String novoAmigo) throws Exception {
 
-		Validador.assertStringNaoVazia(seuLogin,
-				Mensagem.LOGIN_INVALIDO.getMensagem(),
+		Validador.assertStringNaoVazia(seuLogin, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
 		UsuarioIF usuario = Autenticacao.getUsuarioPorLogin(seuLogin);
 		UsuarioIF amigo = Autenticacao.getUsuarioPorLogin(novoAmigo);
@@ -80,8 +76,7 @@ public class RelacionamentosUsuarios {
 		UsuarioIF amigo_solicitante = null;
 		while (iterador.hasNext()) {
 			amigo_solicitante = iterador.next();
-			if (amigo_solicitante.getLogin().trim()
-					.equalsIgnoreCase(novoAmigo.trim())) {
+			if (amigo_solicitante.getLogin().trim().equalsIgnoreCase(novoAmigo.trim())) {
 				amigo_solicitante.aprovouAmizade(usuario);
 				amigos.add(amigo_solicitante);
 				iterador.remove();
@@ -91,15 +86,12 @@ public class RelacionamentosUsuarios {
 			}
 
 		}
-		throw new Exception(
-				Mensagem.REQUISICAO_AMIZADE_INEXISTENTE.getMensagem());
+		throw new Exception(Mensagem.REQUISICAO_AMIZADE_INEXISTENTE.getMensagem());
 
 	}
 
-	public synchronized void aprovouAmizade(String seuLogin, UsuarioIF usuario)
-			throws ArgumentoInvalidoException {
-		Validador.assertStringNaoVazia(seuLogin,
-				Mensagem.LOGIN_INVALIDO.getMensagem(),
+	public synchronized void aprovouAmizade(String seuLogin, UsuarioIF usuario) throws ArgumentoInvalidoException {
+		Validador.assertStringNaoVazia(seuLogin, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
 
 		List<UsuarioIF> queroSerAmigoDeles = ciclosDeAmizade.get(seuLogin)
@@ -111,34 +103,27 @@ public class RelacionamentosUsuarios {
 
 	}
 
-	public boolean ehAmigo(String seuLogin, String amigoProcurado)
-			throws ArgumentoInvalidoException {
-		Validador.assertStringNaoVazia(seuLogin,
-				Mensagem.LOGIN_INVALIDO.getMensagem(),
+	public boolean ehAmigo(String seuLogin, String amigoProcurado) throws ArgumentoInvalidoException {
+		Validador.assertStringNaoVazia(seuLogin, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
-		Validador.assertStringNaoVazia(amigoProcurado,
-				Mensagem.LOGIN_INVALIDO.getMensagem(),
-				Mensagem.LOGIN_INVALIDO.getMensagem());
-		Iterator<UsuarioIF> iterador = ciclosDeAmizade.get(seuLogin)
-				.getAmigos().iterator();
+		Validador.assertStringNaoVazia(amigoProcurado, Mensagem.LOGIN_INVALIDO
+				.getMensagem(), Mensagem.LOGIN_INVALIDO.getMensagem());
+		Iterator<UsuarioIF> iterador = ciclosDeAmizade.get(seuLogin).getAmigos()
+				.iterator();
 		UsuarioIF usuario = null;
 		while (iterador.hasNext()) {
 			usuario = iterador.next();
-			if (usuario.getLogin().trim()
-					.equalsIgnoreCase(amigoProcurado.trim()))
+			if (usuario.getLogin().trim().equalsIgnoreCase(amigoProcurado.trim()))
 				return true;
 		}
 		return false;
 	}
 
-	public boolean amizadeDeFoiRequisitada(String seuLogin, String loginDoAmigo)
-			throws ArgumentoInvalidoException {
-		Validador.assertStringNaoVazia(seuLogin,
-				Mensagem.LOGIN_INVALIDO.getMensagem(),
+	public boolean amizadeDeFoiRequisitada(String seuLogin, String loginDoAmigo) throws ArgumentoInvalidoException {
+		Validador.assertStringNaoVazia(seuLogin, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
-		Validador.assertStringNaoVazia(loginDoAmigo,
-				Mensagem.LOGIN_INVALIDO.getMensagem(),
-				Mensagem.LOGIN_INVALIDO.getMensagem());
+		Validador.assertStringNaoVazia(loginDoAmigo, Mensagem.LOGIN_INVALIDO
+				.getMensagem(), Mensagem.LOGIN_INVALIDO.getMensagem());
 		Iterator<UsuarioIF> iterador = ciclosDeAmizade.get(seuLogin)
 				.getQueroSerAmigoDeles().iterator();
 		UsuarioIF usuario = null;
@@ -150,24 +135,22 @@ public class RelacionamentosUsuarios {
 		return false;
 	}
 
-	public void requisitarAmizade(String seuLogin, String loginDoAmigo)
-			throws Exception {
-		Validador.assertStringNaoVazia(seuLogin,
-				Mensagem.LOGIN_INVALIDO.getMensagem(),
+	public void requisitarAmizade(String seuLogin, String loginDoAmigo) throws Exception {
+		Validador.assertStringNaoVazia(seuLogin, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
 		RelacionamentosUsuarios relacionamentosUsuarios = RelacionamentosUsuarios
 				.getInstance();
 		if (relacionamentosUsuarios.ehAmigo(seuLogin, loginDoAmigo)) {
 			throw new Exception(Mensagem.USUARIO_JAH_SAO_AMIGOS.getMensagem());
-		} else if (relacionamentosUsuarios.amizadeDeFoiRequisitada(seuLogin,
-				loginDoAmigo)) {
+		} else if (relacionamentosUsuarios
+				.amizadeDeFoiRequisitada(seuLogin, loginDoAmigo)) {
 			throw new Exception(Mensagem.AMIZADE_JAH_SOLICITADA.getMensagem());
 		}
 
 		UsuarioIF futuroAmigo = Autenticacao.getUsuarioPorLogin(loginDoAmigo);
 		if (Autenticacao.existeUsuario(loginDoAmigo.trim())) {
-			relacionamentosUsuarios.getCicloDeAmizade(seuLogin)
-					.getQueroSerAmigoDeles().add(futuroAmigo);
+			relacionamentosUsuarios.getCicloDeAmizade(seuLogin).getQueroSerAmigoDeles()
+					.add(futuroAmigo);
 			relacionamentosUsuarios.getCicloDeAmizade(loginDoAmigo)
 					.getQueroSerAmigoDeles().add(futuroAmigo);
 			UsuarioIF eu = Autenticacao.getUsuarioPorLogin(seuLogin);
@@ -175,10 +158,8 @@ public class RelacionamentosUsuarios {
 		}
 	}
 
-	public void usuarioQuerSerMeuAmigo(String seuLogin,
-			UsuarioIF usuarioSolicitante) throws ArgumentoInvalidoException {
-		Validador.assertStringNaoVazia(seuLogin,
-				Mensagem.LOGIN_INVALIDO.getMensagem(),
+	public void usuarioQuerSerMeuAmigo(String seuLogin, UsuarioIF usuarioSolicitante) throws ArgumentoInvalidoException {
+		Validador.assertStringNaoVazia(seuLogin, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
 		List<UsuarioIF> queremSerMeusAmigos = ciclosDeAmizade.get(seuLogin)
 				.getQueremSerMeusAmigos();
@@ -190,12 +171,11 @@ public class RelacionamentosUsuarios {
 	}
 
 	public String getAmigos(String seuLogin) throws Exception {
-		Validador.assertStringNaoVazia(seuLogin,
-				Mensagem.LOGIN_INVALIDO.getMensagem(),
+		Validador.assertStringNaoVazia(seuLogin, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
 
-		Iterator<UsuarioIF> iterador = ciclosDeAmizade.get(seuLogin)
-				.getAmigos().iterator();
+		Iterator<UsuarioIF> iterador = ciclosDeAmizade.get(seuLogin).getAmigos()
+				.iterator();
 		StringBuffer str = new StringBuffer();
 		while (iterador.hasNext()) {
 			str.append(iterador.next().getLogin() + "; ");
@@ -206,19 +186,16 @@ public class RelacionamentosUsuarios {
 
 	}
 
-	public UsuarioIF ehItemDoMeuAmigo(String seuLogin, String idItem)
-			throws Exception {
-		Validador.assertStringNaoVazia(seuLogin,
-				Mensagem.LOGIN_INVALIDO.getMensagem(),
+	public UsuarioIF ehItemDoMeuAmigo(String seuLogin, String idItem) throws Exception {
+		Validador.assertStringNaoVazia(seuLogin, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
-		Validador.assertStringNaoVazia(idItem,
-				Mensagem.ID_ITEM_INVALIDO.getMensagem(),
+		Validador.assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem(),
 				Mensagem.ID_ITEM_INVALIDO.getMensagem());
 		Validador.asserteTrue(ItemRepositorio.existeItem(idItem.trim()),
 				Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
 
-		Iterator<UsuarioIF> iterador = ciclosDeAmizade.get(seuLogin)
-				.getAmigos().iterator();
+		Iterator<UsuarioIF> iterador = ciclosDeAmizade.get(seuLogin).getAmigos()
+				.iterator();
 		while (iterador.hasNext()) {
 			UsuarioIF amigo = iterador.next();
 			if (amigo.oItemMePertence(idItem)) {
@@ -229,17 +206,14 @@ public class RelacionamentosUsuarios {
 
 	}
 
-	public UsuarioIF possuoAmigoComEsteLogin(String seuLogin,
-			String loginDoAmigo) throws Exception {
-		Validador.assertStringNaoVazia(seuLogin,
-				Mensagem.LOGIN_INVALIDO.getMensagem(),
+	public UsuarioIF possuoAmigoComEsteLogin(String seuLogin, String loginDoAmigo) throws Exception {
+		Validador.assertStringNaoVazia(seuLogin, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
-		assertStringNaoVazia(loginDoAmigo,
-				Mensagem.LOGIN_INVALIDO.getMensagem(),
+		assertStringNaoVazia(loginDoAmigo, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
 
-		Iterator<UsuarioIF> iterador = ciclosDeAmizade.get(seuLogin)
-				.getAmigos().iterator();
+		Iterator<UsuarioIF> iterador = ciclosDeAmizade.get(seuLogin).getAmigos()
+				.iterator();
 		while (iterador.hasNext()) {
 			UsuarioIF amigo = iterador.next();
 			if (amigo.getLogin().equals(loginDoAmigo.trim()))
@@ -250,45 +224,39 @@ public class RelacionamentosUsuarios {
 	}
 
 	public synchronized String pesquisarItem(String seuLogin, String chave,
-			String atributo, String tipoOrdenacao, String criterioOrdenacao)
-			throws Exception {
-		Validador.assertStringNaoVazia(seuLogin,
-				Mensagem.LOGIN_INVALIDO.getMensagem(),
+			String atributo, String tipoOrdenacao, String criterioOrdenacao) throws Exception {
+		Validador.assertStringNaoVazia(seuLogin, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
 
 		StringBuffer saida = new StringBuffer();
 
 		if (criterioOrdenacao.trim().equalsIgnoreCase("dataCriacao")) {
 			List<ItemIF> saidaDataCriacao = new LinkedList<ItemIF>();
-			Iterator<UsuarioIF> iteradorUsuarios = ciclosDeAmizade
-					.get(seuLogin).getAmigos().iterator();
+			Iterator<UsuarioIF> iteradorUsuarios = ciclosDeAmizade.get(seuLogin)
+					.getAmigos().iterator();
 			while (iteradorUsuarios.hasNext()) {
 				UsuarioIF amigo = iteradorUsuarios.next();
 				buscarItem(chave, atributo, saidaDataCriacao, amigo);
 			}
-			buscarItem(chave, atributo, saidaDataCriacao,
-					Autenticacao.getUsuarioPorLogin(seuLogin));
+			buscarItem(chave, atributo, saidaDataCriacao, Autenticacao
+					.getUsuarioPorLogin(seuLogin));
 			if (tipoOrdenacao.trim().equalsIgnoreCase("crescente")) {
-				Collections.sort(saidaDataCriacao,
-						new DataCriacaoItemComparador());
+				Collections.sort(saidaDataCriacao, new DataCriacaoItemComparador());
 			} else if (tipoOrdenacao.trim().equalsIgnoreCase("decrescente")) {
-				Collections.sort(saidaDataCriacao,
-						new DataCriacaoItemComparador());
+				Collections.sort(saidaDataCriacao, new DataCriacaoItemComparador());
 				Collections.reverse(saidaDataCriacao);
 			}
-			Iterator<ItemIF> listaItensRefinadosIterator = saidaDataCriacao
-					.iterator();
+			Iterator<ItemIF> listaItensRefinadosIterator = saidaDataCriacao.iterator();
 			while (listaItensRefinadosIterator.hasNext()) {
-				saida.append(listaItensRefinadosIterator.next().getNome()
-						+ "; ");
+				saida.append(listaItensRefinadosIterator.next().getNome() + "; ");
 			}
 
 		} else if (criterioOrdenacao.trim().equalsIgnoreCase("reputacao")) {
 			List<ItemIF> saidaReputacao = new LinkedList<ItemIF>();
 			Map<Integer, List<ItemIF>> mapaItensPorReputacao = new HashMap<Integer, List<ItemIF>>();
 
-			Iterator<UsuarioIF> iteradorUsuarios = ciclosDeAmizade
-					.get(seuLogin).getAmigos().iterator();
+			Iterator<UsuarioIF> iteradorUsuarios = ciclosDeAmizade.get(seuLogin)
+					.getAmigos().iterator();
 			while (iteradorUsuarios.hasNext()) {
 
 				List<ItemIF> listaItens = new LinkedList<ItemIF>();
@@ -297,20 +265,19 @@ public class RelacionamentosUsuarios {
 				while (iteradorItens.hasNext()) {
 					ItemIF item = iteradorItens.next();
 					if (atributo.trim().equalsIgnoreCase("nome")) {
-						if (item.getNome().toLowerCase()
-								.contains(chave.toLowerCase())) {
+						if (item.getNome().toLowerCase().contains(chave.toLowerCase())) {
 							// saidaDataCriacao.add(item.getNome());
 							listaItens.add(item);
 						}
 					} else if (atributo.trim().equalsIgnoreCase("descricao")) {
-						if (item.getDescricao().toLowerCase()
-								.contains(chave.toLowerCase())) {
+						if (item.getDescricao().toLowerCase().contains(
+								chave.toLowerCase())) {
 							// saidaDataCriacao.add(item.getNome());
 							listaItens.add(item);
 						}
 					} else if (atributo.trim().equalsIgnoreCase("categoria")) {
-						if (item.getCategoria().toLowerCase()
-								.contains(chave.trim().toLowerCase())) {
+						if (item.getCategoria().toLowerCase().contains(
+								chave.trim().toLowerCase())) {
 							// saidaDataCriacao.add(item.getNome());
 							listaItens.add(item);
 						}
@@ -325,23 +292,18 @@ public class RelacionamentosUsuarios {
 								.iterator();
 						while (iteradorDaListaDeItensSaidaPorUsuario.hasNext()) {
 							mapaItensPorReputacao.get(reputacaoAtual).add(
-									iteradorDaListaDeItensSaidaPorUsuario
-											.next());
+									iteradorDaListaDeItensSaidaPorUsuario.next());
 						}
 					} else {
 						mapaItensPorReputacao.put(reputacaoAtual, listaItens);
 					}
 					if (tipoOrdenacao.trim().equalsIgnoreCase("crescente")) {
-						Collections.sort(
-								mapaItensPorReputacao.get(reputacaoAtual),
+						Collections.sort(mapaItensPorReputacao.get(reputacaoAtual),
 								new NomeItemComparador());
-					} else if (tipoOrdenacao.trim().equalsIgnoreCase(
-							"decrescente")) {
-						Collections.sort(
-								mapaItensPorReputacao.get(reputacaoAtual),
+					} else if (tipoOrdenacao.trim().equalsIgnoreCase("decrescente")) {
+						Collections.sort(mapaItensPorReputacao.get(reputacaoAtual),
 								new NomeItemComparador());
-						Collections.reverse(mapaItensPorReputacao
-								.get(reputacaoAtual));
+						Collections.reverse(mapaItensPorReputacao.get(reputacaoAtual));
 					}
 				}
 				// limpa lista itens
@@ -361,9 +323,8 @@ public class RelacionamentosUsuarios {
 						Iterator<ItemIF> iteradorListaReputadacaoMapaIterator = mapaItensPorReputacao
 								.get(i).iterator();
 						while (iteradorListaReputadacaoMapaIterator.hasNext()) {
-							saidaReputacao
-									.add(iteradorListaReputadacaoMapaIterator
-											.next());
+							saidaReputacao.add(iteradorListaReputadacaoMapaIterator
+									.next());
 						}
 					}
 
@@ -373,9 +334,8 @@ public class RelacionamentosUsuarios {
 						Iterator<ItemIF> iteradorListaReputadacaoMapaIterator = mapaItensPorReputacao
 								.get(i).iterator();
 						while (iteradorListaReputadacaoMapaIterator.hasNext()) {
-							saidaReputacao
-									.add(iteradorListaReputadacaoMapaIterator
-											.next());
+							saidaReputacao.add(iteradorListaReputadacaoMapaIterator
+									.next());
 						}
 					}
 				}
@@ -383,11 +343,9 @@ public class RelacionamentosUsuarios {
 			}
 			// verificar saida reputacao
 			if (!saidaReputacao.isEmpty()) {
-				Iterator<ItemIF> iteradorDaListaReputacao = saidaReputacao
-						.iterator();
+				Iterator<ItemIF> iteradorDaListaReputacao = saidaReputacao.iterator();
 				while (iteradorDaListaReputacao.hasNext()) {
-					saida.append(iteradorDaListaReputacao.next().getNome()
-							+ "; ");
+					saida.append(iteradorDaListaReputacao.next().getNome() + "; ");
 				}
 			}
 
@@ -396,12 +354,11 @@ public class RelacionamentosUsuarios {
 		if (saida.toString().trim().equals(""))
 			return Mensagem.NENHUM_ITEM_ENCONTRADO.getMensagem();
 
-		return saida.toString().trim()
-				.substring(0, saida.toString().trim().length() - 1);
+		return saida.toString().trim().substring(0, saida.toString().trim().length() - 1);
 	}
 
-	private void buscarItem(String chave, String atributo,
-			List<ItemIF> saidaDataCriacao, UsuarioIF amigo) {
+	private void buscarItem(String chave, String atributo, List<ItemIF> saidaDataCriacao,
+			UsuarioIF amigo) {
 		Iterator<ItemIF> iteradorItens = amigo.getItens().iterator();
 		while (iteradorItens.hasNext()) {
 			ItemIF item = iteradorItens.next();
@@ -411,8 +368,7 @@ public class RelacionamentosUsuarios {
 					saidaDataCriacao.add(item);
 				}
 			} else if (atributo.trim().equalsIgnoreCase("descricao")) {
-				if (item.getDescricao().toLowerCase()
-						.contains(chave.toLowerCase())) {
+				if (item.getDescricao().toLowerCase().contains(chave.toLowerCase())) {
 					// saidaDataCriacao.add(item.getNome());
 					saidaDataCriacao.add(item);
 				}
@@ -429,15 +385,15 @@ public class RelacionamentosUsuarios {
 	public void desfazerAmizade(String seuLogin, String amigo) throws Exception {
 		assertStringNaoVazia(amigo, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
-		asserteTrue(Autenticacao.existeUsuario(amigo),
-				Mensagem.USUARIO_INEXISTENTE.getMensagem());
+		asserteTrue(Autenticacao.existeUsuario(amigo), Mensagem.USUARIO_INEXISTENTE
+				.getMensagem());
 		UsuarioIF eu = Autenticacao.getUsuarioPorLogin(seuLogin);
 		if (!ehAmigo(seuLogin, amigo)) {
 			throw new Exception(Mensagem.AMIZADE_INEXISTENTE.getMensagem());
 		}
 
-		Iterator<UsuarioIF> iteradorAmigos = ciclosDeAmizade.get(seuLogin)
-				.getAmigos().iterator();
+		Iterator<UsuarioIF> iteradorAmigos = ciclosDeAmizade.get(seuLogin).getAmigos()
+				.iterator();
 		while (iteradorAmigos.hasNext()) {
 
 			UsuarioIF umAmigo = iteradorAmigos.next();

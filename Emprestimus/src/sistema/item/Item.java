@@ -37,8 +37,7 @@ public class Item implements ItemIF {
 	private Item() {
 	}
 
-	public Item(String nome, String descricao, String categoria, UsuarioIF dono)
-			throws Exception {
+	public Item(String nome, String descricao, String categoria, UsuarioIF dono) throws Exception {
 		setNome(nome);
 		setDescricao(descricao);
 		setCategoria(categoria);
@@ -49,8 +48,7 @@ public class Item implements ItemIF {
 	}
 
 	@Deprecated
-	public Item(String nome, String descricao, String categoria)
-			throws Exception {
+	public Item(String nome, String descricao, String categoria) throws Exception {
 		this(nome, descricao, categoria, null);
 	}
 
@@ -151,8 +149,8 @@ public class Item implements ItemIF {
 				"O usuario já está entre os interessados.");
 		// FIXME utilizar as mensagens constantes do enum Mensagem
 		interessados.add(interessado);
-		Notificacao notif = new NotificacaoRegistrarInteresseItem(interessado,
-				this.getDono(), this);
+		Notificacao notif = new NotificacaoRegistrarInteresseItem(interessado, this
+				.getDono(), this);
 		NotificacaoRepositorio.getInstance().novaNotificacao(notif);
 	}
 

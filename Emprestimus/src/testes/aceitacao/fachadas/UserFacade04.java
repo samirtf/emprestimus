@@ -13,8 +13,7 @@ public class UserFacade04 extends UserFacade03 {
 	 *            O endereco do usuario.
 	 */
 	@Override
-	public void criarUsuario(String login, String nome, String endereco)
-			throws Exception {
+	public void criarUsuario(String login, String nome, String endereco) throws Exception {
 		sistema.criarUsuario(login, nome, endereco);
 	}
 
@@ -34,8 +33,7 @@ public class UserFacade04 extends UserFacade03 {
 		return sistema.getRequisicoesDeAmizade(idSessao);
 	}
 
-	public void requisitarAmizade(String idSessao, String login)
-			throws Exception {
+	public void requisitarAmizade(String idSessao, String login) throws Exception {
 		sistema.requisitarAmizade(idSessao, login);
 	}
 

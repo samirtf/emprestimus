@@ -24,8 +24,8 @@ public class NotificacaoRegistrarInteresseItem implements Notificacao {
 	private NotificacaoRegistrarInteresseItem() {
 	}
 
-	public NotificacaoRegistrarInteresseItem(UsuarioIF interessado,
-			UsuarioIF amigo, ItemIF item) throws Exception {
+	public NotificacaoRegistrarInteresseItem(UsuarioIF interessado, UsuarioIF amigo,
+			ItemIF item) throws Exception {
 		this.interessado = interessado;
 		this.amigo = amigo;
 		this.item = item;

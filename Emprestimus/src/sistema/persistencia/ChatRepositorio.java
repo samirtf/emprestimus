@@ -44,8 +44,7 @@ public class ChatRepositorio {
 		return msg;
 	}
 
-	public static String getAtributoConversa(String idConversa, String atributo)
-			throws Exception {
+	public static String getAtributoConversa(String idConversa, String atributo) throws Exception {
 		ChatIF msg = recuperarConversa(idConversa);
 
 		String valor = null;
@@ -89,11 +88,9 @@ public class ChatRepositorio {
 	}
 
 	public static ChatIF existeConversaEntreAsPessoasSobreMesmoAssuntoETipo(
-			String remetente, String destinatario, String assunto,
-			boolean ehOffTopic) {
+			String remetente, String destinatario, String assunto, boolean ehOffTopic) {
 
-		Iterator<Entry<Long, ChatIF>> iterador = conversas.entrySet()
-				.iterator();
+		Iterator<Entry<Long, ChatIF>> iterador = conversas.entrySet().iterator();
 		ChatIF conversaSaida = null;
 		while (iterador.hasNext()) {
 			Entry<Long, ChatIF> conversaEntrada = iterador.next();

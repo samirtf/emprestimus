@@ -111,10 +111,9 @@ public class Usuario implements UsuarioIF {
 	}
 
 	@Override
-	public String cadastrarItem(String nome, String descricao, String categoria)
-			throws Exception {
-		String idItem = AcervoDeItens.getInstance().cadastrarItem(
-				this.getLogin(), nome, descricao, categoria);
+	public String cadastrarItem(String nome, String descricao, String categoria) throws Exception {
+		String idItem = AcervoDeItens.getInstance().cadastrarItem(this.getLogin(), nome,
+				descricao, categoria);
 		ItemIF item = ItemRepositorio.recuperarItem(idItem);
 		addHistoricoCadastrarItem(item);
 		return item.getId();
@@ -122,8 +121,8 @@ public class Usuario implements UsuarioIF {
 	}
 
 	public void addHistoricoCadastrarItem(ItemIF item) throws Exception {
-		GerenciadorDeNotificacoes.getInstance().addHistoricoNovoItem(
-				this.getLogin(), item);
+		GerenciadorDeNotificacoes.getInstance().addHistoricoNovoItem(this.getLogin(),
+				item);
 	}
 
 	@Override
@@ -162,8 +161,7 @@ public class Usuario implements UsuarioIF {
 	}
 
 	@Override
-	public String getListaIdItensEmprestados()
-			throws ArgumentoInvalidoException {
+	public String getListaIdItensEmprestados() throws ArgumentoInvalidoException {
 		return AcervoDeItens.getInstance().getListaIdItensEmprestados(login);
 	}
 
@@ -179,8 +177,7 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public synchronized void aprovarAmizade(String login) throws Exception {
-		RelacionamentosUsuarios.getInstance().aprovarAmizade(this.getLogin(),
-				login);
+		RelacionamentosUsuarios.getInstance().aprovarAmizade(this.getLogin(), login);
 	}
 
 	@Override
@@ -190,64 +187,55 @@ public class Usuario implements UsuarioIF {
 	}
 
 	@Override
-	public synchronized void aprovouAmizade(UsuarioIF usuario)
-			throws ArgumentoInvalidoException {
-		RelacionamentosUsuarios.getInstance().aprovouAmizade(this.getLogin(),
-				usuario);
+	public synchronized void aprovouAmizade(UsuarioIF usuario) throws ArgumentoInvalidoException {
+		RelacionamentosUsuarios.getInstance().aprovouAmizade(this.getLogin(), usuario);
 	}
 
 	@Override
 	public List<UsuarioIF> getQueremSerMeusAmigos() throws Exception {
-		return RelacionamentosUsuarios.getInstance()
-				.getCicloDeAmizade(this.getLogin()).getQueremSerMeusAmigos();
+		return RelacionamentosUsuarios.getInstance().getCicloDeAmizade(this.getLogin())
+				.getQueremSerMeusAmigos();
 	}
 
 	@Override
 	public List<UsuarioIF> getQueroSerAmigoDe() throws Exception {
-		return RelacionamentosUsuarios.getInstance()
-				.getCicloDeAmizade(this.getLogin()).getQueroSerAmigoDeles();
+		return RelacionamentosUsuarios.getInstance().getCicloDeAmizade(this.getLogin())
+				.getQueroSerAmigoDeles();
 	}
 
 	@Override
 	public boolean ehAmigo(String login) throws ArgumentoInvalidoException {
-		return RelacionamentosUsuarios.getInstance().ehAmigo(this.getLogin(),
-				login);
+		return RelacionamentosUsuarios.getInstance().ehAmigo(this.getLogin(), login);
 	}
 
 	@Override
-	public boolean amizadeDeFoiRequisitada(String login)
-			throws ArgumentoInvalidoException {
+	public boolean amizadeDeFoiRequisitada(String login) throws ArgumentoInvalidoException {
 		return RelacionamentosUsuarios.getInstance().amizadeDeFoiRequisitada(
 				this.getLogin(), login);
 	}
 
 	@Override
 	public void requisitarAmizade(String login) throws Exception {
-		RelacionamentosUsuarios.getInstance().requisitarAmizade(
-				this.getLogin(), login);
+		RelacionamentosUsuarios.getInstance().requisitarAmizade(this.getLogin(), login);
 	}
 
 	@Override
-	public void usuarioQuerSerMeuAmigo(UsuarioIF usuarioSolicitante)
-			throws ArgumentoInvalidoException {
-		RelacionamentosUsuarios.getInstance().usuarioQuerSerMeuAmigo(
-				this.getLogin(), usuarioSolicitante);
+	public void usuarioQuerSerMeuAmigo(UsuarioIF usuarioSolicitante) throws ArgumentoInvalidoException {
+		RelacionamentosUsuarios.getInstance().usuarioQuerSerMeuAmigo(this.getLogin(),
+				usuarioSolicitante);
 	}
 
 	@Override
 	public boolean equals(Object outroUsuario) {
 		if (outroUsuario instanceof UsuarioIF) {
-			return this.getLogin()
-					.equals(((UsuarioIF) outroUsuario).getLogin());
+			return this.getLogin().equals(((UsuarioIF) outroUsuario).getLogin());
 		}
 		return false;
 	}
 
 	@Override
-	public boolean existeItemID(String idItem)
-			throws ArgumentoInvalidoException {
-		return AcervoDeItens.getInstance()
-				.existeItemID(this.getLogin(), idItem);
+	public boolean existeItemID(String idItem) throws ArgumentoInvalidoException {
+		return AcervoDeItens.getInstance().existeItemID(this.getLogin(), idItem);
 	}
 
 	@Override
@@ -261,10 +249,8 @@ public class Usuario implements UsuarioIF {
 	}
 
 	@Override
-	public boolean oItemMePertence(String idItem)
-			throws ArgumentoInvalidoException {
-		Validador.assertStringNaoVazia(idItem,
-				Mensagem.ID_ITEM_INVALIDO.getMensagem(),
+	public boolean oItemMePertence(String idItem) throws ArgumentoInvalidoException {
+		Validador.assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem(),
 				Mensagem.ID_ITEM_INVALIDO.getMensagem());
 		Validador.asserteTrue(ItemRepositorio.existeItem(idItem.trim()),
 				Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
@@ -280,36 +266,31 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public UsuarioIF ehItemDoMeuAmigo(String idItem) throws Exception {
-		return RelacionamentosUsuarios.getInstance().ehItemDoMeuAmigo(
-				this.getLogin(), idItem);
+		return RelacionamentosUsuarios.getInstance().ehItemDoMeuAmigo(this.getLogin(),
+				idItem);
 	}
 
 	@Override
-	public void adicionarRequisicaoEmprestimoEmEsperaDeAmigo(EmprestimoIF emp)
-			throws Exception {
-		BancoDeEmprestimos.getInstance()
-				.adicionarRequisicaoEmprestimoEmEsperaDeAmigo(this.getLogin(),
-						emp);
+	public void adicionarRequisicaoEmprestimoEmEsperaDeAmigo(EmprestimoIF emp) throws Exception {
+		BancoDeEmprestimos.getInstance().adicionarRequisicaoEmprestimoEmEsperaDeAmigo(
+				this.getLogin(), emp);
 	}
 
 	@Override
-	public synchronized String requisitarEmprestimo(String idItem, int duracao)
-			throws Exception {
-		return BancoDeEmprestimos.getInstance().requisitarEmprestimo(
-				this.getLogin(), idItem, duracao);
+	public synchronized String requisitarEmprestimo(String idItem, int duracao) throws Exception {
+		return BancoDeEmprestimos.getInstance().requisitarEmprestimo(this.getLogin(),
+				idItem, duracao);
 	}
 
 	@Override
 	public String getEmprestimos(String tipo) throws Exception {
-		return BancoDeEmprestimos.getInstance().getEmprestimos(this.getLogin(),
-				tipo);
+		return BancoDeEmprestimos.getInstance().getEmprestimos(this.getLogin(), tipo);
 	}
 
 	@Override
-	public String aprovarEmprestimo(String idRequisicaoEmprestimo)
-			throws Exception {
-		return BancoDeEmprestimos.getInstance().aprovarEmprestimo(
-				this.getLogin(), idRequisicaoEmprestimo);
+	public String aprovarEmprestimo(String idRequisicaoEmprestimo) throws Exception {
+		return BancoDeEmprestimos.getInstance().aprovarEmprestimo(this.getLogin(),
+				idRequisicaoEmprestimo);
 	}
 
 	/**
@@ -318,35 +299,29 @@ public class Usuario implements UsuarioIF {
 	 * @throws Exception
 	 */
 	@Override
-	public void addHistoricoEmprestimoEmAndamento(UsuarioIF amigo, ItemIF item)
-			throws Exception {
-		GerenciadorDeNotificacoes
-				.getInstance()
-				.addHistoricoEmprestimoEmAndamento(this.getLogin(), amigo, item);
+	public void addHistoricoEmprestimoEmAndamento(UsuarioIF amigo, ItemIF item) throws Exception {
+		GerenciadorDeNotificacoes.getInstance().addHistoricoEmprestimoEmAndamento(
+				this.getLogin(), amigo, item);
 	}
 
 	@Override
 	public void emprestimoAceitoPorAmigo(EmprestimoIF emp) throws Exception {
-		BancoDeEmprestimos.getInstance().emprestimoAceitoPorAmigo(
-				this.getLogin(), emp);
+		BancoDeEmprestimos.getInstance().emprestimoAceitoPorAmigo(this.getLogin(), emp);
 	}
 
 	@Override
-	public UsuarioIF possuoAmigoComEsteLogin(String loginDoAmigo)
-			throws Exception {
+	public UsuarioIF possuoAmigoComEsteLogin(String loginDoAmigo) throws Exception {
 		return RelacionamentosUsuarios.getInstance().possuoAmigoComEsteLogin(
 				this.getLogin(), loginDoAmigo);
 	}
 
 	@Override
-	public void adicionaConversaOfftopicNaLista(ChatIF conversa)
-			throws Exception {
+	public void adicionaConversaOfftopicNaLista(ChatIF conversa) throws Exception {
 		Correio.adicionaConversaOfftopicNaLista(this.getLogin(), conversa);
 	}
 
 	@Override
-	public void adicionaConversaNegociacaoNaLista(ChatIF conversa)
-			throws Exception {
+	public void adicionaConversaNegociacaoNaLista(ChatIF conversa) throws Exception {
 		Correio.adicionaConversaNegociacaoNaLista(this.getLogin(), conversa);
 	}
 
@@ -354,17 +329,16 @@ public class Usuario implements UsuarioIF {
 	public synchronized String enviarMensagemOffTopic(String destinatario,
 			String assunto, String mensagem) throws Exception {
 
-		return Correio.enviarMensagemOffTopic(this.getLogin(), destinatario,
-				assunto, mensagem);
+		return Correio.enviarMensagemOffTopic(this.getLogin(), destinatario, assunto,
+				mensagem);
 	}
 
 	@Override
 	public synchronized String enviarMensagemEmprestimo(String destinatario,
-			String assunto, String mensagem, String idRequisicaoEmprestimo)
-			throws Exception {
+			String assunto, String mensagem, String idRequisicaoEmprestimo) throws Exception {
 
-		return Correio.enviarMensagemEmprestimo(this.getLogin(), destinatario,
-				assunto, mensagem, idRequisicaoEmprestimo);
+		return Correio.enviarMensagemEmprestimo(this.getLogin(), destinatario, assunto,
+				mensagem, idRequisicaoEmprestimo);
 	}
 
 	@Override
@@ -376,9 +350,8 @@ public class Usuario implements UsuarioIF {
 	public synchronized String pesquisarItem(String chave, String atributo,
 			String tipoOrdenacao, String criterioOrdenacao) throws Exception {
 
-		return RelacionamentosUsuarios.getInstance().pesquisarItem(
-				this.getLogin(), chave, atributo, tipoOrdenacao,
-				criterioOrdenacao);
+		return RelacionamentosUsuarios.getInstance().pesquisarItem(this.getLogin(),
+				chave, atributo, tipoOrdenacao, criterioOrdenacao);
 	}
 
 	@Override
@@ -403,14 +376,12 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public void desfazerAmizade(String amigo) throws Exception {
-		RelacionamentosUsuarios.getInstance().desfazerAmizade(this.getLogin(),
-				amigo);
+		RelacionamentosUsuarios.getInstance().desfazerAmizade(this.getLogin(), amigo);
 	}
 
 	@Override
 	public void removerAmigoDaLista(UsuarioIF amigo) {
-		RelacionamentosUsuarios.getInstance().removerAmigoDaLista(
-				this.getLogin(), amigo);
+		RelacionamentosUsuarios.getInstance().removerAmigoDaLista(this.getLogin(), amigo);
 	}
 
 	@Override
@@ -429,23 +400,20 @@ public class Usuario implements UsuarioIF {
 	public boolean esteItemMePertence(String idItem) throws Exception {
 		assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem(),
 				Mensagem.ID_ITEM_INVALIDO.getMensagem());
-		asserteTrue(ItemRepositorio.existeItem(idItem),
-				Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
-		return AcervoDeItens.getInstance().esteItemMePertence(this.getLogin(),
+		asserteTrue(ItemRepositorio.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE
+				.getMensagem());
+		return AcervoDeItens.getInstance().esteItemMePertence(this.getLogin(), idItem);
+	}
+
+	@Override
+	public synchronized boolean requisiteiEsteItem(String idItem) throws Exception {
+		return BancoDeEmprestimos.getInstance().requisiteiEsteItem(this.getLogin(),
 				idItem);
 	}
 
 	@Override
-	public synchronized boolean requisiteiEsteItem(String idItem)
-			throws Exception {
-		return BancoDeEmprestimos.getInstance().requisiteiEsteItem(
-				this.getLogin(), idItem);
-	}
-
-	@Override
 	public List<UsuarioIF> getListaAmigos() {
-		return RelacionamentosUsuarios.getInstance().getListaAmigos(
-				this.getLogin());
+		return RelacionamentosUsuarios.getInstance().getListaAmigos(this.getLogin());
 	}
 
 	@Override
@@ -476,10 +444,9 @@ public class Usuario implements UsuarioIF {
 
 		assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem(),
 				Mensagem.ID_ITEM_INVALIDO.getMensagem());
-		asserteTrue(ItemRepositorio.existeItem(idItem),
-				Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
-		AcervoDeItens.getInstance().registrarInteressePorItem(this.getLogin(),
-				idItem);
+		asserteTrue(ItemRepositorio.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE
+				.getMensagem());
+		AcervoDeItens.getInstance().registrarInteressePorItem(this.getLogin(), idItem);
 	}
 
 	@Override
@@ -499,26 +466,23 @@ public class Usuario implements UsuarioIF {
 	}
 
 	@Override
-	public String publicarPedido(String nomeItem, String descricaoItem)
-			throws Exception {
+	public String publicarPedido(String nomeItem, String descricaoItem) throws Exception {
 
-		return GerenciadorDeNotificacoes.getInstance()
-				.addHistoricoPublicarPedido(this.getLogin(), nomeItem,
-						descricaoItem);
+		return GerenciadorDeNotificacoes.getInstance().addHistoricoPublicarPedido(
+				this.getLogin(), nomeItem, descricaoItem);
 	}
 
 	@Override
-	public void oferecerItem(String idPublicacaoPedido, String idItem)
-			throws Exception {
-		AcervoDeItens.getInstance().oferecerItem(this.getLogin(),
-				idPublicacaoPedido, idItem);
+	public void oferecerItem(String idPublicacaoPedido, String idItem) throws Exception {
+		AcervoDeItens.getInstance().oferecerItem(this.getLogin(), idPublicacaoPedido,
+				idItem);
 
 	}
 
 	@Override
 	public void republicarPedido(String idPublicacaoPedido) throws Exception {
-		GerenciadorDeNotificacoes.getInstance().republicarPedido(this,
-				idPublicacaoPedido);
+		GerenciadorDeNotificacoes.getInstance()
+				.republicarPedido(this, idPublicacaoPedido);
 
 	}
 

@@ -23,8 +23,7 @@ public class Chat implements ChatIF {
 	Date dataUltimaAtualizacao;
 
 	public Chat(UsuarioIF remetente, UsuarioIF destinatario, String assunto,
-			String mensagem, String idRequisicaoEmprestimo)
-			throws ArgumentoInvalidoException {
+			String mensagem, String idRequisicaoEmprestimo) throws ArgumentoInvalidoException {
 
 		setRemetente(remetente);
 		setDestinatario(destinatario);
@@ -59,10 +58,8 @@ public class Chat implements ChatIF {
 	}
 
 	@Override
-	public void adicionaMensagem(String mensagem)
-			throws ArgumentoInvalidoException {
-		assertStringNaoVazia(mensagem,
-				Mensagem.MENSAGEM_INVALIDA.getMensagem(),
+	public void adicionaMensagem(String mensagem) throws ArgumentoInvalidoException {
+		assertStringNaoVazia(mensagem, Mensagem.MENSAGEM_INVALIDA.getMensagem(),
 				Mensagem.MENSAGEM_INVALIDA.getMensagem());
 		MensagemChat mensagemChat = new MensagemChat(mensagem);
 		this.conversa.add(mensagemChat);
@@ -77,16 +74,13 @@ public class Chat implements ChatIF {
 	}
 
 	@Override
-	public void setDestinatario(UsuarioIF destinatario)
-			throws ArgumentoInvalidoException {
-		assertNaoNulo(destinatario,
-				Mensagem.DESTINATARIO_INVALIDO.getMensagem());
+	public void setDestinatario(UsuarioIF destinatario) throws ArgumentoInvalidoException {
+		assertNaoNulo(destinatario, Mensagem.DESTINATARIO_INVALIDO.getMensagem());
 		this.destinatario = destinatario;
 	}
 
 	@Override
-	public void setRemetente(UsuarioIF remetente)
-			throws ArgumentoInvalidoException {
+	public void setRemetente(UsuarioIF remetente) throws ArgumentoInvalidoException {
 		assertNaoNulo(remetente, Mensagem.REMETENTE_INVALIDO.getMensagem());
 		this.remetente = remetente;
 	}
@@ -97,8 +91,7 @@ public class Chat implements ChatIF {
 	}
 
 	@Override
-	public void setIdRequisicaEmprestimo(String idRequisicaoEmprestimo)
-			throws ArgumentoInvalidoException {
+	public void setIdRequisicaEmprestimo(String idRequisicaoEmprestimo) throws ArgumentoInvalidoException {
 		assertStringNaoVazia(idRequisicaoEmprestimo,
 				Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem(),
 				Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
@@ -157,16 +150,14 @@ public class Chat implements ChatIF {
 
 		if (conversa.toString().equals(""))
 			throw new Exception("Conversa sem mensagem");
-		return conversa.toString().trim()
-				.substring(0, conversa.toString().trim().length() - 1);
+		return conversa.toString().trim().substring(0,
+				conversa.toString().trim().length() - 1);
 	}
 
-	public static void main(String[] args) throws ArgumentoInvalidoException,
-			Exception {
+	public static void main(String[] args) throws ArgumentoInvalidoException, Exception {
 
-		ChatIF conversa = new Chat(
-				new Usuario("samir1", "Samir1", "endereco1"), new Usuario(
-						"samir2", "Samir2", "endereco2"),
+		ChatIF conversa = new Chat(new Usuario("samir1", "Samir1", "endereco1"),
+				new Usuario("samir2", "Samir2", "endereco2"),
 				"Uma conversa espretensiosa", "Uma mensagem nada a ver", "id");
 
 		conversa.adicionaMensagem("Opaaa");

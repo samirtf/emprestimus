@@ -33,11 +33,10 @@ public class ComparaDistancia implements Comparator<Coordenadas> {
 		double dLon = Math.toRadians(y.getLongitude() - x.getLongitude());
 		double xLat = Math.toRadians(x.getLatitude());
 		double yLat = Math.toRadians(y.getLatitude());
-		double haversineA = Math.sin(dLat / 2) * Math.sin(dLat / 2)
-				+ Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(xLat)
-				* Math.cos(yLat);
-		double haversineB = 2 * Math.atan2(Math.sqrt(haversineA),
-				Math.sqrt(1 - haversineA));
+		double haversineA = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.sin(dLon / 2)
+				* Math.sin(dLon / 2) * Math.cos(xLat) * Math.cos(yLat);
+		double haversineB = 2 * Math.atan2(Math.sqrt(haversineA), Math
+				.sqrt(1 - haversineA));
 		return raioTerra * haversineB;
 	}
 
@@ -46,8 +45,7 @@ public class ComparaDistancia implements Comparator<Coordenadas> {
 	 */
 	@Override
 	public int compare(Coordenadas o1, Coordenadas o2) {
-		double diferenca = distancia(o1, referencia)
-				- distancia(o2, referencia);
+		double diferenca = distancia(o1, referencia) - distancia(o2, referencia);
 
 		int retorno = 0;
 		if (diferenca < 0)

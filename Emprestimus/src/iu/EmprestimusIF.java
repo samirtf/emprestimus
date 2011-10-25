@@ -25,8 +25,7 @@ public interface EmprestimusIF {
 	 * @throws Caso
 	 *             o login já exista ou algum parâmetro seja inválido.
 	 */
-	public void criarUsuario(String login, String nome, String endereco)
-			throws Exception;
+	public void criarUsuario(String login, String nome, String endereco) throws Exception;
 
 	/**
 	 * Metodo utilizado para logar um usuário e, consequentemente, abrir uma
@@ -53,8 +52,7 @@ public interface EmprestimusIF {
 	 *             Caso o login e/ou atributo seja(m)
 	 *             inválido(s)/inexistente(s).
 	 */
-	public String getAtributoUsuario(String login, String atributo)
-			throws Exception;
+	public String getAtributoUsuario(String login, String atributo) throws Exception;
 
 	// US02
 	/**
@@ -86,8 +84,7 @@ public interface EmprestimusIF {
 	 * @throws Exception
 	 *             Caso ao menos um dos parâmetros seja inválido/inexistente.
 	 */
-	public String getAtributoItem(String idItem, String atributo)
-			throws Exception;
+	public String getAtributoItem(String idItem, String atributo) throws Exception;
 
 	/**
 	 * Localiza usuários a partir de uma palavra-chave.
@@ -103,8 +100,7 @@ public interface EmprestimusIF {
 	 * @throws Exception
 	 *             Caso algum dos parâmetros seja inválido/inexistente.
 	 */
-	public String localizarUsuario(String idSessao, String chave,
-			String atributo) throws Exception;
+	public String localizarUsuario(String idSessao, String chave, String atributo) throws Exception;
 
 	// US04
 	/**
@@ -117,8 +113,7 @@ public interface EmprestimusIF {
 	 * @throws Exception
 	 *             Caso algum dos parâmetros seja inválido/inexistente.
 	 */
-	public void requisitarAmizade(String idSessao, String login)
-			throws Exception;
+	public void requisitarAmizade(String idSessao, String login) throws Exception;
 
 	/**
 	 * Recupera as requisitações de amizade do usuário.
@@ -224,8 +219,7 @@ public interface EmprestimusIF {
 	 * @throws Exception
 	 *             Caso algum dos parâmetros seja inválido/inesxistente.
 	 */
-	public String requisitarEmprestimo(String idSessao, String idItem,
-			int duracao) throws Exception;
+	public String requisitarEmprestimo(String idSessao, String idItem, int duracao) throws Exception;
 
 	/**
 	 * Aprova alguma requisitação de empréstimo que o usuário recebeu.
@@ -238,8 +232,7 @@ public interface EmprestimusIF {
 	 * @throws Exception
 	 *             Caso algum dos parâmetros seja inválido/inesxistente.
 	 */
-	public String aprovarEmprestimo(String idSessao,
-			String idRequisicaoEmprestimo) throws Exception;
+	public String aprovarEmprestimo(String idSessao, String idRequisicaoEmprestimo) throws Exception;
 
 	/**
 	 * Verifica os empréstimos de um dado tipo (emprestador, beneficiado ou
@@ -266,8 +259,7 @@ public interface EmprestimusIF {
 	 * @throws Exception
 	 *             Caso algum dos parâmetros seja inválido/inesxistente.
 	 */
-	public void devolverItem(String idSessao, String idEmprestimo)
-			throws Exception;
+	public void devolverItem(String idSessao, String idEmprestimo) throws Exception;
 
 	/**
 	 * Comfirma a devolução de um empréstimo.
@@ -279,8 +271,7 @@ public interface EmprestimusIF {
 	 * @throws Exception
 	 *             Caso algum dos parâmetros seja inválido/inesxistente.
 	 */
-	public void confirmarTerminoEmprestimo(String idSessao, String idEmprestimo)
-			throws Exception;
+	public void confirmarTerminoEmprestimo(String idSessao, String idEmprestimo) throws Exception;
 
 	// US08
 	// mensagm off-topic
@@ -300,8 +291,8 @@ public interface EmprestimusIF {
 	 *             Caso algum dos parâmetros seja inválido ou o id da sessão
 	 *             seja inesxistente.
 	 */
-	public String enviarMensagem(String idSessao, String destinatario,
-			String assunto, String mensagem) throws Exception;
+	public String enviarMensagem(String idSessao, String destinatario, String assunto,
+			String mensagem) throws Exception;
 
 	// relativa a negociacao
 	/**
@@ -322,9 +313,8 @@ public interface EmprestimusIF {
 	 *             Caso algum dos parâmetros seja inválido ou algum dos id's
 	 *             seja inesxistente.
 	 */
-	public String enviarMensagem(String idSessao, String destinatario,
-			String assunto, String mensagem, String idRequisicaoEmprestimo)
-			throws Exception;
+	public String enviarMensagem(String idSessao, String destinatario, String assunto,
+			String mensagem, String idRequisicaoEmprestimo) throws Exception;
 
 	/**
 	 * Recupera a lista de tópicos do usuário, informando o tipo dos tópicos que
@@ -353,8 +343,7 @@ public interface EmprestimusIF {
 	 * @throws Exception
 	 *             Caso algum dos parâmetros seja inválido/inesxistente.
 	 */
-	public String lerMensagens(String idSessao, String idTopico)
-			throws Exception;
+	public String lerMensagens(String idSessao, String idTopico) throws Exception;
 
 	// US09
 	/**
@@ -367,8 +356,7 @@ public interface EmprestimusIF {
 	 * @throws Exception
 	 *             Caso algum dos parâmetros seja inválido/inesxistente.
 	 */
-	public void requisitarDevolucao(String idSessao, String idEmprestimo)
-			throws Exception;
+	public void requisitarDevolucao(String idSessao, String idEmprestimo) throws Exception;
 
 	/**
 	 * Incrementa o contador de dias (adianta o calendário do sistema).
@@ -393,8 +381,7 @@ public interface EmprestimusIF {
 	 * @throws Exception
 	 *             Caso algum dos parâmetros seja inválido/inesxistente.
 	 */
-	public void registraInteresse(String idSessao, String idItem)
-			throws Exception;
+	public void registraInteresse(String idSessao, String idItem) throws Exception;
 
 	// US11
 	/**
@@ -442,8 +429,7 @@ public interface EmprestimusIF {
 	 * @throws Exception
 	 *             Caso algum dos parâmetros seja inválido/inesxistente.
 	 */
-	public String getRanking(String idSessao, String categoria)
-			throws Exception;
+	public String getRanking(String idSessao, String categoria) throws Exception;
 
 	// US15
 	/**
@@ -490,8 +476,7 @@ public interface EmprestimusIF {
 	 * @throws Exception
 	 *             Caso os parâmetros passados sejam inválidos ou inexistentes.
 	 */
-	public String publicarPedido(String idSessao, String nomeItem,
-			String descricaoItem) throws Exception;
+	public String publicarPedido(String idSessao, String nomeItem, String descricaoItem) throws Exception;
 
 	// US18
 	/**
@@ -506,8 +491,7 @@ public interface EmprestimusIF {
 	 * @throws Exception
 	 *             Caso os parâmetros passados sejam inválidos ou inexistentes.
 	 */
-	public void oferecerItem(String idSessao, String idPublicacaoPedido,
-			String idItem) throws Exception;
+	public void oferecerItem(String idSessao, String idPublicacaoPedido, String idItem) throws Exception;
 
 	// Utils
 	/**
@@ -544,8 +528,7 @@ public interface EmprestimusIF {
 	 * @throws Exception
 	 *             Caso os parâmetros passados sejam inválidos ou inexistentes.
 	 */
-	public void republicarPedido(String idSessao, String idPublicacaoPedido)
-			throws Exception;
+	public void republicarPedido(String idSessao, String idPublicacaoPedido) throws Exception;
 
 	// US20
 	/**

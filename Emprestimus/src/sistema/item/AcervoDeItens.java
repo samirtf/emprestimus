@@ -50,8 +50,7 @@ public class AcervoDeItens {
 
 	public void adicionaBauhAoUsuario(String usuario) throws Exception {
 		if (bauhs.containsKey(usuario))
-			throw new Exception(
-					Mensagem.PROPRIETARIO_BAUH_JAH_CADASTRADO.getMensagem());
+			throw new Exception(Mensagem.PROPRIETARIO_BAUH_JAH_CADASTRADO.getMensagem());
 		bauhs.put(usuario, new Bauh(usuario));
 
 	}
@@ -66,12 +65,11 @@ public class AcervoDeItens {
 
 	public String cadastrarItem(String login, String nome, String descricao,
 			String categoria) throws Exception {
-		Validador.assertStringNaoVazia(login,
-				Mensagem.LOGIN_INVALIDO.getMensagem(),
+		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
 
-		ItemIF item = new Item(nome, descricao, categoria,
-				Autenticacao.getUsuarioPorLogin(login));
+		ItemIF item = new Item(nome, descricao, categoria, Autenticacao
+				.getUsuarioPorLogin(login));
 		ItemRepositorio.cadastrarItem(item);
 		bauhs.get(login).getItens().add(item);// o item eh modificado pelo
 												// repositorio possuindo agora
@@ -80,10 +78,8 @@ public class AcervoDeItens {
 		return item.getId();
 	}
 
-	public boolean removerItem(String login, String idItem)
-			throws ArgumentoInvalidoException {
-		Validador.assertStringNaoVazia(login,
-				Mensagem.LOGIN_INVALIDO.getMensagem(),
+	public boolean removerItem(String login, String idItem) throws ArgumentoInvalidoException {
+		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
 		List<ItemIF> itens = bauhs.get(login).getItens();
 		for (ItemIF item : itens) {
@@ -95,10 +91,8 @@ public class AcervoDeItens {
 		return false;
 	}
 
-	public String getListaIdItens(String login)
-			throws ArgumentoInvalidoException {
-		Validador.assertStringNaoVazia(login,
-				Mensagem.LOGIN_INVALIDO.getMensagem(),
+	public String getListaIdItens(String login) throws ArgumentoInvalidoException {
+		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
 		List<ItemIF> itens = bauhs.get(login).getItens();
 		StringBuilder listaIdItensString = new StringBuilder();
@@ -114,10 +108,8 @@ public class AcervoDeItens {
 		return bauhs.get(login).getItens();
 	}
 
-	public ItemIF getItem(String login, String idItem)
-			throws ArgumentoInvalidoException {
-		Validador.assertStringNaoVazia(login,
-				Mensagem.LOGIN_INVALIDO.getMensagem(),
+	public ItemIF getItem(String login, String idItem) throws ArgumentoInvalidoException {
+		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
 		List<ItemIF> itens = bauhs.get(login).getItens();
 		for (ItemIF item : itens) {
@@ -130,25 +122,20 @@ public class AcervoDeItens {
 	}
 
 	public int qntItens(String login) throws ArgumentoInvalidoException {
-		Validador.assertStringNaoVazia(login,
-				Mensagem.LOGIN_INVALIDO.getMensagem(),
+		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
 		List<ItemIF> itens = bauhs.get(login).getItens();
 		return itens.size();
 	}
 
-	public int qntItensEmprestados(String login)
-			throws ArgumentoInvalidoException {
-		Validador.assertStringNaoVazia(login,
-				Mensagem.LOGIN_INVALIDO.getMensagem(),
+	public int qntItensEmprestados(String login) throws ArgumentoInvalidoException {
+		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
 		return bauhs.get(login).getItensEmprestados().size();
 	}
 
-	public String getListaIdItensEmprestados(String login)
-			throws ArgumentoInvalidoException {
-		Validador.assertStringNaoVazia(login,
-				Mensagem.LOGIN_INVALIDO.getMensagem(),
+	public String getListaIdItensEmprestados(String login) throws ArgumentoInvalidoException {
+		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
 		List<ItemIF> itensEmprestados = bauhs.get(login).getItensEmprestados();
 		StringBuilder listaIdItensEmprestadosString = new StringBuilder();
@@ -160,15 +147,12 @@ public class AcervoDeItens {
 		return listaIdItensEmprestadosString.toString().trim();
 	}
 
-	public boolean existeItemID(String login, String idItem)
-			throws ArgumentoInvalidoException {
-		Validador.assertStringNaoVazia(login,
-				Mensagem.LOGIN_INVALIDO.getMensagem(),
+	public boolean existeItemID(String login, String idItem) throws ArgumentoInvalidoException {
+		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
 		List<ItemIF> itens = bauhs.get(login).getItens();
 		try {
-			return itens.contains(new Item("placebo", "placebo", "FILME")
-					.setId(idItem));
+			return itens.contains(new Item("placebo", "placebo", "FILME").setId(idItem));
 		} catch (Exception e) {
 		}// nao lanca excecao.
 		return false;
@@ -176,8 +160,7 @@ public class AcervoDeItens {
 	}
 
 	public String getListaItens(String login) throws Exception {
-		Validador.assertStringNaoVazia(login,
-				Mensagem.LOGIN_INVALIDO.getMensagem(),
+		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
 		Iterator<ItemIF> iterador = bauhs.get(login).getItens().iterator();
 		StringBuffer str = new StringBuffer();
@@ -189,107 +172,91 @@ public class AcervoDeItens {
 		return str.toString().substring(0, str.toString().length() - 2);
 	}
 
-	public boolean esteItemMePertence(String login, String idItem)
-			throws Exception {
-		Validador.assertStringNaoVazia(login,
-				Mensagem.LOGIN_INVALIDO.getMensagem(),
+	public boolean esteItemMePertence(String login, String idItem) throws Exception {
+		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
 		assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem(),
 				Mensagem.ID_ITEM_INVALIDO.getMensagem());
-		asserteTrue(ItemRepositorio.existeItem(idItem),
-				Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
+		asserteTrue(ItemRepositorio.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE
+				.getMensagem());
 
 		Iterator<ItemIF> iteradorItens = bauhs.get(login).getItens().iterator();
 		while (iteradorItens.hasNext()) {
-			if (iteradorItens.next().getId().trim()
-					.equalsIgnoreCase(idItem.trim()))
+			if (iteradorItens.next().getId().trim().equalsIgnoreCase(idItem.trim()))
 				return true;
 		}
 		return false;
 	}
 
 	public void apagarItem(String login, String idItem) throws Exception {
-		Validador.assertStringNaoVazia(login,
-				Mensagem.LOGIN_INVALIDO.getMensagem(),
+		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
 		BancoDeEmprestimos banco = BancoDeEmprestimos.getInstance();
-		Iterator<EmprestimoIF> iteradorEmprestimosRequeridosPorAmigos = banco
-				.getConta(login).getEmprestimosRequeridosPorAmigosEmEspera()
-				.iterator();
+		Iterator<EmprestimoIF> iteradorEmprestimosRequeridosPorAmigos = banco.getConta(
+				login).getEmprestimosRequeridosPorAmigosEmEspera().iterator();
 		while (iteradorEmprestimosRequeridosPorAmigos.hasNext()) {
-			EmprestimoIF emprestimo = iteradorEmprestimosRequeridosPorAmigos
-					.next();
+			EmprestimoIF emprestimo = iteradorEmprestimosRequeridosPorAmigos.next();
 			if (emprestimo.getItem().getId().equalsIgnoreCase(idItem.trim())) {
 
 				UsuarioIF amigoQueSolicitou = emprestimo.getBeneficiado();
 				amigoQueSolicitou.removerMinhaSolicitacaoEmprestimo(emprestimo);
-				EmprestimoRepositorio.removerEmprestimo(emprestimo
-						.getIdEmprestimo());
+				EmprestimoRepositorio.removerEmprestimo(emprestimo.getIdEmprestimo());
 				iteradorEmprestimosRequeridosPorAmigos.remove();
 			}
 		}
 
-		Iterator<ItemIF> iteradorMeusItens = bauhs.get(login).getItens()
-				.iterator();
+		Iterator<ItemIF> iteradorMeusItens = bauhs.get(login).getItens().iterator();
 		while (iteradorMeusItens.hasNext()) {
-			if (iteradorMeusItens.next().getId()
-					.equalsIgnoreCase(idItem.trim())) {
+			if (iteradorMeusItens.next().getId().equalsIgnoreCase(idItem.trim())) {
 				iteradorMeusItens.remove();
 			}
 		}
 	}
 
-	public void registrarInteressePorItem(String seuLogin, String idItem)
-			throws Exception {
+	public void registrarInteressePorItem(String seuLogin, String idItem) throws Exception {
 
-		Validador.assertStringNaoVazia(seuLogin,
-				Mensagem.LOGIN_INVALIDO.getMensagem(),
+		Validador.assertStringNaoVazia(seuLogin, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
 		assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem(),
 				Mensagem.ID_ITEM_INVALIDO.getMensagem());
-		asserteTrue(ItemRepositorio.existeItem(idItem),
-				Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
+		asserteTrue(ItemRepositorio.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE
+				.getMensagem());
 
 		ItemIF item = ItemRepositorio.recuperarItem(idItem);
 
 		// FIXME usar as mensagens constantes do enum Mensagem
 
-		asserteTrue(
-				!item.getInteresasados().contains(
-						Autenticacao.getUsuarioPorLogin(seuLogin)),
+		asserteTrue(!item.getInteresasados().contains(
+				Autenticacao.getUsuarioPorLogin(seuLogin)),
 				"O usuário já registrou interesse neste item");
 		asserteTrue(!esteItemMePertence(seuLogin, idItem),
 				"O usuário não pode registrar interesse no próprio item");
-		UsuarioIF amigo = RelacionamentosUsuarios.getInstance()
-				.ehItemDoMeuAmigo(seuLogin, idItem);
+		UsuarioIF amigo = RelacionamentosUsuarios.getInstance().ehItemDoMeuAmigo(
+				seuLogin, idItem);
 		assertNaoNulo(amigo,
 				"O usuário não tem permissão para registrar interesse neste item");
 		item.adicionaInteressado(Autenticacao.getUsuarioPorLogin(seuLogin));
-		GerenciadorDeNotificacoes.getInstance().addHistoricoInteressePorItem(
-				seuLogin, amigo, item);
+		GerenciadorDeNotificacoes.getInstance().addHistoricoInteressePorItem(seuLogin,
+				amigo, item);
 	}
 
-	public void oferecerItem(String login, String idPublicacaoPedido,
-			String idItem) throws Exception {
+	public void oferecerItem(String login, String idPublicacaoPedido, String idItem) throws Exception {
 
-		Validador.assertStringNaoVazia(login,
-				Mensagem.LOGIN_INVALIDO.getMensagem(),
+		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
-		assertStringNaoVazia(idPublicacaoPedido,
-				Mensagem.PUBLICACAO_ID_INVALIDO.getMensagem(),
-				Mensagem.PUBLICACAO_ID_INVALIDO.getMensagem());
+		assertStringNaoVazia(idPublicacaoPedido, Mensagem.PUBLICACAO_ID_INVALIDO
+				.getMensagem(), Mensagem.PUBLICACAO_ID_INVALIDO.getMensagem());
 		NotificacaoPublicarPedido notificacao = null;
 		try {
 			notificacao = (NotificacaoPublicarPedido) NotificacaoRepositorio
 					.getInstance().recuperarNotificacao(idPublicacaoPedido);
 		} catch (Exception e) {
-			throw new Exception(
-					Mensagem.PUBLICACAO_ID_INEXISTENTE.getMensagem());
+			throw new Exception(Mensagem.PUBLICACAO_ID_INEXISTENTE.getMensagem());
 		}
 		assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem(),
 				Mensagem.ID_ITEM_INVALIDO.getMensagem());
-		asserteTrue(ItemRepositorio.existeItem(idItem),
-				Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
+		asserteTrue(ItemRepositorio.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE
+				.getMensagem());
 		UsuarioIF usuario = Autenticacao.getUsuarioPorLogin(login);
 		if (!usuario.esteItemMePertence(idItem)) {
 			throw new Exception(Mensagem.ITEM_NAO_ME_PERTENCE.getMensagem());
@@ -297,9 +264,9 @@ public class AcervoDeItens {
 		ItemIF item = ItemRepositorio.recuperarItem(idItem);
 		usuario.enviarMensagemOferecimentoItemOffTopic(notificacao
 				.getOriginadorMensagem().getLogin(), String.format(
-				"O usuário %s ofereceu o item %s", usuario.getNome(),
-				item.getNome()), String.format("Item oferecido: %s - %s",
-				item.getNome(), item.getDescricao()));
+				"O usuário %s ofereceu o item %s", usuario.getNome(), item.getNome()),
+				String.format("Item oferecido: %s - %s", item.getNome(), item
+						.getDescricao()));
 	}
 
 	public void zerarSistema() {

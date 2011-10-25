@@ -26,8 +26,7 @@ public class UserFacade02 {
 	 * @param endereco
 	 *            O endereco do usuario.
 	 */
-	public void criarUsuario(String login, String nome, String endereco)
-			throws Exception {
+	public void criarUsuario(String login, String nome, String endereco) throws Exception {
 		sistema.criarUsuario(login, nome, endereco);
 	}
 
@@ -51,8 +50,7 @@ public class UserFacade02 {
 	 *            O atributo do usuario.
 	 * @return Uma representacao de um atributo do usuario.
 	 */
-	public String getAtributoUsuario(String login, String atributo)
-			throws Exception {
+	public String getAtributoUsuario(String login, String atributo) throws Exception {
 		return sistema.getAtributoUsuario(login, atributo);
 	}
 
@@ -63,8 +61,7 @@ public class UserFacade02 {
 
 	}
 
-	public String getAtributoItem(String idItem, String atributo)
-			throws Exception {
+	public String getAtributoItem(String idItem, String atributo) throws Exception {
 		return sistema.getAtributoItem(idItem, atributo);
 
 	}

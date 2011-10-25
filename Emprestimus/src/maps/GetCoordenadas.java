@@ -22,14 +22,14 @@ public class GetCoordenadas {
 
 		try {
 			String url = String.format("%s%s%s",
-					"http://maps.google.com/maps/api/geocode/json?address=",
-					endereco, "&sensor=true");
+					"http://maps.google.com/maps/api/geocode/json?address=", endereco,
+					"&sensor=true");
 
 			String source = requisicao(url);
 			JSONObject object = new JSONObject(source);
 			JSONArray a = (JSONArray) object.get("results");
-			object = a.getJSONObject(0).getJSONObject("geometry")
-					.getJSONObject("location");
+			object = a.getJSONObject(0).getJSONObject("geometry").getJSONObject(
+					"location");
 			latitude = object.getDouble("lat");
 			longitude = object.getDouble("lng");
 		} catch (Exception e) {
@@ -44,8 +44,8 @@ public class GetCoordenadas {
 		try {
 			URL req = new URL(url);
 			URLConnection connection = req.openConnection();
-			BufferedReader in = new BufferedReader(new InputStreamReader(
-					connection.getInputStream()));
+			BufferedReader in = new BufferedReader(new InputStreamReader(connection
+					.getInputStream()));
 			String buffer;
 			while ((buffer = in.readLine()) != null)
 				source = source.concat(buffer + "\n");

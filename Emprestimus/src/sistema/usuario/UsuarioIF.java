@@ -38,8 +38,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	 * @throws Exception
 	 *             Caso o parâmetro seja inválido.
 	 */
-	public void setNome(String nome) throws ArgumentoInvalidoException,
-			Exception;
+	public void setNome(String nome) throws ArgumentoInvalidoException, Exception;
 
 	/**
 	 * COnfigura o endereco do usuario.
@@ -84,8 +83,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	 *            A categoria do item.
 	 * @return O idItem (String) no formato login_inteiro.
 	 */
-	public String cadastrarItem(String nome, String descricao, String categoria)
-			throws Exception;
+	public String cadastrarItem(String nome, String descricao, String categoria) throws Exception;
 
 	/**
 	 * Remove item da lista de itens do usuario. A remocao eh feita apenas pelo
@@ -132,8 +130,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	 *            O id do item a ser procurado.
 	 * @return True - Se o item existir. False - Caso nao exista.
 	 */
-	public boolean existeItemID(String idItem)
-			throws ArgumentoInvalidoException;
+	public boolean existeItemID(String idItem) throws ArgumentoInvalidoException;
 
 	/**
 	 * Calcula a quantidade total de itens cadastrados.
@@ -156,8 +153,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	 * 
 	 * @return Uma lista ordenada de idItens emprestados.
 	 */
-	public String getListaIdItensEmprestados()
-			throws ArgumentoInvalidoException;
+	public String getListaIdItensEmprestados() throws ArgumentoInvalidoException;
 
 	/**
 	 * Verifica se o item pessoal estah disponivel a partir de um idItem.
@@ -176,8 +172,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	 *            Usuario a ser adicionado.
 	 * @throws ArgumentoInvalidoException
 	 */
-	public void usuarioQuerSerMeuAmigo(UsuarioIF usuario)
-			throws ArgumentoInvalidoException;
+	public void usuarioQuerSerMeuAmigo(UsuarioIF usuario) throws ArgumentoInvalidoException;
 
 	/**
 	 * Requisita a amizade do usuário com o login informado.
@@ -198,8 +193,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	 * @throws ArgumentoInvalidoException
 	 *             Parâmetro inválido.
 	 */
-	public boolean ehAmigo(String amigoProcurado)
-			throws ArgumentoInvalidoException;
+	public boolean ehAmigo(String amigoProcurado) throws ArgumentoInvalidoException;
 
 	/**
 	 * Verifica se a amizade já foi requisitada.
@@ -210,8 +204,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	 * @throws ArgumentoInvalidoException
 	 *             Caso o login seja inválido.
 	 */
-	public boolean amizadeDeFoiRequisitada(String login)
-			throws ArgumentoInvalidoException;
+	public boolean amizadeDeFoiRequisitada(String login) throws ArgumentoInvalidoException;
 
 	/**
 	 * Recupera a lista de usuários que requisitaram a amizade do usuário.
@@ -273,8 +266,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	 * @param usuario
 	 *            Outro usuário, para fazer a verificação.
 	 */
-	public void aprovouAmizade(UsuarioIF usuario)
-			throws ArgumentoInvalidoException;
+	public void aprovouAmizade(UsuarioIF usuario) throws ArgumentoInvalidoException;
 
 	/**
 	 * Verifica se o item seja do usuário.
@@ -310,8 +302,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	 * @throws Exception
 	 *             Caso o id seja inexistente ou a duração seja não-positiva.
 	 */
-	public String requisitarEmprestimo(String idItem, int duracao)
-			throws Exception;
+	public String requisitarEmprestimo(String idItem, int duracao) throws Exception;
 
 	/**
 	 * Recupera a lista de empréstimos do usuário.
@@ -331,8 +322,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	 * @param emp
 	 *            Empréstimo requerido.
 	 */
-	public void adicionarRequisicaoEmprestimoEmEsperaDeAmigo(EmprestimoIF emp)
-			throws Exception;
+	public void adicionarRequisicaoEmprestimoEmEsperaDeAmigo(EmprestimoIF emp) throws Exception;
 
 	/**
 	 * Aprova um empréstimo.
@@ -343,8 +333,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	 * @throws Exception
 	 *             Caso o parâmetro não corresponda à uma requisitação.
 	 */
-	public String aprovarEmprestimo(String idRequisicaoEmprestimo)
-			throws Exception;
+	public String aprovarEmprestimo(String idRequisicaoEmprestimo) throws Exception;
 
 	/**
 	 * Verificar se o empréstimo foi aceito pelo amigo.
@@ -375,8 +364,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	 * @param conversa
 	 *            Conversa a ser adicionada.
 	 */
-	public void adicionaConversaOfftopicNaLista(ChatIF conversa)
-			throws Exception;
+	public void adicionaConversaOfftopicNaLista(ChatIF conversa) throws Exception;
 
 	/**
 	 * Adiciona uma conversa sobre uma negociação à lista de conversas do
@@ -385,8 +373,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	 * @param conversa
 	 *            Conversa a ser adicionada.
 	 */
-	public void adicionaConversaNegociacaoNaLista(ChatIF conversa)
-			throws Exception;
+	public void adicionaConversaNegociacaoNaLista(ChatIF conversa) throws Exception;
 
 	/**
 	 * Envia uma mensagem off-topic.
@@ -418,8 +405,8 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 
 	public String lerTopicos(String tipo) throws Exception;
 
-	public String pesquisarItem(String chave, String atributo,
-			String tipoOrdenacao, String criterioOrdenacao) throws Exception;
+	public String pesquisarItem(String chave, String atributo, String tipoOrdenacao,
+			String criterioOrdenacao) throws Exception;
 
 	public void incrementaReputacao();
 
@@ -449,8 +436,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 
 	public String getHistoricoToString() throws ArgumentoInvalidoException;
 
-	public void addHistoricoEmprestimoEmAndamento(UsuarioIF amigo, ItemIF item)
-			throws Exception;
+	public void addHistoricoEmprestimoEmAndamento(UsuarioIF amigo, ItemIF item) throws Exception;
 
 	public void addHistoricoAmizadeAprovada(UsuarioIF amigo) throws Exception;
 
@@ -458,15 +444,13 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 
 	public void addHistoricoTerminoEmprestimo(ItemIF item) throws Exception;
 
-	public String publicarPedido(String nomeItem, String descricaoItem)
-			throws Exception;
+	public String publicarPedido(String nomeItem, String descricaoItem) throws Exception;
 
-	public void oferecerItem(String idPublicacaoPedido, String idItem)
-			throws Exception;
+	public void oferecerItem(String idPublicacaoPedido, String idItem) throws Exception;
 
 	public void republicarPedido(String idPublicacaoPedido) throws Exception;
 
-	String enviarMensagemOferecimentoItemOffTopic(String destinatario,
-			String assunto, String mensagem) throws Exception;
+	String enviarMensagemOferecimentoItemOffTopic(String destinatario, String assunto,
+			String mensagem) throws Exception;
 
 }

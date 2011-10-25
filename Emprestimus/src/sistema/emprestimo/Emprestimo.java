@@ -22,23 +22,21 @@ public class Emprestimo implements EmprestimoIF {
 	String situacao;
 	GregorianCalendar dataDeAprovacao;
 
-	public Emprestimo(UsuarioIF emprestador, UsuarioIF beneficiado,
-			ItemIF item, String tipo, int duracao) throws Exception {
+	public Emprestimo(UsuarioIF emprestador, UsuarioIF beneficiado, ItemIF item,
+			String tipo, int duracao) throws Exception {
 		setEmprestador(emprestador);
 		setBeneficiado(beneficiado);
 		setItem(item);
 		setDuracao(duracao);
-		Validador.assertStringNaoVazia(tipo,
-				Mensagem.EMPRESTIMO_TIPO_INVALIDO.getMensagem(),
-				Mensagem.EMPRESTIMO_TIPO_INVALIDO.getMensagem());
+		Validador.assertStringNaoVazia(tipo, Mensagem.EMPRESTIMO_TIPO_INVALIDO
+				.getMensagem(), Mensagem.EMPRESTIMO_TIPO_INVALIDO.getMensagem());
 
 		if (tipo.trim().equalsIgnoreCase("emprestador")) {
 			setTipoEmprestador();
 		} else if (tipo.trim().equalsIgnoreCase("beneficiado")) {
 			setTipoBeneficiado();
 		} else {
-			throw new Exception(
-					Mensagem.EMPRESTIMO_TIPO_INXISTENTE.getMensagem());
+			throw new Exception(Mensagem.EMPRESTIMO_TIPO_INXISTENTE.getMensagem());
 		}
 		this.estado = EmprestimoEstado.EM_ANDAMENTO;
 		this.situacao = "Andamento";
@@ -53,8 +51,7 @@ public class Emprestimo implements EmprestimoIF {
 		try {
 			Long id = Long.valueOf(idEmprestimo.trim());
 		} catch (Exception e) {
-			throw new Exception(
-					Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
+			throw new Exception(Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
 		}
 		id = idEmprestimo.trim();
 
@@ -78,8 +75,7 @@ public class Emprestimo implements EmprestimoIF {
 	@Override
 	public void setDuracao(int duracao) throws Exception {
 		if (duracao <= 0)
-			throw new Exception(
-					Mensagem.EMPRESTIMO_DURACAO_INVALIDA.getMensagem());
+			throw new Exception(Mensagem.EMPRESTIMO_DURACAO_INVALIDA.getMensagem());
 		this.duracao = duracao;
 	}
 
@@ -89,8 +85,7 @@ public class Emprestimo implements EmprestimoIF {
 	}
 
 	@Override
-	public void setEmprestador(UsuarioIF emprestador)
-			throws ArgumentoInvalidoException {
+	public void setEmprestador(UsuarioIF emprestador) throws ArgumentoInvalidoException {
 		Validador.assertNaoNulo(emprestador, "UsuarioIF não deve ser null");
 		this.emprestador = emprestador;
 	}
@@ -101,8 +96,7 @@ public class Emprestimo implements EmprestimoIF {
 	}
 
 	@Override
-	public void setBeneficiado(UsuarioIF beneficiado)
-			throws ArgumentoInvalidoException {
+	public void setBeneficiado(UsuarioIF beneficiado) throws ArgumentoInvalidoException {
 		Validador.assertNaoNulo(emprestador, "UsuarioIF não deve ser null");
 		this.beneficiado = beneficiado;
 	}
@@ -221,12 +215,10 @@ public class Emprestimo implements EmprestimoIF {
 					"Transicao aprovarEmprestimo de Devolucao Requisitada Nao Permitida");
 
 		} else if (ehEstadoDevolvido()) {
-			throw new Exception(
-					"Transicao aprovarEmprestimo de Devolvido Nao Permitida");
+			throw new Exception("Transicao aprovarEmprestimo de Devolvido Nao Permitida");
 
 		} else if (ehEstadoTermino()) {
-			throw new Exception(
-					"Transicao aprovarEmprestimo de Terminal Nao Permitida");
+			throw new Exception("Transicao aprovarEmprestimo de Terminal Nao Permitida");
 
 		} else {
 			throw new Exception("Estado não implementado");
@@ -237,8 +229,7 @@ public class Emprestimo implements EmprestimoIF {
 	}
 
 	@Override
-	public synchronized void requisitarDevolucaoEmprestimo(boolean noPrazo)
-			throws Exception {
+	public synchronized void requisitarDevolucaoEmprestimo(boolean noPrazo) throws Exception {
 		if (ehEstadoAndamento()) {
 			setEstadoDevolucaoRequisitada();
 
@@ -311,8 +302,7 @@ public class Emprestimo implements EmprestimoIF {
 			addHistoricoTerminoEmprestimo();
 
 		} else if (ehEstadoTermino()) {
-			throw new Exception(
-					Mensagem.TERMINO_EMPRESTIMO_JA_CONFIRMADO.getMensagem());
+			throw new Exception(Mensagem.TERMINO_EMPRESTIMO_JA_CONFIRMADO.getMensagem());
 
 		} else {
 			throw new Exception("Estado não implementado");

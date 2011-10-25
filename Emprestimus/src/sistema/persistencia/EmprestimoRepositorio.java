@@ -22,31 +22,27 @@ public class EmprestimoRepositorio {
 		return String.valueOf(contadorID + 1);
 	}
 
-	public static String requisitarEmprestimo(EmprestimoIF emp)
-			throws Exception {
+	public static String requisitarEmprestimo(EmprestimoIF emp) throws Exception {
 		emp.setId(EmprestimoRepositorio.geraIdProxNotificacao());
 		emprestimosRealizados.put(++contadorID, emp);
 		return String.valueOf(contadorID);
 	}
 
-	public static EmprestimoIF recuperarEmprestimo(String idEmprestimo)
-			throws Exception {
+	public static EmprestimoIF recuperarEmprestimo(String idEmprestimo) throws Exception {
 		Long idLong = null;
 		try {
 			idLong = Long.parseLong(idEmprestimo);
 		} catch (Exception e) {
 			throw new Exception(Mensagem.EMPRESTIMO_INEXISTENTE.getMensagem());
 		}
-		EmprestimoIF emp = emprestimosRealizados.get(Long
-				.parseLong(idEmprestimo));
+		EmprestimoIF emp = emprestimosRealizados.get(Long.parseLong(idEmprestimo));
 		if (emp == null)
 			throw new Exception(Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
 
 		return emp;
 	}
 
-	public static String getAtributoItem(String idEmprestimo, String atributo)
-			throws Exception {
+	public static String getAtributoItem(String idEmprestimo, String atributo) throws Exception {
 		EmprestimoIF emp = recuperarEmprestimo(idEmprestimo);
 
 		String valor = null;
