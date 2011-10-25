@@ -1,15 +1,14 @@
-/**
- * 
- */
-package sistema.usuario;
 
+package sistema.usuario;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Mobile
- *
+ * Emprestimus
+ * Projeto de Sistemas de Informação I
+ * Universidade Federal de Campina Grande
  */
+
 public class CicloDeAmizade {
 
 	private String proprietario;

@@ -1,25 +1,24 @@
 package sistema.usuario;
-
-
 import java.util.List;
-
 import maps.Coordenadas;
-
 import sistema.emprestimo.EmprestimoIF;
 import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.item.ItemIF;
 import sistema.mensagem.ChatIF;
 import sistema.notificacao.Notificacao;
 
+
 /**
+ * Emprestimus
+ * Projeto de Sistemas de Informação I
+ * Universidade Federal de Campina Grande
+ * 
  * Representa um usuario do sistema. Esta interface assegura que os metodos
  * exigidos serao implementados. A instanciacao de classes que implementam esta
  * interface deve ser feita com upcast para a interface.
  * 
- * @author Joeffison Silverio de Andrade, 21011853
- * @author José Ulisses de Brito Lira Filho, 20911806
- * @version 1.2
  */
+
 public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 
 	/**

@@ -1,8 +1,12 @@
 package sistema.usuario;
-
 import java.util.Comparator;
 import java.util.Date;
 
+/**
+ * Emprestimus
+ * Projeto de Sistemas de Informação I
+ * Universidade Federal de Campina Grande
+ */
 
 public class ReputacaoUsuarioComparator implements Comparator<UsuarioIF>{
 	
