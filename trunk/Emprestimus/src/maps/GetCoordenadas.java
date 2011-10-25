@@ -3,6 +3,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -29,7 +31,8 @@ public class GetCoordenadas {
 
 			String source = requisicao(url);
 			JSONObject object = new JSONObject(source);
-			object = object.getJSONObject("results").getJSONObject("geometry")
+			JSONArray a = (JSONArray) object.get("results");
+			object = a.getJSONObject(0).getJSONObject("geometry")
 					.getJSONObject("location");
 			latitude = object.getDouble("lat");
 			longitude = object.getDouble("lng");
