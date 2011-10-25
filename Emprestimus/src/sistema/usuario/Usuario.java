@@ -134,8 +134,7 @@ public class Usuario implements UsuarioIF {
 	}
 
 	private void setCoordenadas() {
-		GetCoordenadas g1 = new GetCoordenadas();
-		RefCoordenadas r1 = g1.getCoordenadas(endereco);
+		RefCoordenadas r1 = GetCoordenadas.getCoordenadas(endereco);
 		this.latitude = r1.getLatitude();
 		this.longitude = r1.getLongitude();
 	}
