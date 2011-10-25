@@ -502,5 +502,32 @@ public class Usuario implements UsuarioIF {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public String publicarPedido(String nomeItem, String descricaoItem)
+			throws Exception {
+		
+		return GerenciadorDeNotificacoes.getInstance().addHistoricoPublicarPedido(this.getLogin(), nomeItem, descricaoItem);
+	}
+
+	@Override
+	public void oferecerItem(String idPublicacaoPedido, String idItem)
+			throws Exception {
+		AcervoDeItens.getInstance().oferecerItem(this.getLogin(), idPublicacaoPedido, idItem);
+		
+	}
+
+	@Override
+	public void republicarPedido(String idPublicacaoPedido) throws Exception {
+		GerenciadorDeNotificacoes.getInstance().republicarPedido(this, idPublicacaoPedido);
+		
+	}
+
+	@Override
+	public String enviarMensagemOferecimentoItemOffTopic(String destinatario,
+			String assunto, String mensagem) throws Exception {
+		
+		return Correio.enviarMensagemOferecimentoItemOffTopic(this.getLogin(), destinatario, assunto, mensagem);
+	}
 	
 }
