@@ -6,28 +6,30 @@ package sistema.notificacao;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import sistema.item.ItemIF;
 import sistema.usuario.UsuarioIF;
 
 /**
  * @author Mobile
- *
+ * 
  */
 public class NotificacaoPublicarPedido implements Notificacao {
-	
+
 	private String nomeItem;
 	private String descricaoItem;
 	private UsuarioIF usuario;
 	private Date data;
 	private String id;
-	
-	public NotificacaoPublicarPedido(UsuarioIF usuario, String nomeItem, String descricaoItem) {
+
+	public NotificacaoPublicarPedido(UsuarioIF usuario, String nomeItem,
+			String descricaoItem) {
 		this.nomeItem = nomeItem;
 		this.usuario = usuario;
 		this.data = new GregorianCalendar().getTime();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see sistema.notificacao.Notificacao#getData()
 	 */
 	@Override
@@ -35,7 +37,9 @@ public class NotificacaoPublicarPedido implements Notificacao {
 		return data;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see sistema.notificacao.Notificacao#setNovaData(java.util.Date)
 	 */
 	@Override
@@ -44,16 +48,22 @@ public class NotificacaoPublicarPedido implements Notificacao {
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see sistema.notificacao.Notificacao#getMensagem(sistema.usuario.UsuarioIF)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * sistema.notificacao.Notificacao#getMensagem(sistema.usuario.UsuarioIF)
 	 */
 	@Override
 	public String getMensagem(UsuarioIF usuario) {
-		//Steven Paul Jobs precisa do item The Social Network
-		return String.format("%s precisa do item %s", this.usuario.getNome(), nomeItem);
+		// Steven Paul Jobs precisa do item The Social Network
+		return String.format("%s precisa do item %s", this.usuario.getNome(),
+				nomeItem);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see sistema.notificacao.Notificacao#getId()
 	 */
 	@Override
@@ -61,7 +71,9 @@ public class NotificacaoPublicarPedido implements Notificacao {
 		return id;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see sistema.notificacao.Notificacao#setId(java.lang.String)
 	 */
 	@Override
@@ -69,13 +81,17 @@ public class NotificacaoPublicarPedido implements Notificacao {
 		id = novoId;
 		return this;
 	}
-	
-	public UsuarioIF getOriginadorMensagem(){
+
+	public UsuarioIF getOriginadorMensagem() {
 		return this.usuario;
 	}
 
-	/* (non-Javadoc)
-	 * @see sistema.notificacao.Notificacao#compareTo(sistema.notificacao.Notificacao)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * sistema.notificacao.Notificacao#compareTo(sistema.notificacao.Notificacao
+	 * )
 	 */
 	@Override
 	public int compareTo(Notificacao notificacao) {

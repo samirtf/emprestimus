@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import sistema.item.ItemIF;
-import sistema.usuario.Usuario;
 import sistema.usuario.UsuarioIF;
 
 /**
@@ -12,7 +11,7 @@ import sistema.usuario.UsuarioIF;
  * @author José Nathaniel L de Abrante - nathaniel.una@gmail.com
  * @since 20/11/2011
  * @version 1.0
- *
+ * 
  */
 public class NotificacaoNovoItem implements Notificacao {
 	private UsuarioIF usuario;
@@ -20,7 +19,6 @@ public class NotificacaoNovoItem implements Notificacao {
 	private Date data;
 	private String id;
 
-	
 	public NotificacaoNovoItem(UsuarioIF usuario, ItemIF item) throws Exception {
 		this.usuario = usuario;
 		this.item = item;
@@ -41,7 +39,7 @@ public class NotificacaoNovoItem implements Notificacao {
 
 	@Override
 	public String getMensagem(UsuarioIF usuario) {
-		//O usuário passado como argumento não será usado.
+		// O usuário passado como argumento não será usado.
 		return this.usuario.getNome() + " cadastrou " + item.getNome();
 	}
 
@@ -55,7 +53,7 @@ public class NotificacaoNovoItem implements Notificacao {
 		this.id = novoId;
 		return this;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof NotificacaoNovoItem) {

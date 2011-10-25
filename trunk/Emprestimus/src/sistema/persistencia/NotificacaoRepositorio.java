@@ -10,23 +10,24 @@ import sistema.utilitarios.Mensagem;
  * Singleton
  * 
  * @author Nathaniel
- *
+ * 
  */
 public class NotificacaoRepositorio {
 	private static long contadorID = 0;
 	private static NotificacaoRepositorio repositorio;
-	
+
 	private static Map<Long, Notificacao> notificacoesCadastradas = new TreeMap<Long, Notificacao>();
 
-	private NotificacaoRepositorio() {}
-	
+	private NotificacaoRepositorio() {
+	}
+
 	public static NotificacaoRepositorio getInstance() {
 		if (repositorio == null) {
 			repositorio = new NotificacaoRepositorio();
 		}
 		return repositorio;
 	}
-	
+
 	/**
 	 * Calcula o id do proximo emprestimo a ser cadastrado.
 	 * 

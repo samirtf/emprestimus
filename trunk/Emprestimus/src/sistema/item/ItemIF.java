@@ -69,12 +69,12 @@ public interface ItemIF extends Comparable<ItemIF> {
 	public String getCategoria();
 
 	/**
-	 * -METODO DELETADO-
-	 * Recupera o tipo da categoria do item.
+	 * -METODO DELETADO- Recupera o tipo da categoria do item.
+	 * 
 	 * @deprecated
 	 * @return O tipo da categoria do item.
 	 */
-//	public ItemCategoria getCategoriaType();
+	// public ItemCategoria getCategoriaType();
 
 	/**
 	 * Recupera a descricao do item.
@@ -115,15 +115,15 @@ public interface ItemIF extends Comparable<ItemIF> {
 	public void setCategoria(String categoria) throws Exception;
 
 	/**
-	 * -METODO DELETADO-
-	 * Altera a categoria do item.
+	 * -METODO DELETADO- Altera a categoria do item.
+	 * 
 	 * @deprecated
 	 * @param categoria
 	 *            A categoria do item (ItemCategoria).
 	 * @throws Exception
 	 *             Caso o parametro passado seja nulo, ele lanca excecao.
 	 */
-//	public void setCategoria(ItemCategoria categoria) throws Exception;
+	// public void setCategoria(ItemCategoria categoria) throws Exception;
 
 	/**
 	 * Altera a descricao do item.
@@ -149,7 +149,7 @@ public interface ItemIF extends Comparable<ItemIF> {
 	 *            Nova condicao de disponibilidade para o item.
 	 */
 	public void setDisponibilidade(boolean disponibilidade);
-	
+
 	public Date getDataCriacao();
 
 	/**
@@ -161,6 +161,7 @@ public interface ItemIF extends Comparable<ItemIF> {
 	 *         realizada pelo id dos mesmos. False - Se forem de instancias
 	 *         diferentes ou nao forem iguais.
 	 */
+	@Override
 	public boolean equals(Object outroItem);
 
 	/**

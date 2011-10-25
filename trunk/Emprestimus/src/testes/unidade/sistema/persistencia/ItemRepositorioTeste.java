@@ -1,25 +1,22 @@
 package testes.unidade.sistema.persistencia;
 
 /**
- * Emprestimus
- * Projeto de Sistemas de Informação I
- * Universidade Federal de Campina Grande
+ * Emprestimus Projeto de Sistemas de Informação I Universidade Federal de
+ * Campina Grande
  */
 
-
 public class ItemRepositorioTeste {
-	
 
-	public void setUp(){
+	public void setUp() {
 		System.out.println("Inicializando...");
 	}
-	
-	public void tearDown(){
+
+	public void tearDown() {
 		System.out.println("Encerrando...");
 	}
-	
-	public void testa01(){
-		
+
+	public void testa01() {
+
 	}
-	
+
 }

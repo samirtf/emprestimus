@@ -1,6 +1,5 @@
 package sistema.autenticacao;
 
-
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -61,7 +60,7 @@ public class Autenticacao implements AutenticacaoIF {
 
 	@Override
 	public void encerrarSistema() {
-		//System.exit(0);
+		// System.exit(0);
 	}
 
 	@Override
@@ -132,7 +131,7 @@ public class Autenticacao implements AutenticacaoIF {
 		for (Field f : usuario.getClass().getDeclaredFields()) {
 			if (f.getName().equals(atributo)) {
 				f.setAccessible(true);
-				valor = (f.get((Usuario) usuario)).toString();
+				valor = (f.get(usuario)).toString();
 			}
 		}
 		if (valor == null) {
@@ -197,6 +196,7 @@ public class Autenticacao implements AutenticacaoIF {
 	 *            Um idSessao.
 	 * @return True - Se existir o idSessao. False - Se nao existir.
 	 */
+	@Override
 	public boolean existeIdSessao(String idSessao) {
 		return sessoes.containsKey(idSessao);
 	}
@@ -226,7 +226,7 @@ public class Autenticacao implements AutenticacaoIF {
 
 	@Override
 	public Collection<UsuarioIF> getListaUsuarios() {
-		return this.usuariosCadastrados.values();
+		return Autenticacao.usuariosCadastrados.values();
 	}
 
 	public List<UsuarioIF> getUsuarios(UsuarioIF userCorrente) {

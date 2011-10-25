@@ -5,8 +5,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import sistema.item.ItemIF;
-import sistema.usuario.Usuario;
-import sistema.usuario.UsuarioIF;
 import sistema.utilitarios.Mensagem;
 
 public class ItemRepositorio {
@@ -24,7 +22,6 @@ public class ItemRepositorio {
 		return String.valueOf(contadorID + 1);
 	}
 
-	
 	public static String cadastrarItem(ItemIF item) throws Exception {
 		item.setId(ItemRepositorio.geraIdProxItem());
 		itensCadastrados.put(++contadorID, item);
@@ -41,7 +38,7 @@ public class ItemRepositorio {
 		ItemIF item = itensCadastrados.get(idLong);
 		if (item == null)
 			throw new Exception(Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
-		
+
 		return item;
 	}
 
@@ -53,7 +50,7 @@ public class ItemRepositorio {
 		for (Field f : item.getClass().getDeclaredFields()) {
 			if (f.getName().equals(atributo)) {
 				f.setAccessible(true);
-				valor = (f.get((ItemIF) item)).toString();
+				valor = (f.get(item)).toString();
 			}
 		}
 		if (valor == null)
@@ -61,53 +58,50 @@ public class ItemRepositorio {
 
 		return valor;
 	}
-	
+
 	/**
 	 * Calcula a quantidade de itens cadastrados.
-	 * @return
-	 * 		A quantidade de itens cadastrados.
+	 * 
+	 * @return A quantidade de itens cadastrados.
 	 */
-	public static int qntItens(){
+	public static int qntItens() {
 		return itensCadastrados.size();
 	}
-	
-	
+
 	/**
 	 * Verifica se um determinado item existe no repositorio.
 	 * 
 	 * @param idItem
-	 * 		Um idItem.
-	 * @return
-	 * 		True - Se o item procurado existir.
-	 * 		False - Se o item não existir.
+	 *            Um idItem.
+	 * @return True - Se o item procurado existir. False - Se o item não
+	 *         existir.
 	 */
-	public static boolean existeItem( String idItem ){
+	public static boolean existeItem(String idItem) {
 		Long id;
-		try{
+		try {
 			id = Long.valueOf(idItem);
-		}catch(Exception e){
+		} catch (Exception e) {
 			return false;
 		}
 		return itensCadastrados.containsKey(Long.valueOf(idItem));
 	}
 
-	public static void removerItem( String idItem ){
+	public static void removerItem(String idItem) {
 		Long id;
-		try{
+		try {
 			id = Long.valueOf(idItem);
-			if(existeItem((idItem))){
+			if (existeItem((idItem))) {
 				itensCadastrados.remove(id);
 			}
-		}catch(Exception e){
-		
-		}
-		
-	}
+		} catch (Exception e) {
 
+		}
+
+	}
 
 	public static void zerarRepositorio() {
 		itensCadastrados = new TreeMap<Long, ItemIF>();
 		contadorID = 0;
 	}
-	
+
 }

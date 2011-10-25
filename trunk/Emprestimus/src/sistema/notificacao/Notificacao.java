@@ -8,9 +8,9 @@ import sistema.usuario.UsuarioIF;
  * @author José Nathaniel L de Abrante - nathaniel.una@gmail.com
  * @since 19/11/2011
  * @version 1.0
- *
+ * 
  */
-public interface Notificacao extends Comparable<Notificacao>{
+public interface Notificacao extends Comparable<Notificacao> {
 
 	/**
 	 * Devolve a data de criacao da notificação
@@ -18,7 +18,7 @@ public interface Notificacao extends Comparable<Notificacao>{
 	 * @return data
 	 */
 	public Date getData();
-	
+
 	/**
 	 * Atribue uma nova data de atualizacao da notificacao
 	 * 
@@ -55,9 +55,8 @@ public interface Notificacao extends Comparable<Notificacao>{
 	 *             Caso o ID não seja válido
 	 */
 	public Notificacao setId(String novoId) throws Exception;
-	
+
+	@Override
 	public int compareTo(Notificacao notificacao);
-	
-	
-	
+
 }

@@ -7,14 +7,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 import sistema.excecoes.ArgumentoInvalidoException;
-import sistema.persistencia.EmprestimoRepositorio;
 import sistema.usuario.Usuario;
 import sistema.usuario.UsuarioIF;
 import sistema.utilitarios.Mensagem;
 import static sistema.utilitarios.Validador.*;
 
 public class Chat implements ChatIF {
-	
+
 	String idMensagem;
 	UsuarioIF remetente;
 	UsuarioIF destinatario;
@@ -22,10 +21,11 @@ public class Chat implements ChatIF {
 	List<MensagemChatIF> conversa;
 	MensagemTipo tipo;
 	Date dataUltimaAtualizacao;
-	
-	public Chat(UsuarioIF remetente, UsuarioIF destinatario, String assunto, 
-			String mensagem, String idRequisicaoEmprestimo ) throws ArgumentoInvalidoException{
-		
+
+	public Chat(UsuarioIF remetente, UsuarioIF destinatario, String assunto,
+			String mensagem, String idRequisicaoEmprestimo)
+			throws ArgumentoInvalidoException {
+
 		setRemetente(remetente);
 		setDestinatario(destinatario);
 		setAssunto(assunto);
@@ -34,12 +34,12 @@ public class Chat implements ChatIF {
 		setIdRequisicaEmprestimo(idRequisicaoEmprestimo);
 		setTipoNegociacaoMsg();
 		setDataUltimaAtualizacao();
-		
+
 	}
 
 	public Chat(UsuarioIF remetente, UsuarioIF destinatario, String assunto,
-			String mensagem ) throws ArgumentoInvalidoException {
-		
+			String mensagem) throws ArgumentoInvalidoException {
+
 		setRemetente(remetente);
 		setDestinatario(destinatario);
 		setAssunto(assunto);
@@ -48,8 +48,8 @@ public class Chat implements ChatIF {
 		setTipoOffTopicMsg();
 		setDataUltimaAtualizacao();
 	}
-	
-	public synchronized void setDataUltimaAtualizacao(){
+
+	public synchronized void setDataUltimaAtualizacao() {
 		this.dataUltimaAtualizacao = new GregorianCalendar().getTime();
 	}
 
@@ -57,29 +57,36 @@ public class Chat implements ChatIF {
 	public void setTipoOffTopicMsg() {
 		this.tipo = MensagemTipo.OFF_TOPIC;
 	}
-	
+
 	@Override
-	public void adicionaMensagem(String mensagem) throws ArgumentoInvalidoException {
-		assertStringNaoVazia(mensagem, Mensagem.MENSAGEM_INVALIDA.getMensagem(), Mensagem.MENSAGEM_INVALIDA.getMensagem());
-		MensagemChat mensagemChat = new MensagemChat(mensagem); 
-		this.conversa.add( mensagemChat );
-		this.dataUltimaAtualizacao = mensagemChat.getData(); 
+	public void adicionaMensagem(String mensagem)
+			throws ArgumentoInvalidoException {
+		assertStringNaoVazia(mensagem,
+				Mensagem.MENSAGEM_INVALIDA.getMensagem(),
+				Mensagem.MENSAGEM_INVALIDA.getMensagem());
+		MensagemChat mensagemChat = new MensagemChat(mensagem);
+		this.conversa.add(mensagemChat);
+		this.dataUltimaAtualizacao = mensagemChat.getData();
 	}
 
 	@Override
 	public void setAssunto(String assunto) throws ArgumentoInvalidoException {
-		assertStringNaoVazia(assunto, Mensagem.ASSUNTO_INVALIDO.getMensagem(), Mensagem.ASSUNTO_INVALIDO.getMensagem());
+		assertStringNaoVazia(assunto, Mensagem.ASSUNTO_INVALIDO.getMensagem(),
+				Mensagem.ASSUNTO_INVALIDO.getMensagem());
 		this.assunto = assunto;
 	}
 
 	@Override
-	public void setDestinatario(UsuarioIF destinatario) throws ArgumentoInvalidoException {
-		assertNaoNulo(destinatario, Mensagem.DESTINATARIO_INVALIDO.getMensagem());
+	public void setDestinatario(UsuarioIF destinatario)
+			throws ArgumentoInvalidoException {
+		assertNaoNulo(destinatario,
+				Mensagem.DESTINATARIO_INVALIDO.getMensagem());
 		this.destinatario = destinatario;
 	}
 
 	@Override
-	public void setRemetente(UsuarioIF remetente) throws ArgumentoInvalidoException {
+	public void setRemetente(UsuarioIF remetente)
+			throws ArgumentoInvalidoException {
 		assertNaoNulo(remetente, Mensagem.REMETENTE_INVALIDO.getMensagem());
 		this.remetente = remetente;
 	}
@@ -88,10 +95,13 @@ public class Chat implements ChatIF {
 	public void setIdMensagem(String idMensagem) {
 		this.idMensagem = idMensagem;
 	}
-	
+
 	@Override
-	public void setIdRequisicaEmprestimo(String idRequisicaoEmprestimo) throws ArgumentoInvalidoException {		
-		assertStringNaoVazia(idRequisicaoEmprestimo, Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem(), Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
+	public void setIdRequisicaEmprestimo(String idRequisicaoEmprestimo)
+			throws ArgumentoInvalidoException {
+		assertStringNaoVazia(idRequisicaoEmprestimo,
+				Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem(),
+				Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
 		this.idRequisicaoEmprestimo = idRequisicaoEmprestimo;
 	}
 
@@ -104,10 +114,10 @@ public class Chat implements ChatIF {
 	public String getMensagem() {
 		StringBuffer saida = new StringBuffer();
 		Iterator<MensagemChatIF> iterador = conversa.iterator();
-		while(iterador.hasNext()){
+		while (iterador.hasNext()) {
 			saida.append(iterador.next().getMensagem());
 		}
-		
+
 		return this.conversa.toString();
 	}
 
@@ -140,23 +150,27 @@ public class Chat implements ChatIF {
 	public String getConversa() throws Exception {
 		Iterator<MensagemChatIF> iterador = this.conversa.iterator();
 		StringBuffer conversa = new StringBuffer();
-		
-		while(iterador.hasNext()){
-			conversa.append(iterador.next().getMensagem()+"; ");
+
+		while (iterador.hasNext()) {
+			conversa.append(iterador.next().getMensagem() + "; ");
 		}
-		
-		if(conversa.toString().equals(""))
+
+		if (conversa.toString().equals(""))
 			throw new Exception("Conversa sem mensagem");
-		return conversa.toString().trim().substring(0, conversa.toString().trim().length()-1);
+		return conversa.toString().trim()
+				.substring(0, conversa.toString().trim().length() - 1);
 	}
-	
-	public static void main(String[] args) throws ArgumentoInvalidoException, Exception{
-		
-		ChatIF conversa = new Chat(new Usuario("samir1", "Samir1", "endereco1"), new Usuario("samir2", "Samir2", "endereco2"),
+
+	public static void main(String[] args) throws ArgumentoInvalidoException,
+			Exception {
+
+		ChatIF conversa = new Chat(
+				new Usuario("samir1", "Samir1", "endereco1"), new Usuario(
+						"samir2", "Samir2", "endereco2"),
 				"Uma conversa espretensiosa", "Uma mensagem nada a ver", "id");
-		
+
 		conversa.adicionaMensagem("Opaaa");
-		conversa.adicionaMensagem("Suco de uva");		
+		conversa.adicionaMensagem("Suco de uva");
 	}
 
 	@Override
@@ -174,6 +188,4 @@ public class Chat implements ChatIF {
 		return this.dataUltimaAtualizacao;
 	}
 
-	
-	
 }

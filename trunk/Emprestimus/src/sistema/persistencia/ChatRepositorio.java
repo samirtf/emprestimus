@@ -6,12 +6,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
-import sistema.emprestimo.EmprestimoIF;
 import sistema.mensagem.ChatIF;
 import sistema.utilitarios.Mensagem;
 
 public class ChatRepositorio {
-	
+
 	private static long contadorID = 0;
 
 	private static Map<Long, ChatIF> conversas = new TreeMap<Long, ChatIF>();
@@ -25,7 +24,6 @@ public class ChatRepositorio {
 		return String.valueOf(contadorID + 1);
 	}
 
-	
 	public static String registrarConversa(ChatIF mensagem) throws Exception {
 		mensagem.setIdMensagem(ChatRepositorio.geraIdProxConversa());
 		conversas.put(++contadorID, mensagem);
@@ -42,7 +40,7 @@ public class ChatRepositorio {
 		ChatIF msg = conversas.get(Long.parseLong(idConversa));
 		if (msg == null)
 			throw new Exception(Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
-		
+
 		return msg;
 	}
 
@@ -54,7 +52,7 @@ public class ChatRepositorio {
 		for (Field f : msg.getClass().getDeclaredFields()) {
 			if (f.getName().equals(atributo)) {
 				f.setAccessible(true);
-				valor = (f.get((ChatIF) msg)).toString();
+				valor = (f.get(msg)).toString();
 			}
 		}
 		if (valor == null)
@@ -62,74 +60,71 @@ public class ChatRepositorio {
 
 		return valor;
 	}
-	
+
 	/**
 	 * Calcula a quantidade de emprestimos cadastrados.
-	 * @return
-	 * 		A quantidade de emprestimos cadastrados.
+	 * 
+	 * @return A quantidade de emprestimos cadastrados.
 	 */
-	public static int qntMensagens(){
+	public static int qntMensagens() {
 		return conversas.size();
 	}
-	
-	
+
 	/**
 	 * Verifica se um determinado emprestimos existe no repositorio.
 	 * 
 	 * @param idEmprestimo
-	 * 		Um idEmprestimo.
-	 * @return
-	 * 		True - Se o emprestimo procurado existir.
-	 * 		False - Se o emprestimo não existir.
+	 *            Um idEmprestimo.
+	 * @return True - Se o emprestimo procurado existir. False - Se o emprestimo
+	 *         não existir.
 	 */
-	public static boolean existeConversa( String idConversa ){
+	public static boolean existeConversa(String idConversa) {
 		Long id;
-		try{
+		try {
 			id = Long.valueOf(idConversa);
-		}catch(Exception e){
+		} catch (Exception e) {
 			return false;
 		}
 		return conversas.containsKey(Long.valueOf(idConversa));
 	}
-	
-	public static ChatIF existeConversaEntreAsPessoasSobreMesmoAssuntoETipo( String remetente, 
-			String destinatario, String assunto, boolean ehOffTopic ) {
-		
-		Iterator<Entry<Long, ChatIF>> iterador = conversas.entrySet().iterator();
+
+	public static ChatIF existeConversaEntreAsPessoasSobreMesmoAssuntoETipo(
+			String remetente, String destinatario, String assunto,
+			boolean ehOffTopic) {
+
+		Iterator<Entry<Long, ChatIF>> iterador = conversas.entrySet()
+				.iterator();
 		ChatIF conversaSaida = null;
-		while(iterador.hasNext()){			
+		while (iterador.hasNext()) {
 			Entry<Long, ChatIF> conversaEntrada = iterador.next();
 			ChatIF conversa = conversaEntrada.getValue();
-			if( ( conversa.getRemetente().getLogin().equals(remetente) && 
-					conversa.getDestinatario().getLogin().equals(destinatario) ) ||
-				( conversa.getRemetente().getLogin().equals(destinatario) && 
-					conversa.getDestinatario().getLogin().equals(remetente)) ){
-				
-				if( conversa.getAssunto().trim().equals(assunto.trim()) ){
-					if(ehOffTopic){
-						if(conversa.ehConversaOfftopic())
+			if ((conversa.getRemetente().getLogin().equals(remetente) && conversa
+					.getDestinatario().getLogin().equals(destinatario))
+					|| (conversa.getRemetente().getLogin().equals(destinatario) && conversa
+							.getDestinatario().getLogin().equals(remetente))) {
+
+				if (conversa.getAssunto().trim().equals(assunto.trim())) {
+					if (ehOffTopic) {
+						if (conversa.ehConversaOfftopic())
 							// trata-se da mesma conversa
 							return conversa;
-					}else{
-						if(!conversa.ehConversaOfftopic()){
+					} else {
+						if (!conversa.ehConversaOfftopic()) {
 							return conversa;
 						}
 					}
-					
+
 				}
 			}
-			
+
 		}
-		
+
 		return null;
 	}
-
 
 	public static void zerarRepositorio() {
 		conversas = new TreeMap<Long, ChatIF>();
 		contadorID = 0;
 	}
-	
-	
-	
+
 }

@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import sistema.item.ItemIF;
-import sistema.usuario.Usuario;
 import sistema.usuario.UsuarioIF;
 
 /**
@@ -12,7 +11,7 @@ import sistema.usuario.UsuarioIF;
  * @author José Nathaniel L de Abrante - nathaniel.una@gmail.com
  * @since 23/11/2011
  * @version 1.0
- *
+ * 
  */
 public class NotificacaoEmprestimoAndamento implements Notificacao {
 	private UsuarioIF dono;
@@ -26,7 +25,7 @@ public class NotificacaoEmprestimoAndamento implements Notificacao {
 	 * @param dono
 	 * @param beneficiado
 	 * @param item
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public NotificacaoEmprestimoAndamento(UsuarioIF dono,
 			UsuarioIF beneficiado, ItemIF item) throws Exception {
@@ -47,7 +46,6 @@ public class NotificacaoEmprestimoAndamento implements Notificacao {
 		data = new GregorianCalendar().getTime();
 		return this;
 	}
-	
 
 	@Override
 	public String getMensagem(UsuarioIF usuario) {
@@ -76,7 +74,7 @@ public class NotificacaoEmprestimoAndamento implements Notificacao {
 	}
 
 	@Override
-	public int compareTo(Notificacao o) {		
+	public int compareTo(Notificacao o) {
 		return getData().compareTo(o.getData());
 	}
 

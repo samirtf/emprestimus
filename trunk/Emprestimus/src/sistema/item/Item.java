@@ -24,7 +24,7 @@ import sistema.utilitarios.Mensagem;
 public class Item implements ItemIF {
 
 	private String idItem, nome, descricao;
-	//private List<String> categoria;
+	// private List<String> categoria;
 	private String categoria;
 	private Date dataCriacao;
 	private boolean estaDisponivel;
@@ -50,11 +50,11 @@ public class Item implements ItemIF {
 
 	@Deprecated
 	public Item(String nome, String descricao, String categoria)
-	throws Exception {
+			throws Exception {
 		this(nome, descricao, categoria, null);
 	}
-	
-	private void setDataCriacao(){
+
+	private void setDataCriacao() {
 		try {
 			Thread.sleep(1);
 		} catch (InterruptedException e) {
@@ -77,11 +77,11 @@ public class Item implements ItemIF {
 	public String getCategoria() {
 		return this.categoria;
 	}
-	
+
 	public UsuarioIF getDono() {
 		return dono;
 	}
-	
+
 	public void setDono(UsuarioIF dono) {
 		this.dono = dono;
 	}
@@ -93,21 +93,22 @@ public class Item implements ItemIF {
 
 	@Override
 	public ItemIF setId(String id) throws Exception {
-		assertStringNaoVazia(id, "ID do item não pode ser nula", "ID do item não pode ser vazia");
+		assertStringNaoVazia(id, "ID do item não pode ser nula",
+				"ID do item não pode ser vazia");
 		this.idItem = id;
 		return this;
 	}
 
 	@Override
 	public void setNome(String nome) throws Exception {
-		assertStringNaoVazia(nome, Mensagem.NOME_INVALIDO.getMensagem(), Mensagem.NOME_INVALIDO.getMensagem());
+		assertStringNaoVazia(nome, Mensagem.NOME_INVALIDO.getMensagem(),
+				Mensagem.NOME_INVALIDO.getMensagem());
 		this.nome = nome.trim();
 	}
 
 	@Override
 	public void setCategoria(String categoria) throws Exception {
 		this.categoria = categoria;
-		
 
 	}
 
@@ -146,24 +147,27 @@ public class Item implements ItemIF {
 
 	@Override
 	public void adicionaInteressado(UsuarioIF interessado) throws Exception {
-		asserteTrue(!interessados.contains(interessado), "O usuario já está entre os interessados."); 
-		//FIXME utilizar as mensagens constantes do enum Mensagem
+		asserteTrue(!interessados.contains(interessado),
+				"O usuario já está entre os interessados.");
+		// FIXME utilizar as mensagens constantes do enum Mensagem
 		interessados.add(interessado);
-		Notificacao notif = new NotificacaoRegistrarInteresseItem(interessado, this.getDono(), this);
+		Notificacao notif = new NotificacaoRegistrarInteresseItem(interessado,
+				this.getDono(), this);
 		NotificacaoRepositorio.getInstance().novaNotificacao(notif);
 	}
 
 	@Override
 	public void removeInteressado(UsuarioIF interessado) throws Exception {
-		asserteTrue(interessados.remove(interessado), "O usuario não está entre os interessados."); 
-		//FIXME utilizar as mensagens constantes do enum Mensagem
-		
+		asserteTrue(interessados.remove(interessado),
+				"O usuario não está entre os interessados.");
+		// FIXME utilizar as mensagens constantes do enum Mensagem
+
 	}
 
 	@Override
 	public void removeTodosInteressados() {
 		interessados.clear();
-		
+
 	}
 
 	@Override

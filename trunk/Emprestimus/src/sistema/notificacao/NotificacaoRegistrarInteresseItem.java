@@ -11,19 +11,21 @@ import sistema.usuario.UsuarioIF;
 
 /**
  * @author Mobile
- *
+ * 
  */
 public class NotificacaoRegistrarInteresseItem implements Notificacao {
-	
+
 	private UsuarioIF interessado;
 	private UsuarioIF amigo;
 	private ItemIF item;
 	private Date data;
 	private String id;
-	
-	private NotificacaoRegistrarInteresseItem(){}
-	
-	public NotificacaoRegistrarInteresseItem(UsuarioIF interessado, UsuarioIF amigo, ItemIF item) throws Exception {
+
+	private NotificacaoRegistrarInteresseItem() {
+	}
+
+	public NotificacaoRegistrarInteresseItem(UsuarioIF interessado,
+			UsuarioIF amigo, ItemIF item) throws Exception {
 		this.interessado = interessado;
 		this.amigo = amigo;
 		this.item = item;
@@ -47,13 +49,14 @@ public class NotificacaoRegistrarInteresseItem implements Notificacao {
 		return this;
 	}
 
-
 	@Override
 	public String getMensagem(UsuarioIF usuario) {
-		//William Henry Gates III tem interesse pelo item The Social Network de Mark Zuckerberg
-		return String.format("%s tem interesse pelo item %s de %s", getNomeDoInteressado(), getNomeItem(), getNomeDoAmigo());
+		// William Henry Gates III tem interesse pelo item The Social Network de
+		// Mark Zuckerberg
+		return String.format("%s tem interesse pelo item %s de %s",
+				getNomeDoInteressado(), getNomeItem(), getNomeDoAmigo());
 	}
-	
+
 	private String getNomeDoAmigo() {
 		return this.amigo.getNome();
 	}

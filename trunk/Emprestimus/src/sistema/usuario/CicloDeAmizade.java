@@ -1,12 +1,11 @@
-
 package sistema.usuario;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Emprestimus
- * Projeto de Sistemas de Informação I
- * Universidade Federal de Campina Grande
+ * Emprestimus Projeto de Sistemas de Informação I Universidade Federal de
+ * Campina Grande
  */
 
 public class CicloDeAmizade {
@@ -22,8 +21,8 @@ public class CicloDeAmizade {
 		queremSerMeusAmigos = new ArrayList<UsuarioIF>();
 		queroSerAmigoDeles = new ArrayList<UsuarioIF>();
 	}
-	
-	public String getProprietario(){
+
+	public String getProprietario() {
 		return proprietario;
 	}
 
@@ -40,14 +39,12 @@ public class CicloDeAmizade {
 	public List<UsuarioIF> getQueremSerMeusAmigos() {
 		return queremSerMeusAmigos;
 	}
-	
+
 	/**
 	 * @return the amigos
 	 */
 	public List<UsuarioIF> getQueroSerAmigoDeles() {
 		return queroSerAmigoDeles;
 	}
-	
-	
 
 }

@@ -4,22 +4,22 @@ import java.util.Scanner;
 import sistema.utilitarios.Mensagem;
 
 public class InterfaceTexto {
-	
+
 	private static EmprestimusIF emprestimus;
 	private static String login_logado;
 	private static String id_sessao;
-	
+
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		emprestimus = Emprestimus.getInstance();
-		
+
 		menuDeslogado();
 	}
-	
+
 	private static void menuDeslogado() {
-		
+
 		final int logar = 1;
 		final int criaUsuario = 2;
 		final int zerarSistema = 3;
@@ -29,59 +29,59 @@ public class InterfaceTexto {
 		iuExibirMensagem(Mensagem.BOAS_VINDAS.getMensagem());
 		iuExibirMensagem("\n\n" + Mensagem.MENU.getMensagem());
 		iuExibirMensagem(Mensagem.PEDIR_OPCAO.getMensagem());
-		
+
 		opcao = pegarOpcao(1, 4);
-		
+
 		switch (opcao) {
 		case logar:
 			logar();
 			break;
-			
+
 		case criaUsuario:
 			criarUsuario();
 			break;
-			
+
 		case zerarSistema:
 			emprestimus.zerarSistema();
 			break;
-			
+
 		case encerrarSistema:
 			iuExibirMensagem(Mensagem.ADEUS.getMensagem());
 			encerrarSistema();
 			break;
-			
+
 		default:
 			menuDeslogado();
 			break;
 		}
-		
+
 		menuDeslogado();
-		
+
 	}
 
 	private static void encerrarSistema() {
 		emprestimus.encerrarSistema();
 		System.exit(0);
-		
+
 	}
 
 	private static void logar() {
 		iuExibirMensagem(Mensagem.PEDIR_LOGIN.getMensagem());
-		
+
 		try {
 			login_logado = pegaStringDaEntrada();
 			id_sessao = emprestimus.abrirSessao(login_logado);
 			menuLogado();
-			
+
 		} catch (Exception e) {
 			id_sessao = null;
 			login_logado = null;
 			iuExibirMensagem(e.getMessage());
-			
-			if(!tentarNovamente()){
+
+			if (!tentarNovamente()) {
 				menuDeslogado();
 			}
-			
+
 			logar();
 		}
 	}
@@ -89,259 +89,263 @@ public class InterfaceTexto {
 	private static void menuLogado() {
 		int opcao;
 		iuExibirMensagem(Mensagem.MENU_LOGADO.getMensagem());
-		
+
 		final int OPCAO_DESLOGAR = 6;
 		opcao = pegarOpcao(1, OPCAO_DESLOGAR);
-		
+
 		switch (opcao) {
 		case 1:
 			menuPerfilProprio();
 			break;
-			
+
 		case 2:
 			menuPerfilOutroUsuario();
 			break;
-			
+
 		case 3:
 			menuCaixaMensagem();
 			break;
-			
+
 		case 4:
 			menuItens();
 			break;
-	
+
 		case 5:
 			menuEmprestimos();
 			break;
-			
+
 		case OPCAO_DESLOGAR:
 			deslogar();
 			break;
-			
+
 		default:
 			break;
 		}
-		if (opcao != OPCAO_DESLOGAR) menuLogado();
+		if (opcao != OPCAO_DESLOGAR)
+			menuLogado();
 	}
 
 	private static void deslogar() {
 		iuExibirMensagem(Mensagem.DESLOGAR.getMensagem());
 		menuDeslogado();
 	}
-	
+
 	private static void menuPerfilProprio() {
 		int opcao;
 		iuExibirMensagem(Mensagem.MENU_PERFIL_PROPRIO.getMensagem());
-		
+
 		final int OPCAO_VOLTAR = 14;
 		opcao = pegarOpcao(1, OPCAO_VOLTAR);
-		
-		
+
 		switch (opcao) {
 		case 1:
 			getAtributo();
 			break;
-			
+
 		case 2:
 			localizarUsuarioPalavraChave();
 			break;
-			
+
 		case 3:
 			localizarUsuario();
 			break;
-			
+
 		case 4:
 			requisitarAmizade();
 			break;
-			
+
 		case 5:
 			visualizarRequisitacoesAmizade();
 			break;
-	
+
 		case 6:
 			aprovarAmizade();
 			break;
-			
+
 		case 7:
 			verificarAmizade();
 			break;
-			
+
 		case 8:
 			verAmigos();
 			break;
-		
+
 		case 9:
 			desfazerAmizade();
 			break;
-		
+
 		case 10:
 			verRanking();
 			break;
-		
+
 		case 11:
 			incrementarDias();
 			break;
-		
+
 		case 12:
 			visualizarHistorico();
 			break;
-			
+
 		case 13:
 			visualizarHistorico_timeLine();
 			break;
-			
+
 		case OPCAO_VOLTAR:
 			voltarMenuLogado();
 			break;
-			
+
 		default:
 			break;
 		}
-		if (opcao != OPCAO_VOLTAR) menuPerfilProprio();
+		if (opcao != OPCAO_VOLTAR)
+			menuPerfilProprio();
 	}
-	
+
 	private static void menuPerfilOutroUsuario() {
 		int opcao;
 		iuExibirMensagem(Mensagem.MENU_PERFIL_ALHEIO.getMensagem());
-		
+
 		final int OPCAO_VOLTAR = 4;
 		opcao = pegarOpcao(1, OPCAO_VOLTAR);
-		
+
 		switch (opcao) {
 		case 1:
 			getAtributoOutroUsuario();
 			break;
-		
+
 		case 2:
 			verAmigosOutroUsuario();
 			break;
-		
+
 		case 3:
 			verItensOutroUsuario();
 			break;
-		
+
 		case OPCAO_VOLTAR:
 			voltarMenuLogado();
 			break;
-			
+
 		default:
 			break;
 		}
-		if (opcao != OPCAO_VOLTAR) menuPerfilOutroUsuario();
+		if (opcao != OPCAO_VOLTAR)
+			menuPerfilOutroUsuario();
 	}
-	
+
 	private static void menuCaixaMensagem() {
 		int opcao;
 		iuExibirMensagem(Mensagem.MENU_CAIXA_DE_MENSAGENS.getMensagem());
-		
+
 		final int OPCAO_VOLTAR = 5;
 		opcao = pegarOpcao(1, OPCAO_VOLTAR);
-		
+
 		switch (opcao) {
 		case 1:
 			enviarMensagemOFFTopic();
 			break;
-			
+
 		case 2:
 			enviarMensagemNegociacao();
 			break;
-			
+
 		case 3:
 			lerTopicos();
 			break;
-			
+
 		case 4:
 			lerMensagens();
 			break;
-		
+
 		case OPCAO_VOLTAR:
 			voltarMenuLogado();
 			break;
-			
+
 		default:
 			break;
 		}
-		if (opcao != OPCAO_VOLTAR) menuCaixaMensagem();
+		if (opcao != OPCAO_VOLTAR)
+			menuCaixaMensagem();
 	}
-	
+
 	private static void menuItens() {
 		int opcao;
 		iuExibirMensagem(Mensagem.MENU_ITENS_PROPRIOS.getMensagem());
-		
+
 		final int OPCAO_VOLTAR = 6;
 		opcao = pegarOpcao(1, OPCAO_VOLTAR);
-		
+
 		switch (opcao) {
 		case 1:
 			cadastrarItem();
 			break;
-			
+
 		case 2:
 			getAtributoItem();
 			break;
-		
+
 		case 3:
 			verItens();
 			break;
-			
+
 		case 4:
 			pesquisarItem();
 			break;
-			
+
 		case 5:
 			apagarItem();
 			break;
-			
+
 		case OPCAO_VOLTAR:
 			voltarMenuLogado();
 			break;
-			
+
 		default:
 			break;
 		}
-		if (opcao != OPCAO_VOLTAR) menuItens();
+		if (opcao != OPCAO_VOLTAR)
+			menuItens();
 	}
-	
+
 	private static void menuEmprestimos() {
 		int opcao;
 		iuExibirMensagem(Mensagem.MENU_EMPRESTIMOS.getMensagem());
-		
+
 		final int OPCAO_VOLTAR = 12;
 		opcao = pegarOpcao(1, OPCAO_VOLTAR);
-		
+
 		switch (opcao) {
 		case 1:
 			requisitarEmprestimo();
 			break;
-			
+
 		case 2:
 			aprovarEmprestimo();
 			break;
-			
+
 		case 3:
 			visualizarEmprestimos();
 			break;
-			
+
 		case 4:
 			devolverItem();
 			break;
-			
+
 		case 5:
 			confirmarTerminoEmprestimo();
 			break;
-			
+
 		case 6:
 			enviarMensagemNegociacao();
 			break;
-			
+
 		case 7:
 			requisitarDevolucao();
 			break;
-			
+
 		case 8:
 			registrarInteresse();
 			break;
-			
+
 		case 9:
 			publicarPedido();
 			break;
@@ -357,27 +361,29 @@ public class InterfaceTexto {
 		case OPCAO_VOLTAR:
 			voltarMenuLogado();
 			break;
-			
+
 		default:
 			break;
 		}
-		if (opcao != OPCAO_VOLTAR) menuEmprestimos();
+		if (opcao != OPCAO_VOLTAR)
+			menuEmprestimos();
 	}
-	
+
 	private static void voltarMenuLogado() {
 		// Já volta por default.
 	}
 
 	private static void verRanking() {
 		iuExibirMensagem(Mensagem.PEDIR_CATEGORIA.getMensagem());
-		
+
 		try {
-			iuExibirMensagem(emprestimus.getRanking(id_sessao, pegaStringDaEntrada()));
-			
+			iuExibirMensagem(emprestimus.getRanking(id_sessao,
+					pegaStringDaEntrada()));
+
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
-			
-			if(tentarNovamente()){
+
+			if (tentarNovamente()) {
 				verRanking();
 			}
 		}
@@ -385,15 +391,15 @@ public class InterfaceTexto {
 
 	private static void apagarItem() {
 		iuExibirMensagem(Mensagem.PEDIR_ID_TEM.getMensagem());
-		
+
 		try {
 			emprestimus.apagarItem(id_sessao, pegaStringDaEntrada());
 			iuExibirMensagem(Mensagem.OPERACAO_SUCESSO.getMensagem());
-			
+
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
-			
-			if(tentarNovamente()){
+
+			if (tentarNovamente()) {
 				apagarItem();
 			}
 		}
@@ -401,15 +407,15 @@ public class InterfaceTexto {
 
 	private static void desfazerAmizade() {
 		iuExibirMensagem(Mensagem.PEDIR_LOGIN_AMIGO_DELETAR.getMensagem());
-		
+
 		try {
 			emprestimus.desfazerAmizade(id_sessao, pegaStringDaEntrada());
 			iuExibirMensagem(Mensagem.OPERACAO_SUCESSO.getMensagem());
-			
+
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
-			
-			if(tentarNovamente()){
+
+			if (tentarNovamente()) {
 				desfazerAmizade();
 			}
 		}
@@ -418,24 +424,24 @@ public class InterfaceTexto {
 	private static void pesquisarItem() {
 		String chave, atributo, tipoOrdenacao;
 		iuExibirMensagem(Mensagem.PEDIR_CHAVE_BUSCA.getMensagem());
-		
+
 		chave = pegaStringDaEntrada();
 		iuExibirMensagem(Mensagem.PEDIR_ATRIBUTO.getMensagem());
-		
+
 		atributo = pegaStringDaEntrada();
 		iuExibirMensagem(Mensagem.PEDIR_TIPO_ORDENACAO.getMensagem());
-		
+
 		tipoOrdenacao = pegaStringDaEntrada();
 		iuExibirMensagem(Mensagem.PEDIR_CRITERIO_ORDENACAO.getMensagem());
-		
+
 		try {
-			iuExibirMensagem(emprestimus.pesquisarItem(id_sessao, chave, 
-									atributo, tipoOrdenacao, pegaStringDaEntrada()));
-			
+			iuExibirMensagem(emprestimus.pesquisarItem(id_sessao, chave,
+					atributo, tipoOrdenacao, pegaStringDaEntrada()));
+
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
-			
-			if(tentarNovamente()){
+
+			if (tentarNovamente()) {
 				pesquisarItem();
 			}
 		}
@@ -443,15 +449,15 @@ public class InterfaceTexto {
 
 	private static void registrarInteresse() {
 		iuExibirMensagem(Mensagem.PEDIR_ID_TEM.getMensagem());
-		
+
 		try {
 			emprestimus.registraInteresse(id_sessao, pegaStringDaEntrada());
 			iuExibirMensagem(Mensagem.OPERACAO_SUCESSO.getMensagem());
-			
+
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
-			
-			if(tentarNovamente()) {
+
+			if (tentarNovamente()) {
 				registrarInteresse();
 			}
 		}
@@ -459,15 +465,15 @@ public class InterfaceTexto {
 
 	private static void incrementarDias() {
 		iuExibirMensagem(Mensagem.PEDIR_INCREMENTO_DIAS.getMensagem());
-		
+
 		try {
 			emprestimus.adicionarDias(pegaStringDaEntrada());
 			iuExibirMensagem(Mensagem.OPERACAO_SUCESSO.getMensagem());
-			
+
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
-			
-			if(tentarNovamente()) {
+
+			if (tentarNovamente()) {
 				incrementarDias();
 			}
 		}
@@ -475,15 +481,15 @@ public class InterfaceTexto {
 
 	private static void requisitarDevolucao() {
 		iuExibirMensagem(Mensagem.PEDIR_ID_EMPRESTIMO.getMensagem());
-		
+
 		try {
 			emprestimus.requisitarDevolucao(id_sessao, pegaStringDaEntrada());
 			iuExibirMensagem(Mensagem.OPERACAO_SUCESSO.getMensagem());
-			
+
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
-			
-			if(tentarNovamente()){
+
+			if (tentarNovamente()) {
 				requisitarDevolucao();
 			}
 		}
@@ -491,14 +497,15 @@ public class InterfaceTexto {
 
 	private static void lerMensagens() {
 		iuExibirMensagem(Mensagem.PEDIR_ID_TOPICO.getMensagem());
-		
+
 		try {
-			iuExibirMensagem(emprestimus.lerMensagens(id_sessao, pegaStringDaEntrada()));
-			
+			iuExibirMensagem(emprestimus.lerMensagens(id_sessao,
+					pegaStringDaEntrada()));
+
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
-			
-			if(tentarNovamente()){
+
+			if (tentarNovamente()) {
 				lerMensagens();
 			}
 		}
@@ -506,14 +513,15 @@ public class InterfaceTexto {
 
 	private static void lerTopicos() {
 		iuExibirMensagem(Mensagem.PEDIR_TIPO.getMensagem());
-		
+
 		try {
-			iuExibirMensagem(emprestimus.lerTopicos(id_sessao, pegaStringDaEntrada()));
-			
+			iuExibirMensagem(emprestimus.lerTopicos(id_sessao,
+					pegaStringDaEntrada()));
+
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
-			
-			if(tentarNovamente()){
+
+			if (tentarNovamente()) {
 				lerTopicos();
 			}
 		}
@@ -521,25 +529,26 @@ public class InterfaceTexto {
 
 	private static void enviarMensagemNegociacao() {
 		iuExibirMensagem(Mensagem.PEDIR_DESTINATARIO.getMensagem());
-		
+
 		String destinatario = pegaStringDaEntrada();
 		iuExibirMensagem(Mensagem.PEDIR_ASSUNTO.getMensagem());
-		
+
 		String assunto = pegaStringDaEntrada();
 		iuExibirMensagem(Mensagem.PEDIR_MENSAGEM.getMensagem());
-		
+
 		String mensagem = pegaStringDaEntrada();
-		iuExibirMensagem(Mensagem.PEDIR_ID_REQUISITACAO_EMPRESTIMO.getMensagem());
-		
+		iuExibirMensagem(Mensagem.PEDIR_ID_REQUISITACAO_EMPRESTIMO
+				.getMensagem());
+
 		try {
-			iuExibirMensagem("O id do tópico é: "+
-									emprestimus.enviarMensagem(id_sessao, destinatario, 
-											assunto, mensagem, pegaStringDaEntrada()));
-			
+			iuExibirMensagem("O id do tópico é: "
+					+ emprestimus.enviarMensagem(id_sessao, destinatario,
+							assunto, mensagem, pegaStringDaEntrada()));
+
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
-			
-			if(tentarNovamente()) {
+
+			if (tentarNovamente()) {
 				enviarMensagemNegociacao();
 			}
 		}
@@ -552,14 +561,14 @@ public class InterfaceTexto {
 		String assunto = pegaStringDaEntrada();
 		iuExibirMensagem(Mensagem.PEDIR_MENSAGEM.getMensagem());
 		try {
-			iuExibirMensagem("O id do tópico é: "+
-									emprestimus.enviarMensagem(id_sessao, destinatario, 
-											assunto, pegaStringDaEntrada()));
-			
+			iuExibirMensagem("O id do tópico é: "
+					+ emprestimus.enviarMensagem(id_sessao, destinatario,
+							assunto, pegaStringDaEntrada()));
+
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
-			
-			if(tentarNovamente()) {
+
+			if (tentarNovamente()) {
 				enviarMensagemOFFTopic();
 			}
 		}
@@ -567,14 +576,15 @@ public class InterfaceTexto {
 
 	private static void confirmarTerminoEmprestimo() {
 		iuExibirMensagem(Mensagem.PEDIR_ID_EMPRESTIMO.getMensagem());
-		
+
 		try {
-			emprestimus.confirmarTerminoEmprestimo(id_sessao, pegaStringDaEntrada());
+			emprestimus.confirmarTerminoEmprestimo(id_sessao,
+					pegaStringDaEntrada());
 			iuExibirMensagem(Mensagem.OPERACAO_SUCESSO.getMensagem());
-			
+
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
-			
+
 			if (tentarNovamente()) {
 				confirmarTerminoEmprestimo();
 			}
@@ -583,15 +593,15 @@ public class InterfaceTexto {
 
 	private static void devolverItem() {
 		iuExibirMensagem(Mensagem.PEDIR_ID_EMPRESTIMO.getMensagem());
-		
+
 		try {
 			emprestimus.devolverItem(id_sessao, pegaStringDaEntrada());
 			iuExibirMensagem(Mensagem.OPERACAO_SUCESSO.getMensagem());
-			
+
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
-			
-			if(tentarNovamente()) {
+
+			if (tentarNovamente()) {
 				devolverItem();
 			}
 		}
@@ -599,14 +609,15 @@ public class InterfaceTexto {
 
 	private static void visualizarEmprestimos() {
 		iuExibirMensagem(Mensagem.PEDIR_TIPO_EMPRESTIMO.getMensagem());
-		
+
 		try {
-			iuExibirMensagem(emprestimus.getEmprestimos(id_sessao, pegaStringDaEntrada()));
-			
+			iuExibirMensagem(emprestimus.getEmprestimos(id_sessao,
+					pegaStringDaEntrada()));
+
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
-			
-			if(tentarNovamente()) {
+
+			if (tentarNovamente()) {
 				visualizarEmprestimos();
 			}
 		}
@@ -614,17 +625,17 @@ public class InterfaceTexto {
 
 	private static void aprovarEmprestimo() {
 		iuExibirMensagem(Mensagem.PEDIR_ID_EMPRESTIMO_APROVAR.getMensagem());
-		
+
 		try {
-			iuExibirMensagem("ID do emprestimo: "+
-								emprestimus.aprovarEmprestimo(id_sessao, 
-										pegaStringDaEntrada()));
+			iuExibirMensagem("ID do emprestimo: "
+					+ emprestimus.aprovarEmprestimo(id_sessao,
+							pegaStringDaEntrada()));
 			iuExibirMensagem(Mensagem.OPERACAO_SUCESSO.getMensagem());
-			
+
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
-			
-			if(tentarNovamente()) {
+
+			if (tentarNovamente()) {
 				aprovarEmprestimo();
 			}
 		}
@@ -634,15 +645,14 @@ public class InterfaceTexto {
 		iuExibirMensagem(Mensagem.PEDIR_ID_TEM_VERIFICAR.getMensagem());
 		String idItem = pegaStringDaEntrada();
 		iuExibirMensagem(Mensagem.PEDIR_DURACAO_EMPRESTIMO.getMensagem());
-		
+
 		try {
-			iuExibirMensagem("O id do emprestrimo eh "+
-									emprestimus.requisitarEmprestimo(id_sessao, 
-											idItem, 15));
-			
+			iuExibirMensagem("O id do emprestrimo eh "
+					+ emprestimus.requisitarEmprestimo(id_sessao, idItem, 15));
+
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
-			
+
 			if (tentarNovamente()) {
 				requisitarEmprestimo();
 			}
@@ -653,14 +663,15 @@ public class InterfaceTexto {
 		iuExibirMensagem(Mensagem.PEDIR_ID_TEM_VERIFICAR.getMensagem());
 		String idItem = pegaStringDaEntrada();
 		iuExibirMensagem(Mensagem.PEDIR_ATRIBUTO.getMensagem());
-		
+
 		try {
-			iuExibirMensagem(emprestimus.getAtributoItem(idItem, pegaStringDaEntrada()));
-			
+			iuExibirMensagem(emprestimus.getAtributoItem(idItem,
+					pegaStringDaEntrada()));
+
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
-			
-			if(tentarNovamente()) {
+
+			if (tentarNovamente()) {
 				getAtributoItem();
 			}
 		}
@@ -668,14 +679,15 @@ public class InterfaceTexto {
 
 	private static void verItensOutroUsuario() {
 		iuExibirMensagem(Mensagem.PEDIR_LOGIN_USUARIO_VERIFICAR.getMensagem());
-		
+
 		try {
-			iuExibirMensagem(emprestimus.getItens(id_sessao, pegaStringDaEntrada()));
-			
+			iuExibirMensagem(emprestimus.getItens(id_sessao,
+					pegaStringDaEntrada()));
+
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
-			
-			if(tentarNovamente()) {
+
+			if (tentarNovamente()) {
 				verItensOutroUsuario();
 			}
 		}
@@ -684,7 +696,7 @@ public class InterfaceTexto {
 	private static void verItens() {
 		try {
 			iuExibirMensagem(emprestimus.getItens(id_sessao));
-			
+
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
 		}
@@ -692,13 +704,14 @@ public class InterfaceTexto {
 
 	private static void verAmigosOutroUsuario() {
 		iuExibirMensagem(Mensagem.PEDIR_LOGIN_USUARIO_VERIFICAR.getMensagem());
-		
+
 		try {
-			iuExibirMensagem(emprestimus.getAmigos(id_sessao, pegaStringDaEntrada()));
+			iuExibirMensagem(emprestimus.getAmigos(id_sessao,
+					pegaStringDaEntrada()));
 		} catch (Exception e) {
-			
+
 			iuExibirMensagem(e.getMessage());
-			if(tentarNovamente()) {
+			if (tentarNovamente()) {
 				verAmigosOutroUsuario();
 			}
 		}
@@ -707,7 +720,7 @@ public class InterfaceTexto {
 	private static void verAmigos() {
 		try {
 			iuExibirMensagem(emprestimus.getAmigos(id_sessao));
-			
+
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
 		}
@@ -715,18 +728,19 @@ public class InterfaceTexto {
 
 	private static void verificarAmizade() {
 		iuExibirMensagem(Mensagem.PEDIR_LOGIN_AMIGO_VERIFICAR.getMensagem());
-		
+
 		try {
-			if (emprestimus.ehAmigo(id_sessao, pegaStringDaEntrada()).equalsIgnoreCase("true")) {
+			if (emprestimus.ehAmigo(id_sessao, pegaStringDaEntrada())
+					.equalsIgnoreCase("true")) {
 				iuExibirMensagem(Mensagem.INFO_SAO_AMIGOS.getMensagem());
-				
+
 			} else {
 				iuExibirMensagem(Mensagem.INFO_NAO_SAO_AMIGOS.getMensagem());
 			}
-			
+
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
-			
+
 			if (tentarNovamente()) {
 				verificarAmizade();
 			}
@@ -735,15 +749,15 @@ public class InterfaceTexto {
 
 	private static void aprovarAmizade() {
 		iuExibirMensagem(Mensagem.PEDIR_LOGIN_AMIGO_APROVAR.getMensagem());
-		
+
 		try {
 			emprestimus.aprovarAmizade(id_sessao, pegaStringDaEntrada());
 			iuExibirMensagem(Mensagem.OPERACAO_SUCESSO.getMensagem());
-			
+
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
-			
-			if(tentarNovamente()) {
+
+			if (tentarNovamente()) {
 				aprovarAmizade();
 			}
 		}
@@ -752,7 +766,7 @@ public class InterfaceTexto {
 	private static void visualizarRequisitacoesAmizade() {
 		try {
 			iuExibirMensagem(emprestimus.getRequisicoesDeAmizade(id_sessao));
-			
+
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
 		}
@@ -760,15 +774,16 @@ public class InterfaceTexto {
 
 	private static void requisitarAmizade() {
 		iuExibirMensagem(Mensagem.PEDIR_LOGIN_AMIGO_ADICIONAR.getMensagem());
-		
+
 		try {
 			emprestimus.requisitarAmizade(id_sessao, pegaStringDaEntrada());
-			iuExibirMensagem(Mensagem.INFO_AGUARDE_APROVACAO_AMIZADE.getMensagem());
-			
+			iuExibirMensagem(Mensagem.INFO_AGUARDE_APROVACAO_AMIZADE
+					.getMensagem());
+
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
-			
-			if(tentarNovamente()){
+
+			if (tentarNovamente()) {
 				requisitarAmizade();
 			}
 		}
@@ -777,17 +792,18 @@ public class InterfaceTexto {
 	private static void localizarUsuarioPalavraChave() {
 		String chave, atributo;
 		iuExibirMensagem(Mensagem.PEDIR_CHAVE_BUSCA.getMensagem());
-		
+
 		chave = pegaStringDaEntrada();
 		iuExibirMensagem(Mensagem.PEDIR_ATRIBUTO.getMensagem());
-		
+
 		atributo = pegaStringDaEntrada();
-		
+
 		try {
-			iuExibirMensagem(emprestimus.localizarUsuario(id_sessao, chave, atributo));
+			iuExibirMensagem(emprestimus.localizarUsuario(id_sessao, chave,
+					atributo));
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
-			
+
 			if (tentarNovamente()) {
 				localizarUsuarioPalavraChave();
 			}
@@ -804,28 +820,28 @@ public class InterfaceTexto {
 			}
 		}
 	}
-	
+
 	private static void cadastrarItem() {
 		String nome, descricao, categoria;
 		iuExibirMensagem(Mensagem.PEDIR_NOME_ITEM_CADASTRAR.getMensagem());
-		
+
 		nome = pegaStringDaEntrada();
 		iuExibirMensagem(Mensagem.PEDIR_DESCRICAO_ITEM_CADASTRAR.getMensagem());
-		
+
 		descricao = pegaStringDaEntrada();
 		iuExibirMensagem(Mensagem.PEDIR_CATEGORIA_ITEM_CADASTRAR.getMensagem());
-		
+
 		categoria = pegaStringDaEntrada();
-		
+
 		try {
-			iuExibirMensagem("O id do item eh: "+
-									emprestimus.cadastrarItem(id_sessao, nome, 
-											descricao, categoria));
-			
+			iuExibirMensagem("O id do item eh: "
+					+ emprestimus.cadastrarItem(id_sessao, nome, descricao,
+							categoria));
+
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
-			
-			if(tentarNovamente()) {
+
+			if (tentarNovamente()) {
 				cadastrarItem();
 			}
 		}
@@ -833,14 +849,15 @@ public class InterfaceTexto {
 
 	private static void getAtributo() {
 		iuExibirMensagem(Mensagem.PEDIR_ATRIBUTO.getMensagem());
-		
+
 		try {
-			iuExibirMensagem(emprestimus.getAtributoUsuario(login_logado, pegaStringDaEntrada()));
-			
+			iuExibirMensagem(emprestimus.getAtributoUsuario(login_logado,
+					pegaStringDaEntrada()));
+
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
-			
-			if(tentarNovamente()){
+
+			if (tentarNovamente()) {
 				getAtributo();
 			}
 		}
@@ -850,80 +867,82 @@ public class InterfaceTexto {
 		iuExibirMensagem(Mensagem.PEDIR_LOGIN_USUARIO.getMensagem());
 		String login = pegaStringDaEntrada();
 		iuExibirMensagem(Mensagem.PEDIR_ATRIBUTO.getMensagem());
-		
+
 		try {
-			iuExibirMensagem(emprestimus.getAtributoUsuario(login, pegaStringDaEntrada()));
+			iuExibirMensagem(emprestimus.getAtributoUsuario(login,
+					pegaStringDaEntrada()));
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
-			if(tentarNovamente()){
+			if (tentarNovamente()) {
 				getAtributo();
 			}
 		}
 	}
-	
+
 	private static void criarUsuario() {
 		String login, nome, endereco;
 		iuExibirMensagem(Mensagem.LOGIN_PARA_CADASTRAR.getMensagem());
-		
+
 		login = pegaStringDaEntrada();
 		iuExibirMensagem(Mensagem.NOME_PARA_CADASTRAR.getMensagem());
-		
+
 		nome = pegaStringDaEntrada();
 		iuExibirMensagem(Mensagem.ENDERECO_PARA_CADASTRAR.getMensagem());
-		
+
 		endereco = pegaStringDaEntrada();
-		
+
 		try {
 			emprestimus.criarUsuario(login, nome, endereco);
-			
+
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
-			
+
 			if (!tentarNovamente()) {
 				menuDeslogado();
-				
+
 			} else {
 				criarUsuario();
 			}
 		}
 	}
-	
+
 	private static int pegarOpcao(int primeira_opcao, int ultima_opcao) {
 		int entrada;
 		try {
 			entrada = Integer.parseInt(pegaStringDaEntrada());
-			
-			if ( !((entrada >= primeira_opcao) && (entrada <= ultima_opcao)) ) {
+
+			if (!((entrada >= primeira_opcao) && (entrada <= ultima_opcao))) {
 				throw new Exception();
-				
+
 			} else {
 				return entrada;
 			}
-			
+
 		} catch (Exception e) {
-			iuExibirMensagem("Você deve digitar um numero inteiro entre "+primeira_opcao+"e "+ultima_opcao);
+			iuExibirMensagem("Você deve digitar um numero inteiro entre "
+					+ primeira_opcao + "e " + ultima_opcao);
 			System.out.print("\nDigite novamente: ");
-			
+
 			return pegarOpcao(primeira_opcao, ultima_opcao);
-		}	
+		}
 	}
-	
+
 	private static String pegaStringDaEntrada() {
 		Scanner sc = new Scanner(System.in);
-		while(!sc.hasNext()) {}
+		while (!sc.hasNext()) {
+		}
 		return sc.nextLine();
 	}
-	
+
 	private static boolean tentarNovamente() {
 		final int UM = 1;
-		
+
 		try {
 			iuExibirMensagem(Mensagem.PERGUNTAR_TENTAR_NOVAMENTE.getMensagem());
 			return (Integer.parseInt(pegaStringDaEntrada()) == UM);
-			
+
 		} catch (Exception e) {
-			System.out.print("Opção Inválida. \n" +
-							 "Digite novamente: ");
+			System.out.print("Opção Inválida. \n" + "Digite novamente: ");
 			return tentarNovamente();
 		}
 	}
@@ -931,7 +950,7 @@ public class InterfaceTexto {
 	private static void iuExibirMensagem(String mensagem) {
 		System.out.println(mensagem);
 	}
-	
+
 	private static void visualizarHistorico() {
 		try {
 			iuExibirMensagem(emprestimus.historicoAtividades(id_sessao));
@@ -942,7 +961,7 @@ public class InterfaceTexto {
 			}
 		}
 	}
-	
+
 	private static void visualizarHistorico_timeLine() {
 		try {
 			iuExibirMensagem(emprestimus.historicoAtividades(id_sessao));
@@ -953,55 +972,56 @@ public class InterfaceTexto {
 			}
 		}
 	}
-	
+
 	private static void oferecerItem() {
 		String id_publ;
-		
+
 		iuExibirMensagem(Mensagem.PEDIR_ID_PUBLICACAO_PEDIDO.getMensagem());
 		id_publ = pegaStringDaEntrada();
 
 		iuExibirMensagem(Mensagem.PEDIR_ID_ITEM.getMensagem());
-		
+
 		try {
 			emprestimus.oferecerItem(id_sessao, id_publ, pegaStringDaEntrada());
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
-			
-			if(tentarNovamente()) {
+
+			if (tentarNovamente()) {
 				oferecerItem();
 			}
 		}
 	}
-	
+
 	private static void publicarPedido() {
 		String nome;
-		
+
 		iuExibirMensagem(Mensagem.PEDIR_NOME_ITEM.getMensagem());
 		nome = pegaStringDaEntrada();
 
 		iuExibirMensagem(Mensagem.PEDIR_DESCRICAO_ITEM.getMensagem());
-		
+
 		try {
-			iuExibirMensagem("O id da publicação do pedido eh: "+
-									emprestimus.publicarPedido(id_sessao, nome, pegaStringDaEntrada()));
-			
+			iuExibirMensagem("O id da publicação do pedido eh: "
+					+ emprestimus.publicarPedido(id_sessao, nome,
+							pegaStringDaEntrada()));
+
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
-			
-			if(tentarNovamente()) {
+
+			if (tentarNovamente()) {
 				publicarPedido();
 			}
 		}
 	}
-	
+
 	private static void republicarPedido() {
 		iuExibirMensagem(Mensagem.PEDIR_ID_PUBLICACAO_PEDIDO.getMensagem());
 		try {
 			emprestimus.republicarPedido(id_sessao, pegaStringDaEntrada());
 		} catch (Exception e) {
 			iuExibirMensagem(e.getMessage());
-			
-			if(tentarNovamente()) {
+
+			if (tentarNovamente()) {
 				republicarPedido();
 			}
 		}
