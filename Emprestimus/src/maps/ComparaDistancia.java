@@ -24,7 +24,6 @@ public class ComparaDistancia implements Comparator<Coordenadas> {
          return raioTerra * haversineB;
  }
  
-	
 	@Override
 	public int compare(Coordenadas o1, Coordenadas o2) {
 		double diferenca = distancia(o1, referencia) - distancia(o2, referencia);
@@ -34,7 +33,4 @@ public class ComparaDistancia implements Comparator<Coordenadas> {
 		if (diferenca > 0) retorno = 1;
 		return retorno;
 	}
-	
-	
-
 }
