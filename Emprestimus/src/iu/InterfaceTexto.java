@@ -911,7 +911,7 @@ public class InterfaceTexto {
 	private static String pegaStringDaEntrada() {
 		Scanner sc = new Scanner(System.in);
 		while(!sc.hasNext()) {}
-		return sc.next();
+		return sc.nextLine();
 	}
 	
 	private static boolean tentarNovamente() {
