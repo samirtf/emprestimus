@@ -471,20 +471,6 @@ public class Usuario implements UsuarioIF {
 		AcervoDeItens.getInstance().registrarInteressePorItem(this.getLogin(), idItem);
 	}
 	
-	public static void main(String[] args){
-		Stack<String> pilha = new Stack<String>();
-		pilha.push("samir");
-		pilha.push("musculos");
-		pilha.push("etcetara");
-		pilha.push("caos");
-		Collections.reverse(pilha);
-		Iterator<String> iteraString = pilha.iterator();
-		while(iteraString.hasNext()){
-			System.out.println(iteraString.next());
-		}
-		
-		System.out.println(pilha.pop());
-	}
 
 	@Override
 	public void addHistoricoTerminoEmprestimo(ItemIF item) throws Exception {
