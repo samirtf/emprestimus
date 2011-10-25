@@ -1,6 +1,4 @@
 package testes.unidade.sistema.usuario;
-
-
 import sistema.persistencia.ItemRepositorio;
 import sistema.usuario.Usuario;
 import sistema.usuario.UsuarioIF;
@@ -8,15 +6,15 @@ import junit.framework.Assert;
 import junit.framework.Test;
 import junit.framework.TestCase;
 
+
 /**
+ * Emprestimus
+ * Projeto de Sistemas de Informação I
+ * Universidade Federal de Campina Grande
+ * 
  * Classe EmailTeste - Responsavel em realizar teste unitarios na classe E-mail.
- ** 
- * @author Samir Trajano Feitosa  - samircc20092@gmail.com
- *         outraPessoa1           - outroEmail1
- *         outraPessoa2           - outroEmail2
- *         outraPessoa3           - outroEmail3
- * @since 17/01/2007
  */
+
 public class UsuarioIFTeste extends TestCase implements Test {
 	public UsuarioIFTeste() {
 		super();
