@@ -49,9 +49,8 @@ public class BancoDeEmprestimos {
 	}
 
 	public void adicionaContaAoUsuario(String usuario) throws Exception {
-		if(contas.containsKey(usuario)) throw new Exception(Mensagem.PROPRIETARIO_CONTA_JAH_CADASTRADO.getMensagem());
+		if(contas.containsKey(usuario)) throw new Exception("Mensagem.PROPRIETARIO_CONTA_JAH_CADASTRADO.getMensagem()");
 		contas.put(usuario, new Conta(usuario));
-		
 	}
 	
 	public void removeContaDoUsuario(String usuario) throws Exception {
@@ -103,7 +102,7 @@ public class BancoDeEmprestimos {
 	}
 	
 
-	public String getEmprestimos(String login, String tipo) throws Exception {
+	public synchronized String getEmprestimos(String login, String tipo) throws Exception {
 		
 		//FIXME: este método está muito grande e precisa ser dividido!!!
 		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(), Mensagem.LOGIN_INVALIDO.getMensagem());
@@ -161,7 +160,7 @@ public class BancoDeEmprestimos {
 	}
 
 	
-	public String aprovarEmprestimo( String login, String idRequisicaoEmprestimo )
+	public synchronized String aprovarEmprestimo( String login, String idRequisicaoEmprestimo )
 			throws Exception {
 		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(), Mensagem.LOGIN_INVALIDO.getMensagem());
 		assertStringNaoVazia(idRequisicaoEmprestimo, Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem(), Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
@@ -241,5 +240,8 @@ public class BancoDeEmprestimos {
 		contas.get(login).getEmprestimosRequeridosPorMimEmEspera().remove(emprestimo);
 	}
 
+	public void zerarSistema(){
+		contas.clear();
+	}
 
 }

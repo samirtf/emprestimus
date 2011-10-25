@@ -78,22 +78,6 @@ public class NotificacaoTerminoEmprestimo implements Notificacao {
 		this.id = novoId;
 		return this;
 	}
-	
-	public static void main(String[] args) throws Exception{
-		List<Notificacao> nots = new ArrayList<Notificacao>();
-		UsuarioIF usu = new Usuario("aaa", "nome", "endereco");
-		ItemIF item = new Item("aaa", "descricao", "Filme");
-		Notificacao not1 = new NotificacaoTerminoEmprestimo(usu, item);
-		Notificacao not2 = new NotificacaoNovoItem(usu, item);
-		nots.add(not1);
-		nots.add(not1);
-		nots.add(not2);
-		Iterator<Notificacao> notificacoes = nots.iterator();
-		while(notificacoes.hasNext()){
-			System.out.println(notificacoes.next().getId());
-		}
-		System.out.println(nots.size());
-	}
 
 
 }

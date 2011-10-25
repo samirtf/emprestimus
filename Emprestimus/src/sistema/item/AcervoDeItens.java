@@ -259,5 +259,8 @@ public class AcervoDeItens {
 				String.format("Item oferecido: %s - %s", item.getNome(),item.getDescricao()));
 	}
 
+	public void zerarSistema(){
+		this.bauhs.clear();
+	}
 
 }

@@ -33,6 +33,7 @@ public class Emprestimo implements EmprestimoIF{
 		setEmprestador(emprestador);
 		setBeneficiado(beneficiado);
 		setItem(item);
+		setDuracao(duracao);
 		Validador.assertStringNaoVazia(tipo, Mensagem.EMPRESTIMO_TIPO_INVALIDO.getMensagem(), Mensagem.EMPRESTIMO_TIPO_INVALIDO.getMensagem());
 		
 		if(tipo.trim().equalsIgnoreCase("emprestador")){
@@ -162,7 +163,7 @@ public class Emprestimo implements EmprestimoIF{
 	
 	public synchronized Calendar getDataDeDevolucao() {
 		Calendar dataDevolucao = (Calendar) dataDeAprovacao.clone();
-		dataDevolucao.add(GregorianCalendar.DATE, duracao);
+		dataDevolucao.add(GregorianCalendar.DAY_OF_YEAR, duracao);
 		return dataDevolucao;
 	}
 
@@ -199,7 +200,7 @@ public class Emprestimo implements EmprestimoIF{
 	}
 
 	@Override
-	public void aprovarEmprestimo() throws Exception {
+	public synchronized void aprovarEmprestimo() throws Exception {
 		if(ehEstadoAndamento()){
 			setDataAprovacao();
 			setEstadoAndamento();
@@ -223,7 +224,7 @@ public class Emprestimo implements EmprestimoIF{
 	}
 
 	@Override
-	public void requisitarDevolucaoEmprestimo(boolean noPrazo) throws Exception {
+	public synchronized void requisitarDevolucaoEmprestimo(boolean noPrazo) throws Exception {
 		if(ehEstadoAndamento()){
 			setEstadoDevolucaoRequisitada();
 			
@@ -249,7 +250,7 @@ public class Emprestimo implements EmprestimoIF{
 	}
 
 	@Override
-	public void devolverEmprestimo() throws Exception {
+	public synchronized void devolverEmprestimo() throws Exception {
 		if(ehEstadoAndamento()){
 			setEstadoDevolvido();
 			setSituacaoAndamento();
@@ -276,7 +277,7 @@ public class Emprestimo implements EmprestimoIF{
 	}
 
 	@Override
-	public void confirmarTerminoEmprestimo() throws Exception {
+	public synchronized void confirmarTerminoEmprestimo() throws Exception {
 		if(ehEstadoAndamento()){
 			throw new Exception("Item não foi devolvido");
 			
@@ -360,7 +361,6 @@ public class Emprestimo implements EmprestimoIF{
 	public void setDataAprovacao() {
 		try {
 			Thread.sleep(1);
-			
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 			
