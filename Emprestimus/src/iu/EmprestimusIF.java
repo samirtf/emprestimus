@@ -472,7 +472,7 @@ public interface EmprestimusIF {
 
 	public void apagarItem(String idSessao, String idItem) throws Exception;
 
-	public void republicarPedido(String idSessao, String idPublicacaoPedido);
+	public void republicarPedido(String idSessao, String idPublicacaoPedido) throws Exception;
 
 	public String localizarUsuario(String idSessao) throws Exception;
 	

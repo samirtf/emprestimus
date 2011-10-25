@@ -720,22 +720,30 @@ public class Emprestimus implements EmprestimusIF {
 	@Override
 	public String publicarPedido(String idSessao, String nomeItem,
 			String descricaoItem) throws Exception {
-		// TODO Auto-generated method stub
-		//FIXME Criar uma nova notificacao em NotificacaoRepositorio
-		return null;
+		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(), Mensagem.SESSAO_INVALIDA.getMensagem());
+		//PUBLICACAO_ID_INVALIDO
+		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
+		assertStringNaoVazia(nomeItem, Mensagem.NOME_INVALIDO.getMensagem(), Mensagem.NOME_INVALIDO.getMensagem());
+		assertStringNaoVazia(descricaoItem, Mensagem.DESCRICAO_INVALIDA.getMensagem(), Mensagem.DESCRICAO_INVALIDA.getMensagem());
+		return autenticacao.getUsuarioPeloIDSessao(idSessao).publicarPedido(nomeItem, descricaoItem);
 	}
 
 	@Override
 	public void oferecerItem(String idSessao, String idPublicacaoPedido,
 			String idItem) throws Exception {
-		// TODO Auto-generated method stub
-		//FIXME Criar uma nova notificacao em NotificacaoRepositorio
+		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(), Mensagem.SESSAO_INVALIDA.getMensagem());
+		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
+		assertStringNaoVazia(idPublicacaoPedido, Mensagem.PUBLICACAO_ID_INVALIDO.getMensagem(), Mensagem.PUBLICACAO_ID_INVALIDO.getMensagem());
+		
+		autenticacao.getUsuarioPeloIDSessao(idSessao).oferecerItem(idPublicacaoPedido, idItem);
 		
 	}
 
 	@Override
-	public void republicarPedido(String idSessao, String idPublicacaoPedido) {
-		// TODO Auto-generated method stub
+	public void republicarPedido(String idSessao, String idPublicacaoPedido) throws Exception{
+		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(), Mensagem.SESSAO_INVALIDA.getMensagem());
+		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
+		autenticacao.getUsuarioPeloIDSessao(idSessao).republicarPedido(idPublicacaoPedido);
 		
 	}
 
@@ -753,4 +761,5 @@ public class Emprestimus implements EmprestimusIF {
 			saida = Mensagem.PALAVRA_CHAVE_INEXISTENTE.getMensagem();
 		return saida;
 	}
+
 }

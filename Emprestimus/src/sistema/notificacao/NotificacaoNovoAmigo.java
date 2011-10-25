@@ -17,7 +17,7 @@ public class NotificacaoNovoAmigo implements Notificacao {
 	private UsuarioIF usuario1;
 	private UsuarioIF usuario2;
 	private Date data;
-	private Long id;
+	private String id;
 
 	public NotificacaoNovoAmigo(UsuarioIF usuario1, UsuarioIF usuario2) throws Exception {
 		this.usuario1 = usuario1;
@@ -48,13 +48,13 @@ public class NotificacaoNovoAmigo implements Notificacao {
 	}
 
 	@Override
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
 	@Override
 	public Notificacao setId(String novoId) throws Exception {
-		this.id = Long.valueOf(novoId);
+		this.id = novoId;
 		return this;
 	}
 

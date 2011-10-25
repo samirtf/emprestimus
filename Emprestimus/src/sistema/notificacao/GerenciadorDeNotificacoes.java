@@ -3,6 +3,8 @@
  */
 package sistema.notificacao;
 
+import static sistema.utilitarios.Validador.assertStringNaoVazia;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -166,6 +168,26 @@ public class GerenciadorDeNotificacoes {
 		if(sb.toString().equals("")) 
 			return Mensagem.HISTORICO_VAZIO.getMensagem();
 		return sb.toString().substring(0, sb.length()-2);
+	}
+
+	public String addHistoricoPublicarPedido(String seuLogin, String nomeItem,
+			String descricaoItem) throws Exception {
+		Validador.assertStringNaoVazia(seuLogin, Mensagem.LOGIN_INVALIDO.getMensagem(), Mensagem.LOGIN_INVALIDO.getMensagem());
+		UsuarioIF usuario = Autenticacao.getUsuarioPorLogin(seuLogin);
+		Notificacao notif = new NotificacaoPublicarPedido(usuario, nomeItem, descricaoItem);
+		NotificacaoRepositorio.getInstance().novaNotificacao(notif);
+		historicos.get(seuLogin).addNotificacao(notif);
+		return notif.getId();
+	}
+	
+	public void republicarPedido(UsuarioIF usuario, String idPublicacaoPedido) throws Exception{
+		assertStringNaoVazia(idPublicacaoPedido, Mensagem.PUBLICACAO_ID_INVALIDO.getMensagem(), 
+				Mensagem.PUBLICACAO_ID_INVALIDO.getMensagem());
+		if(!NotificacaoRepositorio.getInstance().existeNotificacao(idPublicacaoPedido))
+			throw new Exception(Mensagem.PUBLICACAO_ID_INEXISTENTE.getMensagem());
+		Notificacao notificacao = NotificacaoRepositorio.getInstance().recuperarNotificacao(idPublicacaoPedido);
+		historicos.get(usuario.getLogin()).republicarPedido(notificacao);
+		
 	}
 
 }
