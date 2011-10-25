@@ -13,6 +13,9 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import maps.ComparaDistancia;
+import maps.RefCoordenadas;
+
 import sistema.autenticacao.Autenticacao;
 import sistema.emprestimo.EmprestimoEstado;
 import sistema.emprestimo.EmprestimoIF;
@@ -167,6 +170,10 @@ public class Emprestimus implements EmprestimusIF {
 		} else {
 			throw new Exception(Mensagem.ATRIBUTO_INEXISTENTE.getMensagem());
 		}
+		
+		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
+		RefCoordenadas coordenadas = new RefCoordenadas(usuario.getLatitude(), usuario.getLongitude());
+		Collections.sort(users, new ComparaDistancia(coordenadas));
 		String saida ="";
 		for (int i = 0; i<users.size(); i++) {
 			saida += users.get(i).getNome() + " - " + users.get(i).getEndereco();
@@ -749,7 +756,10 @@ public class Emprestimus implements EmprestimusIF {
 
 	@Override
 	public String localizarUsuario(String idSessao) throws Exception {
-		List<UsuarioIF> usuarios = autenticacao.getUsuarios(autenticacao.getUsuarioPeloIDSessao(idSessao));	
+		List<UsuarioIF> usuarios = autenticacao.getUsuarios(autenticacao.getUsuarioPeloIDSessao(idSessao));
+		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
+		RefCoordenadas coordenadas = new RefCoordenadas(usuario.getLatitude(), usuario.getLongitude());
+		Collections.sort(usuarios, new ComparaDistancia(coordenadas));
 		String saida ="";
 		for (int i = 0; i<usuarios.size(); i++) {
 			saida += usuarios.get(i).getNome() + " - " + usuarios.get(i).getEndereco();
@@ -761,5 +771,7 @@ public class Emprestimus implements EmprestimusIF {
 			saida = Mensagem.PALAVRA_CHAVE_INEXISTENTE.getMensagem();
 		return saida;
 	}
+	
+	
 
 }

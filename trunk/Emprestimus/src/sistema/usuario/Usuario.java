@@ -479,14 +479,12 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public double getLongitude() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.longitude;
 	}
 
 	@Override
 	public double getLatitude() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.latitude;
 	}
 
 	@Override
