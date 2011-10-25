@@ -7,14 +7,9 @@ import java.net.URLConnection;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-/**
- * Emprestimus
- * Projeto de Sistemas de Informação I
- * Universidade Federal de Campina Grande
- */
-
 public class GetCoordenadas {
 
+	
 	/**
 	 * Faz a requisicao a API do google maps
 	 * @param endereco
@@ -23,12 +18,12 @@ public class GetCoordenadas {
 	public static RefCoordenadas getCoordenadas(String endereco) {
 		double latitude = 0;
 		double longitude = 0;
-
+		
 		try {
 			String url = String.format("%s%s%s",
 					"http://maps.google.com/maps/api/geocode/json?address=",
 					endereco, "&sensor=true");
-
+			
 			String source = requisicao(url);
 			JSONObject object = new JSONObject(source);
 			JSONArray a = (JSONArray) object.get("results");
