@@ -1,14 +1,23 @@
 package maps;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-
 import org.json.JSONObject;
+
+/**
+ * Emprestimus
+ * Projeto de Sistemas de Informação I
+ * Universidade Federal de Campina Grande
+ */
 
 public class GetCoordenadas {
 
+	/**
+	 * Faz a requisicao a API do google maps
+	 * @param endereco
+	 * @return
+	 */
 	public static RefCoordenadas getCoordenadas(String endereco) {
 		double latitude = 0;
 		double longitude = 0;
