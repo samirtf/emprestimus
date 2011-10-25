@@ -41,6 +41,7 @@ public class GetCoordenadas {
 
 	private static String requisicao(String url) {
 		String source = "";
+		url = url.replaceAll(" ", "%20");
 		try {
 			URL req = new URL(url);
 			URLConnection connection = req.openConnection();
