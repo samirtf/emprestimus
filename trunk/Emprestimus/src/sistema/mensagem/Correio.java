@@ -308,5 +308,9 @@ public class Correio {
 		return conversa.getIdMensagem();
 
 	}
+	
+	public void zerarSistema(){
+		this.caixasPostais.clear();
+	}
 
 }

@@ -189,5 +189,9 @@ public class GerenciadorDeNotificacoes {
 		historicos.get(usuario.getLogin()).republicarPedido(notificacao);
 		
 	}
+	
+	public void zerarSistema(){
+		this.historicos.clear();
+	}
 
 }

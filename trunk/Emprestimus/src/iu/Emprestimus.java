@@ -17,16 +17,20 @@ import maps.ComparaDistancia;
 import maps.RefCoordenadas;
 
 import sistema.autenticacao.Autenticacao;
+import sistema.emprestimo.BancoDeEmprestimos;
 import sistema.emprestimo.EmprestimoEstado;
 import sistema.emprestimo.EmprestimoIF;
 import sistema.excecoes.ArgumentoInvalidoException;
+import sistema.item.AcervoDeItens;
 import sistema.item.ItemIF;
 import sistema.mensagem.Chat;
 import sistema.mensagem.ChatIF;
+import sistema.mensagem.Correio;
 import sistema.notificacao.GerenciadorDeNotificacoes;
 import sistema.persistencia.ChatRepositorio;
 import sistema.persistencia.EmprestimoRepositorio;
 import sistema.persistencia.ItemRepositorio;
+import sistema.usuario.RelacionamentosUsuarios;
 import sistema.usuario.ReputacaoUsuarioComparator;
 import sistema.usuario.UsuarioIF;
 import sistema.utilitarios.Mensagem;
@@ -410,16 +414,16 @@ public class Emprestimus implements EmprestimusIF {
         asserteTrue(emprestimo.getEmprestador().equals(usuario),"O usuário não tem permissão para requisitar a devolução deste item");
         		
 		dataCorrente = new GregorianCalendar();
-		dataCorrente.add(GregorianCalendar.DATE, diasExtras);
-		dataCorrente.add(GregorianCalendar.MILLISECOND, -1);
-		emprestimo.getDataDeDevolucao();
+		dataCorrente.add(GregorianCalendar.DAY_OF_YEAR, diasExtras);
+		dataCorrente.add(GregorianCalendar.MILLISECOND, 0);
+		emprestimo.getDataDeDevolucao();		
 		
 		try{
 			dataCorrente.compareTo(emprestimo.getDataDeDevolucao());
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		if (dataCorrente.compareTo(emprestimo.getDataDeDevolucao()) <= 0) {
+		if (dataCorrente.compareTo(emprestimo.getDataDeDevolucao()) < 0) {
 			emprestimo.requisitarDevolucaoEmprestimo(true);
 		}else {
 			emprestimo.requisitarDevolucaoEmprestimo(false);
@@ -574,9 +578,16 @@ public class Emprestimus implements EmprestimusIF {
 	public void zerarSistema() {
 		//Zerar o BD
 		autenticacao.zerarSistema();
+		
 		ChatRepositorio.zerarRepositorio();
 		EmprestimoRepositorio.zerarRepositorio();
 		ItemRepositorio.zerarRepositorio();
+		//Limpar Gerenciamentos
+		RelacionamentosUsuarios.getInstance().zerarSistema();
+		BancoDeEmprestimos.getInstance().zerarSistema();
+		AcervoDeItens.getInstance().zerarSistema();
+		Correio.getInstance().zerarSistema();
+		GerenciadorDeNotificacoes.getInstance().zerarSistema();
 	}
 
 	/*

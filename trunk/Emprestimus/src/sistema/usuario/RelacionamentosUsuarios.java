@@ -51,7 +51,7 @@ public class RelacionamentosUsuarios {
 	}
 
 	public void adicionaCicloDeAmizadeAoUsuario(String usuario) throws Exception {
-		if(ciclosDeAmizade.containsKey(usuario)) throw new Exception(Mensagem.PROPRIETARIO_CONTA_JAH_CADASTRADO.getMensagem());
+		if(ciclosDeAmizade.containsKey(usuario)) throw new Exception(Mensagem.PROPRIETARIO_CONTA_CICLO_AMIZADE_JAH_CADASTRADO.getMensagem());
 		ciclosDeAmizade.put(usuario, new CicloDeAmizade(usuario));
 		
 	}
@@ -389,4 +389,7 @@ public class RelacionamentosUsuarios {
 		return ciclosDeAmizade.get(seuLogin).getAmigos();
 	}
 	
+	public void zerarSistema(){
+		ciclosDeAmizade.clear();
+	}
 }

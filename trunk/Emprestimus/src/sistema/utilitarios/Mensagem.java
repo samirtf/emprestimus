@@ -322,7 +322,8 @@ public enum Mensagem {
     	PUBLICACAO_ID_INEXISTENTE("Publicação de pedido inexistente"), 
     	USUARIO_NAO_PODE_OFERECER_UM_ITEM_A_UM_DESCONHECIDO("O usuário não pode emprestar um item a um desconhecido"), 
     	ITEM_NAO_ME_PERTENCE("Não é possível emprestar um item que não é seu"), 
-    	DESCRICAO_INVALIDA("Descrição inválida");
+    	DESCRICAO_INVALIDA("Descrição inválida"), 
+    	PROPRIETARIO_CONTA_CICLO_AMIZADE_JAH_CADASTRADO("Proprietário da conta ciclo de amizade já cadastrado");
         
         private final String mensagem;
 
