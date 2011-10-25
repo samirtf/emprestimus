@@ -143,7 +143,7 @@ public class InterfaceTexto {
 			break;
 			
 		case 2:
-			localizarUsuario();
+			localizarUsuarioPalavraChave();
 			break;
 	
 		case 3:
@@ -750,7 +750,7 @@ public class InterfaceTexto {
 		}
 	}
 
-	private static void localizarUsuario() {
+	private static void localizarUsuarioPalavraChave() {
 		String chave, atributo;
 		iuExibirMensagem(Mensagem.PEDIR_CHAVE_BUSCA.getMensagem());
 		
@@ -765,11 +765,22 @@ public class InterfaceTexto {
 			iuExibirMensagem(e.getMessage());
 			
 			if (tentarNovamente()) {
-				localizarUsuario();
+				localizarUsuarioPalavraChave();
 			}
 		}
 	}
 
+	private static void localizarUsuario() {
+		try {
+			iuExibirMensagem(emprestimus.localizarUsuario(id_sessao));
+		} catch (Exception e) {
+			iuExibirMensagem(e.getMessage());
+			if (tentarNovamente()) {
+				localizarUsuario();
+			}
+		}
+	}
+	
 	private static void cadastrarItem() {
 		String nome, descricao, categoria;
 		iuExibirMensagem(Mensagem.PEDIR_NOME_ITEM_CADASTRAR.getMensagem());
@@ -897,5 +908,78 @@ public class InterfaceTexto {
 		System.out.println(mensagem);
 	}
 	
-}
+	private static void visualizarHistorico() {
+		try {
+			iuExibirMensagem(emprestimus.historicoAtividades(id_sessao));
+		} catch (Exception e) {
+			iuExibirMensagem(e.getMessage());
+			if (tentarNovamente()) {
+				visualizarHistorico();
+			}
+		}
+	}
+	
+	private static void visualizarHistorico_timeLine() {
+		try {
+			iuExibirMensagem(emprestimus.historicoAtividades(id_sessao));
+		} catch (Exception e) {
+			iuExibirMensagem(e.getMessage());
+			if (tentarNovamente()) {
+				visualizarHistorico_timeLine();
+			}
+		}
+	}
+	
+	private static void oferecerItem() {
+		String id_publ;
+		
+		iuExibirMensagem(Mensagem.PEDIR_ID_PUBLICACAO_PEDIDO.getMensagem());
+		id_publ = pegaStringDaEntrada();
 
+		iuExibirMensagem(Mensagem.PEDIR_ID_ITEM.getMensagem());
+		
+		try {
+			emprestimus.oferecerItem(id_sessao, id_publ, pegaStringDaEntrada());
+		} catch (Exception e) {
+			iuExibirMensagem(e.getMessage());
+			
+			if(tentarNovamente()) {
+				oferecerItem();
+			}
+		}
+	}
+	
+	private static void publicarPedido() {
+		String nome;
+		
+		iuExibirMensagem(Mensagem.PEDIR_NOME_ITEM.getMensagem());
+		nome = pegaStringDaEntrada();
+
+		iuExibirMensagem(Mensagem.PEDIR_DESCRICAO_ITEM.getMensagem());
+		
+		try {
+			iuExibirMensagem("O id da publicação do pedido eh: "+
+									emprestimus.publicarPedido(id_sessao, nome, pegaStringDaEntrada()));
+			
+		} catch (Exception e) {
+			iuExibirMensagem(e.getMessage());
+			
+			if(tentarNovamente()) {
+				publicarPedido();
+			}
+		}
+	}
+	
+	private static void republicarPedido() {
+		iuExibirMensagem(Mensagem.PEDIR_ID_PUBLICACAO_PEDIDO.getMensagem());
+		try {
+			emprestimus.republicarPedido(id_sessao, pegaStringDaEntrada());
+		} catch (Exception e) {
+			iuExibirMensagem(e.getMessage());
+			
+			if(tentarNovamente()) {
+				republicarPedido();
+			}
+		}
+	}
+}
