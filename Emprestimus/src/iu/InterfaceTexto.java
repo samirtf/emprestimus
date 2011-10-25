@@ -90,8 +90,8 @@ public class InterfaceTexto {
 		int opcao;
 		iuExibirMensagem(Mensagem.MENU_LOGADO.getMensagem());
 		
-		final int OPCAO_SAIR = 6;
-		opcao = pegarOpcao(1, OPCAO_SAIR);
+		final int OPCAO_DESLOGAR = 6;
+		opcao = pegarOpcao(1, OPCAO_DESLOGAR);
 		
 		switch (opcao) {
 		case 1:
@@ -114,14 +114,14 @@ public class InterfaceTexto {
 			menuEmprestimos();
 			break;
 			
-		case OPCAO_SAIR:
+		case OPCAO_DESLOGAR:
 			deslogar();
 			break;
 			
 		default:
 			break;
 		}
-		if (opcao != OPCAO_SAIR) menuLogado();
+		if (opcao != OPCAO_DESLOGAR) menuLogado();
 	}
 
 	private static void deslogar() {
@@ -133,8 +133,8 @@ public class InterfaceTexto {
 		int opcao;
 		iuExibirMensagem(Mensagem.MENU_PERFIL_PROPRIO.getMensagem());
 		
-		final int OPCAO_SAIR = 11;
-		opcao = pegarOpcao(1, OPCAO_SAIR);
+		final int OPCAO_VOLTAR = 14;
+		opcao = pegarOpcao(1, OPCAO_VOLTAR);
 		
 		
 		switch (opcao) {
@@ -145,55 +145,67 @@ public class InterfaceTexto {
 		case 2:
 			localizarUsuarioPalavraChave();
 			break;
-	
+			
 		case 3:
-			requisitarAmizade();
+			localizarUsuario();
 			break;
 			
 		case 4:
+			requisitarAmizade();
+			break;
+			
+		case 5:
 			visualizarRequisitacoesAmizade();
 			break;
 	
-		case 5:
+		case 6:
 			aprovarAmizade();
 			break;
 			
-		case 6:
+		case 7:
 			verificarAmizade();
 			break;
 			
-		case 7:
+		case 8:
 			verAmigos();
 			break;
 		
-		case 8:
+		case 9:
 			desfazerAmizade();
 			break;
 		
-		case 9:
+		case 10:
 			verRanking();
 			break;
 		
-		case 10:
+		case 11:
 			incrementarDias();
 			break;
 		
-		case OPCAO_SAIR:
+		case 12:
+			visualizarHistorico();
+			break;
+			
+		case 13:
+			visualizarHistorico_timeLine();
+			break;
+			
+		case OPCAO_VOLTAR:
 			voltarMenuLogado();
 			break;
 			
 		default:
 			break;
 		}
-		if (opcao != OPCAO_SAIR) menuPerfilProprio();
+		if (opcao != OPCAO_VOLTAR) menuPerfilProprio();
 	}
 	
 	private static void menuPerfilOutroUsuario() {
 		int opcao;
 		iuExibirMensagem(Mensagem.MENU_PERFIL_ALHEIO.getMensagem());
 		
-		final int OPCAO_SAIR = 4;
-		opcao = pegarOpcao(1, OPCAO_SAIR);
+		final int OPCAO_VOLTAR = 4;
+		opcao = pegarOpcao(1, OPCAO_VOLTAR);
 		
 		switch (opcao) {
 		case 1:
@@ -208,22 +220,22 @@ public class InterfaceTexto {
 			verItensOutroUsuario();
 			break;
 		
-		case OPCAO_SAIR:
+		case OPCAO_VOLTAR:
 			voltarMenuLogado();
 			break;
 			
 		default:
 			break;
 		}
-		if (opcao != OPCAO_SAIR) menuPerfilOutroUsuario();
+		if (opcao != OPCAO_VOLTAR) menuPerfilOutroUsuario();
 	}
 	
 	private static void menuCaixaMensagem() {
 		int opcao;
 		iuExibirMensagem(Mensagem.MENU_CAIXA_DE_MENSAGENS.getMensagem());
 		
-		final int OPCAO_SAIR = 5;
-		opcao = pegarOpcao(1, OPCAO_SAIR);
+		final int OPCAO_VOLTAR = 5;
+		opcao = pegarOpcao(1, OPCAO_VOLTAR);
 		
 		switch (opcao) {
 		case 1:
@@ -242,22 +254,22 @@ public class InterfaceTexto {
 			lerMensagens();
 			break;
 		
-		case OPCAO_SAIR:
+		case OPCAO_VOLTAR:
 			voltarMenuLogado();
 			break;
 			
 		default:
 			break;
 		}
-		if (opcao != OPCAO_SAIR) menuCaixaMensagem();
+		if (opcao != OPCAO_VOLTAR) menuCaixaMensagem();
 	}
 	
 	private static void menuItens() {
 		int opcao;
 		iuExibirMensagem(Mensagem.MENU_ITENS_PROPRIOS.getMensagem());
 		
-		final int OPCAO_SAIR = 6;
-		opcao = pegarOpcao(1, OPCAO_SAIR);
+		final int OPCAO_VOLTAR = 6;
+		opcao = pegarOpcao(1, OPCAO_VOLTAR);
 		
 		switch (opcao) {
 		case 1:
@@ -280,22 +292,22 @@ public class InterfaceTexto {
 			apagarItem();
 			break;
 			
-		case OPCAO_SAIR:
+		case OPCAO_VOLTAR:
 			voltarMenuLogado();
 			break;
 			
 		default:
 			break;
 		}
-		if (opcao != OPCAO_SAIR) menuItens();
+		if (opcao != OPCAO_VOLTAR) menuItens();
 	}
 	
 	private static void menuEmprestimos() {
 		int opcao;
 		iuExibirMensagem(Mensagem.MENU_EMPRESTIMOS.getMensagem());
 		
-		final int OPCAO_SAIR = 9;
-		opcao = pegarOpcao(1, OPCAO_SAIR);
+		final int OPCAO_VOLTAR = 12;
+		opcao = pegarOpcao(1, OPCAO_VOLTAR);
 		
 		switch (opcao) {
 		case 1:
@@ -329,15 +341,27 @@ public class InterfaceTexto {
 		case 8:
 			registrarInteresse();
 			break;
-		
-		case OPCAO_SAIR:
+			
+		case 9:
+			publicarPedido();
+			break;
+
+		case 10:
+			oferecerItem();
+			break;
+
+		case 11:
+			republicarPedido();
+			break;
+
+		case OPCAO_VOLTAR:
 			voltarMenuLogado();
 			break;
 			
 		default:
 			break;
 		}
-		if (opcao != OPCAO_SAIR) menuEmprestimos();
+		if (opcao != OPCAO_VOLTAR) menuEmprestimos();
 	}
 	
 	private static void voltarMenuLogado() {
