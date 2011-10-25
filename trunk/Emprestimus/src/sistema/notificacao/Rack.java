@@ -40,6 +40,13 @@ public class Rack {
 		historico.add(0, notificacao);
 	}
 	
+	public void republicarPedido(Notificacao notificacao) throws Exception{
+		Notificacao notificacaoAtulizada = notificacao;
+		historico.remove(notificacao);
+		notificacaoAtulizada.setNovaData();
+		historico.add(0, notificacaoAtulizada);
+	}
+	
 	public void zerarHistorico(){
 		historico.clear();
 	}

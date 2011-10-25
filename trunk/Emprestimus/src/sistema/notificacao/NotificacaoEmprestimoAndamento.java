@@ -20,7 +20,7 @@ public class NotificacaoEmprestimoAndamento implements Notificacao {
 	private ItemIF item;
 
 	private Date data;
-	private Long id;
+	private String id;
 
 	/**
 	 * @param dono
@@ -56,13 +56,13 @@ public class NotificacaoEmprestimoAndamento implements Notificacao {
 	}
 
 	@Override
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
 	@Override
 	public Notificacao setId(String novoId) throws Exception {
-		this.id = Long.valueOf(novoId);
+		this.id = novoId;
 		return this;
 	}
 

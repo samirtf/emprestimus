@@ -15,13 +15,14 @@ import sistema.usuario.UsuarioIF;
  */
 public class NotificacaoPublicarPedido implements Notificacao {
 	
-	private ItemIF item;
+	private String nomeItem;
+	private String descricaoItem;
 	private UsuarioIF usuario;
 	private Date data;
-	private Long id;
+	private String id;
 	
-	public NotificacaoPublicarPedido(UsuarioIF usuario, ItemIF item) {
-		this.item = item;
+	public NotificacaoPublicarPedido(UsuarioIF usuario, String nomeItem, String descricaoItem) {
+		this.nomeItem = nomeItem;
 		this.usuario = usuario;
 		this.data = new GregorianCalendar().getTime();
 	}
@@ -49,14 +50,14 @@ public class NotificacaoPublicarPedido implements Notificacao {
 	@Override
 	public String getMensagem(UsuarioIF usuario) {
 		//Steven Paul Jobs precisa do item The Social Network
-		return String.format("%s precisa do item %s", this.usuario.getNome(), item.getNome());
+		return String.format("%s precisa do item %s", this.usuario.getNome(), nomeItem);
 	}
 
 	/* (non-Javadoc)
 	 * @see sistema.notificacao.Notificacao#getId()
 	 */
 	@Override
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
@@ -65,8 +66,12 @@ public class NotificacaoPublicarPedido implements Notificacao {
 	 */
 	@Override
 	public Notificacao setId(String novoId) throws Exception {
-		id = Long.valueOf(novoId);
+		id = novoId;
 		return this;
+	}
+	
+	public UsuarioIF getOriginadorMensagem(){
+		return this.usuario;
 	}
 
 	/* (non-Javadoc)

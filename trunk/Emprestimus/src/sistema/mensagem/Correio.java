@@ -16,6 +16,7 @@ import java.util.TreeMap;
 
 import sistema.autenticacao.Autenticacao;
 import sistema.emprestimo.EmprestimoIF;
+import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.persistencia.ChatRepositorio;
 import sistema.persistencia.EmprestimoRepositorio;
 import sistema.usuario.UsuarioIF;
@@ -265,6 +266,47 @@ public class Correio {
 		}
 		return saida.toString().trim()
 				.substring(0, saida.toString().trim().length() - 1);
+	}
+
+	public static String enviarMensagemOferecimentoItemOffTopic(String remetente,
+			String destinatario, String assunto, String mensagem) throws Exception {
+
+
+		assertStringNaoVazia(remetente,
+				Mensagem.REMETENTE_INVALIDO.getMensagem(),
+				Mensagem.REMETENTE_INVALIDO.getMensagem());
+
+		assertStringNaoVazia(destinatario,
+				Mensagem.DESTINATARIO_INVALIDO.getMensagem(),
+				Mensagem.DESTINATARIO_INVALIDO.getMensagem());
+		UsuarioIF usuario = Autenticacao.getUsuarioPorLogin(remetente);
+		UsuarioIF amigoDeAmigo = Autenticacao.getUsuarioPorLogin(destinatario);
+
+		asserteTrue(amigoDeAmigo != null,
+				Mensagem.DESTINATARIO_INEXISTENTE.getMensagem());
+		assertStringNaoVazia(assunto, Mensagem.ASSUNTO_INVALIDO.getMensagem(),
+				Mensagem.ASSUNTO_INVALIDO.getMensagem());
+		assertStringNaoVazia(mensagem,
+				Mensagem.MENSAGEM_INVALIDA.getMensagem(),
+				Mensagem.MENSAGEM_INVALIDA.getMensagem());
+
+		ChatIF conversa = ChatRepositorio
+				.existeConversaEntreAsPessoasSobreMesmoAssuntoETipo(
+						usuario.getLogin(), destinatario, assunto, true);
+
+		if (conversa == null) {
+			conversa = new Chat(usuario, amigoDeAmigo, assunto.trim(), mensagem.trim());
+			conversa.setTipoOffTopicMsg();
+			ChatRepositorio.registrarConversa(conversa);
+			caixasPostais.get(remetente).getConversasOffTopic().add(conversa);
+			// usuario.conversasOfftopic.add(conversa);
+			amigoDeAmigo.adicionaConversaOfftopicNaLista(conversa);
+		} else {
+			conversa.adicionaMensagem(mensagem);
+		}
+
+		return conversa.getIdMensagem();
+
 	}
 
 }

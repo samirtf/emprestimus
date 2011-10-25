@@ -44,7 +44,7 @@ public interface Notificacao extends Comparable<Notificacao>{
 	 * 
 	 * @return
 	 */
-	public Long getId();
+	public String getId();
 
 	/**
 	 * Atribue um novo id a esta notificacao

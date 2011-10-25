@@ -19,7 +19,7 @@ public class NotificacaoRegistrarInteresseItem implements Notificacao {
 	private UsuarioIF amigo;
 	private ItemIF item;
 	private Date data;
-	private Long id;
+	private String id;
 	
 	private NotificacaoRegistrarInteresseItem(){}
 	
@@ -76,13 +76,13 @@ public class NotificacaoRegistrarInteresseItem implements Notificacao {
 	}
 
 	@Override
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
 	@Override
 	public Notificacao setId(String novoId) throws Exception {
-		this.id = Long.valueOf(novoId);
+		this.id = novoId;
 		return this;
 	}
 

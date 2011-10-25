@@ -21,8 +21,10 @@ import sistema.emprestimo.Emprestimo;
 import sistema.emprestimo.EmprestimoIF;
 import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.notificacao.GerenciadorDeNotificacoes;
+import sistema.notificacao.NotificacaoPublicarPedido;
 import sistema.persistencia.EmprestimoRepositorio;
 import sistema.persistencia.ItemRepositorio;
+import sistema.persistencia.NotificacaoRepositorio;
 import sistema.usuario.RelacionamentosUsuarios;
 import sistema.usuario.UsuarioIF;
 import sistema.utilitarios.Mensagem;
@@ -231,6 +233,32 @@ public class AcervoDeItens {
 		assertNaoNulo(amigo, "O usuário não tem permissão para registrar interesse neste item");
 		item.adicionaInteressado(Autenticacao.getUsuarioPorLogin(seuLogin));
 		GerenciadorDeNotificacoes.getInstance().addHistoricoInteressePorItem(seuLogin, amigo, item);
+	}
+
+	public void oferecerItem(String login, String idPublicacaoPedido,
+			String idItem) throws Exception {
+		System.out.println(idPublicacaoPedido+"IDDDDDDDDDD");
+		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(), Mensagem.LOGIN_INVALIDO.getMensagem());
+		assertStringNaoVazia(idPublicacaoPedido, Mensagem.PUBLICACAO_ID_INVALIDO.getMensagem(),
+				Mensagem.PUBLICACAO_ID_INVALIDO.getMensagem());
+		NotificacaoPublicarPedido notificacao = null;
+		try{
+			System.out.println("IDPBLICACAO "+idPublicacaoPedido);
+			notificacao = (NotificacaoPublicarPedido) NotificacaoRepositorio.getInstance().recuperarNotificacao(idPublicacaoPedido);
+			System.out.println("IDPBLICACAO xxxx"+idPublicacaoPedido);
+		}catch(Exception e){
+			throw new Exception(Mensagem.PUBLICACAO_ID_INEXISTENTE.getMensagem());
+		}
+		assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		asserteTrue(ItemRepositorio.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
+		UsuarioIF usuario = Autenticacao.getUsuarioPorLogin(login);
+		if(!usuario.esteItemMePertence(idItem)){
+			throw new Exception(Mensagem.ITEM_NAO_ME_PERTENCE.getMensagem());
+		}
+		ItemIF item = ItemRepositorio.recuperarItem(idItem);
+		usuario.enviarMensagemOferecimentoItemOffTopic(notificacao.getOriginadorMensagem().getLogin(), 
+				String.format("O usuário %s ofereceu o item %s", usuario.getNome(),item.getNome() ),
+				String.format("Item oferecido: %s - %s", item.getNome(),item.getDescricao()));
 	}
 
 

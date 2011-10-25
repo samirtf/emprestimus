@@ -19,7 +19,7 @@ public class NotificacaoTerminoEmprestimo implements Notificacao {
 	private UsuarioIF usuario;
 	private ItemIF item;
 	private Date data;
-	private Long id;
+	private String id;
 
 	public NotificacaoTerminoEmprestimo(UsuarioIF usuario, ItemIF item) throws InterruptedException {
 		this.usuario = usuario;
@@ -66,7 +66,7 @@ public class NotificacaoTerminoEmprestimo implements Notificacao {
 	 * @see sistema.notificacao.Notificacao#getId()
 	 */
 	@Override
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
@@ -75,7 +75,7 @@ public class NotificacaoTerminoEmprestimo implements Notificacao {
 	 */
 	@Override
 	public Notificacao setId(String novoId) throws Exception {
-		this.id = Long.valueOf(novoId);
+		this.id = novoId;
 		return this;
 	}
 	
