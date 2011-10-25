@@ -1,4 +1,6 @@
 package sistema.usuario;
+
+
 import java.util.List;
 import maps.Coordenadas;
 import sistema.emprestimo.EmprestimoIF;
@@ -6,7 +8,6 @@ import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.item.ItemIF;
 import sistema.mensagem.ChatIF;
 import sistema.notificacao.Notificacao;
-
 
 /**
  * Emprestimus
@@ -18,7 +19,6 @@ import sistema.notificacao.Notificacao;
  * interface deve ser feita com upcast para a interface.
  * 
  */
-
 public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 
 	/**
@@ -488,5 +488,14 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	public void registrarInteressePorItem(String idItem) throws Exception;
 
 	public void addHistoricoTerminoEmprestimo(ItemIF item) throws Exception;
+
+	public String publicarPedido(String nomeItem, String descricaoItem) throws Exception;
+
+	public void oferecerItem(String idPublicacaoPedido, String idItem) throws Exception;
+
+	public void republicarPedido(String idPublicacaoPedido) throws Exception;
+
+	String enviarMensagemOferecimentoItemOffTopic(String destinatario,
+			String assunto, String mensagem) throws Exception;
 	
 }
