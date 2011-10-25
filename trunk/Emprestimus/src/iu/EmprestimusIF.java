@@ -362,7 +362,7 @@ public interface EmprestimusIF {
     public void requisitarDevolucao(String idSessao, String idEmprestimo) throws Exception;
     
     /**
-     * Incrementa o contador de dias.
+     * Incrementa o contador de dias (adianta o calendário do sistema).
      * 
      * @param dias
      * 		Quantidade de dias a ser adicionada.
@@ -421,6 +421,18 @@ public interface EmprestimusIF {
     public void desfazerAmizade(String idSessao, String amigo) throws Exception;
     
     //US14
+    /**
+     * Recupera o atual ranking de usuários no sistema.
+     * 
+     * @param idSessao
+     * 		Id da sessão do usuário requisitante do ranking.
+     * @param categoria
+     * 		Categoria do ranking desejado (global ou amigos).
+     * @return
+     * 		String que representa o ranking.
+     * @throws Exception
+     * 		Caso algum dos parâmetros seja inválido/inesxistente.
+     */
   	public String getRanking( String idSessao, String categoria ) throws Exception;
         
   	//US15
@@ -429,8 +441,11 @@ public interface EmprestimusIF {
   	 * em ordem de ocorrência (da atividade mais recente à mais antiga).
   	 * 
   	 * @param idSessao
+  	 * 		ID da sessão do usuário que deseja visualizar o histórico.
   	 * @return
+  	 * 		String que representa o historico solicitado.
   	 * @throws Exception
+  	 * 		Caso o parâmetro passado seja inválido ou inexistente.
   	 */
   	public String historicoAtividades(String idSessao) throws Exception;
   	
@@ -444,15 +459,44 @@ public interface EmprestimusIF {
   	 * portanto mostra apenas a atividade do usuario que requisitou o histórico de atividades em conjunto.
   	 * 
   	 * @param idSessao
+  	 * 		ID da sessão do usuário que deseja visualizar o histórico.
   	 * @return
+  	 * 		String que representa o historico solicitado.
   	 * @throws Exception
+  	 * 		Caso o parâmetro passado seja inválido ou inexistente.
   	 */
   	public String historicoAtividadesConjunto(String idSessao) throws Exception;
   	
   	//US17
+  	/**
+  	 * Publica um pedido de item cujos nome e descrição batam com os passados como parâmetro.
+  	 * 
+  	 * @param idSessao
+  	 * 		Id da sessão do usuário que precisa do item.
+  	 * @param nomeItem
+  	 * 		Nome do item desejado.
+  	 * @param descricaoItem
+  	 * 		Descrição do item desejado.
+  	 * @return
+  	 * 		ID da publicação do pedido.
+  	 * @throws Exception
+  	 * 		Caso os parâmetros passados sejam inválidos ou inexistentes.
+  	 */
   	public String publicarPedido(String idSessao, String nomeItem, String descricaoItem) throws Exception;
   	
   	//US18
+  	/**
+  	 * Oferece um item a um usuário que publicou um pedido.
+  	 * 
+  	 * @param idSessao
+  	 * 		ID da sessão do usuário que deseja ofertar o item.
+  	 * @param idPublicacaoPedido
+  	 * 		ID da publicação do pedido que se deseja atender.
+  	 * @param idItem
+  	 * 		ID do item que será ofertado.
+  	 * @throws Exception
+  	 * 		Caso os parâmetros passados sejam inválidos ou inexistentes.
+  	 */
   	public void oferecerItem(String idSessao, String idPublicacaoPedido, String idItem) throws Exception;
   	
 	//Utils
@@ -468,12 +512,41 @@ public interface EmprestimusIF {
 	 */
 	public void encerrarSistema();
 
-	
-
+	/**
+	 * Apaga um item do usuário.
+	 * 
+	 * @param idSessao
+	 * 		Id da sessão do usuário que possui o item.
+	 * @param idItem
+	 * 		Id do item que será apagado.
+	 * @throws Exception
+	 * 		Caso os parâmetros passados sejam inválidos ou inexistentes.
+	 */
 	public void apagarItem(String idSessao, String idItem) throws Exception;
 
+	/**
+	 * Faz com que o pedido de um item seja republicado (com o mesmo id).
+	 * 
+	 * @param idSessao
+	 * 		Id da sessão atual do usuário que fez a publicação.
+	 * @param idPublicacaoPedido
+	 * 		Id da publicação do pedido.
+	 * @throws Exception
+	 * 		Caso os parâmetros passados sejam inválidos ou inexistentes.
+	 */
 	public void republicarPedido(String idSessao, String idPublicacaoPedido) throws Exception;
 
+	//US20
+	/**
+	 * Localiza os usuários que moram perto do usuário com o id de sessão informado. 
+	 * 
+	 * @param idSessao
+	 * 		Id da sessão do usuário que servirá como ponto de referência (usuário base) para localizar os demais.
+	 * @return
+	 * 		Uma String que agrupa o nome e o endereço dos usuários que moram perto do usuário base.
+	 * @throws Exception
+	 * 		Caso o parâmetro passado seja inválido ou inexistente.
+	 */
 	public String localizarUsuario(String idSessao) throws Exception;
 	
 
