@@ -3,14 +3,15 @@ package sistema.utilitarios;
 import sistema.excecoes.ArgumentoInvalidoException;
 
 /**
+ * Emprestimus
+ * Projeto de Sistemas de Informação I
+ * Universidade Federal de Campina Grande
+ * 
  * Classe usada para lançar exceção em alguns casos, quando se deseja testar
  * algo.
- * 
- * @author José Nathaniel L. de Abrante - nathaniel.una@gmail.com
- * @author Joeffison Silverio de Andrade, 21011853, joeffisonsa@gmail.com
- * @since 10/09/2011
- * @version 1.0
  */
+
+
 public class Validador {
 
 	/**
