@@ -1,35 +1,36 @@
 package maps;
 
-import java.io.*;
-import java.io.*;
-import java.net.*;
-import org.json.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+
+import org.json.JSONObject;
 
 public class GetCoordenadas {
 
-	public RefCoordenadas getCoordenadas(String endereco) {
+	public static RefCoordenadas getCoordenadas(String endereco) {
 		double latitude = 0;
 		double longitude = 0;
-		
+
 		try {
 			String url = String.format("%s%s%s",
 					"http://maps.google.com/maps/api/geocode/json?address=",
 					endereco, "&sensor=true");
-			
+
 			String source = requisicao(url);
 			JSONObject object = new JSONObject(source);
-			object = object.getJSONObject("results");
-			object = object.getJSONObject("geometry");
-			object = object.getJSONObject("location");
+			object = object.getJSONObject("results").getJSONObject("geometry")
+					.getJSONObject("location");
 			latitude = object.getDouble("lat");
 			longitude = object.getDouble("lng");
 		} catch (Exception e) {
-
+			//Devolva as coordenadas zeradas 
 		}
 		return new RefCoordenadas(latitude, longitude);
 	}
 
-	private String requisicao(String url) {
+	private static String requisicao(String url) {
 		String source = "";
 		try {
 			URL req = new URL(url);
@@ -41,7 +42,7 @@ public class GetCoordenadas {
 				source = source.concat(buffer + "\n");
 			in.close();
 		} catch (Exception e) {
-
+			//Devolve até onde foi lido
 		}
 		return source;
 	}
