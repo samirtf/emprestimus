@@ -1,11 +1,14 @@
 package sistema.utilitarios;
 
+
 /**
- * Enum que encapsula as mensagens usadas no sistema.
+ * Emprestimus
+ * Projeto de Sistemas de Informação I
+ * Universidade Federal de Campina Grande
  * 
- * @author Joeffison Silverio de Andrade, 21011853, joeffisonsa@gmail.com
- * @version 1.0
+ * Enum que encapsula as mensagens usadas no sistema.
  */
+
 public enum Mensagem {
 	
 	/*Especiais*/
