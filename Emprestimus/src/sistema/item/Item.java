@@ -24,6 +24,7 @@ import sistema.utilitarios.Mensagem;
 public class Item implements ItemIF {
 
 	private String idItem, nome, descricao;
+	//private List<String> categoria;
 	private String categoria;
 	private Date dataCriacao;
 	private boolean estaDisponivel;
@@ -106,7 +107,7 @@ public class Item implements ItemIF {
 	@Override
 	public void setCategoria(String categoria) throws Exception {
 		this.categoria = categoria;
-		//TODO: tratar erros de entrada.
+		
 
 	}
 
