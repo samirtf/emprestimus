@@ -212,33 +212,13 @@ public class RelacionamentosUsuarios {
 		StringBuffer saida = new StringBuffer();
 		
 		if( criterioOrdenacao.trim().equalsIgnoreCase("dataCriacao") ){
-			//List<String> saidaDataCriacao = new LinkedList<String>();
 			List<ItemIF> saidaDataCriacao = new LinkedList<ItemIF>();
 			Iterator<UsuarioIF> iteradorUsuarios = ciclosDeAmizade.get(seuLogin).getAmigos().iterator();
 			while(iteradorUsuarios.hasNext()){
 				UsuarioIF amigo = iteradorUsuarios.next();
-				Iterator<ItemIF> iteradorItens = amigo.getItens().iterator();
-				while(iteradorItens.hasNext()){
-					ItemIF item = iteradorItens.next();
-					if(atributo.trim().equalsIgnoreCase("nome")){
-						if(item.getNome().toLowerCase().contains(chave.toLowerCase())){
-							//saidaDataCriacao.add(item.getNome());
-							saidaDataCriacao.add(item);
-						}
-					}else if(atributo.trim().equalsIgnoreCase("descricao")){
-						if(item.getDescricao().toLowerCase().contains(chave.toLowerCase())){
-							//saidaDataCriacao.add(item.getNome());
-							saidaDataCriacao.add(item);
-						}
-					}else if(atributo.trim().equalsIgnoreCase("categoria")){
-						if(item.getCategoria().toLowerCase().contains(chave.trim().toLowerCase())){
-							//saidaDataCriacao.add(item.getNome());
-							saidaDataCriacao.add(item);
-						}
-					}
-				}
+				buscarItem(chave, atributo, saidaDataCriacao, amigo);
 			}
-			
+			buscarItem(chave, atributo, saidaDataCriacao, Autenticacao.getUsuarioPorLogin(seuLogin));
 			if(tipoOrdenacao.trim().equalsIgnoreCase("crescente")){
 				Collections.sort(saidaDataCriacao, new DataCriacaoItemComparador());
 			}else if(tipoOrdenacao.trim().equalsIgnoreCase("decrescente")){
@@ -251,7 +231,6 @@ public class RelacionamentosUsuarios {
 			}
 			
 		}else if(criterioOrdenacao.trim().equalsIgnoreCase("reputacao")){
-			//List<String> saidaDataCriacao = new LinkedList<String>();
 			List<ItemIF> saidaReputacao = new LinkedList<ItemIF>();
 			Map<Integer, List<ItemIF>> mapaItensPorReputacao = new HashMap<Integer, List<ItemIF>>();
 			
@@ -346,6 +325,30 @@ public class RelacionamentosUsuarios {
 		
 		
 		return saida.toString().trim().substring(0, saida.toString().trim().length()-1);
+	}
+
+	private void buscarItem(String chave, String atributo,
+			List<ItemIF> saidaDataCriacao, UsuarioIF amigo) {
+		Iterator<ItemIF> iteradorItens = amigo.getItens().iterator();
+		while(iteradorItens.hasNext()){
+			ItemIF item = iteradorItens.next();
+			if(atributo.trim().equalsIgnoreCase("nome")){
+				if(item.getNome().toLowerCase().contains(chave.toLowerCase())){
+					//saidaDataCriacao.add(item.getNome());
+					saidaDataCriacao.add(item);
+				}
+			}else if(atributo.trim().equalsIgnoreCase("descricao")){
+				if(item.getDescricao().toLowerCase().contains(chave.toLowerCase())){
+					//saidaDataCriacao.add(item.getNome());
+					saidaDataCriacao.add(item);
+				}
+			}else if(atributo.trim().equalsIgnoreCase("categoria")){
+				if(item.getCategoria().toLowerCase().contains(chave.trim().toLowerCase())){
+					//saidaDataCriacao.add(item.getNome());
+					saidaDataCriacao.add(item);
+				}
+			}
+		}
 	}
 	
 	
