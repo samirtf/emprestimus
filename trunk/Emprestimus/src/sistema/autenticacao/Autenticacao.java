@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
-import java.util.logging.Logger;
 
 import maps.ComparaDistancia;
+import maps.RefCoordenadas;
 
 import sistema.emprestimo.BancoDeEmprestimos;
 import sistema.excecoes.ArgumentoInvalidoException;
@@ -55,9 +55,9 @@ public class Autenticacao implements AutenticacaoIF {
 
 	@Override
 	public void zerarSistema() {
-		 usuariosCadastrados = new TreeMap<String, UsuarioIF>();
-		 sessoes = new TreeMap<String, UsuarioIF>();
-		 zerarHistoricoUsuario();
+		usuariosCadastrados = new TreeMap<String, UsuarioIF>();
+		sessoes = new TreeMap<String, UsuarioIF>();
+		zerarHistoricoUsuario();
 	}
 
 	private void zerarHistoricoUsuario() {
@@ -70,13 +70,14 @@ public class Autenticacao implements AutenticacaoIF {
 
 	@Override
 	public void encerrarSistema() {
-		 //System.exit(0);
+		//System.exit(0);
 	}
 
 	@Override
 	public ItemIF getItemComID(String id) throws Exception {
-		assertStringNaoVazia(id, Mensagem.ID_ITEM_INVALIDO.getMensagem(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
-		
+		assertStringNaoVazia(id, Mensagem.ID_ITEM_INVALIDO.getMensagem(),
+				Mensagem.ID_ITEM_INVALIDO.getMensagem());
+
 		for (UsuarioIF usuario : usuariosCadastrados.values()) {
 			try {
 				for (ItemIF item : usuario.getItens()) {
@@ -97,13 +98,14 @@ public class Autenticacao implements AutenticacaoIF {
 		if (usuariosCadastrados.containsKey(login.trim())) {
 			throw new Exception(Mensagem.LOGIN_JAH_CADASTRADO.getMensagem());
 		}
-		
+
 		usuariosCadastrados.put(login, novoUsuario);
-		//adicionando caixa postal ao usuario
+		// adicionando caixa postal ao usuario
 		Correio.adicionaCaixaPostalAoUsuario(login);
 		BancoDeEmprestimos.getInstance().adicionaContaAoUsuario(login);
 		AcervoDeItens.getInstance().adicionaBauhAoUsuario(login);
-		RelacionamentosUsuarios.getInstance().adicionaCicloDeAmizadeAoUsuario(login);
+		RelacionamentosUsuarios.getInstance().adicionaCicloDeAmizadeAoUsuario(
+				login);
 		GerenciadorDeNotificacoes.getInstance().adicionaRackAoUsuario(login);
 	}
 
@@ -118,7 +120,7 @@ public class Autenticacao implements AutenticacaoIF {
 			idSessao = gerarIdSessao();
 		}
 		sessoes.put(idSessao, getUsuario(login));
-		
+
 		return idSessao;
 
 	}
@@ -126,9 +128,13 @@ public class Autenticacao implements AutenticacaoIF {
 	@Override
 	public String getAtributoUsuario(String login, String atributo)
 			throws Exception {
-		assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(), Mensagem.LOGIN_INVALIDO.getMensagem());
-		assertStringNaoVazia(atributo, Mensagem.ATRIBUTO_INVALIDO.getMensagem(), Mensagem.ATRIBUTO_INVALIDO.getMensagem());
-		asserteTrue(existeUsuario(login), Mensagem.USUARIO_INEXISTENTE.getMensagem());
+		assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(),
+				Mensagem.LOGIN_INVALIDO.getMensagem());
+		assertStringNaoVazia(atributo,
+				Mensagem.ATRIBUTO_INVALIDO.getMensagem(),
+				Mensagem.ATRIBUTO_INVALIDO.getMensagem());
+		asserteTrue(existeUsuario(login),
+				Mensagem.USUARIO_INEXISTENTE.getMensagem());
 
 		UsuarioIF usuario = getUsuario(login);
 		String valor = null;
@@ -154,13 +160,18 @@ public class Autenticacao implements AutenticacaoIF {
 	 *         contrario.
 	 */
 	public static boolean existeUsuario(String login) {
-		if(usuariosCadastrados == null) return false;
+		if (usuariosCadastrados == null)
+			return false;
 		return usuariosCadastrados.containsKey(login);
 	}
-	
-	public static UsuarioIF getUsuarioPorLogin(String remetente) throws ArgumentoInvalidoException{
-		Validador.assertStringNaoVazia(remetente, Mensagem.LOGIN_INVALIDO.getMensagem(), Mensagem.LOGIN_INVALIDO.getMensagem());
-		Validador.asserteTrue(Autenticacao.existeUsuario(remetente), Mensagem.LOGIN_INEXISTENTE.getMensagem());
+
+	public static UsuarioIF getUsuarioPorLogin(String remetente)
+			throws ArgumentoInvalidoException {
+		Validador.assertStringNaoVazia(remetente,
+				Mensagem.LOGIN_INVALIDO.getMensagem(),
+				Mensagem.LOGIN_INVALIDO.getMensagem());
+		Validador.asserteTrue(Autenticacao.existeUsuario(remetente),
+				Mensagem.LOGIN_INEXISTENTE.getMensagem());
 		return usuariosCadastrados.get(remetente);
 	}
 
@@ -170,9 +181,11 @@ public class Autenticacao implements AutenticacaoIF {
 
 	@Override
 	public UsuarioIF getUsuarioPeloIDSessao(String idSessao) throws Exception {
-		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(), Mensagem.SESSAO_INVALIDA.getMensagem());
-		asserteTrue(existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
-		
+		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(),
+				Mensagem.SESSAO_INVALIDA.getMensagem());
+		asserteTrue(existeIdSessao(idSessao),
+				Mensagem.SESSAO_INEXISTENTE.getMensagem());
+
 		return sessoes.get(idSessao);
 	}
 
@@ -212,7 +225,8 @@ public class Autenticacao implements AutenticacaoIF {
 	public List<UsuarioIF> getUsuarioEndereco(String endereco) {
 		List<UsuarioIF> usuarios = new LinkedList<UsuarioIF>();
 		for (UsuarioIF user : usuariosCadastrados.values()) {
-			if (user.getEndereco().toLowerCase().contains(endereco.toLowerCase())) {
+			if (user.getEndereco().toLowerCase()
+					.contains(endereco.toLowerCase())) {
 				usuarios.add(user);
 			}
 		}
@@ -223,11 +237,13 @@ public class Autenticacao implements AutenticacaoIF {
 	public Collection<UsuarioIF> getListaUsuarios() {
 		return this.usuariosCadastrados.values();
 	}
-	
+
 	public List<UsuarioIF> getUsuarios(UsuarioIF userCorrente) {
-		List<UsuarioIF> usuarios = new ArrayList<UsuarioIF>(usuariosCadastrados.values());
+		List<UsuarioIF> usuarios = new ArrayList<UsuarioIF>(
+				usuariosCadastrados.values());
 		usuarios.remove(userCorrente);
-		Collections.sort(usuarios, new ComparaDistancia(userCorrente));
+		Collections.sort(usuarios, new ComparaDistancia(new RefCoordenadas(
+				userCorrente.getLatitude(), userCorrente.getLongitude())));
 		return usuarios;
 	}
 }
