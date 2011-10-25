@@ -99,7 +99,7 @@ public enum Mensagem {
                         "--Menu do seu Perfil--\n" +
                         " 1 - Ver atributo\n" +
                         " 2 - Localizar usuário por uma chave\n" +
-                        " 3- Localizar usuário\n" +
+                        " 3 - Localizar usuário\n" +
                         " 4 - Solicitar amizade\n" +
                         " 5 - Visualizar solicitações de amizade\n" +
                         " 6 - Aprovar amizade\n" +
@@ -142,11 +142,6 @@ public enum Mensagem {
                         "10 - Oferecer item\n" +
                         "11 - Republicar pedido\n" +
                         "12 - Voltar"),
-                        
-        MENU_ITEMCATEGORIA("\n--Escolha uma categoria:--\n" +
-                                           "1 - Livro\n" +
-                                           "2 - Filme\n" +
-                                           "3 - Jogo\n"),
                         
         /*Utilitários dos menus*/
         PERGUNTAR_TENTAR_NOVAMENTE("Deseja tentar novamente?\n"+
