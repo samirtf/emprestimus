@@ -147,7 +147,7 @@ public class Item implements ItemIF {
 	public void adicionaInteressado(UsuarioIF interessado) throws Exception {
 		asserteTrue(!interessados.contains(interessado),
 				"O usuario já está entre os interessados.");
-		// FIXME utilizar as mensagens constantes do enum Mensagem
+		// FIXME utilizar as mensagens constantes do enum Mensagem..
 		interessados.add(interessado);
 		Notificacao notif = new NotificacaoRegistrarInteresseItem(interessado, this
 				.getDono(), this);
@@ -158,7 +158,7 @@ public class Item implements ItemIF {
 	public void removeInteressado(UsuarioIF interessado) throws Exception {
 		asserteTrue(interessados.remove(interessado),
 				"O usuario não está entre os interessados.");
-		// FIXME utilizar as mensagens constantes do enum Mensagem
+		// FIXME utilizar as mensagens constantes do enum Mensagem.
 
 	}
 
