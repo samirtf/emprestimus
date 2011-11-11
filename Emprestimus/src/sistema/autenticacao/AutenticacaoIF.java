@@ -7,17 +7,19 @@ import sistema.item.ItemIF;
 import sistema.usuario.UsuarioIF;
 
 public interface AutenticacaoIF {
-
+	
 	public void zerarSistema();
-
+	
 	public void encerrarSistema();
-
-	public void criarUsuario(String login, String nome, String endereco) throws Exception;
-
-	public String abrirSessao(String login) throws Exception;
-
-	public String getAtributoUsuario(String login, String atributo) throws Exception;
-
+	
+	public void criarUsuario( String login, String nome, String endereco ) throws Exception;
+	
+	public String abrirSessao( String login ) throws Exception;
+	
+	public String abrirSessao( String login, String senha ) throws Exception;
+	
+	public String getAtributoUsuario( String login,  String atributo ) throws Exception;
+	
 	public boolean existeIdSessao(String idSessao);
 
 	public UsuarioIF getUsuarioPeloIDSessao(String idSessao) throws Exception;
@@ -25,9 +27,9 @@ public interface AutenticacaoIF {
 	public ItemIF getItemComID(String id) throws Exception;
 
 	public List<UsuarioIF> getUsuarioNome(String nome);
-
+	
 	public List<UsuarioIF> getUsuarioEndereco(String endereco);
-
+	
 	public Collection<UsuarioIF> getListaUsuarios();
 
 }

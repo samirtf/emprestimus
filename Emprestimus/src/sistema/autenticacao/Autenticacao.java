@@ -60,7 +60,7 @@ public class Autenticacao implements AutenticacaoIF {
 
 	@Override
 	public void encerrarSistema() {
-		// System.exit(0);
+		//System.exit(0);
 	}
 
 	@Override
@@ -226,5 +226,25 @@ public class Autenticacao implements AutenticacaoIF {
 		Collections.sort(usuarios, new ComparaDistancia(new RefCoordenadas(userCorrente
 				.getLatitude(), userCorrente.getLongitude())));
 		return usuarios;
+	}
+
+	@Override
+	public String abrirSessao(String login, String senha) throws Exception {
+		if (login == null || login.trim().equals(""))
+			throw new Exception("Login inválido");
+		if (!existeUsuario(login))
+			throw new Exception("Usuário inexistente");
+		Validador.assertStringNaoVazia(senha, "Login inválido", "Login inválido");
+		UsuarioIF usuario = Autenticacao.getUsuarioPorLogin(login);
+		if(!usuario.logar(senha)){
+			throw new Exception("Login ou senha incorreto(s)");
+		}
+		String idSessao = gerarIdSessao();
+		while (existeIdSessao(idSessao)) {
+			idSessao = gerarIdSessao();
+		}
+		sessoes.put(idSessao, getUsuario(login));
+
+		return idSessao;
 	}
 }
