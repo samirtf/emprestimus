@@ -9,10 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
-
 import maps.ComparaDistancia;
 import maps.RefCoordenadas;
-
 import sistema.emprestimo.BancoDeEmprestimos;
 import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.item.AcervoDeItens;
