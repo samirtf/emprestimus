@@ -8,15 +8,20 @@ import java.util.List;
 
 import maps.GetCoordenadas;
 import maps.RefCoordenadas;
+import sistema.autenticacao.Autenticacao;
 import sistema.emprestimo.BancoDeEmprestimos;
+import sistema.emprestimo.Emprestimo;
 import sistema.emprestimo.EmprestimoIF;
 import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.item.AcervoDeItens;
+import sistema.item.DataCriacaoItemComparador;
+import sistema.item.Item;
 import sistema.item.ItemIF;
 import sistema.mensagem.ChatIF;
 import sistema.mensagem.Correio;
 import sistema.notificacao.GerenciadorDeNotificacoes;
 import sistema.persistencia.ItemRepositorio;
+import sistema.utilitarios.Criptografia;
 import sistema.utilitarios.Mensagem;
 import sistema.utilitarios.Validador;
 
@@ -33,12 +38,12 @@ public class Usuario implements UsuarioIF {
 											// guardado nesta variavel estatica.
 
 	/* Atributos do objeto. */
-	private String login, nome, endereco;
+	private String login, nome, endereco, senha;
 
 	private final int id = ID_Prox_Usuario++; // id (codigo unico) do usuario
-
+	
 	private int reputacao = 0;
-
+	
 	private double longitude, latitude;
 
 	/**
@@ -146,22 +151,22 @@ public class Usuario implements UsuarioIF {
 	}
 
 	@Override
-	public ItemIF getItem(String idItem) throws ArgumentoInvalidoException {
+	public ItemIF getItem(String idItem) throws ArgumentoInvalidoException{
 		return AcervoDeItens.getInstance().getItem(this.getLogin(), idItem);
 	}
 
 	@Override
-	public int qntItens() throws ArgumentoInvalidoException {
+	public int qntItens() throws ArgumentoInvalidoException{
 		return AcervoDeItens.getInstance().qntItens(login);
 	}
 
 	@Override
-	public int qntItensEmprestados() throws ArgumentoInvalidoException {
+	public int qntItensEmprestados() throws ArgumentoInvalidoException{
 		return AcervoDeItens.getInstance().qntItensEmprestados(login);
 	}
 
 	@Override
-	public String getListaIdItensEmprestados() throws ArgumentoInvalidoException {
+	public String getListaIdItensEmprestados() throws ArgumentoInvalidoException{
 		return AcervoDeItens.getInstance().getListaIdItensEmprestados(login);
 	}
 
@@ -196,11 +201,10 @@ public class Usuario implements UsuarioIF {
 		return RelacionamentosUsuarios.getInstance().getCicloDeAmizade(this.getLogin())
 				.getQueremSerMeusAmigos();
 	}
-
+	
 	@Override
 	public List<UsuarioIF> getQueroSerAmigoDe() throws Exception {
-		return RelacionamentosUsuarios.getInstance().getCicloDeAmizade(this.getLogin())
-				.getQueroSerAmigoDeles();
+		return RelacionamentosUsuarios.getInstance().getCicloDeAmizade(this.getLogin()).getQueroSerAmigoDeles();
 	}
 
 	@Override
@@ -292,11 +296,11 @@ public class Usuario implements UsuarioIF {
 		return BancoDeEmprestimos.getInstance().aprovarEmprestimo(this.getLogin(),
 				idRequisicaoEmprestimo);
 	}
-
+	
 	/**
 	 * @param amigo
 	 * @param item
-	 * @throws Exception
+	 * @throws Exception 
 	 */
 	@Override
 	public void addHistoricoEmprestimoEmAndamento(UsuarioIF amigo, ItemIF item) throws Exception {
@@ -438,21 +442,19 @@ public class Usuario implements UsuarioIF {
 		return GerenciadorDeNotificacoes.getInstance().getHistoricoToString(
 				this.getLogin());
 	}
+	
+	public void registrarInteressePorItem(String idItem)
+			throws Exception {
 
-	@Override
-	public void registrarInteressePorItem(String idItem) throws Exception {
-
-		assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem(),
-				Mensagem.ID_ITEM_INVALIDO.getMensagem());
-		asserteTrue(ItemRepositorio.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE
-				.getMensagem());
+		assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
+		asserteTrue(ItemRepositorio.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
 		AcervoDeItens.getInstance().registrarInteressePorItem(this.getLogin(), idItem);
 	}
+	
 
 	@Override
 	public void addHistoricoTerminoEmprestimo(ItemIF item) throws Exception {
-		GerenciadorDeNotificacoes.getInstance().addHistoricoTerminoEmprestimo(
-				this.getLogin(), item);
+		GerenciadorDeNotificacoes.getInstance().addHistoricoTerminoEmprestimo(this.getLogin(), item);
 	}
 
 	@Override
@@ -494,4 +496,27 @@ public class Usuario implements UsuarioIF {
 				destinatario, assunto, mensagem);
 	}
 
+	/**
+	 * @return the senha
+	 */
+	private String getSenha() {
+		return senha;
+	}
+
+	/**
+	 * @param senha the senha to set
+	 */
+	public void setSenha(String senha) throws Exception {
+		this.senha = Criptografia.criptografaMD5(getLogin(), senha);
+	}
+
+	@Override
+	public boolean logar(String senha) {
+		try {
+			String passeCriptografado = Criptografia.criptografaMD5(getLogin(), senha);
+			return passeCriptografado.equals(getSenha());
+		} catch (Exception e) {}
+		return false;
+	}
+	
 }
