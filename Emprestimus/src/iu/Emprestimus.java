@@ -5,7 +5,6 @@ import static sistema.utilitarios.Validador.assertStringNaoVazia;
 import static sistema.utilitarios.Validador.asserteTrue;
 
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
@@ -38,7 +37,7 @@ import sistema.utilitarios.Validador;
  * 
  * @author José Nathaniel L. de Abrante - nathaniel.una@gmail.com
  * @since 05/09/2011
- * @version 1.0 
+ * @version 1.0
  */
 public class Emprestimus implements EmprestimusIF {
 	private static Emprestimus emprestimus;
