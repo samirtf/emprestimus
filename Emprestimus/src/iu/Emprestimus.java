@@ -768,7 +768,7 @@ public class Emprestimus implements EmprestimusIF {
 	@Override
 	public void encerrarSessao(String idSessao) throws Exception {
 		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(), Mensagem.SESSAO_INVALIDA.getMensagem());
-		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
+		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_JAH_ENCERRADA.getMensagem());
 		autenticacao.encerrarSessao(idSessao);	
 	}
 
