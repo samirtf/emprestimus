@@ -32,8 +32,8 @@ import sistema.utilitarios.Mensagem;
 import sistema.utilitarios.Validador;
 
 /**
- * Classe que implementa a fachada, usada para fazer a interação entre a
- * interface com o usuário e o sistema.
+ * Classe que implementa a fachada EmprestimusIF.
+ * Usada para fazer a interação entre a interface com o usuário e o sistema.
  * 
  * @author José Nathaniel L. de Abrante - nathaniel.una@gmail.com
  * @since 05/09/2011
@@ -50,10 +50,10 @@ public class Emprestimus implements EmprestimusIF {
 	}
 	
 	/**
-	 * Metodo que faz parte do padrão Singleton e serve para retornar uma
-	 * instancia da classe que sera unica para toda a execução.
+	 * Metodo 'getInstance' do padrão Singleton.
 	 * 
-	 * @return um objeto do tipo GerenciadorDeSalas
+	 * @return Emprestimus - Objeto responsavel pela execução do sistema.
+	 * 			[unica para toda a execução.]
 	 */
 	public synchronized static Emprestimus getInstance() {
 
