@@ -137,10 +137,10 @@ public class Autenticacao implements AutenticacaoIF {
 	/**
 	 * Verifica se existe usuario cadastrado.
 	 * 
-	 * @param login
+	 * @param String - login
 	 *            O login do usuario.
-	 * @return True - Se o usuario ja estiver cadastrado. False - Caso
-	 *         contrario.
+	 * @return boolean
+	 * 		True - Se o usuario ja estiver cadastrado.
 	 */
 	public static boolean existeUsuario(String login) {
 		if (usuariosCadastrados == null)
@@ -172,7 +172,8 @@ public class Autenticacao implements AutenticacaoIF {
 	/**
 	 * Gera um idSessao.
 	 * 
-	 * @return Um idSessao.
+	 * @return String
+	 * 		Um idSessao.
 	 */
 	private String gerarIdSessao() {
 		Random rd = new Random();
@@ -182,9 +183,10 @@ public class Autenticacao implements AutenticacaoIF {
 	/**
 	 * Verifica se um idSessao ja existe.
 	 * 
-	 * @param idSessao
+	 * @param String idSessao
 	 *            Um idSessao.
-	 * @return True - Se existir o idSessao. False - Se nao existir.
+	 * @return boolean
+	 * 		True - Se existir o idSessao.
 	 */
 	@Override
 	public boolean existeIdSessao(String idSessao) {

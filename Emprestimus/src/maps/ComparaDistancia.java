@@ -15,7 +15,7 @@ public class ComparaDistancia implements Comparator<Coordenadas> {
 	/**
 	 * Construtor da classe Compara distancia
 	 * 
-	 * @param referencia
+	 * @param Coordenadas - referencia
 	 */
 	public ComparaDistancia(Coordenadas referencia) {
 		this.referencia = referencia;
@@ -24,9 +24,13 @@ public class ComparaDistancia implements Comparator<Coordenadas> {
 	/**
 	 * Calcula a distancia entre as coordenadas x e y
 	 * 
-	 * @param x
-	 * @param y
-	 * @return
+	 * @param Coordenadas - x
+	 * 		primeira coordenada.
+	 * @param Coordenadas - y
+	 * 		segunda coordenada.
+	 * 
+	 * @return double
+	 * 		Distancia entre os pontos 'x' e 'y'
 	 */
 	private double distancia(Coordenadas x, Coordenadas y) {
 		double dLat = Math.toRadians(y.getLatitude() - x.getLatitude());
@@ -42,6 +46,13 @@ public class ComparaDistancia implements Comparator<Coordenadas> {
 
 	/**
 	 * Compara as coordenadas o1 e 02
+	 * 
+	 * @param Coordenadas - o1
+	 * @param Coordenadas - 02
+	 * 
+	 * @return int
+	 * 		1 caso a distancia entre o ponto de referencia e o ponto 02 seja maior que a distancia até 01.
+	 *  	-1 caso contrario.
 	 */
 	@Override
 	public int compare(Coordenadas o1, Coordenadas o2) {

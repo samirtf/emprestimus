@@ -3,7 +3,6 @@ package iu;
 /**
  * Fachada para as funcionalidades do sistema.
  * 
- * 
  * @author Joeffison Silverio de Andrade, 21011853, joeffisonsa@gmail.com
  * @version 1.5
  */
@@ -14,56 +13,63 @@ public interface EmprestimusIF {
 
 	// US01
 	/**
-	 * Metodo para a criação de novos usuários do sistema.
+	 * Este Metodo cria um novo usuário no sistema.
 	 * 
-	 * @param login
+	 * @param String - login
 	 * 		Login do usuário (identificador único)
-	 * @param nome
+	 * @param String - nome
 	 * 		Nome do usuário para cadastrá-lo
-	 * @param endereco
+	 * @param String - endereco
 	 * 		Endereço do usuário.
-	 * @throws
+	 * 
+	 * @throws Exception
 	 * 		Caso o login já exista ou algum parâmetro seja inválido.
 	 */
 	public void criarUsuario( String login, String nome, String endereco ) throws Exception;
 	
 	/**
-	 * Metodo utilizado para logar um usuário e, consequentemente, abrir uma nova sessão para este.
+	 * Este Metodo é utilizado para logar um usuário e abrir uma nova sessão para este.
 	 * 
-	 * @param login
+	 * @param String - login
 	 * 		Login do usuário a ser logado.
-	 * @return
+	 * 
+	 * @return String
 	 * 		ID da sessão aberta (que será anulado ao deslogar).
+	 * 
 	 * @throws Exception
-	 * 		Caso o usuário já esteja logado ou o login seja inválido/inexistente.
+	 * 		Caso o usuário já esteja logado ou o login seja inválido ou inexistente.
 	 */
 	public String abrirSessao( String login ) throws Exception;
 	
 	/**
-	 * Metodo utilizado para logar um usuário e, consequentemente, abrir uma nova sessão para este.
+	 * Metodo utilizado para logar um usuário e abrir uma nova sessão para este.
 	 * 
-	 * @param login
+	 * @param String - login
 	 * 		Login do usuário a ser logado.
-	 * @param senha
+	 * @param String - senha
 	 * 		Senha do usuário a ser logado.
-	 * @return
+	 * 
+	 * @return String
 	 * 		ID da sessão aberta (que será anulado ao deslogar).
+	 * 
 	 * @throws Exception
-	 * 		Caso o usuário já esteja logado ou o login seja inválido/inexistente.
+	 * 		Caso o usuário já esteja logado ou o login seja inválido ou inexistente.
 	 */
 	public String abrirSessao( String login, String senha ) throws Exception;
 	
 	/**
-	 * Resgata um atributo específico de algum usuário.
+	 * Resgata um atributo específico de um determinado usuário.
 	 * 
-	 * @param login
+	 * @param String - login
 	 * 		Login do usuário do qual se deseja visualizar o atributo.
-	 * @param atributo
+	 * @param String - atributo
 	 * 		Nome do atributo desejado.
-	 * @return
+	 * 
+	 * @return String
 	 * 		Valor do atributo requisitado.
+	 * 
 	 * @throws Exception
-	 * 		Caso o login e/ou atributo seja(m) inválido(s)/inexistente(s).
+	 * 		Caso o login e/ou atributo seja(m) inválido(s) ou inexistente(s).
 	 */
 	public String getAtributoUsuario(String login, String atributo ) throws Exception;
 	
@@ -71,46 +77,52 @@ public interface EmprestimusIF {
 	/**
 	 * Cadastra um novo item no sistema.
 	 * 
-	 * @param idSessao
+	 * @param String - idSessao
 	 * 		ID da sessão do usuário que deseja adicionar o item.
-	 * @param nome
+	 * @param String - nome
 	 * 		Nome do item as ser cadastrado.
-	 * @param descricao
+	 * @param String - descricao
 	 * 		Descricao do item as ser cadastrado.
-	 * @param categoria
+	 * @param String - categoria
 	 * 		Categoria do item as ser cadastrado.
-	 * @return
+	 * 
+	 * @return String
 	 * 		ID do item cadastrado.
+	 * 
 	 * @throws Exception
-	 * 		Caso algum dos parâmetros seja inválido/inexistente.
+	 * 		Caso algum dos parâmetros seja inválido ou inexistente.
 	 */
 	public String cadastrarItem( String idSessao, String nome, String descricao, String categoria ) throws Exception;
 	
 	/**
-	 * Recupera o valor de algfum atributo de um item cadastrado.
+	 * Recupera o valor de algum atributo de um determinado item cadastrado.
 	 * 
-	 * @param idItem
+	 * @param String - idItem
 	 * 		ID do item do qual se deseja recuperar a informação.
-	 * @param atributo
+	 * @param String - atributo
 	 * 		Atributo do qual se deseja ter a informação.
-	 * @return
+	 * 
+	 * @return String
 	 * 		Valor do atributo desejado.
+	 * 
 	 * @throws Exception
-	 * 		Caso ao menos um dos parâmetros seja inválido/inexistente.
+	 * 		Caso ao menos um dos parâmetros seja inválido ou inexistente.
 	 */
 	public String getAtributoItem( String idItem, String atributo ) throws Exception;
 	
 	/**
 	 * Localiza usuários a partir de uma palavra-chave.
 	 * 
-	 * @param idSessao
+	 * @param String - idSessao
 	 * 		ID da sessão do usuário que deseja fazer a pesquisa.	
-	 * @param chave
+	 * @param String - chave
 	 * 		Palavra-chave para a pesquisa.
-	 * @param atributo
+	 * @param String - atributo
 	 * 		Atributo ao qual a palavra-chave corresponde. 
-	 * @return
+	 * 
+	 * @return String
 	 * 		Uma {@link String} representando os usuários (nome e endereço) que atendem à pesquisa.
+	 * 
 	 * @throws Exception
 	 * 		Caso algum dos parâmetros seja inválido/inexistente.
 	 */
@@ -120,22 +132,25 @@ public interface EmprestimusIF {
 	/**
 	 * Método para requisitar a amizade de outro usuário.
 	 * 
-	 * @param idSessao
+	 * @param String - idSessao
 	 * 		ID da sessão do usuário que deseja fazer a requisitação.
-	 * @param login
+	 * @param String - login
 	 * 		Login do usuário do qual se deseja ser amigo.
+	 * 
 	 * @throws Exception
-	 * 		Caso algum dos parâmetros seja inválido/inexistente.
+	 * 		Caso algum dos parâmetros seja inválido ou inexistente.
 	 */
 	public void requisitarAmizade( String idSessao, String login ) throws Exception;
 	
 	/**
 	 * Recupera as requisitações de amizade do usuário.
 	 * 
-	 * @param idSessao
+	 * @param String - idSessao
 	 * 		ID da sessão do usuário que deseja visualizar as requisitações de sua amizade.
-	 * @return
+	 * 
+	 * @return String
 	 * 		O login de todos os usuários que requisitaram amizade ao usuário que fez a verificação.
+	 * 
 	 * @throws Exception
 	 * 		Caso o ID da sessão seja inválido/inexistente.
 	 */
@@ -144,24 +159,27 @@ public interface EmprestimusIF {
 	/**
 	 * Aprova uma requisitação de amizade.
 	 * 
-	 * @param idSessao
+	 * @param String - idSessao
 	 * 		ID da sessão do usuário que recebeu a requisitação de amizade.
-	 * @param login
+	 * @param String - login
 	 * 		Login do usuário que realizou a requisitação de amizade.
+	 * 
 	 * @throws Exception
 	 * 		Caso algum dos parâmetros seja inválido/inesxistente ou não exista a requisitação.
 	 */
 	public void aprovarAmizade( String idSessao, String login ) throws Exception;
 	
 	/**
-	 * Verifica se dois usuários são ou não amigos.
+	 * Verifica se dois usuários são amigos ou não .
 	 * 
-	 * @param idSessao
+	 * @param String - idSessao
 	 * 		ID da sessão do usuário que deseja fazer a verificação.
-	 * @param login
+	 * @param String - login
 	 * 		Login do usuário a ser verificado na lista de amigos do usuário que fez a verificação.
-	 * @return
+	 * 
+	 * @return String
 	 * 		Retorna "true", caso sejam amigos, ou "false", caso não.
+	 * 
 	 * @throws Exception
 	 * 		Caso algum dos parâmetros seja inválido/inesxistente.
 	 */
@@ -171,10 +189,12 @@ public interface EmprestimusIF {
 	/**
 	 * Recupera a lista de amigos do usuário.
 	 * 
-	 * @param idSessao
+	 * @param String - idSessao
 	 * 		ID da sessão do usuário que deseja ver sua lista de amigos.
-	 * @return
+	 * 
+	 * @return String
 	 * 		Logins dos amigos do usuário requisitante.
+	 * 
 	 * @throws Exception
 	 * 		Caso o ID da sessão seja inválido/inexistente.
 	 */
@@ -183,12 +203,14 @@ public interface EmprestimusIF {
 	/**
 	 * Recupera a lista de amigos de outro usuário.
 	 * 
-	 * @param idSessao
+	 * @param String - idSessao
 	 * 		Id da sessão do usuário que deseja recuperar a lista de amigos do outro usuário. 
-	 * @param login
+	 * @param String - login
 	 * 		Login do usuário que terá sua lista de amigos verificada.
-	 * @return
+	 * 
+	 * @return String
 	 * 		Logins dos amigos do usuário com o login informado.
+	 * 
 	 * @throws Exception
 	 * 		Caso algum dos parâmetros seja inválido/inesxistente.
 	 */
@@ -197,10 +219,12 @@ public interface EmprestimusIF {
 	/**
 	 * Recupera a lista de itens do usuário.
 	 * 
-	 * @param idSessao
+	 * @param String - idSessao
 	 * 		ID da sessão do usuário que deseja fazer a verificação.
-	 * @return
+	 * 
+	 * @return String
 	 * 		Nome dos itens do usuário.
+	 * 
 	 * @throws Exception
 	 * 		Caso o ID da sessão inválido/inesxistente.
 	 */
@@ -209,12 +233,14 @@ public interface EmprestimusIF {
 	/**
 	 * Recupera a lista de itens de outro usuário.
 	 * 
-	 * @param idSessao
+	 * @param String - idSessao
 	 * 		ID da sessão do usuário que deseja fazer a verificação.
-	 * @param login
+	 * @param String - login
 	 * 		Login do usuário que terá sua lista de itens verificada.
-	 * @return
+	 * 
+	 * @return String
 	 * 		Nome dos itens do usuário com o login informado.
+	 * 
 	 * @throws Exception
 	 * 		Caso algum dos parâmetros seja inválido/inesxistente.
 	 */
@@ -224,14 +250,16 @@ public interface EmprestimusIF {
 	/**
 	 * Requisita o empréstimo de um item especifíco. 
 	 * 
-	 * @param idSessao
+	 * @param String - idSessao
 	 * 		ID da sessão do usuário que deseja fazer a requisitação.
-	 * @param idItem
+	 * @param String - idItem
 	 * 		ID od item requerido.
-	 * @param duracao
+	 * @param String - duracao
 	 * 		Duração pretendida para o empréstimo.
-	 * @return
+	 * 
+	 * @return String
 	 * 		ID da requisitação do empréstimo.
+	 * 
 	 * @throws Exception
 	 * 		Caso algum dos parâmetros seja inválido/inesxistente.
 	 */
@@ -240,12 +268,14 @@ public interface EmprestimusIF {
 	/**
 	 * Aprova alguma requisitação de empréstimo que o usuário recebeu.
 	 * 
-	 * @param idSessao
+	 * @param String - idSessao
 	 * 		ID da sessão do usuário que deseja aprovar a requisitação.
-	 * @param idRequisicaoEmprestimo
+	 * @param String - idRequisicaoEmprestimo
 	 * 		ID da requisicao de emprestimo que deve ser aprovada.
-	 * @return
+	 * 
+	 * @return String
 	 * 		ID do empréstimo aprovado.
+	 * 
 	 * @throws Exception
 	 * 		Caso algum dos parâmetros seja inválido/inesxistente.
 	 */
@@ -254,12 +284,14 @@ public interface EmprestimusIF {
 	/**
 	 * Verifica os empréstimos de um dado tipo (emprestador, beneficiado ou ambos) do usuário.
 	 * 
-	 * @param idSessao
+	 * @param String - idSessao
 	 * 		ID da sessão do usuário que deseja fazer a verificação.
-	 * @param tipo
+	 * @param String - tipo
 	 * 		Tipo de empréstimo que deve ser retornado.
-	 * @return
+	 * 
+	 * @return String
 	 * 		Lista com a representação de todos os empréstimos.
+	 * 
 	 * @throws Exception
 	 * 		Caso algum dos parâmetros seja inválido/inesxistente.
 	 */
@@ -269,10 +301,11 @@ public interface EmprestimusIF {
 	/**
 	 * Devolve um item ao dono deste.
 	 * 
-	 * @param idSessao
+	 * @param String - idSessao
 	 * 		ID da sessão do usuário que deseja fazer a devolução.
-	 * @param idEmprestimo
+	 * @param String - idEmprestimo
 	 * 		ID do empréstimo do item.
+	 * 
 	 * @throws Exception
 	 * 		Caso algum dos parâmetros seja inválido/inesxistente.
 	 */
@@ -281,30 +314,32 @@ public interface EmprestimusIF {
     /**
      * Comfirma a devolução de um empréstimo.
      * 
-     * @param idSessao
+     * @param String - idSessao
      * 		ID da sessão do usuário que deseja fazer a confirmação.
-     * @param idEmprestimo
+     * @param String - idEmprestimo
      * 		ID do empréstimo a ser concluído.
+     * 
      * @throws Exception
      * 		Caso algum dos parâmetros seja inválido/inesxistente.
      */
     public void confirmarTerminoEmprestimo( String idSessao, String idEmprestimo ) throws Exception;
     
     //US08
-    //mensagm off-topic
     /**
      * Envia uma mensagem off-topic para um outro usuário.
      * 
-     * @param idSessao
+     * @param String - idSessao
      * 		ID da sessão do usuário que deseja enviar a mensagem.
-     * @param destinatario
+     * @param String - destinatario
      * 		Destinatário da mensagem.
-     * @param assunto
+     * @param String - assunto
      * 		Assunto da mensagem.
-     * @param mensagem
+     * @param String - mensagem
      * 		Mensagem a ser enviada.
-     * @return
+     * 
+     * @return String
      * 		ID do tópico da mensagem.
+     * 
      * @throws Exception
      * 		Caso algum dos parâmetros seja inválido ou o id da sessão seja inesxistente.
      */
@@ -314,18 +349,20 @@ public interface EmprestimusIF {
     /**
      * Envia uma mensagem relativa à um empréstimo para um outro usuário.
      * 
-     * @param idSessao
+     * @param String - idSessao
      * 		ID da sessão do usuário que deseja enviar a mensagem.
-     * @param destinatario
+     * @param String - destinatario
      * 		Destinatário da mensagem.
-     * @param assunto
+     * @param String - assunto
      * 		Assunto da mensagem.
-     * @param mensagem
+     * @param String - mensagem
      * 		Mensagem a ser enviada.
-     * @param idRequisicaoEmprestimo
+     * @param String - idRequisicaoEmprestimo
      * 		ID da requisitação do empréstimo do qual se trata a mensagem.
-     * @return
+     * 
+     * @return String
      * 		ID do tópico da mensagem.
+     * 
      * @throws Exception
      * 		Caso algum dos parâmetros seja inválido ou algum dos id's seja inesxistente.
      */
@@ -334,12 +371,14 @@ public interface EmprestimusIF {
     /**
      * Recupera a lista de tópicos do usuário, informando o tipo dos tópicos que devem ser recuperados (negociação, off-topic ou todos). 
      * 
-     * @param idSessao
+     * @param String - idSessao
      * 		ID da sessão do usuário que deseja fazer a verificação.
-     * @param tipo
+     * @param String - tipo
      * 		Tipo de tópico desejado (negociação, off-topic ou todos).
-     * @return
+     * 
+     * @return String
      * 		Lista de tópicos requirida do usuário, ordenada pela data de criação, do tópico mais recente ao mais antigo.
+     * 
      * @throws Exception
      * 		Caso algum dos parâmetros seja inválido/inesxistente.
      */
@@ -348,12 +387,14 @@ public interface EmprestimusIF {
     /**
      * Recupera a lista de mensagens relativa a um tópico. 
      * 
-     * @param idSessao
+     * @param String - idSessao
      * 		ID da sessão do usuário que deseja fazer a verificação.
-     * @param idTopico
+     * @param String - idTopico
      * 		ID do tópico desejado.
-     * @return
+     * 
+     * @return String
      * 		Lista de mensagens relativa a um tópico, ordenada pela data de criação, da mensagem mais antiga à mais recente.
+     * 
      * @throws Exception
      * 		Caso algum dos parâmetros seja inválido/inesxistente.
      */
@@ -363,10 +404,11 @@ public interface EmprestimusIF {
     /**
      * Requisita a devolução de um item do usuário.
      * 
-     * @param idSessao
+     * @param String - idSessao
      * 		ID da sessão do usuário que deseja fazer a requisitação.
-     * @param idEmprestimo
+     * @param String - idEmprestimo
      * 		ID do empréstimo referente ao item.
+     * 
      * @throws Exception
      * 		Caso algum dos parâmetros seja inválido/inesxistente.
      */
@@ -375,7 +417,7 @@ public interface EmprestimusIF {
     /**
      * Incrementa o contador de dias.
      * 
-     * @param dias
+     * @param String - dias
      * 		Quantidade de dias a ser adicionada.
      * 
      * @throws Exception
@@ -387,10 +429,11 @@ public interface EmprestimusIF {
     /**
      * Registra o interesse de um usuário em um determinado item.
      * 
-     * @param idSessao
+     * @param String - idSessao
      * 		ID da sessão do usuário que deseja registrar interesse no item.
-     * @param idItem
+     * @param String - idItem
      * 		ID do item ao qual o usuário se interessa.
+     * 
      * @throws Exception
      * 		Caso algum dos parâmetros seja inválido/inesxistente.
      */
@@ -400,18 +443,20 @@ public interface EmprestimusIF {
     /**
      * Pesquisa um item no sistema a partir da palavra chave.
      * 
-     * @param idSessao
+     * @param String - idSessao
      * 		ID da sessão do usuário que deseja fazer a pesquisa.
-     * @param chave
+     * @param String - chave
      * 		Palavra-chave a ser pesquisada.
-     * @param atributo
+     * @param String - atributo
      * 		Atributo ao qual se refere a palavra-chave.
-     * @param tipoOrdenacao
+     * @param String - tipoOrdenacao
      * 		O tipo desejado para a ordenação
-     * @param criterioOrdenacao
+     * @param String - criterioOrdenacao
      * 		O critério desejado para a ordenação
-     * @return
+     * 
+     * @return String
      * 		O resultado da pesquisa.
+     * 
      * @throws Exception
      * 		Caso algum dos parâmetros seja inválido/inesxistente.
      */
@@ -422,10 +467,11 @@ public interface EmprestimusIF {
     /**
      * Desfaz amizades.
      * 
-     * @param idSessao
+     * @param String - idSessao
      * 		ID da sessão do usuário que deseja fazer a pesquisa.
-     * @param amigo
+     * @param String - amigo
      * 		Amigo a ser deletado da lista de amigos.
+     * 
      * @throws Exception
      * 		Caso algum dos parâmetros seja inválido/inesxistente.
      */
@@ -439,9 +485,13 @@ public interface EmprestimusIF {
   	 * Permite que o usuário veja as atividades realizadas
   	 * em ordem de ocorrência (da atividade mais recente à mais antiga).
   	 * 
-  	 * @param idSessao
-  	 * @return
+  	 * @param String - idSessao
+  	 * 		ID da sessão do usuário que deseja fazer a pesquisa.
+  	 * 
+  	 * @return String
+  	 * 
   	 * @throws Exception
+  	 * 
   	 */
   	public String historicoAtividades(String idSessao) throws Exception;
   	
@@ -454,8 +504,11 @@ public interface EmprestimusIF {
   	 * Note que não existe a duplicação da atividade “adição de amigo concluída”,
   	 * portanto mostra apenas a atividade do usuario que requisitou o histórico de atividades em conjunto.
   	 * 
-  	 * @param idSessao
-  	 * @return
+  	 * @param String - idSessao
+  	 * 		ID da sessão do usuário que deseja fazer a pesquisa.
+  	 * 
+  	 * @return String
+  	 * 
   	 * @throws Exception
   	 */
   	public String historicoAtividadesConjunto(String idSessao) throws Exception;
