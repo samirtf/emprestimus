@@ -245,4 +245,22 @@ public class Autenticacao implements AutenticacaoIF {
 
 		return idSessao;
 	}
+
+	public void criarUsuario(String login, String senha, String nome,
+			String endereco) throws Exception {
+		UsuarioIF novoUsuario = new Usuario(login, senha, nome, endereco);
+		if (usuariosCadastrados.containsKey(login.trim())) {
+			throw new Exception(Mensagem.LOGIN_JAH_CADASTRADO.getMensagem());
+		}
+
+		usuariosCadastrados.put(login, novoUsuario);
+		// adicionando caixa postal ao usuario
+		Correio.adicionaCaixaPostalAoUsuario(login);
+		BancoDeEmprestimos.getInstance().adicionaContaAoUsuario(login);
+		AcervoDeItens.getInstance().adicionaBauhAoUsuario(login);
+		RelacionamentosUsuarios.getInstance().adicionaCicloDeAmizadeAoUsuario(login);
+		GerenciadorDeNotificacoes.getInstance().adicionaRackAoUsuario(login);
+
+		
+	}
 }

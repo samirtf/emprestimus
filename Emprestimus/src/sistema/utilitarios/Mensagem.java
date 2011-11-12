@@ -263,7 +263,10 @@ public enum Mensagem {
 	USUARIO_NAO_PODE_OFERECER_UM_ITEM_A_UM_DESCONHECIDO("O usuário não pode emprestar um item a um desconhecido"),
 	ITEM_NAO_ME_PERTENCE("Não é possível emprestar um item que não é seu"),
 	DESCRICAO_INVALIDA("Descrição inválida"),
-	PROPRIETARIO_CONTA_CICLO_AMIZADE_JAH_CADASTRADO("Proprietário da conta ciclo de amizade já cadastrado");
+	PROPRIETARIO_CONTA_CICLO_AMIZADE_JAH_CADASTRADO("Proprietário da conta ciclo de amizade já cadastrado"), 
+	EMAIL_INVALIDO("Email inválido"), 
+	SENHA_ATUAL_INVALIDA("Senha atual inválida"),
+	SENHA_NOVA_INVALIDA("Senha nova inválida");
 
 	private final String mensagem;
 

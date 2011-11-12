@@ -31,5 +31,7 @@ public interface AutenticacaoIF {
 	public List<UsuarioIF> getUsuarioEndereco(String endereco);
 	
 	public Collection<UsuarioIF> getListaUsuarios();
+	
+	public void criarUsuario( String login, String senha, String nome, String endereco ) throws Exception;
 
 }

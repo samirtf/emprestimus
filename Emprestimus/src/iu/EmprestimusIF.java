@@ -479,13 +479,47 @@ public interface EmprestimusIF {
 	 */
 	public void encerrarSistema();
 
-	
-
 	public void apagarItem(String idSessao, String idItem) throws Exception;
 
 	public void republicarPedido(String idSessao, String idPublicacaoPedido) throws Exception;
 
 	public String localizarUsuario(String idSessao) throws Exception;
+	
+	
+	//US21
+	/**
+	 * Metodo para a criação de novos usuários do sistema.
+	 * 
+	 * @param login
+	 * 		Login do usuário (identificador único)
+	 * @param senha
+	 * 		Senha do usuário
+	 * @param nome
+	 * 		Nome do usuário para cadastrá-lo
+	 * @param endereco
+	 * 		Endereço do usuário.
+	 * @throws
+	 * 		Caso o login já exista ou algum parâmetro seja inválido.
+	 */
+	public void criarUsuario( String login, String senha, String nome, String endereco ) throws Exception;
+
+	/**
+	 * Cadastra email de redefinição de senha.
+	 * @param idSessao
+	 * @param email
+	 * @throws Exception
+	 */
+	public void cadastrarEmailRedefinicaoSenha(String idSessao, String email) throws Exception;
+
+	/**
+	 * Altera a senha do usuário.
+	 * @param idSessao
+	 * @param senhaAtual
+	 * @param senhaNova
+	 * @throws Exception
+	 */
+	public void alterarSenha(String idSessao, String senhaAtual,
+			String senhaNova) throws Exception;
 	
 
 }
