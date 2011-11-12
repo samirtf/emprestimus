@@ -38,7 +38,7 @@ import sistema.utilitarios.Validador;
  * 
  * @author José Nathaniel L. de Abrante - nathaniel.una@gmail.com
  * @since 05/09/2011
- * @version 1.0
+ * @version 1.0 
  */
 public class Emprestimus implements EmprestimusIF {
 	private static Emprestimus emprestimus;
