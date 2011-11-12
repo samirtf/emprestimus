@@ -266,8 +266,10 @@ public class Autenticacao implements AutenticacaoIF {
 
 	}
 
-	public void encerrarSessao(String idSessao) {
-		//TODO talvez deva persistir algo
-		autenticacao.sessoes.remove(idSessao);
+	public void encerrarSessao(String idSessao) throws Exception {
+		
+		if(autenticacao.sessoes.remove(idSessao) == null){
+			throw new Exception(Mensagem.SESSAO_JAH_ENCERRADA.getMensagem());
+		}
 	}
 }

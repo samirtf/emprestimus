@@ -534,8 +534,8 @@ public class Usuario implements UsuarioIF {
 	public void cadastrarEmailRedefinicaoSenha(String email) throws Exception {
 		assertStringNaoVazia(email, Mensagem.EMAIL_INVALIDO.getMensagem(), Mensagem.EMAIL_INVALIDO.getMensagem());
 		
-		//Set the email pattern string  
-	      Pattern p = Pattern.compile(".+@.+\\.[a-z]+");  
+		//Set the email pattern string ".+@.+\\.[a-z]+" "^[\\w\\-]([\\.\\w])+[\\w]+@([\\w\\-]+\\.)+[A-Z]{2,4}$"
+	      Pattern p = Pattern.compile("^[\\w-]+(\\.[\\w-]+)*@([\\w-]+\\.)+[a-zA-Z]{2,7}$");  
 	  
 	      //Match the given string with the pattern  
 	      Matcher m = p.matcher(email);  
@@ -568,5 +568,6 @@ public class Usuario implements UsuarioIF {
 		}
 		
 	}
+	
 		
 }
