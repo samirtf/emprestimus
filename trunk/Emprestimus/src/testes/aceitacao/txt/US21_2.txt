@@ -1,0 +1,76 @@
+# User Story 01 - Criação de conta
+
+zerarSistema
+
+# entradas válidas
+
+criarUsuario login="mark" senha="12345678" nome="Mark Zuckerberg" endereco="Palo Alto, California"
+
+# o método 'abrirSessao' retorna o ID da sessão
+sessaoMark=abrirSessao login="mark" senha="12345678"
+expect "Mark Zuckerberg" getAtributoUsuario login="mark" atributo="nome"
+expect "Palo Alto, California" getAtributoUsuario login="mark" atributo="endereco"
+cadastrarEmailRedefinicaoSenha idSessao=${sessaoMark} email="emprestimusTest1@gmail.com"
+encerrarSessao idSessao=${sessaoMark}
+novoPasseMarkUm=recuperarSenha login="mark" email="emprestimusTest1@gmail.com"
+sessaoMark=abrirSessao login="mark" senha=${novoPasseMarkUm}
+expect "Mark Zuckerberg" getAtributoUsuario login="mark" atributo="nome"
+expect "Palo Alto, California" getAtributoUsuario login="mark" atributo="endereco"
+encerrarSessao idSessao=${sessaoMark}
+novoPasseMarkDois=recuperarSenha login="mark" email="emprestimusTest1@gmail.com"
+
+
+# entradas inválidas
+
+expectError "Login inválido" criarUsuario login= senha="xpto" nome="xpto" endereco="xpto"
+expectError "Login inválido" criarUsuario login="" senha="xpto" nome="xpto" endereco="xpto"
+expectError "Senha inválida" criarUsuario login="xpto" senha= nome="xpto" endereco="xpto"
+expectError "Senha inválida" criarUsuario login="xpto" senha="" nome="xpto" endereco="xpto"
+expectError "Nome inválido" criarUsuario login="xpto" senha="xpto" nome= endereco="xpto"
+expectError "Nome inválido" criarUsuario login="xpto" senha="xpto" nome="" endereco="xpto"
+expectError "Já existe um usuário com este login" criarUsuario login="mark" senha="xpto" nome="xpto" endereco="xpto"
+expectError "Login inválido" abrirSessao login= senha="xpto"
+expectError "Login inválido" abrirSessao login="" senha="xpto"
+expectError "Usuário inexistente" abrirSessao login="xpto" senha="xpto"
+expectError "Senha inválida" abrirSessao login="mark" senha=
+expectError "Senha inválida" abrirSessao login="mark" senha=""
+
+expectedError "Sessão inválida" cadastrarEmailRedefinicaoSenha idSessao= email="emprestimusTest@gmail.com"
+expectedError "Sessão inválida" cadastrarEmailRedefinicaoSenha idSessao="" email="emprestimusTest@gmail.com"
+expectedError "Sessão inexistente" cadastrarEmailRedefinicaoSenha idSessao="xpto" email="emprestimusTest@gmail.com"
+expectedError "Email inválido" cadastrarEmailRedefinicaoSenha idSessao="mark" email=
+expectedError "Email inválido" cadastrarEmailRedefinicaoSenha idSessao="mark" email=""
+expectedError "Email inválido" cadastrarEmailRedefinicaoSenha idSessao="mark" email="@gmail.com"
+expectedError "Email inválido" cadastrarEmailRedefinicaoSenha idSessao="mark" email="@gmail.com.br"
+expectedError "Email inválido" cadastrarEmailRedefinicaoSenha idSessao="mark" email="@gmail.xpg"
+expectedError "Email inválido" cadastrarEmailRedefinicaoSenha idSessao="mark" email="teste@@gmail.xpg"
+expectedError "Email inválido" cadastrarEmailRedefinicaoSenha idSessao="mark" email="teste@gmail.xpg."
+expectedError "Email inválido" cadastrarEmailRedefinicaoSenha idSessao="mark" email="teste@gmail.xpg.com.br"
+expectedError "Email inválido" cadastrarEmailRedefinicaoSenha idSessao="mark" email="@"
+expectedError "Email inválido" cadastrarEmailRedefinicaoSenha idSessao="mark" email="@.xpg"
+expectedError "Email inválido" cadastrarEmailRedefinicaoSenha idSessao="mark" email="@gmail..xpg"
+expectedError "Email inválido" cadastrarEmailRedefinicaoSenha idSessao="mark" email="@gmail.xpg.."
+
+expectError "Login inválido" alterarSenha login= senhaAtual="xpto" senhaNova="xpto"
+expectError "Login inválido" alterarSenha login="" senhaAtual="xpto" senhaNova="xpto"
+expectError "Senha atual inválida" alterarSenha login="mark" senhaAtual= senhaNova="xpto"
+expectError "Senha atual inválida" alterarSenha login="mark" senhaAtual="" senhaNova="xpto"
+expectError "Senha nova inválida" alterarSenha login="mark" senhaAtual="87654321" senhaNova=
+expectError "Senha nova inválida" alterarSenha login="mark" senhaAtual="87654321" senhaNova=""
+expectError "Senha atual inválida" alterarSenha login="mark" senhaAtual="87654321" senhaNova="xpto"
+
+expectError "Sessão inválida" encerrarSessao idSessao=
+expectError "Sessão inválida" encerrarSessao idSessao=""
+expectError "Sessão inexistente" encerrarSessao idSessao="xpto"
+expectedError "Sessao já encerrada" encerrarSessao idSessao=${sessaoMark}
+
+expectError "Senha inválida" abrirSessao login="mark" senha=${novoPasseMarkUm}
+expectError "Login inválido" recuperarSenha login= email="xpto"
+expectError "Login inválido" recuperarSenha login="" email="xpto"
+expectError "Email inválido ou inexistente" recuperarSenha login="mark" email=
+expectError "Email inválido ou inexistente" recuperarSenha login="mark" email=""
+expectError "Email inválido ou inexistente" recuperarSenha login="mark" email="xpto"
+
+
+encerrarSistema
+quit
