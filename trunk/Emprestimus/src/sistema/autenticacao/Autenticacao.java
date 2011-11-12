@@ -228,11 +228,12 @@ public class Autenticacao implements AutenticacaoIF {
 
 	@Override
 	public String abrirSessao(String login, String senha) throws Exception {
-		if (login == null || login.trim().equals(""))
-			throw new Exception("Login inválido");
+		assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(), 
+				Mensagem.LOGIN_INVALIDO.getMensagem());
 		if (!existeUsuario(login))
-			throw new Exception("Usuário inexistente");
-		Validador.assertStringNaoVazia(senha, "Login inválido", "Login inválido");
+			throw new Exception(Mensagem.USUARIO_INEXISTENTE.getMensagem());
+		assertStringNaoVazia(senha, Mensagem.SENHA_INVALIDA.getMensagem(), 
+				Mensagem.SENHA_INVALIDA.getMensagem());
 		UsuarioIF usuario = Autenticacao.getUsuarioPorLogin(login);
 		if(!usuario.logar(senha)){
 			throw new Exception("Login ou senha incorreto(s)");
@@ -261,6 +262,10 @@ public class Autenticacao implements AutenticacaoIF {
 		RelacionamentosUsuarios.getInstance().adicionaCicloDeAmizadeAoUsuario(login);
 		GerenciadorDeNotificacoes.getInstance().adicionaRackAoUsuario(login);
 
-		
+	}
+
+	public void encerrarSessao(String idSessao) {
+		//TODO talvez deva persistir algo
+		autenticacao.sessoes.remove(idSessao);
 	}
 }

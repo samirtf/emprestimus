@@ -517,6 +517,7 @@ public class Usuario implements UsuarioIF {
 	 * @param senha the senha to set
 	 */
 	public void setSenha(String senha) throws Exception {
+		assertStringNaoVazia(senha, Mensagem.SENHA_INVALIDA.getMensagem(), Mensagem.SENHA_INVALIDA.getMensagem());
 		this.senha = Criptografia.criptografaMD5(getLogin(), senha);
 	}
 

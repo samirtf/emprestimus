@@ -266,7 +266,8 @@ public enum Mensagem {
 	PROPRIETARIO_CONTA_CICLO_AMIZADE_JAH_CADASTRADO("Proprietário da conta ciclo de amizade já cadastrado"), 
 	EMAIL_INVALIDO("Email inválido"), 
 	SENHA_ATUAL_INVALIDA("Senha atual inválida"),
-	SENHA_NOVA_INVALIDA("Senha nova inválida");
+	SENHA_NOVA_INVALIDA("Senha nova inválida"), 
+	SENHA_INVALIDA("Senha inválida");
 
 	private final String mensagem;
 

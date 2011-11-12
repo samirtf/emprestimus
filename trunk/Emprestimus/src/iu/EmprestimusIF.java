@@ -510,7 +510,7 @@ public interface EmprestimusIF {
 	 * @throws Exception
 	 */
 	public void cadastrarEmailRedefinicaoSenha(String idSessao, String email) throws Exception;
-
+	
 	/**
 	 * Altera a senha do usuário.
 	 * @param idSessao
@@ -520,6 +520,10 @@ public interface EmprestimusIF {
 	 */
 	public void alterarSenha(String idSessao, String senhaAtual,
 			String senhaNova) throws Exception;
+
+	public void encerrarSessao(String idSessao) throws Exception;
+
+	
 	
 
 }
