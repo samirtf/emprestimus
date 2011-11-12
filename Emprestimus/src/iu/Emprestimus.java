@@ -739,9 +739,9 @@ public class Emprestimus implements EmprestimusIF {
 		
 	}
 
+
 	@Override
-	public void cadastrarEmailRedefinicaoSenha(String idSessao, String email)
-			throws Exception {
+	public void cadastrarEmailRedefinicaoSenha(String idSessao, String email) throws Exception {
 		
 		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(), Mensagem.SESSAO_INVALIDA.getMensagem());
 		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
@@ -763,6 +763,13 @@ public class Emprestimus implements EmprestimusIF {
 		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
 		usuario.alterarSenha(senhaAtual, senhaNova);
 		
+	}
+
+	@Override
+	public void encerrarSessao(String idSessao) throws Exception {
+		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(), Mensagem.SESSAO_INVALIDA.getMensagem());
+		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
+		autenticacao.encerrarSessao(idSessao);	
 	}
 
 }

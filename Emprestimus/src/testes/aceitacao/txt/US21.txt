@@ -14,18 +14,19 @@ expect "Mark Zuckerberg" getAtributoUsuario login="mark" atributo="nome"
 expect "Palo Alto, California" getAtributoUsuario login="mark" atributo="endereco"
 cadastrarEmailRedefinicaoSenha idSessao=${sessaoMark} email="emprestimusTest1@gmail.com"
 
+
 sessaoSteve=abrirSessao login="steve" senha="87654321"
 expect "Steven Paul Jobs" getAtributoUsuario login="steve" atributo="nome"
 expect "Palo Alto, California" getAtributoUsuario login="steve" atributo="endereco"
-alterarSenha login="steve" senhaAtual="87654321" senhaNova="12344321"
-encerrarSessao login="steve"
+alterarSenha idSessao=${sessaoSteve} senhaAtual="87654321" senhaNova="12344321"
+encerrarSessao idSessao=${sessaoSteve}
 sessaoSteve=abrirSessao login="steve" senha="12344321"
 
 sessaoBill=abrirSessao login="bill" senha="11223344"
 expect "William Henry Gates III" getAtributoUsuario login="bill" atributo="nome"
 expect "Medina, Washington" getAtributoUsuario login="bill" atributo="endereco"
-alterarSenha login="bill" senhaAtual="11223344" senhaNova="44332211"
-encerrarSessao login="steve"
+alterarSenha idSessao=${sessaoBill} senhaAtual="11223344" senhaNova="44332211"
+encerrarSessao idSessao=${sessaoBill}
 sessaoSteve=abrirSessao login="bill" senha="44332211"
 
 # entradas inválidas
@@ -71,8 +72,6 @@ expectError "Sessão inválida" encerrarSessao idSessao=
 expectError "Sessão inválida" encerrarSessao idSessao=""
 expectError "Sessão inexistente" encerrarSessao idSessao="xpto"
 expectedError "Sessao já encerrada" encerrarSessao idSessao=${sessaoSteve}
-
-expectError "Login inválido" recuperarSenha login="" atributo="nome"
 
 
 encerrarSistema
