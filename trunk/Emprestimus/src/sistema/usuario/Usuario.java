@@ -5,6 +5,8 @@ import static sistema.utilitarios.Validador.asserteTrue;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import maps.GetCoordenadas;
 import maps.RefCoordenadas;
@@ -38,7 +40,7 @@ public class Usuario implements UsuarioIF {
 											// guardado nesta variavel estatica.
 
 	/* Atributos do objeto. */
-	private String login, nome, endereco, senha;
+	private String login, nome, endereco, senha, emailRedefSenha;
 
 	private final int id = ID_Prox_Usuario++; // id (codigo unico) do usuario
 	
@@ -66,6 +68,14 @@ public class Usuario implements UsuarioIF {
 
 		// Estes métodos podem lançar exceção
 		setLogin(login);
+		setNome(nome);
+		setEndereco(endereco);
+	}
+
+	public Usuario(String login, String senha, String nome, String endereco) throws Exception{
+		// Estes métodos podem lançar exceção
+		setLogin(login);
+		setSenha(senha);
 		setNome(nome);
 		setEndereco(endereco);
 	}
@@ -518,5 +528,44 @@ public class Usuario implements UsuarioIF {
 		} catch (Exception e) {}
 		return false;
 	}
-	
+
+	@Override
+	public void cadastrarEmailRedefinicaoSenha(String email) throws Exception {
+		assertStringNaoVazia(email, Mensagem.EMAIL_INVALIDO.getMensagem(), Mensagem.EMAIL_INVALIDO.getMensagem());
+		
+		//Set the email pattern string  
+	      Pattern p = Pattern.compile(".+@.+\\.[a-z]+");  
+	  
+	      //Match the given string with the pattern  
+	      Matcher m = p.matcher(email);  
+	  
+	      //check whether match is found   
+	      boolean matchFound = m.matches();  
+	  
+	      if (!matchFound)
+	    	  throw new Exception(Mensagem.EMAIL_INVALIDO.getMensagem());
+	        
+		this.emailRedefSenha = email;
+	}
+
+	private String getEmailRedefSenha() {
+		return emailRedefSenha;
+	}
+
+	@Override
+	public void alterarSenha(String senhaAtual, String senhaNova)
+			throws Exception {
+		assertStringNaoVazia(senhaAtual, Mensagem.SENHA_ATUAL_INVALIDA.getMensagem(), 
+				Mensagem.SENHA_ATUAL_INVALIDA.getMensagem());
+		assertStringNaoVazia(senhaNova, Mensagem.SENHA_NOVA_INVALIDA.getMensagem(), 
+				Mensagem.SENHA_NOVA_INVALIDA.getMensagem());
+		
+		if(Criptografia.criptografaMD5(getLogin(), senhaAtual).equals(this.senha)){
+			this.senha = Criptografia.criptografaMD5(getLogin(), senhaNova);
+		}else{
+			throw new Exception(Mensagem.SENHA_ATUAL_INVALIDA.getMensagem());
+		}
+		
+	}
+		
 }

@@ -486,5 +486,9 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 
 	String enviarMensagemOferecimentoItemOffTopic(String destinatario,
 			String assunto, String mensagem) throws Exception;
+
+	public void cadastrarEmailRedefinicaoSenha(String email) throws Exception;
+
+	public void alterarSenha(String senhaAtual, String senhaNova) throws Exception;
 	
 }

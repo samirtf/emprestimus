@@ -732,4 +732,37 @@ public class Emprestimus implements EmprestimusIF {
 		return saida;
 	}
 
+	@Override
+	public void criarUsuario(String login, String senha, String nome,
+			String endereco) throws Exception {
+		autenticacao.criarUsuario(login, senha, nome, endereco);
+		
+	}
+
+	@Override
+	public void cadastrarEmailRedefinicaoSenha(String idSessao, String email)
+			throws Exception {
+		
+		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(), Mensagem.SESSAO_INVALIDA.getMensagem());
+		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
+		assertStringNaoVazia(email, Mensagem.EMAIL_INVALIDO.getMensagem(), Mensagem.EMAIL_INVALIDO.getMensagem());
+		
+		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
+		usuario.cadastrarEmailRedefinicaoSenha(email);
+		
+	}
+
+	@Override
+	public void alterarSenha(String idSessao, String senhaAtual,
+			String senhaNova) throws Exception {
+		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(), Mensagem.SESSAO_INVALIDA.getMensagem());
+		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
+		assertStringNaoVazia(senhaAtual, Mensagem.SENHA_ATUAL_INVALIDA.getMensagem(), Mensagem.SENHA_ATUAL_INVALIDA.getMensagem());
+		assertStringNaoVazia(senhaNova, Mensagem.SENHA_NOVA_INVALIDA.getMensagem(), Mensagem.SENHA_NOVA_INVALIDA.getMensagem());
+		
+		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
+		usuario.alterarSenha(senhaAtual, senhaNova);
+		
+	}
+
 }
