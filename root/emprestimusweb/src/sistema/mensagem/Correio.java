@@ -62,7 +62,7 @@ public class Correio {
 	 *            Conversa a ser adicionada.
 	 * @throws Exception
 	 */
-	public static void adicionaConversaOfftopicNaLista(String usuario, ChatIF conversa) throws Exception {
+	public synchronized static void adicionaConversaOfftopicNaLista(String usuario, ChatIF conversa) throws Exception {
 		CaixaPostal caixaPostal = caixasPostais.get(usuario);
 		if (caixaPostal == null)
 			throw new Exception(Mensagem.PROPRIETARIO_CAIXA_POSTAL_INEXISTENTE

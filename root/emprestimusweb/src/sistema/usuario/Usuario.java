@@ -127,6 +127,7 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public String cadastrarItem(String nome, String descricao, String categoria) throws Exception {
+		Validador.assertStringNaoVazia(nome, Mensagem.NOME_INVALIDO.getMensagem(), Mensagem.NOME_INVALIDO.getMensagem());
 		String idItem = AcervoDeItens.getInstance().cadastrarItem(this.getLogin(), nome,
 				descricao, categoria);
 		ItemIF item = ItemRepositorio.recuperarItem(idItem);
@@ -364,8 +365,14 @@ public class Usuario implements UsuarioIF {
 	public synchronized String pesquisarItem(String chave, String atributo,
 			String tipoOrdenacao, String criterioOrdenacao) throws Exception {
 
-		return RelacionamentosUsuarios.getInstance().pesquisarItem(this.getLogin(),
-				chave, atributo, tipoOrdenacao, criterioOrdenacao);
+		String retorno = null;
+		try{
+			retorno = RelacionamentosUsuarios.getInstance().pesquisarItem(this.getLogin(),
+					chave, atributo, tipoOrdenacao, criterioOrdenacao);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return retorno;
 	}
 
 	@Override
@@ -478,7 +485,7 @@ public class Usuario implements UsuarioIF {
 	}
 
 	@Override
-	public String publicarPedido(String nomeItem, String descricaoItem) throws Exception {
+	public synchronized String publicarPedido(String nomeItem, String descricaoItem) throws Exception {
 
 		return GerenciadorDeNotificacoes.getInstance().addHistoricoPublicarPedido(
 				this.getLogin(), nomeItem, descricaoItem);
@@ -492,7 +499,7 @@ public class Usuario implements UsuarioIF {
 	}
 
 	@Override
-	public void republicarPedido(String idPublicacaoPedido) throws Exception {
+	public synchronized void republicarPedido(String idPublicacaoPedido) throws Exception {
 		GerenciadorDeNotificacoes.getInstance()
 				.republicarPedido(this, idPublicacaoPedido);
 

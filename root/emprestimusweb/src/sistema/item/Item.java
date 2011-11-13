@@ -4,15 +4,19 @@ import static sistema.utilitarios.Validador.assertStringNaoVazia;
 import static sistema.utilitarios.Validador.asserteTrue;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+
+import com.google.gwt.user.client.rpc.core.java.util.Collections;
 
 import sistema.notificacao.Notificacao;
 import sistema.notificacao.NotificacaoRegistrarInteresseItem;
 import sistema.persistencia.NotificacaoRepositorio;
 import sistema.usuario.UsuarioIF;
 import sistema.utilitarios.Mensagem;
+import sistema.utilitarios.Validador;
 
 /**
  * Esta classe representa os itens que podem ser cadastrados pelo usuario
@@ -24,7 +28,7 @@ import sistema.utilitarios.Mensagem;
 public class Item implements ItemIF {
 
 	private String idItem, nome, descricao;
-	// private List<String> categoria;
+	private List<String> categorias;
 	private String categoria;
 	private Date dataCriacao;
 	private boolean estaDisponivel;
@@ -34,13 +38,13 @@ public class Item implements ItemIF {
 	/**
 	 * O construtor padrao eh privado e nao oferece implementacao.
 	 */
-	private Item() {
-	}
+	private Item() {}
 
 	public Item(String nome, String descricao, String categoria, UsuarioIF dono) throws Exception {
 		setNome(nome);
 		setDescricao(descricao);
-		setCategoria(categoria);
+		this.categorias = new ArrayList<String>();
+		setCategorias(categoria);
 		setDataCriacao();
 		this.estaDisponivel = true;
 		this.interessados = new ArrayList<UsuarioIF>();
@@ -106,8 +110,30 @@ public class Item implements ItemIF {
 
 	@Override
 	public void setCategoria(String categoria) throws Exception {
+		Validador.assertStringNaoVazia(categoria, Mensagem.CATEGORIA_INVALIDA.getMensagem(), 
+				Mensagem.CATEGORIA_INVALIDA.getMensagem());
 		this.categoria = categoria;
-
+	}
+	
+	@Override
+	public void setCategorias(String categorias) throws Exception {
+		Validador.assertStringNaoVazia(categorias, Mensagem.CATEGORIA_INVALIDA.getMensagem(), 
+				Mensagem.CATEGORIA_INVALIDA.getMensagem());
+		//"Filme, Biografia, Drama, Facebook"
+		String novaCategoria = categorias.substring(0);
+		String[] listaCategorias = novaCategoria.split(",");
+		if(listaCategorias.length == 0)
+			throw new Exception(Mensagem.CATEGORIA_INVALIDA.getMensagem());
+		this.categorias = new ArrayList<String>();
+		for(String categ : listaCategorias){
+			if(!this.categorias.contains(categ))
+				this.categorias.add(categ);
+		}
+	}
+	
+	@Override
+	public String[] getListaCategorias() throws Exception {
+		return this.categorias.toArray(new String[0]);
 	}
 
 	@Override

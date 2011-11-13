@@ -49,6 +49,7 @@ public class NotificacaoTerminoEmprestimo implements Notificacao {
 	 */
 	@Override
 	public Notificacao setNovaData() throws Exception {
+		Thread.sleep(1);
 		data = new GregorianCalendar().getTime();
 		return this;
 	}

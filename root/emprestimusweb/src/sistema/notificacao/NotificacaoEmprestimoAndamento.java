@@ -32,7 +32,7 @@ public class NotificacaoEmprestimoAndamento implements Notificacao {
 		this.dono = dono;
 		this.beneficiado = beneficiado;
 		this.item = item;
-		Thread.sleep(1);
+		Thread.sleep(2);
 		data = new GregorianCalendar().getTime();
 	}
 
@@ -43,6 +43,7 @@ public class NotificacaoEmprestimoAndamento implements Notificacao {
 
 	@Override
 	public Notificacao setNovaData() throws Exception {
+		Thread.sleep(2);
 		data = new GregorianCalendar().getTime();
 		return this;
 	}

@@ -9,7 +9,7 @@ import easyaccept.EasyAcceptFacade;
 
 public class TestUS01 {
 
-	public static final String SCRIPTS_PATH = "/src/testes/aceitacao/txt/";
+	public static final String SCRIPTS_PATH = "/test/testes/aceitacao/txt/";
 
 	public static void main(String[] args) throws Exception {
 
@@ -21,6 +21,7 @@ public class TestUS01 {
 
 		List<String> files = new ArrayList<String>();
 		String file1 = System.getProperty("user.dir") + SCRIPTS_PATH + "US01.txt";
+		System.out.println(file1);
 		files.add(file1);
 
 		UserFacade01 userFacade = new UserFacade01();

@@ -133,10 +133,20 @@ public class GerenciadorDeNotificacoes {
 
 	}
 
-	public String getHistoricoAtividadesConjunto(UsuarioIF usuario) throws Exception {
+	public synchronized String getHistoricoAtividadesConjunto(UsuarioIF usuario) throws Exception {
 		List<Notificacao> historico = new ArrayList<Notificacao>();
 		List<UsuarioIF> amigos = usuario.getListaAmigos();
 		Iterator<UsuarioIF> iteradorAmigos = amigos.iterator();
+		Iterator<Notificacao> iteradorMinhasNotificacoes = historicos.get(
+				usuario.getLogin()).iterador();
+
+		while (iteradorMinhasNotificacoes.hasNext()) {
+			Notificacao not = iteradorMinhasNotificacoes.next();
+			if (!historico.contains(not)) {
+				historico.add(not);
+			}
+
+		}
 		while (iteradorAmigos.hasNext()) {
 			String loginAmigo = iteradorAmigos.next().getLogin();
 			Iterator<Notificacao> iteradorNotificacoes = historicos.get(loginAmigo)
@@ -149,20 +159,12 @@ public class GerenciadorDeNotificacoes {
 				}
 			}
 		}
-		Iterator<Notificacao> iteradorMinhasNotificacoes = historicos.get(
-				usuario.getLogin()).iterador();
-
-		while (iteradorMinhasNotificacoes.hasNext()) {
-			Notificacao not = iteradorMinhasNotificacoes.next();
-			if (!historico.contains(not)) {
-				historico.add(not);
-			}
-
-		}
+		
 		Collections.sort(historico);
 		Collections.reverse(historico);
 		StringBuffer sb = new StringBuffer();
 		Iterator<Notificacao> iterador = historico.iterator();
+
 		while (iterador.hasNext()) {
 			Notificacao not = iterador.next();
 			sb.append(not.getMensagem(usuario));

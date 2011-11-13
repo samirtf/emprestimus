@@ -3,6 +3,8 @@ package sistema.mensagem;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import com.sun.swing.internal.plaf.synth.resources.synth;
+
 public class MensagemChat implements MensagemChatIF, Comparable<MensagemChatIF> {
 
 	String mensagem = "";
@@ -15,9 +17,9 @@ public class MensagemChat implements MensagemChatIF, Comparable<MensagemChatIF> 
 
 	public synchronized void setData() {
 		try {
-			// atrasar em 1 milisegundo para a mensagem ser ordenada
+			// atrasar em 2 milisegundo para a mensagem ser ordenada
 			// corretamente
-			Thread.sleep(1);
+			Thread.sleep(3);
 		} catch (InterruptedException e) {
 
 			e.printStackTrace();

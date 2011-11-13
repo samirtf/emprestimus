@@ -1,0 +1,77 @@
+<!-- Arquivo de build do projeto Emprestimus para a disciplina Sistemas de 
+	Informacao 1 -->
+
+<project name="Emprestimus" default="testa" basedir=".">
+
+	<property name="src" value="src" />
+	<property name="build" value="bin" />
+	<property name="dist" value="dist" />
+	<property name="javadoc" value="javadoc" />
+	<property name="test" value="test" />
+	<property name="lib" value="${basedir}/lib" />
+
+	<path id="classpath">
+		<fileset dir="${lib}">
+			<include name="**/*.jar" />
+		</fileset>
+		<pathelement location="${build}" />
+	</path>
+
+	<!-- LIMPA -->
+
+	<target name="limpa" description="Remove o javadoc, o jar e os .class ">
+		<echo message="Limpando informacoes antigas..." />
+		<delete dir="${build}" />
+		<delete dir="${dist}" />
+		<delete dir="${javadoc}" />
+	</target>
+
+	<!-- COMPILA -->
+
+	<target name="compila" depends="limpa"
+		description="Compila todo o codigo do projeto ">
+		<echo message="Compilando o codigo do projeto..." />
+		<mkdir dir="${build}" />
+		<javac srcdir="${src}" destdir="${build}">
+			<classpath refid="classpath" />
+		</javac>
+	</target>
+
+	<!-- TESTA -->
+
+	<target name="testa" depends="compila"
+		description="Executa os testes de aceitacao que usam o EasyAccept ">
+		<echo message="Testando casos de uso..." />
+		<java classname="testes.aceitacao.TesteCompleto">
+			<classpath>
+				<pathelement location="${build}" />
+				<path refid="classpath" />
+			</classpath>
+
+		</java>
+	</target>
+
+	<!-- DOC -->
+
+	<target name="doc" description="Gera o javadoc do projeto ">
+		<echo message="Gerando o javadoc..." />
+		<mkdir dir="${javadoc}" />
+		<javadoc destdir="${javadoc}/" classpath="lib/easyaccept.jar"
+			doctitle="Emprestimus">
+			<fileset dir="${src}/" includes="**/*.java" />
+		</javadoc>
+	</target>
+
+	<!-- JAR -->
+
+	<target name="jar" depends="compila" description="Cria o arquivo jar do sistema ">
+		<echo message="Gerando arquivo jar..." />
+		<mkdir dir="${dist}" />
+		<jar jarfile="${dist}/emprestimos1.jar" basedir="${build}">
+			<manifest>
+				<attribute name="Main-Class" value="iu.InterfaceTexto" />
+			</manifest>
+		</jar>
+	</target>
+
+</project>

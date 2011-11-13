@@ -24,6 +24,12 @@ public class NotificacaoPublicarPedido implements Notificacao {
 			String descricaoItem) {
 		this.nomeItem = nomeItem;
 		this.usuario = usuario;
+		try {
+			Thread.sleep(1);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.data = new GregorianCalendar().getTime();
 	}
 
@@ -44,6 +50,7 @@ public class NotificacaoPublicarPedido implements Notificacao {
 	 */
 	@Override
 	public Notificacao setNovaData() throws Exception {
+		Thread.sleep(1);
 		data = new GregorianCalendar().getTime();
 		return this;
 	}

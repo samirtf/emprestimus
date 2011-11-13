@@ -2,6 +2,8 @@ package sistema.usuario;
 
 import static sistema.utilitarios.Validador.assertStringNaoVazia;
 import static sistema.utilitarios.Validador.asserteTrue;
+
+import java.text.Normalizer;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -356,6 +358,13 @@ public class RelacionamentosUsuarios {
 
 		return saida.toString().trim().substring(0, saida.toString().trim().length() - 1);
 	}
+	
+	private void normalizarListaCategorias(String[] lista){
+		for(String categ : lista){
+			String temp = Normalizer.normalize(categ, Normalizer.Form.NFD);
+		    categ = temp.replaceAll("[^\\p{ASCII}]", "");
+		}
+	}
 
 	private void buscarItem(String chave, String atributo, List<ItemIF> saidaDataCriacao,
 			UsuarioIF amigo) {
@@ -373,11 +382,23 @@ public class RelacionamentosUsuarios {
 					saidaDataCriacao.add(item);
 				}
 			} else if (atributo.trim().equalsIgnoreCase("categoria")) {
-				if (item.getCategoria().toLowerCase()
-						.contains(chave.trim().toLowerCase())) {
-					// saidaDataCriacao.add(item.getNome());
-					saidaDataCriacao.add(item);
+				String[] categorias = null;
+				try {
+					categorias = item.getListaCategorias();
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
+				normalizarListaCategorias(categorias);
+				for(String categ : categorias){
+					if(categ.toLowerCase().contains(chave.trim().toLowerCase())){
+						saidaDataCriacao.add(item);
+					}
+				}
+//				if (item.getCategoria().toLowerCase()
+//						.contains(chave.trim().toLowerCase())) {
+//					// saidaDataCriacao.add(item.getNome());
+//					saidaDataCriacao.add(item);
+//				}
 			}
 		}
 	}

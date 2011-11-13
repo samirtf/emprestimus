@@ -1,5 +1,6 @@
 package testes.unidade.sistema.usuario;
 
+import sistema.autenticacao.Autenticacao;
 import sistema.persistencia.ItemRepositorio;
 import sistema.usuario.Usuario;
 import sistema.usuario.UsuarioIF;
@@ -232,6 +233,9 @@ public class UsuarioIFTeste extends TestCase implements Test {
 			us1 = new Usuario(" samirtf ", " Samir Trajano Feitosa ", " um endereco X");
 			us2 = new Usuario(" Terrenus ", " Samir Trajano Feitosa ", " um endereco X");
 			us3 = new Usuario(" Terry ", " Samir Trajano Feitosa ", " um endereco X");
+			Autenticacao.getInstance().criarUsuario(us1.getLogin(), us1.getNome(), us1.getEndereco());
+			Autenticacao.getInstance().criarUsuario(us2.getLogin(), us2.getNome(), us2.getEndereco());
+			Autenticacao.getInstance().criarUsuario(us3.getLogin(), us3.getNome(), us3.getEndereco());
 
 			try {
 				us1.cadastrarItem(null, " uma descricao ", " FILME ");
@@ -371,6 +375,7 @@ public class UsuarioIFTeste extends TestCase implements Test {
 																		// itens
 
 			} catch (Exception ex) {
+				ex.printStackTrace();
 				Assert.fail("Nao era para ter lancado excecao");
 			}
 

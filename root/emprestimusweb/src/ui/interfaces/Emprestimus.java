@@ -99,9 +99,12 @@ public class Emprestimus implements EmprestimusIF {
 		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
 		
 		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
-		
-		String id = usuario.cadastrarItem(nome, descricao, categoria);
-		
+		String id = null;
+		try{
+		id = usuario.cadastrarItem(nome, descricao, categoria);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		return id;
 	}
 
@@ -684,7 +687,7 @@ public class Emprestimus implements EmprestimusIF {
 	}
 
 	@Override
-	public String publicarPedido(String idSessao, String nomeItem,
+	public synchronized String publicarPedido(String idSessao, String nomeItem,
 			String descricaoItem) throws Exception {
 		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(), Mensagem.SESSAO_INVALIDA.getMensagem());
 		//PUBLICACAO_ID_INVALIDO
@@ -706,7 +709,7 @@ public class Emprestimus implements EmprestimusIF {
 	}
 
 	@Override
-	public void republicarPedido(String idSessao, String idPublicacaoPedido) throws Exception{
+	public synchronized void republicarPedido(String idSessao, String idPublicacaoPedido) throws Exception{
 		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(), Mensagem.SESSAO_INVALIDA.getMensagem());
 		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
 		autenticacao.getUsuarioPeloIDSessao(idSessao).republicarPedido(idPublicacaoPedido);

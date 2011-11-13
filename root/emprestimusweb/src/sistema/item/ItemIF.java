@@ -81,6 +81,7 @@ public interface ItemIF extends Comparable<ItemIF> {
 	 * 
 	 * @return A descricao do item.
 	 */
+	@Deprecated
 	public String getDescricao();
 
 	/**
@@ -112,6 +113,7 @@ public interface ItemIF extends Comparable<ItemIF> {
 	 * @throws Exception
 	 *             Se a categoria nao existir em ItemCategoria.
 	 */
+	@Deprecated
 	public void setCategoria(String categoria) throws Exception;
 
 	/**
@@ -169,5 +171,21 @@ public interface ItemIF extends Comparable<ItemIF> {
 	 */
 	@Override
 	public int compareTo(ItemIF item);
+
+	/**
+	 * Recupera a lista de categorias de um item.
+	 * @return
+	 * 		A lista de categorias de um item.
+	 * @throws Exception
+	 */
+	String[] getListaCategorias() throws Exception;
+
+	/**
+	 * Configura uma lista de categorias para um item.
+	 * @param <code>String</code> categorias
+	 * 		
+	 * @throws Exception
+	 */
+	public void setCategorias(String categorias) throws Exception;
 
 }

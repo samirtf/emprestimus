@@ -1,8 +1,11 @@
 package sistema.persistencia;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
+
+import java.util.List;
 
 import sistema.item.ItemIF;
 import sistema.utilitarios.Mensagem;
@@ -44,18 +47,19 @@ public class ItemRepositorio {
 
 	public static String getAtributoItem(String idItem, String atributo) throws Exception {
 		ItemIF item = recuperarItem(idItem);
-
+		String atrib = ((atributo.equals("categoria"))? "categorias":atributo);
 		String valor = null;
 		for (Field f : item.getClass().getDeclaredFields()) {
-			if (f.getName().equals(atributo)) {
-				f.setAccessible(true);
+			if (f.getName().equals(atrib)) {
+				f.setAccessible(true);				
 				valor = (f.get(item)).toString();
 			}
 		}
+
 		if (valor == null)
 			throw new Exception(Mensagem.ATRIBUTO_INEXISTENTE.getMensagem());
 
-		return valor;
+		return valor.replace("[", "").replace("]", "");
 	}
 
 	/**
@@ -102,5 +106,13 @@ public class ItemRepositorio {
 		itensCadastrados = new TreeMap<Long, ItemIF>();
 		contadorID = 0;
 	}
+	
+//	public static void main(String [] args){
+//		List<String> lista =  new ArrayList<String>();
+//		lista.add("samir");
+////		lista.add("trajano");
+////		lista.add("feitosa");
+//		System.out.println(lista);
+//	}
 
 }
