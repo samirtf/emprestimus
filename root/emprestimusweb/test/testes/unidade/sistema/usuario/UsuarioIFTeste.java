@@ -263,7 +263,7 @@ public class UsuarioIFTeste extends TestCase implements Test {
 						.existeItemID(idItem01));
 				Assert.assertEquals("nomeItem", us1.getItem(idItem01).getNome());
 				Assert.assertEquals("", us1.getItem(idItem01).getDescricao());
-				Assert.assertEquals("Filme", us1.getItem(idItem01).getCategoria());
+				Assert.assertEquals("FILME", us1.getItem(idItem01).getListaCategorias()[0]);
 				Assert.assertEquals("1", us1.getListaIdItens());
 				Assert.assertEquals(1, ItemRepositorio.qntItens());
 
@@ -277,7 +277,7 @@ public class UsuarioIFTeste extends TestCase implements Test {
 						.existeItemID(idItem02));
 				Assert.assertEquals("nome Item", us2.getItem(idItem02).getNome());
 				Assert.assertEquals("", us2.getItem(idItem02).getDescricao());
-				Assert.assertEquals("Filme", us2.getItem(idItem02).getCategoria());
+				Assert.assertEquals("FiLmE", us2.getItem(idItem02).getListaCategorias()[0]);
 				Assert.assertEquals("2", us2.getListaIdItens());
 				Assert.assertEquals(2, ItemRepositorio.qntItens());
 
@@ -292,7 +292,7 @@ public class UsuarioIFTeste extends TestCase implements Test {
 						.existeItemID(idItem03));
 				Assert.assertEquals("nome Item", us3.getItem(idItem03).getNome());
 				Assert.assertEquals("um jogo legal", us3.getItem(idItem03).getDescricao());
-				Assert.assertEquals("Jogo", us3.getItem(idItem03).getCategoria());
+				Assert.assertEquals("jogo", us3.getItem(idItem03).getListaCategorias()[0]);
 				Assert.assertEquals("3", us3.getListaIdItens());
 				Assert.assertEquals(3, ItemRepositorio.qntItens());
 
@@ -309,7 +309,7 @@ public class UsuarioIFTeste extends TestCase implements Test {
 						.existeItemID(idItem04));
 				Assert.assertEquals("nomeI4", us1.getItem(idItem04).getNome());
 				Assert.assertEquals("descricaoI4", us1.getItem(idItem04).getDescricao());
-				Assert.assertEquals("Jogo", us1.getItem(idItem04).getCategoria());
+				Assert.assertEquals("JOGO", us1.getItem(idItem04).getListaCategorias()[0]);
 				Assert.assertEquals("1 4", us1.getListaIdItens());
 				Assert.assertEquals(4, ItemRepositorio.qntItens());
 
@@ -324,7 +324,7 @@ public class UsuarioIFTeste extends TestCase implements Test {
 						.existeItemID(idItem05));
 				Assert.assertEquals("nomeI5", us1.getItem(idItem05).getNome());
 				Assert.assertEquals("descricaoI5", us1.getItem(idItem05).getDescricao());
-				Assert.assertEquals("Jogo", us1.getItem(idItem05).getCategoria());
+				Assert.assertEquals("JOGO", us1.getItem(idItem05).getListaCategorias()[0]);
 				Assert.assertEquals("1 4 5", us1.getListaIdItens());
 				Assert.assertEquals(5, ItemRepositorio.qntItens());
 
@@ -339,7 +339,7 @@ public class UsuarioIFTeste extends TestCase implements Test {
 						.existeItemID(idItem06));
 				Assert.assertEquals("nomeI6", us2.getItem(idItem06).getNome());
 				Assert.assertEquals("descricaoI6", us2.getItem(idItem06).getDescricao());
-				Assert.assertEquals("Jogo", us2.getItem(idItem06).getCategoria());
+				Assert.assertEquals("JOGO", us2.getItem(idItem06).getListaCategorias()[0]);
 				Assert.assertEquals("2 6", us2.getListaIdItens());
 				Assert.assertEquals(6, ItemRepositorio.qntItens());
 

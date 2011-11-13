@@ -278,11 +278,23 @@ public class RelacionamentosUsuarios {
 							listaItens.add(item);
 						}
 					} else if (atributo.trim().equalsIgnoreCase("categoria")) {
-						if (item.getCategoria().toLowerCase().contains(
-								chave.trim().toLowerCase())) {
-							// saidaDataCriacao.add(item.getNome());
-							listaItens.add(item);
+						String[] categorias = null;
+						try {
+							categorias = item.getListaCategorias();
+						} catch (Exception e) {
+							e.printStackTrace();
 						}
+						normalizarListaCategorias(categorias);
+						for(String categ : categorias){
+							if(categ.toLowerCase().contains(chave.trim().toLowerCase())){
+								listaItens.add(item);
+							}
+						}
+//						if (item.getCategoria().toLowerCase().contains(
+//								chave.trim().toLowerCase())) {
+//							// saidaDataCriacao.add(item.getNome());
+//							listaItens.add(item);
+//						}
 					}
 				}
 				// já percorri itens e adicionei na lista

@@ -29,7 +29,6 @@ public class Item implements ItemIF {
 
 	private String idItem, nome, descricao;
 	private List<String> categorias;
-	private String categoria;
 	private Date dataCriacao;
 	private boolean estaDisponivel;
 	private List<UsuarioIF> interessados;
@@ -75,11 +74,6 @@ public class Item implements ItemIF {
 		return this.nome;
 	}
 
-	@Override
-	public String getCategoria() {
-		return this.categoria;
-	}
-
 	public UsuarioIF getDono() {
 		return dono;
 	}
@@ -108,12 +102,6 @@ public class Item implements ItemIF {
 		this.nome = nome.trim();
 	}
 
-	@Override
-	public void setCategoria(String categoria) throws Exception {
-		Validador.assertStringNaoVazia(categoria, Mensagem.CATEGORIA_INVALIDA.getMensagem(), 
-				Mensagem.CATEGORIA_INVALIDA.getMensagem());
-		this.categoria = categoria;
-	}
 	
 	@Override
 	public void setCategorias(String categorias) throws Exception {
@@ -127,7 +115,7 @@ public class Item implements ItemIF {
 		this.categorias = new ArrayList<String>();
 		for(String categ : listaCategorias){
 			if(!this.categorias.contains(categ))
-				this.categorias.add(categ);
+				this.categorias.add(categ.trim());
 		}
 	}
 	

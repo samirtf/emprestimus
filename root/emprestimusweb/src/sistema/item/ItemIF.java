@@ -62,13 +62,6 @@ public interface ItemIF extends Comparable<ItemIF> {
 	public String getNome();
 
 	/**
-	 * Recupera a categoria do item.
-	 * 
-	 * @return A categoria do item.
-	 */
-	public String getCategoria();
-
-	/**
 	 * -METODO DELETADO- Recupera o tipo da categoria do item.
 	 * 
 	 * @deprecated
@@ -81,7 +74,6 @@ public interface ItemIF extends Comparable<ItemIF> {
 	 * 
 	 * @return A descricao do item.
 	 */
-	@Deprecated
 	public String getDescricao();
 
 	/**
@@ -105,16 +97,6 @@ public interface ItemIF extends Comparable<ItemIF> {
 	 */
 	public void setNome(String nome) throws Exception;
 
-	/**
-	 * Altera a categoria do item.
-	 * 
-	 * @param categoria
-	 *            A categoria do item.
-	 * @throws Exception
-	 *             Se a categoria nao existir em ItemCategoria.
-	 */
-	@Deprecated
-	public void setCategoria(String categoria) throws Exception;
 
 	/**
 	 * -METODO DELETADO- Altera a categoria do item.
