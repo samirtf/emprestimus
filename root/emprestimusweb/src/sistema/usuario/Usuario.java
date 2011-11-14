@@ -8,9 +8,12 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.RandomStringUtils;
+
 import maps.GetCoordenadas;
 import maps.RefCoordenadas;
 import sistema.autenticacao.Autenticacao;
+import sistema.autenticacao.ServicoRecuperacaoSenhaUsuario;
 import sistema.emprestimo.BancoDeEmprestimos;
 import sistema.emprestimo.Emprestimo;
 import sistema.emprestimo.EmprestimoIF;
@@ -40,7 +43,8 @@ public class Usuario implements UsuarioIF {
 											// guardado nesta variavel estatica.
 
 	/* Atributos do objeto. */
-	private String login, nome, endereco, senha, emailRedefSenha;
+	private String login, nome, endereco, senha, emailRedefSenha = "";
+	private String cartaoAcessoRedefSenha = "";
 
 	private final int id = ID_Prox_Usuario++; // id (codigo unico) do usuario
 	
@@ -529,9 +533,18 @@ public class Usuario implements UsuarioIF {
 	}
 
 	@Override
-	public boolean logar(String senha) {
+	public synchronized boolean logar(String senha) {
+		boolean chaveRequisitouRedefSenha = ServicoRecuperacaoSenhaUsuario.requisitouRedefinicaoSenha(this.getLogin());
+		System.out.println(chaveRequisitouRedefSenha);
 		try {
 			String passeCriptografado = Criptografia.criptografaMD5(getLogin(), senha);
+			if(chaveRequisitouRedefSenha){
+				if(passeCriptografado.equals(getCartaoAcessoRedefSenha())){
+					ServicoRecuperacaoSenhaUsuario.removerRequisicaoRedefinicaoSenha(this.getLogin());
+					return true;
+				}
+					
+			}
 			return passeCriptografado.equals(getSenha());
 		} catch (Exception e) {}
 		return false;
@@ -561,7 +574,7 @@ public class Usuario implements UsuarioIF {
 	}
 
 	@Override
-	public void alterarSenha(String senhaAtual, String senhaNova)
+	public synchronized void alterarSenha(String senhaAtual, String senhaNova)
 			throws Exception {
 		assertStringNaoVazia(senhaAtual, Mensagem.SENHA_ATUAL_INVALIDA.getMensagem(), 
 				Mensagem.SENHA_ATUAL_INVALIDA.getMensagem());
@@ -570,11 +583,28 @@ public class Usuario implements UsuarioIF {
 		
 		if(Criptografia.criptografaMD5(getLogin(), senhaAtual).equals(this.senha)){
 			this.senha = Criptografia.criptografaMD5(getLogin(), senhaNova);
+			this.cartaoAcessoRedefSenha = Criptografia.criptografaMD5(getLogin(), 
+					RandomStringUtils.randomAlphanumeric(20));
 		}else{
 			throw new Exception(Mensagem.SENHA_ATUAL_INVALIDA.getMensagem());
 		}
 		
 	}
+
+	
+	public String getCartaoAcessoRedefSenha() {
+		return cartaoAcessoRedefSenha;
+	}
+
+	public synchronized void setCartaoAcessoRedefSenha(String cartaoAcessoRedefSenha) throws Exception {
+		this.cartaoAcessoRedefSenha = Criptografia.criptografaMD5(getLogin(), cartaoAcessoRedefSenha);;
+	}
+
+	@Override
+	public String getEmailRedefinicaoSenha() {
+		return this.emailRedefSenha;
+	}
+
 	
 		
 }

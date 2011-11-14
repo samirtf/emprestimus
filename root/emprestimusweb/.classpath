@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src" />
-	<classpathentry kind="src" output="test-classes" path="test" />
-	<classpathentry kind="con"
-		path="com.google.gwt.eclipse.core.GWT_CONTAINER" />
-	<classpathentry kind="con"
-		path="org.eclipse.jdt.launching.JRE_CONTAINER" />
-	<classpathentry kind="lib" path="lib/easyaccept.jar" />
-	<classpathentry kind="lib"
-		path="lib/org.hamcrest.core_1.1.0.v20090501071000.jar" />
-	<classpathentry kind="lib"
-		path="lib/org.junit_4.8.2.v4_8_2_v20110321-1705/junit.jar" />
-	<classpathentry kind="output" path="war/WEB-INF/classes" />
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" output="test-classes" path="test"/>
+	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/easyaccept.jar"/>
+	<classpathentry kind="lib" path="lib/org.hamcrest.core_1.1.0.v20090501071000.jar"/>
+	<classpathentry kind="lib" path="lib/org.junit_4.8.2.v4_8_2_v20110321-1705/junit.jar"/>
+	<classpathentry kind="lib" path="lib/javamail-1.4.4/mail.jar"/>
+	<classpathentry kind="lib" path="lib/javamail-1.4.4/lib/dsn.jar"/>
+	<classpathentry kind="lib" path="lib/javamail-1.4.4/lib/imap.jar"/>
+	<classpathentry kind="lib" path="lib/javamail-1.4.4/lib/mailapi.jar"/>
+	<classpathentry kind="lib" path="lib/javamail-1.4.4/lib/pop3.jar"/>
+	<classpathentry kind="lib" path="lib/javamail-1.4.4/lib/smtp.jar"/>
+	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
