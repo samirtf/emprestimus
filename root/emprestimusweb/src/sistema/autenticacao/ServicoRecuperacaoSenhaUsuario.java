@@ -23,37 +23,46 @@ import sistema.usuario.UsuarioIF;
 
 public class ServicoRecuperacaoSenhaUsuario {
 	
+	private static ServicoRecuperacaoSenhaUsuario sharedInstance;
 	
 	private static Map<String, Date> usuariosRedefinicoesRequisitadas = new TreeMap();
 	
 	private static ExecutorService threadExecutor = Executors.newFixedThreadPool(50);
 	
+	private ServicoRecuperacaoSenhaUsuario(){}
+	
+	public synchronized static ServicoRecuperacaoSenhaUsuario getInstance(){
+		if(sharedInstance == null){
+			sharedInstance = new ServicoRecuperacaoSenhaUsuario();
+		}
+		return sharedInstance;
+	}
+	
 	public void pararServico(){
 		threadExecutor.shutdown();
 	}
 	
-	public static void adicionaRequisicaoRedefinicaoSenha(String login){
+	protected void adicionaRequisicaoRedefinicaoSenha(String login){
 		Configuracao configuracao = Configuracao.getInstance();
 		GregorianCalendar gc = new GregorianCalendar();
 		gc.add(Calendar.HOUR, configuracao.getTempoHorasPrazoRefinicaoSenha());
 		usuariosRedefinicoesRequisitadas.put(login, gc.getTime());
 	}
 	
-	public static void removerRequisicaoRedefinicaoSenha(String login){
+	public void removerRequisicaoRedefinicaoSenha(String login){
 		usuariosRedefinicoesRequisitadas.remove(login);
 	}
 	
-	public synchronized static void acionaRedefinicaoSenha(UsuarioIF usuario) throws Exception{
+	public synchronized void acionaRedefinicaoSenha(UsuarioIF usuario) throws Exception{
 		adicionaRequisicaoRedefinicaoSenha(usuario.getLogin());
 		threadExecutor.submit(new RedefineSenhaTask(usuario));
 	}
 	
-	public static boolean requisitouRedefinicaoSenha(String login){
+	public boolean requisitouRedefinicaoSenha(String login){
 		Iterator<Entry<String, Date>> iterador = usuariosRedefinicoesRequisitadas.entrySet().iterator();
 		while(iterador.hasNext()){
 			Entry<String, Date> entrada = iterador.next();
 			if(entrada.getKey().equals(login)){
-				System.out.println(entrada.getValue());
 				if(new GregorianCalendar().getTime().before(entrada.getValue())){
 					return true;
 				}

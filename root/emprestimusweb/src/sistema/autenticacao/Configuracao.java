@@ -5,10 +5,20 @@ public class Configuracao {
 	private static Configuracao sharedInstance;
 	
 	private static int tempoHorasPrazoRedefinicao = 1;
-	private static String emailSMTP = "samircc20092@gmail.com";
-	private static String usernameSMTP = "samircc20092";
-	private static String passwordSMTP = "Roguespear";
+	private static String emailSMTP = "email.com";
+	private static String usernameSMTP = "email";
+	private static String passwordSMTP = "umasenha";
 	private static long timeoutRedefineSenhaSMTP = 30000;
+	
+	private static String senhaRedefAcessoTeste = "";
+	
+	public String getSenhaRedefAcessoTeste(){
+		return senhaRedefAcessoTeste;
+	}
+	
+	public void setSenhaRedefAcessoTeste(String senhaTeste){
+		senhaRedefAcessoTeste = senhaTeste;
+	}
 	
 	private Configuracao(){}
 	
@@ -22,9 +32,9 @@ public class Configuracao {
 
 	private static void inicializaConfiguracao() {
 		tempoHorasPrazoRedefinicao = 1;
-		emailSMTP = "samircc20092@gmail.com";
-		usernameSMTP = "samircc20092";
-		passwordSMTP = "Roguespear";
+		emailSMTP = "asdfasdfasdf@gmail.com";
+		usernameSMTP = "asdfasdfasdf";
+		passwordSMTP = "fdsafadsfads";
 	}
 	
 	protected int getTempoHorasPrazoRefinicaoSenha(){

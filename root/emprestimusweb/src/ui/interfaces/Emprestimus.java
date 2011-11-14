@@ -11,12 +11,17 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.sun.corba.se.impl.orbutil.concurrent.Sync;
+
 import maps.ComparaDistancia;
 import maps.RefCoordenadas;
 
 import sistema.autenticacao.Autenticacao;
+import sistema.autenticacao.Configuracao;
+import sistema.autenticacao.ServicoRecuperacaoSenhaUsuario;
 import sistema.emprestimo.BancoDeEmprestimos;
 import sistema.emprestimo.EmprestimoIF;
+import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.item.AcervoDeItens;
 import sistema.item.ItemIF;
 import sistema.mensagem.ChatIF;
@@ -773,6 +778,23 @@ public class Emprestimus implements EmprestimusIF {
 		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(), Mensagem.SESSAO_INVALIDA.getMensagem());
 		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_JAH_ENCERRADA.getMensagem());
 		autenticacao.encerrarSessao(idSessao);	
+	}
+
+	@Override
+	public synchronized String recuperaSenha(String login, String email) throws Exception {
+		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(), 
+				Mensagem.LOGIN_INVALIDO.getMensagem());
+		Validador.assertStringNaoVazia(email, Mensagem.EMAIL_INVALIDO.getMensagem(), 
+				Mensagem.EMAIL_INVALIDO.getMensagem());
+		UsuarioIF usuario = Autenticacao.getUsuarioPorLogin(login);
+		if(!usuario.getEmailRedefinicaoSenha().equals(email)){
+			throw new Exception(Mensagem.EMAIL_INVALIDO.getMensagem());
+		}
+		ServicoRecuperacaoSenhaUsuario.getInstance().acionaRedefinicaoSenha(usuario);
+		Thread.sleep(6000);
+		String senha = Configuracao.getInstance().getSenhaRedefAcessoTeste();
+		System.out.println(senha+"coco");
+		return senha;
 	}
 
 }

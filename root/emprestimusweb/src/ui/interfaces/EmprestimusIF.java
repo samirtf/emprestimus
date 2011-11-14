@@ -501,7 +501,7 @@ public interface EmprestimusIF {
   	 * em conjunto com as atividades passadas dos seus amigos
   	 * (da atividade mais recente à mais antiga).
   	 * As atividades consideradas do método acima.
-  	 * Note que não existe a duplicação da atividade “adição de amigo concluída�?,
+  	 * Note que não existe a duplicação da atividade “adição de amigo concluída�?,
   	 * portanto mostra apenas a atividade do usuario que requisitou o histórico de atividades em conjunto.
   	 * 
   	 * @param String - idSessao
@@ -575,6 +575,8 @@ public interface EmprestimusIF {
 			String senhaNova) throws Exception;
 
 	public void encerrarSessao(String idSessao) throws Exception;
+
+	public String recuperaSenha(String login, String email) throws Exception;
 
 	
 	

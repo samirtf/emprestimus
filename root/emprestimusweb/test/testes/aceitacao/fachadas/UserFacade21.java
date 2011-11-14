@@ -21,5 +21,9 @@ public class UserFacade21 extends UserFacade20 {
 	public void cadastrarEmailRedefinicaoSenha(String idSessao, String email) throws Exception {
 		sistema.cadastrarEmailRedefinicaoSenha(idSessao, email);
 	}
+	
+	public String recuperarSenha(String login, String email) throws Exception {
+		return sistema.recuperaSenha(login, email);
+	}
 
 }

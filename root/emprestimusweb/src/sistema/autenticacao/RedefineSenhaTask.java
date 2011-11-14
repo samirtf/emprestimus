@@ -49,8 +49,11 @@ public class RedefineSenhaTask implements Runnable {
 		try {
 
 			String senhaAleatoria = senhaAleatoria();
+			configuracao.setSenhaRedefAcessoTeste(senhaAleatoria);
 			usuario.setCartaoAcessoRedefSenha(senhaAleatoria);
-			ServicoRecuperacaoSenhaUsuario.adicionaRequisicaoRedefinicaoSenha(usuario.getLogin());
+			ServicoRecuperacaoSenhaUsuario.getInstance().
+			    adicionaRequisicaoRedefinicaoSenha(usuario.getLogin());
+			
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(configuracao.getEmailSMTP()));
 			message.setRecipients(Message.RecipientType.TO,

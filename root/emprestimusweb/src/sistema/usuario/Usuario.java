@@ -534,13 +534,14 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public synchronized boolean logar(String senha) {
-		boolean chaveRequisitouRedefSenha = ServicoRecuperacaoSenhaUsuario.requisitouRedefinicaoSenha(this.getLogin());
-		System.out.println(chaveRequisitouRedefSenha);
+		boolean chaveRequisitouRedefSenha = ServicoRecuperacaoSenhaUsuario.getInstance()
+				.requisitouRedefinicaoSenha(this.getLogin());
 		try {
 			String passeCriptografado = Criptografia.criptografaMD5(getLogin(), senha);
 			if(chaveRequisitouRedefSenha){
 				if(passeCriptografado.equals(getCartaoAcessoRedefSenha())){
-					ServicoRecuperacaoSenhaUsuario.removerRequisicaoRedefinicaoSenha(this.getLogin());
+					ServicoRecuperacaoSenhaUsuario.getInstance().
+					removerRequisicaoRedefinicaoSenha(this.getLogin());
 					return true;
 				}
 					
