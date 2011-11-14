@@ -8,7 +8,7 @@ public class Configuracao {
 	private static String emailSMTP = "email.com";
 	private static String usernameSMTP = "email";
 	private static String passwordSMTP = "umasenha";
-	private static long timeoutRedefineSenhaSMTP = 30000;
+	private static long timeoutRedefineSenhaSMTP = 4000;
 	
 	private static String senhaRedefAcessoTeste = "";
 	
@@ -32,9 +32,9 @@ public class Configuracao {
 
 	private static void inicializaConfiguracao() {
 		tempoHorasPrazoRedefinicao = 1;
-		emailSMTP = "asdfasdfasdf@gmail.com";
-		usernameSMTP = "asdfasdfasdf";
-		passwordSMTP = "fdsafadsfads";
+		emailSMTP = "emprestimuswebsi@gmail.com";
+		usernameSMTP = "emprestimuswebsi";
+		passwordSMTP = "umaSenha";
 	}
 	
 	protected int getTempoHorasPrazoRefinicaoSenha(){
@@ -53,7 +53,7 @@ public class Configuracao {
 		return passwordSMTP;
 	}
 	
-	protected long getTimeoutRedefineSenhaSMTP(){
+	public long getTimeoutRedefineSenhaSMTP(){
 		return timeoutRedefineSenhaSMTP;
 	}
 

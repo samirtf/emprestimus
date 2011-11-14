@@ -788,13 +788,18 @@ public class Emprestimus implements EmprestimusIF {
 				Mensagem.EMAIL_INVALIDO.getMensagem());
 		UsuarioIF usuario = Autenticacao.getUsuarioPorLogin(login);
 		if(!usuario.getEmailRedefinicaoSenha().equals(email)){
-			throw new Exception(Mensagem.EMAIL_INVALIDO.getMensagem());
+			throw new Exception(Mensagem.EMAIL_INVALIDO_INEXISTENTE.getMensagem());
 		}
 		ServicoRecuperacaoSenhaUsuario.getInstance().acionaRedefinicaoSenha(usuario);
-		Thread.sleep(6000);
+		Thread.sleep(Configuracao.getInstance().getTimeoutRedefineSenhaSMTP());
 		String senha = Configuracao.getInstance().getSenhaRedefAcessoTeste();
 		System.out.println(senha+"coco");
 		return senha;
+	}
+	
+	@Override
+	public void sleepSystemTeste(int milissegundos) throws Exception {
+		Thread.sleep(milissegundos);
 	}
 
 }

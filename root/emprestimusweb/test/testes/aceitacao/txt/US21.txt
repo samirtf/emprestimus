@@ -12,8 +12,7 @@ criarUsuario login="bill" senha="11223344" nome="William Henry Gates III" endere
 sessaoMark=abrirSessao login="mark" senha="12345678"
 expect "Mark Zuckerberg" getAtributoUsuario login="mark" atributo="nome"
 expect "Palo Alto, California" getAtributoUsuario login="mark" atributo="endereco"
-cadastrarEmailRedefinicaoSenha idSessao=${sessaoMark} email="emprestimusTest1@gmail.com"
-
+cadastrarEmailRedefinicaoSenha idSessao=${sessaoMark} email="emprestimuswebsi@gmail.com"
 
 sessaoSteve=abrirSessao login="steve" senha="87654321"
 expect "Steven Paul Jobs" getAtributoUsuario login="steve" atributo="nome"
@@ -45,9 +44,9 @@ expectError "Usuário inexistente" abrirSessao login="xpto" senha="xpto"
 expectError "Senha inválida" abrirSessao login="mark" senha=
 expectError "Senha inválida" abrirSessao login="mark" senha=""
 
-expectError "Sessão inválida" cadastrarEmailRedefinicaoSenha idSessao= email="emprestimusTest@gmail.com"
-expectError "Sessão inválida" cadastrarEmailRedefinicaoSenha idSessao="" email="emprestimusTest@gmail.com"
-expectError "Sessão inexistente" cadastrarEmailRedefinicaoSenha idSessao="xpto" email="emprestimusTest@gmail.com"
+expectError "Sessão inválida" cadastrarEmailRedefinicaoSenha idSessao= email="emprestimuswebsi@gmail.com"
+expectError "Sessão inválida" cadastrarEmailRedefinicaoSenha idSessao="" email="emprestimuswebsi@gmail.com"
+expectError "Sessão inexistente" cadastrarEmailRedefinicaoSenha idSessao="xpto" email="emprestimuswebsi@gmail.com"
 expectError "Email inválido" cadastrarEmailRedefinicaoSenha idSessao=${sessaoMark} email=
 expectError "Email inválido" cadastrarEmailRedefinicaoSenha idSessao=${sessaoMark} email=""
 expectError "Email inválido" cadastrarEmailRedefinicaoSenha idSessao=${sessaoMark} email="@gmail.com"

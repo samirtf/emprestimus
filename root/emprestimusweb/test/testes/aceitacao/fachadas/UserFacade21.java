@@ -25,5 +25,9 @@ public class UserFacade21 extends UserFacade20 {
 	public String recuperarSenha(String login, String email) throws Exception {
 		return sistema.recuperaSenha(login, email);
 	}
+	
+	public void sleepSystemTeste(int milissegundos) throws Exception {
+		sistema.sleepSystemTeste(milissegundos);
+	}
 
 }

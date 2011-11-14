@@ -578,6 +578,8 @@ public interface EmprestimusIF {
 
 	public String recuperaSenha(String login, String email) throws Exception;
 
+	void sleepSystemTeste(int milissegundos) throws Exception;
+
 	
 	
 

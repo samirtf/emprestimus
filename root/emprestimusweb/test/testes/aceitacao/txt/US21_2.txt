@@ -10,14 +10,16 @@ criarUsuario login="mark" senha="12345678" nome="Mark Zuckerberg" endereco="Palo
 sessaoMark=abrirSessao login="mark" senha="12345678"
 expect "Mark Zuckerberg" getAtributoUsuario login="mark" atributo="nome"
 expect "Palo Alto, California" getAtributoUsuario login="mark" atributo="endereco"
-cadastrarEmailRedefinicaoSenha idSessao=${sessaoMark} email="samircc20092@gmail.com"
+cadastrarEmailRedefinicaoSenha idSessao=${sessaoMark} email="emprestimuswebsi@gmail.com"
 encerrarSessao idSessao=${sessaoMark}
-novoPasseMarkUm=recuperarSenha login="mark" email="samircc20092@gmail.com"
+novoPasseMarkUm=recuperarSenha login="mark" email="emprestimuswebsi@gmail.com"
+sleepSystemTeste milissegundos=400
 sessaoMark=abrirSessao login="mark" senha=${novoPasseMarkUm}
 expect "Mark Zuckerberg" getAtributoUsuario login="mark" atributo="nome"
 expect "Palo Alto, California" getAtributoUsuario login="mark" atributo="endereco"
 encerrarSessao idSessao=${sessaoMark}
-novoPasseMarkDois=recuperarSenha login="mark" email="samircc20092@gmail.com"
+novoPasseMarkDois=recuperarSenha login="mark" email="emprestimuswebsi@gmail.com"
+sleepSystemTeste milissegundos=400
 sessaoMark=abrirSessao login="mark" senha=${novoPasseMarkDois}
 
 # entradas inválidas
@@ -35,9 +37,9 @@ expectError "Usuário inexistente" abrirSessao login="xpto" senha="xpto"
 expectError "Senha inválida" abrirSessao login="mark" senha=
 expectError "Senha inválida" abrirSessao login="mark" senha=""
 
-expectError "Sessão inválida" cadastrarEmailRedefinicaoSenha idSessao= email="emprestimusTest@gmail.com"
-expectError "Sessão inválida" cadastrarEmailRedefinicaoSenha idSessao="" email="emprestimusTest@gmail.com"
-expectError "Sessão inexistente" cadastrarEmailRedefinicaoSenha idSessao="xpto" email="emprestimusTest@gmail.com"
+expectError "Sessão inválida" cadastrarEmailRedefinicaoSenha idSessao= email="emprestimuswebsi@gmail.com"
+expectError "Sessão inválida" cadastrarEmailRedefinicaoSenha idSessao="" email="emprestimuswebsi@gmail.com"
+expectError "Sessão inexistente" cadastrarEmailRedefinicaoSenha idSessao="xpto" email="emprestimuswebsi@gmail.com"
 expectError "Email inválido" cadastrarEmailRedefinicaoSenha idSessao=${sessaoMark} email=
 expectError "Email inválido" cadastrarEmailRedefinicaoSenha idSessao=${sessaoMark} email=""
 expectError "Email inválido" cadastrarEmailRedefinicaoSenha idSessao=${sessaoMark} email="@gmail.com"
@@ -52,22 +54,23 @@ expectError "Email inválido" cadastrarEmailRedefinicaoSenha idSessao=${sessaoMa
 
 expectError "Sessão inválida" alterarSenha idSessao= senhaAtual="xpto" senhaNova="xpto"
 expectError "Sessão inválida" alterarSenha idSessao="" senhaAtual="xpto" senhaNova="xpto"
-expectError "Senha atual inválida" alterarSenha login="mark" senhaAtual= senhaNova="xpto"
-expectError "Senha atual inválida" alterarSenha login="mark" senhaAtual="" senhaNova="xpto"
-expectError "Senha nova inválida" alterarSenha login="mark" senhaAtual="87654321" senhaNova=
-expectError "Senha nova inválida" alterarSenha login="mark" senhaAtual="87654321" senhaNova=""
-expectError "Senha atual inválida" alterarSenha login="mark" senhaAtual="87654321" senhaNova="xpto"
+expectError "Senha atual inválida" alterarSenha idSessao=${sessaoMark} senhaAtual= senhaNova="xpto"
+expectError "Senha atual inválida" alterarSenha idSessao=${sessaoMark} senhaAtual="" senhaNova="xpto"
+expectError "Senha nova inválida" alterarSenha idSessao=${sessaoMark} senhaAtual="87654321" senhaNova=
+expectError "Senha nova inválida" alterarSenha idSessao=${sessaoMark} senhaAtual="87654321" senhaNova=""
+expectError "Senha atual inválida" alterarSenha idSessao=${sessaoMark} senhaAtual="87654321" senhaNova="xpto"
 
 expectError "Sessão inválida" encerrarSessao idSessao=
 expectError "Sessão inválida" encerrarSessao idSessao=""
-expectError "Sessão inexistente" encerrarSessao idSessao="xpto"
-expectedError "Sessao já encerrada" encerrarSessao idSessao=${sessaoMark}
+expectError "Sessão já encerrada" encerrarSessao idSessao="xpto"
+encerrarSessao idSessao=${sessaoMark}
+expectError "Sessão já encerrada" encerrarSessao idSessao=${sessaoMark}
 
-expectError "Senha inválida" abrirSessao login="mark" senha=${novoPasseMarkUm}
+expectError "Login ou senha incorreto(s)" abrirSessao login="mark" senha=${novoPasseMarkUm}
 expectError "Login inválido" recuperarSenha login= email="xpto"
 expectError "Login inválido" recuperarSenha login="" email="xpto"
-expectError "Email inválido ou inexistente" recuperarSenha login="mark" email=
-expectError "Email inválido ou inexistente" recuperarSenha login="mark" email=""
+expectError "Email inválido" recuperarSenha login="mark" email=
+expectError "Email inválido" recuperarSenha login="mark" email=""
 expectError "Email inválido ou inexistente" recuperarSenha login="mark" email="xpto"
 
 

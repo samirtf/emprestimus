@@ -268,7 +268,8 @@ public enum Mensagem {
 	SENHA_ATUAL_INVALIDA("Senha atual inválida"),
 	SENHA_NOVA_INVALIDA("Senha nova inválida"), 
 	SENHA_INVALIDA("Senha inválida"), 
-	SESSAO_JAH_ENCERRADA("Sessão já encerrada");
+	SESSAO_JAH_ENCERRADA("Sessão já encerrada"),
+	EMAIL_INVALIDO_INEXISTENTE("Email inválido ou inexistente");
 
 	private final String mensagem;
 
