@@ -67,11 +67,9 @@ public class RedefineSenhaTask implements Runnable {
 
 			Transport.send(message);
 
-			System.out.println("Done");
-
 		} catch (MessagingException e) {
 			e.printStackTrace();
-			throw new RuntimeException(e);
+			//throw new RuntimeException(e);
 		}
 	}
 	

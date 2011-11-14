@@ -39,6 +39,10 @@ public class ServicoRecuperacaoSenhaUsuario {
 		return sharedInstance;
 	}
 	
+	public void iniciarServico(){
+		threadExecutor = Executors.newFixedThreadPool(50);
+	}
+	
 	public void pararServico(){
 		threadExecutor.shutdown();
 	}

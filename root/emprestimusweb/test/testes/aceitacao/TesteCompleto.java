@@ -28,6 +28,9 @@ public class TesteCompleto {
 		TestUS17_18.main(null);
 		TestUS19.main(null);
 		TestUS20.main(null);
+		TestUS21.main(null);
+		TestUS21_2.main(null);
+		TestUS21_3.main(null);
 	}
 
 }

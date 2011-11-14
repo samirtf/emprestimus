@@ -47,11 +47,14 @@ import sistema.utilitarios.Validador;
 public class Emprestimus implements EmprestimusIF {
 	private static Emprestimus emprestimus;
 	private Autenticacao autenticacao;
+	private ServicoRecuperacaoSenhaUsuario srs;
 	private Calendar dataCorrente;
 	private int diasExtras = 0;
 	
 	private Emprestimus(){
 		autenticacao = Autenticacao.getInstance();
+		srs = ServicoRecuperacaoSenhaUsuario.getInstance();
+		srs.iniciarServico();
 	}
 	
 	/**
@@ -522,7 +525,7 @@ public class Emprestimus implements EmprestimusIF {
 	public void zerarSistema() {
 		//Zerar o BD
 		autenticacao.zerarSistema();
-		
+		srs.iniciarServico();
 		ChatRepositorio.zerarRepositorio();
 		EmprestimoRepositorio.zerarRepositorio();
 		ItemRepositorio.zerarRepositorio();
@@ -543,6 +546,7 @@ public class Emprestimus implements EmprestimusIF {
 	public void encerrarSistema() {
 		// Salva dados em persistencia e encerra.
 		autenticacao.encerrarSistema();
+		srs.pararServico();
 		// System.exit(0);
 	}
 
@@ -797,9 +801,7 @@ public class Emprestimus implements EmprestimusIF {
 		}
 		ServicoRecuperacaoSenhaUsuario.getInstance().acionaRedefinicaoSenha(usuario);
 		Thread.sleep(Configuracao.getInstance().getTimeoutRedefineSenhaSMTP());
-		String senha = Configuracao.getInstance().getSenhaRedefAcessoTeste();
-		System.out.println(senha+"coco");
-		return senha;
+		return Configuracao.getInstance().getSenhaRedefAcessoTeste();
 	}
 	
 	@Override
