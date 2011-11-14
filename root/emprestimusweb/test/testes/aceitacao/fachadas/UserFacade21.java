@@ -1,5 +1,7 @@
 package testes.aceitacao.fachadas;
 
+import sistema.autenticacao.ServicoRecuperacaoSenhaUsuario;
+
 public class UserFacade21 extends UserFacade20 {
 
 	public void criarUsuario(String login, String senha, String nome, String endereco) throws Exception {
@@ -28,6 +30,10 @@ public class UserFacade21 extends UserFacade20 {
 	
 	public void sleepSystemTeste(int milissegundos) throws Exception {
 		sistema.sleepSystemTeste(milissegundos);
+	}
+	
+	public synchronized void adicionaHorasRedefSenha(int horas) throws Exception {
+		sistema.adicionaHorasRedefSenha(horas);
 	}
 
 }

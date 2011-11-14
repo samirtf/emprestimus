@@ -368,6 +368,11 @@ public class Emprestimus implements EmprestimusIF {
 		diasExtras += numDias;
 
 	}
+	
+	@Override
+	public synchronized void adicionaHorasRedefSenha(int horas) throws Exception {
+		ServicoRecuperacaoSenhaUsuario.getInstance().adicionaHorasServicoRedefSenha(horas);
+	}
 
 	@Override
 	public void confirmarTerminoEmprestimo(String idSessao, String idEmprestimo) throws Exception {

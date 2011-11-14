@@ -24,6 +24,7 @@ import sistema.usuario.UsuarioIF;
 public class ServicoRecuperacaoSenhaUsuario {
 	
 	private static ServicoRecuperacaoSenhaUsuario sharedInstance;
+	private static int tempoHorasPassadasRedefinicaoSenha = 0;
 	
 	private static Map<String, Date> usuariosRedefinicoesRequisitadas = new TreeMap();
 	
@@ -63,7 +64,10 @@ public class ServicoRecuperacaoSenhaUsuario {
 		while(iterador.hasNext()){
 			Entry<String, Date> entrada = iterador.next();
 			if(entrada.getKey().equals(login)){
-				if(new GregorianCalendar().getTime().before(entrada.getValue())){
+				GregorianCalendar dataCorrente = new GregorianCalendar();
+				dataCorrente.add(Calendar.HOUR, tempoHorasPassadasRedefinicaoSenha);
+				dataCorrente.add(Calendar.MILLISECOND, 0);
+				if(dataCorrente.getTime().before(entrada.getValue())){
 					return true;
 				}
 				iterador.remove();
@@ -71,6 +75,10 @@ public class ServicoRecuperacaoSenhaUsuario {
 			}
 		}
 		return false;
+	}
+	
+	public void adicionaHorasServicoRedefSenha(int horas){
+		tempoHorasPassadasRedefinicaoSenha += horas;
 	}
 	
 	

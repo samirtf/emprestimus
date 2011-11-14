@@ -5,6 +5,7 @@ public class Configuracao {
 	private static Configuracao sharedInstance;
 	
 	private static int tempoHorasPrazoRedefinicao = 1;
+
 	private static String emailSMTP = "email.com";
 	private static String usernameSMTP = "email";
 	private static String passwordSMTP = "umasenha";
@@ -34,7 +35,7 @@ public class Configuracao {
 		tempoHorasPrazoRedefinicao = 1;
 		emailSMTP = "emprestimuswebsi@gmail.com";
 		usernameSMTP = "emprestimuswebsi";
-		passwordSMTP = "umaSenha";
+		passwordSMTP = "Roguespear";
 	}
 	
 	protected int getTempoHorasPrazoRefinicaoSenha(){
@@ -56,5 +57,6 @@ public class Configuracao {
 	public long getTimeoutRedefineSenhaSMTP(){
 		return timeoutRedefineSenhaSMTP;
 	}
+
 
 }

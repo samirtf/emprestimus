@@ -580,6 +580,8 @@ public interface EmprestimusIF {
 
 	void sleepSystemTeste(int milissegundos) throws Exception;
 
+	void adicionaHorasRedefSenha(int horas) throws Exception;
+
 	
 	
 
