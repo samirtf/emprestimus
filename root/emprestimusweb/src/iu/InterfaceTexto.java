@@ -1,4 +1,4 @@
-package ui.interfaces;
+package iu;
 
 import java.util.Scanner;
 import sistema.utilitarios.Mensagem;

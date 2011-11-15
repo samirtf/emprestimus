@@ -1,4 +1,4 @@
-package ui.interfaces;
+package iu;
 
 import static sistema.utilitarios.Validador.assertNaoNulo;
 import static sistema.utilitarios.Validador.assertStringNaoVazia;

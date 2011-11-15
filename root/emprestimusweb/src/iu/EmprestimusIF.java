@@ -1,4 +1,4 @@
-package ui.interfaces;
+package iu;
 
 /**
  * Fachada para as funcionalidades do sistema.
