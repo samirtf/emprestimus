@@ -23,7 +23,6 @@ import sistema.utilitarios.Validador;
 
 /**
  * @author Mobile
- * 
  */
 public class BancoDeEmprestimos {
 
@@ -34,6 +33,9 @@ public class BancoDeEmprestimos {
 		contas = new TreeMap<String, Conta>();
 	}
 
+	/**
+	 * @return BancoDeEmprestimos
+	 */
 	public static BancoDeEmprestimos getInstance() {
 		if (bancoDeEmprestimos == null) {
 			bancoDeEmprestimos = new BancoDeEmprestimos();
@@ -43,6 +45,15 @@ public class BancoDeEmprestimos {
 		return bancoDeEmprestimos;
 	}
 
+	/**
+	 * Cadastra um usuario no banco de emprestimos
+	 * 
+	 * @param usuario - String
+	 * 		Usuario a ser cadastrado
+	 * 
+	 * @throws Exception
+	 * 		Caso o usuario já esteja cadastrado
+	 */
 	public void adicionaContaAoUsuario(String usuario) throws Exception {
 		if (contas.containsKey(usuario))
 			throw new Exception(
@@ -50,14 +61,43 @@ public class BancoDeEmprestimos {
 		contas.put(usuario, new Conta(usuario));
 	}
 
+	/**
+	 * Remove um usuario no banco de emprestimos
+	 * 
+	 * @param usuario - String
+	 * 		Usuario a ser cadastrado
+	 * 
+	 * @throws Exception
+	 * 		Caso o usuario já esteja cadastrado
+	 */
 	public void removeContaDoUsuario(String usuario) throws Exception {
 		contas.remove(usuario);
 	}
 
+	/**
+	 * @param login - String
+	 * 		Login do usuario desejado
+	 * 
+	 * @return Conta
+	 * 		Conta do usuario desejado
+	 * 
+	 * @throws Exception
+	 */
 	public Conta getConta(String login) throws Exception {
 		return contas.get(login);
 	}
-
+	
+	/**
+	 * Adiciona uma requisição de emprestimo de um amigo
+	 * 
+	 * @param login - String
+	 * 		amigo desejado
+	 * @param emp - EmprestimoIF
+	 * 		emprestimo a ser cadastrado na requisição
+	 * 
+	 * @throws Exception
+	 * 		Caso a conta fornecida seja inexistente
+	 */
 	public void adicionarRequisicaoEmprestimoEmEsperaDeAmigo(String login,
 			EmprestimoIF emp) throws Exception {
 		if (!contas.containsKey(login))
@@ -66,6 +106,22 @@ public class BancoDeEmprestimos {
 		// this.emprestimosRequeridosPorAmigosEmEspera.add(emp);
 	}
 
+	/**
+	 * Requisita um emprestimo
+	 * 
+	 * @param login - String
+	 * 		Loguin do usuario
+	 * @param idItem - String
+	 * 		ID do item desejado
+	 * @param duracao - String
+	 * 		Duração do emprestimo
+	 * 
+	 * @return String
+	 * 
+	 * @throws Exception
+	 * 		caso o seja fornecido algum parametro invalido ou o usuario não tenha permissao para requisitar um
+	 * 			emprestimo do item em questão.
+	 */
 	public synchronized String requisitarEmprestimo(String login, String idItem,
 			int duracao) throws Exception {
 		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(),
@@ -176,6 +232,19 @@ public class BancoDeEmprestimos {
 		return str.toString().trim().substring(0, str.toString().length() - 2);
 	}
 
+	/**
+	 * Aproma um determinado emprestimo
+	 * 
+	 * @param login - String
+	 * 		Loguin do usuario
+	 * @param idRequisicaoEmprestimo String
+	 * 		ID da requisição a ser aprovada
+	 * 
+	 * @return String
+	 * 		ID do emprestimo
+	 * 
+	 * @throws Exception
+	 */
 	public synchronized String aprovarEmprestimo(String login,
 			String idRequisicaoEmprestimo) throws Exception {
 		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(),
@@ -209,6 +278,16 @@ public class BancoDeEmprestimos {
 
 	}
 
+	/**
+	 * Adiciona ao banco de emprestimos um emprestimo aceito por um amigo
+	 * 
+	 * @param login - String
+	 * 		Loguin do usuario
+	 * @param emp - EmprestimoIF
+	 * 		Emprestimo a ser adicionado
+	 * 
+	 * @throws Exception
+	 */
 	public void emprestimoAceitoPorAmigo(String login, EmprestimoIF emp) throws Exception {
 		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
@@ -217,6 +296,7 @@ public class BancoDeEmprestimos {
 		conta.getEmprestimos().add(emp);
 	}
 
+	
 	public void removerEmprestimosRequeridosPorAmigo(String login, UsuarioIF amigo) {
 		Iterator<EmprestimoIF> iteradorListaEmprestimosRequeridosPorAmigo = contas.get(
 				login).getEmprestimosRequeridosPorAmigosEmEspera().iterator();
