@@ -296,7 +296,14 @@ public class BancoDeEmprestimos {
 		conta.getEmprestimos().add(emp);
 	}
 
-	
+	/**
+	 * Remove emprestimos requeridos por um amigo
+	 * 
+	 * @param login - String
+	 * 		Loguin do usuario
+	 * @param amigo - UsuarioIF
+	 * 		Objeto referente ao amigo
+	 */
 	public void removerEmprestimosRequeridosPorAmigo(String login, UsuarioIF amigo) {
 		Iterator<EmprestimoIF> iteradorListaEmprestimosRequeridosPorAmigo = contas.get(
 				login).getEmprestimosRequeridosPorAmigosEmEspera().iterator();
@@ -311,6 +318,14 @@ public class BancoDeEmprestimos {
 
 	}
 
+	/**
+	 * Remove emprestimos requeridos pelo proprio usuario
+	 * 
+	 * @param login - String
+	 * 		Loguin do usuario
+	 * @param amigo - UsuarioIF
+	 * 		Objeto referente ao amigo
+	 */
 	public void removerEmprestimosRequeridosPorMim(String login, UsuarioIF amigo) {
 		Iterator<EmprestimoIF> iteradorListaEmprestimosRequeridosPorMim = contas.get(
 				login).getEmprestimosRequeridosPorMimEmEspera().iterator();
@@ -325,6 +340,17 @@ public class BancoDeEmprestimos {
 
 	}
 
+	/**
+	 * Marca um determinado item como requesitado
+	 * 
+	 * @param login - String
+	 * 		Loguin do usuario
+	 * @param idItem - String
+	 * 
+	 * @return boolean
+	 * 
+	 * @throws Exception
+	 */
 	public synchronized boolean requisiteiEsteItem(String login, String idItem) throws Exception {
 		assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem(),
 				Mensagem.ID_ITEM_INVALIDO.getMensagem());
@@ -343,10 +369,21 @@ public class BancoDeEmprestimos {
 		return false;
 	}
 
+	/**
+	 * Remove uma solicitação de emprestimo
+	 * 
+	 * @param login - String
+	 * 		Loguin do usuario
+	 * @param emprestimo - EmprestimoIF
+	 * 		Emprestimo a ser removido
+	 */
 	public void removerMinhaSolicitacaoEmprestimo(String login, EmprestimoIF emprestimo) {
 		contas.get(login).getEmprestimosRequeridosPorMimEmEspera().remove(emprestimo);
 	}
 
+	/**
+	 * Reseta o sistema para as configurações iniciais
+	 */
 	public void zerarSistema() {
 		contas.clear();
 	}

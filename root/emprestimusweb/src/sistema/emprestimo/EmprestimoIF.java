@@ -17,37 +17,41 @@ public interface EmprestimoIF extends Comparable<EmprestimoIF> {
 	/**
 	 * Altera o id do empréstimo.
 	 * 
-	 * @param idEmprestimo
-	 *            Novo id para o empréstimo.
+	 * @param idEmprestimo - String
+	 * 		Novo id para o empréstimo.
+	 *            
 	 * @throws Exception
-	 *             Caso o parâmetro seja inválido.
+	 * 		Caso o parâmetro seja inválido.
 	 */
 	public void setId(String idEmprestimo) throws Exception;
 
 	/**
 	 * Altera o usuário que emprestou.
 	 * 
-	 * @param emprestador
-	 *            Novo usuário que substituirá o antigo emprestador.
+	 * @param emprestador - UsuarioIF
+	 * 		Novo usuário que substituirá o antigo emprestador.
+	 *            
 	 * @throws ArgumentoInvalidoException
-	 *             Caso o parâmetro seja nulo.
+	 * 		Caso o parâmetro seja nulo.
 	 */
 	public void setEmprestador(UsuarioIF emprestador) throws ArgumentoInvalidoException;
 
 	/**
 	 * Altera o usuário que pegou emprestado.
 	 * 
-	 * @param beneficiado
-	 *            Novo usuário que substituirá o antigo emprestador.
+	 * @param beneficiado - UsuarioIF
+	 * 		Novo usuário que substituirá o antigo emprestador.
+	 *            
 	 * @throws ArgumentoInvalidoException
-	 *             Caso o parâmetro seja nulo.
+	 * 		Caso o parâmetro seja nulo.
 	 */
 	public void setBeneficiado(UsuarioIF beneficiado) throws ArgumentoInvalidoException;
 
 	/**
 	 * Recupera o nome do estado do empréstimo.
 	 * 
-	 * @return Nome do estado do empréstimo.
+	 * @return String
+	 * 		Nome do estado do empréstimo.
 	 */
 	public String getNomeParaEstado();
 
@@ -66,45 +70,51 @@ public interface EmprestimoIF extends Comparable<EmprestimoIF> {
 	/**
 	 * Modifica a duração do empréstimo.
 	 * 
-	 * @param duracao
-	 *            Nova duração para o empréstimo.
+	 * @param duracao - int
+	 * 		Nova duração para o empréstimo.
+	 *            
 	 * @throws Exception
-	 *             Caso a duração seja não-positiva.
+	 * 		Caso a duração seja não-positiva.
 	 */
 	public void setDuracao(int duracao) throws Exception;
 
 	/**
 	 * Recupera o id do empréstimo.
 	 * 
-	 * @return ID do empréstimo.
+	 * @return String
+	 * 		ID do empréstimo.
 	 */
 	public String getIdEmprestimo();
 
 	/**
 	 * Recupera o usuário que emprestou.
 	 * 
-	 * @return Usuário que emprestou.
+	 * @return UsuarioIF
+	 * 		Usuário que emprestou.
 	 */
 	public UsuarioIF getEmprestador();
 
 	/**
 	 * Recupera o usuário que pegou o empréstimo.
 	 * 
-	 * @return Usuário que pegou o empréstimo
+	 * @return UsuarioIF
+	 * 		Usuário que pegou o empréstimo
 	 */
 	public UsuarioIF getBeneficiado();
 
 	/**
 	 * Recupera o ID do item que foi emprestado.
 	 * 
-	 * @return ID do item que foi emprestado.
+	 * @return ItemIF
+	 * 		ID do item que foi emprestado.
 	 */
 	public ItemIF getItem();
 
 	/**
 	 * Recupera a duração do empréstimo.
 	 * 
-	 * @return Duração do empréstimo.
+	 * @return int
+	 * 		Duração do empréstimo.
 	 */
 	public int getDuracao();
 
@@ -113,42 +123,48 @@ public interface EmprestimoIF extends Comparable<EmprestimoIF> {
 	/**
 	 * Verifica se o emprétimo é do tipo emprestador.
 	 * 
-	 * @return Retorna true, caso seja do tipo emprestador, ou false, caso não.
+	 * @return boolean
+	 * 		True caso seja do tipo emprestador.
 	 */
 	public boolean ehTipoEmprestador();
 
 	/**
 	 * Verifica se o emprétimo é do tipo beneficiado.
 	 * 
-	 * @return Retorna true, caso seja do tipo beneficiado, ou false, caso não.
+	 * @return boolean
+	 * 		true caso seja do tipo beneficiado.
 	 */
 	public boolean ehTipoBeneficiado();
 
 	/**
 	 * Recupera o estado do empréstimo.
 	 * 
-	 * @return Estado do empréstimo.
+	 * @return String
+	 * 		Estado do empréstimo.
 	 */
 	public String getEstado();
 
 	/**
 	 * Recupera o tipo do estado do empréstimo.
 	 * 
-	 * @return Enum que representa o estado do empréstimo.
+	 * @return EmprestimoEstado
+	 * 		Enum que representa o estado do empréstimo.
 	 */
 	public EmprestimoEstado getTipoEstado();
 
 	/**
 	 * Recupera a data da devolução.
 	 * 
-	 * @return Data prevista para o empréstimo ser concluído.
+	 * @return Calendar
+	 * 		Data prevista para o empréstimo ser concluído.
 	 */
 	public Calendar getDataDeDevolucao();
 
 	/**
 	 * Recupera o tipo do estado do empréstimo.
 	 * 
-	 * @return Enum que representa o estado do empréstimo.
+	 * @return EmprestimoEstado
+	 * 		Enum que representa o estado do empréstimo.
 	 */
 	public EmprestimoEstado getEstadoEnum();
 
@@ -175,28 +191,32 @@ public interface EmprestimoIF extends Comparable<EmprestimoIF> {
 	/**
 	 * Verifica se o empréstimo está em andamento.
 	 * 
-	 * @return Retorna true, caso esteja em andamento, ou false, caso contrário.
+	 * @return boolean
+	 * 		True caso esteja em andamento.
 	 */
 	public boolean ehSituacaoAndamento();
 
 	/**
 	 * Verifica se o empréstimo está cancelado.
 	 * 
-	 * @return Retorna true, caso esteja cancelado, ou false, caso contrário.
+	 * @return boolean
+	 * 		True, caso esteja cancelado.
 	 */
 	public boolean ehSituacaoCancelado();
 
 	/**
 	 * Verifica se o empréstimo está completado.
 	 * 
-	 * @return Retorna true, caso esteja completado, ou false, caso contrário.
+	 * @return boolean
+	 * 		True caso esteja completado.
 	 */
 	public boolean ehSituacaoCompletado();
 
 	/**
 	 * Verifica se o empréstimo foi aprovado.
 	 * 
-	 * @return Retorna true, se o empréstimo foi aprovado., ou false, caso não.
+	 * @return boolean
+	 * 		true se o empréstimo foi aprovado.
 	 */
 	public boolean estaAprovado();
 
@@ -227,30 +247,32 @@ public interface EmprestimoIF extends Comparable<EmprestimoIF> {
 	/**
 	 * Verifica se o empréstimo está em andamento.
 	 * 
-	 * @return Retorna true, se o empréstimo está em andamento, ou false, caso
-	 *         não.
+	 * @return boolean
+	 * 		true se o empréstimo está em andamento.
 	 */
 	public boolean ehEstadoAndamento();
 
 	/**
 	 * Verifica se o empréstimo está com devolução requisitada.
 	 * 
-	 * @return Retorna true, se o empréstimo com devolução requisitada, ou
-	 *         false, caso não.
+	 * @return boolean 
+	 * 		true se o empréstimo com devolução requisitada.
 	 */
 	public boolean ehEstadoDevolucaoRequisitada();
 
 	/**
 	 * Verifica se o item foi devolvido.
 	 * 
-	 * @return Retorna true, se o item foi devolvido, ou false, caso não.
+	 * @return boolean
+	 * 		true se o item foi devolvido.
 	 */
 	public boolean ehEstadoDevolvido();
 
 	/**
 	 * Verifica se o empréstimo está terminado.
 	 * 
-	 * @return Retorna true, se o empréstimo está terminado, ou false, caso não.
+	 * @return boolean
+	 * 		true se o empréstimo está terminado.
 	 */
 	public boolean ehEstadoTermino();
 
@@ -258,15 +280,16 @@ public interface EmprestimoIF extends Comparable<EmprestimoIF> {
 	 * Aprova o empréstimo.
 	 * 
 	 * @throws Exception
-	 *             Caso o estado não esteja definido como em andamento.
+	 * 		Caso o estado não esteja definido como em andamento.
 	 */
 	public void aprovarEmprestimo() throws Exception;
 
 	/**
 	 * Requisita a devolução do empréstimo.
 	 * 
-	 * @param noPrazo
+	 * @param noPrazo - boolean
 	 *            Boolean que diz se está no prazo.
+	 *            
 	 * @throws Exception
 	 *             Caso o empréstimo não esteja mais em andamento.
 	 */

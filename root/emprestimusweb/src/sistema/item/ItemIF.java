@@ -18,8 +18,9 @@ public interface ItemIF extends Comparable<ItemIF> {
 	/**
 	 * Adiciona um usuário que está interessado neste item.
 	 * 
-	 * @param interessado
+	 * @param interessado - UsuarioIF
 	 *            Usuario interessado.
+	 *            
 	 * @throws Exception
 	 *             Caso o usuario já exista entre os interessados.
 	 */
@@ -28,8 +29,9 @@ public interface ItemIF extends Comparable<ItemIF> {
 	/**
 	 * Remove um usuario que não está mais interessado no item.
 	 * 
-	 * @param interessado
+	 * @param interessado - UsuarioIF
 	 *            Usuario que não está mais interessado.
+	 *            
 	 * @throws Exception
 	 *             Caso este usuario não esteja entre os interessados.
 	 */
@@ -43,21 +45,24 @@ public interface ItemIF extends Comparable<ItemIF> {
 	/**
 	 * Devolve uma lista com todos os interessados neste item.
 	 * 
-	 * @return Lista de interessados.
+	 * @return List<UsuarioIF>
+	 * 		Lista de interessados.
 	 */
 	public List<UsuarioIF> getInteresasados();
 
 	/**
 	 * Recupera o id do item.
 	 * 
-	 * @return O id do objeto.
+	 * @return String
+	 * 		O id do objeto.
 	 */
 	public String getId();
 
 	/**
 	 * Recupera o nome do item.
 	 * 
-	 * @return O nome do item.
+	 * @return String
+	 * 		O nome do item.
 	 */
 	public String getNome();
 
@@ -65,24 +70,28 @@ public interface ItemIF extends Comparable<ItemIF> {
 	 * -METODO DELETADO- Recupera o tipo da categoria do item.
 	 * 
 	 * @deprecated
-	 * @return O tipo da categoria do item.
+	 * 
+	 * @return ItemCategoria
+	 * 		O tipo da categoria do item.
 	 */
 	// public ItemCategoria getCategoriaType();
 
 	/**
 	 * Recupera a descricao do item.
 	 * 
-	 * @return A descricao do item.
+	 * @return String
+	 * 		A descricao do item.
 	 */
 	public String getDescricao();
 
 	/**
 	 * Modifica o id do usuario.
 	 * 
-	 * @param id
-	 *            O id do usuario.
+	 * @param id - String
+	 * 		O id do usuario.
+	 * 
 	 * @throws Exception
-	 *             Lanca uma excecao se o valor do id nao puder ser convertido
+	 * 		Lanca uma excecao se o valor do id nao puder ser convertido
 	 *             para Long.
 	 */
 	public ItemIF setId(String id) throws Exception;
@@ -90,10 +99,11 @@ public interface ItemIF extends Comparable<ItemIF> {
 	/**
 	 * Altera o nome do item.
 	 * 
-	 * @param nome
-	 *            O nome do item.
+	 * @param nome - String
+	 * 		O nome do item.
+	 *            
 	 * @throws Exception
-	 *             Caso o nome nao seja uma string valida.
+	 * 		Caso o nome nao seja uma string valida.
 	 */
 	public void setNome(String nome) throws Exception;
 
@@ -102,35 +112,39 @@ public interface ItemIF extends Comparable<ItemIF> {
 	 * -METODO DELETADO- Altera a categoria do item.
 	 * 
 	 * @deprecated
-	 * @param categoria
-	 *            A categoria do item (ItemCategoria).
+	 * 
+	 * @param categoria ItemCategoria
+	 * 		A categoria do item (ItemCategoria).
+	 *            
 	 * @throws Exception
-	 *             Caso o parametro passado seja nulo, ele lanca excecao.
+	 * 		Caso o parametro passado seja nulo, ele lanca excecao.
 	 */
 	// public void setCategoria(ItemCategoria categoria) throws Exception;
 
 	/**
 	 * Altera a descricao do item.
 	 * 
-	 * @param descricao
-	 *            A descricao do item.
+	 * @param descricao - String
+	 * 		A descricao do item.
+	 *            
 	 * @throws Exception
-	 *             Lanca excecao, no caso de passar uma string invalida
+	 * 		Lanca excecao, no caso de passar uma string invalida
 	 */
 	public void setDescricao(String descricao) throws Exception;
 
 	/**
 	 * Verifica se item estah disponivel.
 	 * 
-	 * @return True - Se estiver disponivel. False - Caso esteja emprestado.
+	 * @return boolean
+	 * 		True - Se estiver disponivel.
 	 */
 	public boolean estahDisponivel();
 
 	/**
 	 * Altera a disponibilidade do item.
 	 * 
-	 * @param disponibilidade
-	 *            Nova condicao de disponibilidade para o item.
+	 * @param disponibilidade - boolean
+	 * 		Nova condicao de disponibilidade para o item.
 	 */
 	public void setDisponibilidade(boolean disponibilidade);
 
@@ -139,9 +153,11 @@ public interface ItemIF extends Comparable<ItemIF> {
 	/**
 	 * Verifica-se a igualdade dos item.
 	 * 
-	 * @param outroItem
-	 *            O outro item a ser comparado.
-	 * @return True - Se os itens forem iguais. Neste caso, a comparacao eh
+	 * @param outroItem Object
+	 * 		O outro item a ser comparado.
+	 * 
+	 * @return boolean
+	 * 			True - Se os itens forem iguais. Neste caso, a comparacao eh
 	 *         realizada pelo id dos mesmos. False - Se forem de instancias
 	 *         diferentes ou nao forem iguais.
 	 */
@@ -156,8 +172,10 @@ public interface ItemIF extends Comparable<ItemIF> {
 
 	/**
 	 * Recupera a lista de categorias de um item.
-	 * @return
+	 * 
+	 * @return String[]
 	 * 		A lista de categorias de um item.
+	 * 
 	 * @throws Exception
 	 */
 	String[] getListaCategorias() throws Exception;

@@ -22,6 +22,21 @@ public class Emprestimo implements EmprestimoIF {
 	String situacao;
 	GregorianCalendar dataDeAprovacao;
 
+	/**
+	 * Cria um novo emprestimo
+	 * 
+	 * @param emprestador - UsuarioIF
+	 * 		Objeto referente aquele que empresta
+	 * @param beneficiado - UsuarioIF
+	 * 		Objeto referente aquele que recebe o emprestimo
+	 * @param item - ItemIF
+	 * 		Item a ser emprestado
+	 * @param tipo - String
+	 * @param duracao - int
+	 * 		Duração do emprestimo
+	 * 
+	 * @throws Exception
+	 */
 	public Emprestimo(UsuarioIF emprestador, UsuarioIF beneficiado, ItemIF item,
 			String tipo, int duracao) throws Exception {
 		setEmprestador(emprestador);

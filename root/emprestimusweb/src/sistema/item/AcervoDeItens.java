@@ -48,6 +48,14 @@ public class AcervoDeItens {
 		return acervoDeItens;
 	}
 
+	/**
+	 * Adiciona um Bauh a um determinado usuario.
+	 * 
+	 * @param usuario - String
+	 * 		Usuario desejado
+	 * 
+	 * @throws Exception
+	 */
 	public void adicionaBauhAoUsuario(String usuario) throws Exception {
 		if (bauhs.containsKey(usuario))
 			throw new Exception(Mensagem.PROPRIETARIO_BAUH_JAH_CADASTRADO.getMensagem());
@@ -55,14 +63,50 @@ public class AcervoDeItens {
 
 	}
 
+	/**
+	 * Remove conta do usuario
+	 * 
+	 * @param usuario - String
+	 * 		Usuario desejado
+	 * 
+	 * @throws Exception
+	 */
 	public void removeContaDoUsuario(String usuario) throws Exception {
 		bauhs.remove(usuario);
 	}
 
+	/**
+	 * Retorna o Bauh de um determinado usuario
+	 * 
+	 * @param login - String
+	 * 		Login do usuario desejado
+	 * 
+	 * @return Bauh
+	 * 		Bauh do usuario desejado
+	 * 
+	 * @throws Exception
+	 */
 	public Bauh getBauh(String login) throws Exception {
 		return bauhs.get(login);
 	}
 
+	/**
+	 * Cadastra um item.
+	 * 
+	 * @param login - String
+	 * 		Login do usuario
+	 * @param nome - String
+	 * 		Nome do item a ser cadastrado
+	 * @param descricao - String
+	 * 		Descrição do item a ser cadastrado
+	 * @param categoria - String
+	 * 		Categoria(s) do item a ser cadastrado
+	 * 
+	 * @return String
+	 * 		ID do item cadastrado
+	 * 
+	 * @throws Exception
+	 */
 	public String cadastrarItem(String login, String nome, String descricao,
 			String categoria) throws Exception {
 		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(),
@@ -78,6 +122,19 @@ public class AcervoDeItens {
 		return item.getId();
 	}
 
+	/**
+	 * Remove um item previamente cadastrado.
+	 * 
+	 * @param login - String
+	 * 		Login do usuario
+	 * @param idItem - String
+	 * 		ID do item a ser removido
+	 * 
+	 * @return boolean
+	 * 		true caso o item seja removido com sucesso.
+	 * 
+	 * @throws ArgumentoInvalidoException
+	 */
 	public boolean removerItem(String login, String idItem) throws ArgumentoInvalidoException {
 		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
@@ -91,6 +148,17 @@ public class AcervoDeItens {
 		return false;
 	}
 
+	/**
+	 * Retorna a lista completa de itens de um determinado usuario
+	 * 
+	 * @param login - String
+	 * 		Loguin do usuario desejado
+	 * 
+	 * @return String
+	 * 		Uma String compilada a partir da lista de itens de um determinado usuario
+	 * 
+	 * @throws ArgumentoInvalidoException
+	 */
 	public String getListaIdItens(String login) throws ArgumentoInvalidoException {
 		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
@@ -104,10 +172,31 @@ public class AcervoDeItens {
 		return listaIdItensString.toString().trim();
 	}
 
+	/**
+	 * Retorna uma lista de itens de um determinado usuario.
+	 * 
+	 * @param login - String
+	 * 		Login do usuario desejado.
+	 * 
+	 * @return List<ItemIF>
+	 * 		Lista de itens do usuario
+	 */
 	public List<ItemIF> getItens(String login) {
 		return bauhs.get(login).getItens();
 	}
 
+	/**
+	 * Retorna um determinado item de um determinado usuario.
+	 * @param login - String
+	 * 		Login do usuario desejado.
+	 * @param idItem - String
+	 * 		ID do item desejado.
+	 * 
+	 * @return ItemIF
+	 * 		Objeto referente ao item desejado
+	 * 
+	 * @throws ArgumentoInvalidoException
+	 */
 	public ItemIF getItem(String login, String idItem) throws ArgumentoInvalidoException {
 		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
@@ -121,6 +210,16 @@ public class AcervoDeItens {
 		return null;
 	}
 
+	/**
+	 * Retorna quantidade de itens de um determinado usuario
+	 * @param login - String
+	 * 		Login do usuario desejado.
+	 * 
+	 * @return int
+	 * 		Numero de itens do usuario
+	 * 
+	 * @throws ArgumentoInvalidoException
+	 */
 	public int qntItens(String login) throws ArgumentoInvalidoException {
 		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
@@ -128,12 +227,30 @@ public class AcervoDeItens {
 		return itens.size();
 	}
 
+	/**
+	 * @param login - String
+	 * 		Login do usuario desejado.
+	 * 
+	 * @return int
+	 * 		Quantidade de itens emprestados.
+	 * 
+	 * @throws ArgumentoInvalidoException
+	 */
 	public int qntItensEmprestados(String login) throws ArgumentoInvalidoException {
 		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
 		return bauhs.get(login).getItensEmprestados().size();
 	}
 
+	/**
+	 * @param login - String
+	 * 		Login do usuario desejado.
+	 * 
+	 * @return String
+	 * 		String compilada a partir da lista de itens emprestados do usuario.
+	 * 
+	 * @throws ArgumentoInvalidoException
+	 */
 	public String getListaIdItensEmprestados(String login) throws ArgumentoInvalidoException {
 		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
@@ -147,6 +264,19 @@ public class AcervoDeItens {
 		return listaIdItensEmprestadosString.toString().trim();
 	}
 
+	/**
+	 * Testa se um determinado item existe dentro da lista do usuario
+	 * 
+	 * @param login - String
+	 * 		Login do usuario desejado.
+	 * @param idItem - String
+	 * 		ID do item a ser testado
+	 * 
+	 * @return boolean
+	 * 		True caso o item exista
+	 * 
+	 * @throws ArgumentoInvalidoException
+	 */
 	public boolean existeItemID(String login, String idItem) throws ArgumentoInvalidoException {
 		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
@@ -159,6 +289,15 @@ public class AcervoDeItens {
 
 	}
 
+	/**
+	 * @param login - String
+	 * 		Login do usuario desejado.
+	 * 
+	 * @return String
+	 * 		String compilada a partir da lista de itens do usuario
+	 * 
+	 * @throws Exception
+	 */
 	public String getListaItens(String login) throws Exception {
 		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
@@ -172,6 +311,14 @@ public class AcervoDeItens {
 		return str.toString().substring(0, str.toString().length() - 2);
 	}
 
+	/**
+	 * FIXME: não entendi o titulo deste metodo.
+	 * TODO: terminar este bloco.
+	 * @param login
+	 * @param idItem
+	 * @return
+	 * @throws Exception
+	 */
 	public boolean esteItemMePertence(String login, String idItem) throws Exception {
 		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
@@ -188,6 +335,16 @@ public class AcervoDeItens {
 		return false;
 	}
 
+	/**
+	 * Apaga um determinado item
+	 * 
+	 * @param login - String
+	 * 		Login do usuario desejado.
+	 * @param idItem - String
+	 * 		ID do item a ser apagado
+	 * 
+	 * @throws Exception
+	 */
 	public void apagarItem(String login, String idItem) throws Exception {
 		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
@@ -213,6 +370,16 @@ public class AcervoDeItens {
 		}
 	}
 
+	/**
+	 * Registra interesse por um determinado item
+	 * 
+	 * @param seuLogin - String
+	 * 		Login do usuario.
+	 * @param idItem - String
+	 * 		ID do item a ser registrado
+	 * 
+	 * @throws Exception
+	 */
 	public void registrarInteressePorItem(String seuLogin, String idItem) throws Exception {
 
 		Validador.assertStringNaoVazia(seuLogin, Mensagem.LOGIN_INVALIDO.getMensagem(),
@@ -240,6 +407,18 @@ public class AcervoDeItens {
 				amigo, item);
 	}
 
+	/**
+	 * Oferece um Item
+	 * 
+	 * @param  - String
+	 * 		Login do usuario.
+	 * @param idPublicacaoPedido - String
+	 * 		ID da publicacao do pedido
+	 * @param idItem - String
+	 * 		ID do item pedido.
+	 * 
+	 * @throws Exception
+	 */
 	public void oferecerItem(String login, String idPublicacaoPedido, String idItem) throws Exception {
 
 		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(),
@@ -269,6 +448,9 @@ public class AcervoDeItens {
 						.getDescricao()));
 	}
 
+	/**
+	 * Retorna o sistema a suas configurações iniciais.
+	 */
 	public void zerarSistema() {
 		AcervoDeItens.bauhs.clear();
 	}

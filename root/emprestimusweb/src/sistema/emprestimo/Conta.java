@@ -10,6 +10,12 @@ public class Conta implements Comparable<Conta> {
 	private List<EmprestimoIF> emprestimosRequeridosPorAmigosEmEspera;
 	private List<EmprestimoIF> emprestimosRequeridosPorMimEmEspera;
 
+	/**
+	 * Cria uma nova instancia de Conta
+	 * 
+	 * @param proprietario - String
+	 * 		Proprietario desta Conta
+	 */
 	public Conta(String proprietario) {
 		this.proprietario = proprietario;
 		emprestimos = new ArrayList<EmprestimoIF>();
@@ -17,18 +23,34 @@ public class Conta implements Comparable<Conta> {
 		emprestimosRequeridosPorMimEmEspera = new ArrayList<EmprestimoIF>();
 	}
 
+	/**
+	 * @return String
+	 * 		Proprietario desta Conta
+	 */
 	public String getProprietario() {
 		return this.proprietario;
 	}
 
+	/**
+	 * @return List<EmprestimoIF>
+	 * 		Lista de emprestimos desta Conta
+	 */
 	public List<EmprestimoIF> getEmprestimos() {
 		return this.emprestimos;
 	}
 
+	/**
+	 * @return List<EmprestimoIF>
+	 * 		Lista contendo requerimentos de emprestimos feitos por amigos.
+	 */
 	public List<EmprestimoIF> getEmprestimosRequeridosPorAmigosEmEspera() {
 		return this.emprestimosRequeridosPorAmigosEmEspera;
 	}
 
+	/**
+	 * @return List<EmprestimoIF>
+	 * 		Lista contendo requerimentos de emprestimos feitos pelo proprio usuario.
+	 */
 	public List<EmprestimoIF> getEmprestimosRequeridosPorMimEmEspera() {
 		return this.emprestimosRequeridosPorMimEmEspera;
 	}
