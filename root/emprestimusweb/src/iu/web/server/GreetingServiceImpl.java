@@ -1,5 +1,7 @@
 package iu.web.server;
 
+import java.util.regex.Pattern;
+
 import iu.web.client.GreetingService;
 import iu.web.shared.VerificadorDeCampos;
 import iu.web.shared.MensagensWeb;
@@ -16,7 +18,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements Greetin
 		String nome = null;
 		String senha = null;
 		try {
-			String[] array = input.split("|");
+			String[] array = input.split(Pattern.quote("|"));
 			nome = array[0];
 			senha = array[1];
 		} catch (Exception e) {

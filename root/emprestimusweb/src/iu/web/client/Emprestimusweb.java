@@ -116,7 +116,14 @@ public class Emprestimusweb implements EntryPoint {
 				String nomeParaServidor = campoNome.getText();
 				String senhaParaServidor = campoSenha.getText();
 				if (!VerificadorDeCampos.ehNomeValido(nomeParaServidor)) {
-					etiquetaErro.setText("Nome inválido");
+					etiquetaErro.setText("Nome invá" +
+							"" +
+							"" +
+							"" +
+							"" +
+							"" +
+							"" +
+							"lido");
 					return;
 				} else if (!VerificadorDeCampos.ehSenhaValida(senhaParaServidor)) {
 					etiquetaErro.setText("Senha inválida");
@@ -138,6 +145,7 @@ public class Emprestimusweb implements EntryPoint {
 					}
 
 					public void onSuccess(String result) {
+						System.out.println("uga uga");
 						caixaDeDialogo.setText("Chamada de Procedimento Remoto");
 						htmlRespostaDoServidor.removeStyleName("etiquetaRespostaDoServidorErro");
 						htmlRespostaDoServidor.setHTML(result);
