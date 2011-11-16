@@ -1,6 +1,6 @@
 package iu.web.client;
 
-import iu.web.shared.FieldVerifier;
+import iu.web.shared.VerificadorDeCampos;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -39,49 +40,52 @@ public class Emprestimusweb implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-		final Button sendButton = new Button("Send");
-		final TextBox nameField = new TextBox();
-		nameField.setText("GWT User");
-		final Label errorLabel = new Label();
+		final Button botaoEnviar = new Button("Enviar");
+		final TextBox campoNome = new TextBox();
+		campoNome.setText("Nome");
+		final TextBox campoSenha = new PasswordTextBox();
+		campoSenha.setText("Senha");
+		final Label etiquetaErro = new Label();
 
 		// We can add style names to widgets
-		sendButton.addStyleName("sendButton");
+		botaoEnviar.addStyleName("botaoEnviar");
 
 		// Add the nameField and sendButton to the RootPanel
 		// Use RootPanel.get() to get the entire body element
-		RootPanel.get("nameFieldContainer").add(nameField);
-		RootPanel.get("sendButtonContainer").add(sendButton);
-		RootPanel.get("errorLabelContainer").add(errorLabel);
+		RootPanel.get("nameFieldContainer").add(campoNome);
+		RootPanel.get("nameFieldContainer").add(campoSenha);
+		RootPanel.get("sendButtonContainer").add(botaoEnviar);
+		RootPanel.get("errorLabelContainer").add(etiquetaErro);
 
 		// Focus the cursor on the name field when the app loads
-		nameField.setFocus(true);
-		nameField.selectAll();
+		campoNome.setFocus(true);
+		campoNome.selectAll();
 
 		// Create the popup dialog box
-		final DialogBox dialogBox = new DialogBox();
-		dialogBox.setText("Remote Procedure Call");
-		dialogBox.setAnimationEnabled(true);
-		final Button closeButton = new Button("Close");
+		final DialogBox caixaDeDialogo = new DialogBox();
+		caixaDeDialogo.setText("Chamada de Procedimento Remoto");
+		caixaDeDialogo.setAnimationEnabled(true);
+		final Button botaoFechar = new Button("Fechar");
 		// We can set the id of a widget by accessing its Element
-		closeButton.getElement().setId("closeButton");
-		final Label textToServerLabel = new Label();
-		final HTML serverResponseLabel = new HTML();
-		VerticalPanel dialogVPanel = new VerticalPanel();
-		dialogVPanel.addStyleName("dialogVPanel");
-		dialogVPanel.add(new HTML("<b>Sending name to the server:</b>"));
-		dialogVPanel.add(textToServerLabel);
-		dialogVPanel.add(new HTML("<br><b>Server replies:</b>"));
-		dialogVPanel.add(serverResponseLabel);
-		dialogVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_RIGHT);
-		dialogVPanel.add(closeButton);
-		dialogBox.setWidget(dialogVPanel);
+		botaoFechar.getElement().setId("botaoFechar");
+		final Label etiquetaTextoParaServidor = new Label();
+		final HTML htmlRespostaDoServidor = new HTML();
+		VerticalPanel etiquetaPainelVertical = new VerticalPanel();
+		etiquetaPainelVertical.addStyleName("dialogVPanel");
+		etiquetaPainelVertical.add(new HTML("<b>Sending name to the server:</b>"));
+		etiquetaPainelVertical.add(etiquetaTextoParaServidor);
+		etiquetaPainelVertical.add(new HTML("<br><b>Server replies:</b>"));
+		etiquetaPainelVertical.add(htmlRespostaDoServidor);
+		etiquetaPainelVertical.setHorizontalAlignment(VerticalPanel.ALIGN_RIGHT);
+		etiquetaPainelVertical.add(botaoFechar);
+		caixaDeDialogo.setWidget(etiquetaPainelVertical);
 
 		// Add a handler to close the DialogBox
-		closeButton.addClickHandler(new ClickHandler() {
+		botaoFechar.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				dialogBox.hide();
-				sendButton.setEnabled(true);
-				sendButton.setFocus(true);
+				caixaDeDialogo.hide();
+				botaoEnviar.setEnabled(true);
+				botaoEnviar.setFocus(true);
 			}
 		});
 
@@ -91,7 +95,7 @@ public class Emprestimusweb implements EntryPoint {
 			 * Fired when the user clicks on the sendButton.
 			 */
 			public void onClick(ClickEvent event) {
-				sendNameToServer();
+				enviaAoServidor();
 			}
 
 			/**
@@ -99,42 +103,46 @@ public class Emprestimusweb implements EntryPoint {
 			 */
 			public void onKeyUp(KeyUpEvent event) {
 				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-					sendNameToServer();
+					enviaAoServidor();
 				}
 			}
 
 			/**
 			 * Send the name from the nameField to the server and wait for a response.
 			 */
-			private void sendNameToServer() {
+			private void enviaAoServidor() {
 				// First, we validate the input.
-				errorLabel.setText("");
-				String textToServer = nameField.getText();
-				if (!FieldVerifier.isValidName(textToServer)) {
-					errorLabel.setText("Please enter at least four characters");
+				etiquetaErro.setText("");
+				String nomeParaServidor = campoNome.getText();
+				String senhaParaServidor = campoSenha.getText();
+				if (!VerificadorDeCampos.ehNomeValido(nomeParaServidor)) {
+					etiquetaErro.setText("Nome inválido");
+					return;
+				} else if (!VerificadorDeCampos.ehSenhaValida(senhaParaServidor)) {
+					etiquetaErro.setText("Senha inválida");
 					return;
 				}
 
 				// Then, we send the input to the server.
-				sendButton.setEnabled(false);
-				textToServerLabel.setText(textToServer);
-				serverResponseLabel.setText("");
-				greetingService.greetServer(textToServer, new AsyncCallback<String>() {
+				botaoEnviar.setEnabled(false);
+				etiquetaTextoParaServidor.setText(nomeParaServidor+"\n"+senhaParaServidor);
+				htmlRespostaDoServidor.setText("");
+				greetingService.greetServer(nomeParaServidor+"|"+senhaParaServidor, new AsyncCallback<String>() {
 					public void onFailure(Throwable caught) {
 						// Show the RPC error message to the user
-						dialogBox.setText("Remote Procedure Call - Failure");
-						serverResponseLabel.addStyleName("serverResponseLabelError");
-						serverResponseLabel.setHTML(SERVER_ERROR);
-						dialogBox.center();
-						closeButton.setFocus(true);
+						caixaDeDialogo.setText("Chamada de Procedimento Remoto - Falha");
+						htmlRespostaDoServidor.addStyleName("etiquetaRespostaDoServidorErro");
+						htmlRespostaDoServidor.setHTML(SERVER_ERROR);
+						caixaDeDialogo.center();
+						botaoFechar.setFocus(true);
 					}
 
 					public void onSuccess(String result) {
-						dialogBox.setText("Remote Procedure Call");
-						serverResponseLabel.removeStyleName("serverResponseLabelError");
-						serverResponseLabel.setHTML(result);
-						dialogBox.center();
-						closeButton.setFocus(true);
+						caixaDeDialogo.setText("Chamada de Procedimento Remoto");
+						htmlRespostaDoServidor.removeStyleName("etiquetaRespostaDoServidorErro");
+						htmlRespostaDoServidor.setHTML(result);
+						caixaDeDialogo.center();
+						botaoFechar.setFocus(true);
 					}
 				});
 			}
@@ -142,7 +150,8 @@ public class Emprestimusweb implements EntryPoint {
 
 		// Add a handler to send the name to the server
 		MyHandler handler = new MyHandler();
-		sendButton.addClickHandler(handler);
-		nameField.addKeyUpHandler(handler);
+		botaoEnviar.addClickHandler(handler);
+		campoNome.addKeyUpHandler(handler);
+		campoSenha.addKeyUpHandler(handler);
 	}
 }

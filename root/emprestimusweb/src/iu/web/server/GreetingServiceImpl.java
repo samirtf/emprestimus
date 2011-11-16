@@ -1,7 +1,9 @@
 package iu.web.server;
 
 import iu.web.client.GreetingService;
-import iu.web.shared.FieldVerifier;
+import iu.web.shared.VerificadorDeCampos;
+import iu.web.shared.MensagensWeb;
+
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 /**
@@ -11,21 +13,35 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class GreetingServiceImpl extends RemoteServiceServlet implements GreetingService {
 
 	public String greetServer(String input) throws IllegalArgumentException {
+		String nome = null;
+		String senha = null;
+		try {
+			String[] array = input.split("|");
+			nome = array[0];
+			senha = array[1];
+		} catch (Exception e) {
+			throw new IllegalArgumentException("Entrada inconsistente");			
+		}
 		// Verify that the input is valid. 
-		if (!FieldVerifier.isValidName(input)) {
-			// If the input is not valid, throw an IllegalArgumentException back to
+		if (!VerificadorDeCampos.ehNomeValido(nome)) {
+			// If the nome is not valid, throw an IllegalArgumentException back to
 			// the client.
-			throw new IllegalArgumentException("Name must be at least 4 characters long");
+			throw new IllegalArgumentException(MensagensWeb.NOME_CURTO.getMensagem());
+		} else if (!VerificadorDeCampos.ehNomeValido(senha)) {
+			// If the senha is not valid, throw an IllegalArgumentException back to
+			// the client.
+			throw new IllegalArgumentException(MensagensWeb.SENHA_CURTA.getMensagem());
 		}
 
 		String serverInfo = getServletContext().getServerInfo();
 		String userAgent = getThreadLocalRequest().getHeader("User-Agent");
 
 		// Escape data from the client to avoid cross-site script vulnerabilities.
-		input = escapeHtml(input);
+		nome = escapeHtml(nome);
+		senha = escapeHtml(senha);
 		userAgent = escapeHtml(userAgent);
 
-		return "Hello, " + input + "!<br><br>I am running " + serverInfo
+		return "Hello, " + nome + "!<br>(Senha: " + senha + ")<br><br>I am running " + serverInfo
 				+ ".<br><br>It looks like you are using:<br>" + userAgent;
 	}
 

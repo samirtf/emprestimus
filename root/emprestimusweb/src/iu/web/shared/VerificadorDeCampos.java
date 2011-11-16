@@ -1,5 +1,7 @@
 package iu.web.shared;
 
+
+
 /**
  * <p>
  * FieldVerifier validates that the name the user enters is valid.
@@ -20,7 +22,7 @@ package iu.web.shared;
  * JavaScript (such as Widgets) cannot be run on the server.
  * </p>
  */
-public class FieldVerifier {
+public class VerificadorDeCampos {
 
 	/**
 	 * Verifies that the specified name is valid for our service.
@@ -30,13 +32,24 @@ public class FieldVerifier {
 	 * that usernames, passwords, email addresses, URLs, and other fields have the
 	 * proper syntax.
 	 * 
-	 * @param name the name to validate
+	 * @param nome the name to validate
 	 * @return true if valid, false if invalid
 	 */
-	public static boolean isValidName(String name) {
-		if (name == null) {
+	public static boolean ehNomeValido(String nome) {
+		if (nome == null || nome.contains("|")) {
 			return false;
 		}
-		return name.length() > 3;
+		return nome.length() > 3;
+	}
+
+	/**
+	 * @param senha
+	 * @return true se for valida
+	 */
+	public static boolean ehSenhaValida(String senha) {
+		if (senha == null || senha.contains("|")) {
+			return false;
+		}
+		return senha.length() > 5;
 	}
 }
