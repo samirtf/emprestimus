@@ -27,7 +27,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements Greetin
 			// If the nome is not valid, throw an IllegalArgumentException back to
 			// the client.
 			throw new IllegalArgumentException(MensagensWeb.NOME_CURTO.getMensagem());
-		} else if (!VerificadorDeCampos.ehNomeValido(senha)) {
+		} else if (!VerificadorDeCampos.ehSenhaValida(senha)) {
 			// If the senha is not valid, throw an IllegalArgumentException back to
 			// the client.
 			throw new IllegalArgumentException(MensagensWeb.SENHA_CURTA.getMensagem());

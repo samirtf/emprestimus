@@ -132,7 +132,7 @@ public class Emprestimusweb implements EntryPoint {
 						// Show the RPC error message to the user
 						caixaDeDialogo.setText("Chamada de Procedimento Remoto - Falha");
 						htmlRespostaDoServidor.addStyleName("etiquetaRespostaDoServidorErro");
-						htmlRespostaDoServidor.setHTML(SERVER_ERROR);
+						htmlRespostaDoServidor.setHTML(SERVER_ERROR+"\n\n"+caught.getMessage());
 						caixaDeDialogo.center();
 						botaoFechar.setFocus(true);
 					}
