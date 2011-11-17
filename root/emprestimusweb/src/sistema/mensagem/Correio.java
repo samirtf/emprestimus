@@ -56,10 +56,12 @@ public class Correio {
 	/**
 	 * Adiciona uma conversa off-topic à lista de conversas do usuário.
 	 * 
-	 * @param usuario
-	 *            O login do usuario.
-	 * @param conversa
-	 *            Conversa a ser adicionada.
+	 * @param usuario - String
+	 * 		O login do usuario.
+	 *            
+	 * @param conversa - ChatIF
+	 * 		Conversa a ser adicionada.
+	 * 
 	 * @throws Exception
 	 */
 	public synchronized static void adicionaConversaOfftopicNaLista(String usuario, ChatIF conversa) throws Exception {
@@ -74,10 +76,12 @@ public class Correio {
 	 * Adiciona uma conversa sobre uma negociação à lista de conversas do
 	 * usuário.
 	 * 
-	 * @param usuario
-	 *            O login do usuario.
-	 * @param conversa
-	 *            Conversa a ser adicionada.
+	 * @param usuario - String
+	 * 		O login do usuario.
+	 *            
+	 * @param conversa - ChatIF
+	 * 		Conversa a ser adicionada.
+	 * 
 	 * @throws Exception
 	 */
 	public static void adicionaConversaNegociacaoNaLista(String usuario, ChatIF conversa) throws Exception {
@@ -91,17 +95,20 @@ public class Correio {
 	/**
 	 * Envia uma mensagem off-topic.
 	 * 
-	 * @param usuario
-	 *            O login do usuario.
-	 * @param destinatario
-	 *            Destino da mensagem.
-	 * @param assunto
-	 *            Assunto da mensagem.
-	 * @param mensagem
-	 *            Mensagem a ser enviada.
-	 * @return ID do tópico.
+	 * @param usuario - String
+	 *  	O login do usuario.
+	 * @param destinatario - String
+	 * 		Destino da mensagem.
+	 * @param assunto - String
+	 * 		Assunto da mensagem.
+	 * @param mensagem - String
+	 * 		Mensagem a ser enviada.
+	 *            
+	 * @return String
+	 * 		ID do tópico.
+	 * 
 	 * @throws Exception
-	 *             Caso os parâmetros sejam inválidos.
+	 * 		Caso os parâmetros sejam inválidos.
 	 */
 	public synchronized static String enviarMensagemOffTopic(String remetente,
 			String destinatario, String assunto, String mensagem) throws Exception {
@@ -140,14 +147,21 @@ public class Correio {
 	}
 
 	/**
+	 * Envia mensagem de emprestimo
 	 * 
-	 * @param usuario
-	 *            O login do usuario.
-	 * @param destinatario
-	 * @param assunto
-	 * @param mensagem
-	 * @param idRequisicaoEmprestimo
-	 * @return
+	 * @param usuario - String
+	 * 		O login do usuario.
+	 * @param destinatario - String
+	 * 		Destino da mensagem.
+	 * @param assunto - String
+	 * 		Assunto da mensagem.
+	 * @param mensagem - String
+	 * 		Mensagem a ser enviada.
+	 * @param idRequisicaoEmprestimo - String
+	 * 		Id da requisicao de emprestimo.
+	 * 
+	 * @return String
+	 * 
 	 * @throws Exception
 	 */
 	public synchronized static String enviarMensagemEmprestimo(String remetente,
@@ -198,11 +212,15 @@ public class Correio {
 	}
 
 	/**
+	 * Lê topicos
+	 * @param usuario - String
+	 * 		O login do usuario.
+	 * @param tipo String
+	 * 		Tipo do topico.
 	 * 
-	 * @param usuario
-	 *            O login do usuario.
-	 * @param tipo
-	 * @return
+	 * @return String
+	 * 		compilação dos textos.
+	 * 
 	 * @throws Exception
 	 */
 	public static String lerTopicos(String proprietario, String tipo) throws Exception {
@@ -251,6 +269,23 @@ public class Correio {
 		return saida.toString().trim().substring(0, saida.toString().trim().length() - 1);
 	}
 
+	/**
+	 * Envia uma mensagem de oferecimento de item Off Topic
+	 * 
+	 * @param remetente - String
+	 * 		remetente da mensagem.
+	 * @param destinatario - String
+	 * 		Destinatario da mensagem
+	 * @param assunto - String
+	 * 		Assunto da mensagem
+	 * @param mensagem - String
+	 * 		texto da mensagem
+	 * 
+	 * @return String
+	 * 		id da mensagem de oferencimento de item off topic
+	 * 
+	 * @throws Exception
+	 */
 	public static String enviarMensagemOferecimentoItemOffTopic(String remetente,
 			String destinatario, String assunto, String mensagem) throws Exception {
 
@@ -287,6 +322,9 @@ public class Correio {
 
 	}
 
+	/**
+	 * retorna o correio a sua configuração inicial
+	 */
 	public void zerarSistema() {
 		Correio.caixasPostais.clear();
 	}

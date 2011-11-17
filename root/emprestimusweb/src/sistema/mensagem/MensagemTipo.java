@@ -17,12 +17,15 @@ public enum MensagemTipo {
 	/**
 	 * A partir do nome da categoria, este metodo retorna o enum indicado.
 	 * 
-	 * @param categoria
-	 *            Nome da categoria que deve ser retornada.
-	 * @return Categoria indicada pela string passada.
+	 * @param categoria - String
+	 * 		Nome da categoria que deve ser retornada.
+	 * 
+	 * @return MensagemTipo
+	 * 		Categoria indicada pela string passada.
+	 * 
 	 * @throws Exception
-	 *             Caso a string, passada como parametro, nao represente nenhum
-	 *             dos enums, lanca excecao.
+	 * 		Caso a string, passada como parametro, nao represente nenhum
+	 *			dos enums, lanca excecao.
 	 */
 	public static MensagemTipo getCategoria(String categoria) throws Exception {
 		assertStringNaoVazia(categoria, Mensagem.CATEGORIA_INVALIDA.getMensagem(),
@@ -39,6 +42,11 @@ public enum MensagemTipo {
 
 	}
 
+	/**
+	 * retorna o nome do tipo mensagem
+	 * 
+	 * @return String
+	 */
 	public String getNome() {
 		return this.nome;
 	}
