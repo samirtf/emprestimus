@@ -35,16 +35,12 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements Greetin
 			throw new IllegalArgumentException(MensagensWeb.SENHA_CURTA.getMensagem());
 		}
 
-		String serverInfo = getServletContext().getServerInfo();
-		String userAgent = getThreadLocalRequest().getHeader("User-Agent");
 
-		// Escape data from the client to avoid cross-site script vulnerabilities.
-		nome = escapeHtml(nome);
-		senha = escapeHtml(senha);
-		userAgent = escapeHtml(userAgent);
+//		// Escape data from the client to avoid cross-site script vulnerabilities.
+//		nome = escapeHtml(nome);
+//		senha = escapeHtml(senha);
 
-		return "Hello, " + nome + "!<br>(Senha: " + senha + ")<br><br>I am running " + serverInfo
-				+ ".<br><br>It looks like you are using:<br>" + userAgent;
+		return nome;
 	}
 
 	/**
