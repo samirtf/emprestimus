@@ -11,14 +11,13 @@ import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Grid;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.HasVerticalAlignment;
 
 /**
  * @author José Nathaniel L de Abrante - nathaniel.una@gmail.com
@@ -28,57 +27,86 @@ public class Login extends Composite {
 	
 	private final GreetingServiceAsync greetingService = GWT.create(GreetingService.class);
 
-	private Grid grade;
-	private Label labelErro;
-	private Label labelNome;
-	private Label labelSenha;
-	private TextBox campoNome;
-	private PasswordTextBox campoSenha;
-	private Button botaoLogin;
-	
+	private Label lblErro;
+	private TextBox txtLoginNick;
+	private PasswordTextBox ptbLoginSenha;
+	private Button btnLogin;
+
 	public Login() {
 		
-		grade = new Grid(4, 2);
-		initWidget(grade);
-		grade.setSize("306px", "186px");
+		AbsolutePanel painelLogin = new AbsolutePanel();
+		initWidget(painelLogin);
+		painelLogin.setSize("854px", "409px");
 		
-		labelErro = new Label("");
-		labelErro.setStyleName("serverResponseLabelError");
-		grade.setWidget(0, 1, labelErro);
+		Label lblLoginNick = new Label("Nick:");
+		painelLogin.add(lblLoginNick, 508, 10);
 		
-		labelNome = new Label("Nome:");
-		labelNome.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
-		grade.setWidget(1, 0, labelNome);
+		Label lblLoginSenha = new Label("Senha:");
+		painelLogin.add(lblLoginSenha, 687, 12);
 		
-		campoNome = new TextBox();
-		grade.setWidget(1, 1, campoNome);
-		campoNome.setWidth("100%");
+		txtLoginNick = new TextBox();
+		painelLogin.add(txtLoginNick, 508, 34);
 		
-		labelSenha = new Label("Senha:");
-		labelSenha.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
-		grade.setWidget(2, 0, labelSenha);
+		ptbLoginSenha = new PasswordTextBox();
+		painelLogin.add(ptbLoginSenha, 687, 36);
 		
-		campoSenha = new PasswordTextBox();
-		grade.setWidget(2, 1, campoSenha);
-		campoSenha.setWidth("100%");
+		btnLogin = new Button("Login");
+		painelLogin.add(btnLogin, 797, 74);
 		
-		botaoLogin = new Button("Login");
-		grade.setWidget(3, 1, botaoLogin);
-		grade.getCellFormatter().setVerticalAlignment(1, 1, HasVerticalAlignment.ALIGN_MIDDLE);
-		grade.getCellFormatter().setVerticalAlignment(2, 1, HasVerticalAlignment.ALIGN_MIDDLE);
-		grade.getCellFormatter().setVerticalAlignment(3, 1, HasVerticalAlignment.ALIGN_MIDDLE);
-		grade.getCellFormatter().setVerticalAlignment(2, 0, HasVerticalAlignment.ALIGN_MIDDLE);
-		grade.getCellFormatter().setHorizontalAlignment(2, 0, HasHorizontalAlignment.ALIGN_RIGHT);
-		grade.getCellFormatter().setVerticalAlignment(1, 0, HasVerticalAlignment.ALIGN_MIDDLE);
-		grade.getCellFormatter().setHorizontalAlignment(1, 0, HasHorizontalAlignment.ALIGN_RIGHT);
-		grade.getCellFormatter().setVerticalAlignment(0, 1, HasVerticalAlignment.ALIGN_MIDDLE);
-		grade.getCellFormatter().setHorizontalAlignment(0, 1, HasHorizontalAlignment.ALIGN_LEFT);
-		grade.getCellFormatter().setHorizontalAlignment(3, 1, HasHorizontalAlignment.ALIGN_RIGHT);
+		Label lblNovoPorAqui = new Label("Novo por aqui? Faça um cadastro:");
+		lblNovoPorAqui.setStyleName("nathaniel1");
+		painelLogin.add(lblNovoPorAqui, 480, 135);
+		
+		Label lblNomeCompleto = new Label("Nome Completo:");
+		painelLogin.add(lblNomeCompleto, 482, 190);
+		
+		Label lblNick = new Label("Nick:");
+		painelLogin.add(lblNick, 549, 230);
+		
+		Label lblEndereo = new Label("Endereço:");
+		painelLogin.add(lblEndereo, 520, 270);
+		
+		Label lblSenha = new Label("Senha:");
+		painelLogin.add(lblSenha, 538, 308);
+		
+		Label lblRepitaASenha = new Label("Repita a senha:");
+		painelLogin.add(lblRepitaASenha, 488, 346);
+		
+		TextBox txtNomeCompleto = new TextBox();
+		painelLogin.add(txtNomeCompleto, 585, 174);
+		txtNomeCompleto.setSize("249px", "18px");
+		
+		TextBox txtNick = new TextBox();
+		painelLogin.add(txtNick, 585, 214);
+		txtNick.setSize("249px", "18px");
+		
+		TextBox txtEndereco = new TextBox();
+		painelLogin.add(txtEndereco, 585, 254);
+		txtEndereco.setSize("249px", "18px");
+		
+		PasswordTextBox ptbSenha = new PasswordTextBox();
+		painelLogin.add(ptbSenha, 585, 294);
+		ptbSenha.setSize("249px", "16px");
+		
+		PasswordTextBox ptbSenha2 = new PasswordTextBox();
+		painelLogin.add(ptbSenha2, 585, 332);
+		ptbSenha2.setSize("249px", "16px");
+		
+		Button btnCadastrar = new Button("Cadastrar");
+		painelLogin.add(btnCadastrar, 772, 366);
+		
+		Image image = new Image("emprestimusweb/gwt/clean/images/TAI.jpg");
+		painelLogin.add(image, 118, 0);
+		image.setSize("199px", "403px");
+		
+		lblErro = new Label("");
+		lblErro.setStyleName("serverResponseLabelError");
+		painelLogin.add(lblErro, 508, 74);
 		
 		MyHandler handler = new MyHandler();
-		botaoLogin.addClickHandler(handler);
-		campoNome.addKeyUpHandler(handler);
-		campoSenha.addKeyUpHandler(handler);
+		btnLogin.addClickHandler(handler);
+		txtLoginNick.addKeyUpHandler(handler);
+		ptbLoginSenha.addKeyUpHandler(handler);
 	}
 	
 	// Create a handler for the sendButton and nameField
@@ -89,31 +117,33 @@ public class Login extends Composite {
 		}
 		public void onKeyUp(KeyUpEvent event) {
 			if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-				if ((!campoNome.getText().trim().equals(""))&&(!campoSenha.getText().trim().equals(""))) {
+				if ((!txtLoginNick.getText().trim().equals(""))&&(!ptbLoginSenha.getText().trim().equals(""))) {
 					enviaAoServidor();
 				}
 			}
 		}
 		private void enviaAoServidor() {
-			labelErro.setText("");
-			String nomeParaServidor = campoNome.getText();
-			String senhaParaServidor = campoSenha.getText();
+			lblErro.setText("");
+			String nomeParaServidor = txtLoginNick.getText();
+			String senhaParaServidor = ptbLoginSenha.getText();
 			if (!VerificadorDeCampos.ehNomeValido(nomeParaServidor)) {
-				labelErro.setText("Nome inválido");
+				lblErro.setText("Nome inválido");
 				return;
 			} else if (!VerificadorDeCampos.ehSenhaValida(senhaParaServidor)) {
-				labelErro.setText("Senha inválida");
+				lblErro.setText("Senha inválida");
 				return;
 			}
 
-			botaoLogin.setEnabled(false);
+			btnLogin.setEnabled(false);
+			txtLoginNick.setEnabled(false);
+			ptbLoginSenha.setEnabled(false);
 			greetingService.greetServer(nomeParaServidor+"|"+senhaParaServidor, new AsyncCallback<String>() {
 				public void onFailure(Throwable caught) {
-					labelErro.setText("Falha na conexão!");
+					lblErro.setText("Falha na conexão!");
 				}
 
 				public void onSuccess(String result) {
-					labelErro.setText("Sucesso: " + result);
+					lblErro.setText("Sucesso: " + result);
 				}
 			});
 		}

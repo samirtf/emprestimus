@@ -1,0 +1,2 @@
+serviceClass: iu.web.client.GreetingService
+path: 946506505350E3E49C1062C33734548C.gwt.rpc
