@@ -18,6 +18,7 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.InlineHTML;
 
 /**
  * @author José Nathaniel L de Abrante - nathaniel.una@gmail.com
@@ -36,7 +37,7 @@ public class Login extends Composite {
 		
 		AbsolutePanel painelLogin = new AbsolutePanel();
 		initWidget(painelLogin);
-		painelLogin.setSize("854px", "409px");
+		painelLogin.setSize("877px", "492px");
 		
 		Label lblLoginNick = new Label("Nick:");
 		painelLogin.add(lblLoginNick, 508, 10);
@@ -55,53 +56,69 @@ public class Login extends Composite {
 		
 		Label lblNovoPorAqui = new Label("Novo por aqui? Faça um cadastro:");
 		lblNovoPorAqui.setStyleName("nathaniel1");
-		painelLogin.add(lblNovoPorAqui, 480, 135);
+		painelLogin.add(lblNovoPorAqui, 560, 203);
 		
 		Label lblNomeCompleto = new Label("Nome Completo:");
-		painelLogin.add(lblNomeCompleto, 482, 190);
+		painelLogin.add(lblNomeCompleto, 482, 249);
 		
 		Label lblNick = new Label("Nick:");
-		painelLogin.add(lblNick, 549, 230);
+		painelLogin.add(lblNick, 549, 289);
 		
 		Label lblEndereo = new Label("Endereço:");
-		painelLogin.add(lblEndereo, 520, 270);
+		painelLogin.add(lblEndereo, 520, 329);
 		
 		Label lblSenha = new Label("Senha:");
-		painelLogin.add(lblSenha, 538, 308);
+		painelLogin.add(lblSenha, 538, 367);
 		
 		Label lblRepitaASenha = new Label("Repita a senha:");
-		painelLogin.add(lblRepitaASenha, 488, 346);
+		painelLogin.add(lblRepitaASenha, 488, 405);
 		
 		TextBox txtNomeCompleto = new TextBox();
-		painelLogin.add(txtNomeCompleto, 585, 174);
+		painelLogin.add(txtNomeCompleto, 585, 233);
 		txtNomeCompleto.setSize("249px", "18px");
 		
 		TextBox txtNick = new TextBox();
-		painelLogin.add(txtNick, 585, 214);
+		painelLogin.add(txtNick, 585, 273);
 		txtNick.setSize("249px", "18px");
 		
 		TextBox txtEndereco = new TextBox();
-		painelLogin.add(txtEndereco, 585, 254);
+		painelLogin.add(txtEndereco, 585, 313);
 		txtEndereco.setSize("249px", "18px");
 		
 		PasswordTextBox ptbSenha = new PasswordTextBox();
-		painelLogin.add(ptbSenha, 585, 294);
+		painelLogin.add(ptbSenha, 585, 353);
 		ptbSenha.setSize("249px", "16px");
 		
 		PasswordTextBox ptbSenha2 = new PasswordTextBox();
-		painelLogin.add(ptbSenha2, 585, 332);
+		painelLogin.add(ptbSenha2, 585, 391);
 		ptbSenha2.setSize("249px", "16px");
 		
 		Button btnCadastrar = new Button("Cadastrar");
-		painelLogin.add(btnCadastrar, 772, 366);
-		
-		Image image = new Image("emprestimusweb/gwt/clean/images/TAI.jpg");
-		painelLogin.add(image, 118, 0);
-		image.setSize("199px", "403px");
+		painelLogin.add(btnCadastrar, 772, 425);
 		
 		lblErro = new Label("");
 		lblErro.setStyleName("serverResponseLabelError");
 		painelLogin.add(lblErro, 508, 74);
+		
+		Image imagem3 = new Image("emprestimusweb/gwt/clean/imagens/mj.jpg");
+		painelLogin.add(imagem3, 10, 382);
+		imagem3.setSize("100px", "100px");
+		
+		Image imagem2 = new Image("emprestimusweb/gwt/clean/imagens/katy.jpg");
+		painelLogin.add(imagem2, 10, 271);
+		imagem2.setSize("100px", "100px");
+		
+		Image imagem1 = new Image("emprestimusweb/gwt/clean/imagens/avril.jpg");
+		painelLogin.add(imagem1, 10, 165);
+		imagem1.setSize("100px", "100px");
+		
+		InlineHTML textoHTML = new InlineHTML("<big>Pra que comprar um novo se você pode pedir emprestado?</big><br><br>\r\nEmprestimus é a primeira rede social de empréstimos do Brasil, aqui você pode conseguir filmes, jogos, livros e muito mais...<br>\r\nConheça novas pessoas, saiba quem mora perto de você que pode lhe emprestar um ítem que você deseja. Troque mensagens com seus amigos, empreste seus ítens para aumentar sua reputação, faça Emprestimus!<br><br>\r\nCrie agora uma conta grátis ou use seu Emprestimus Nick para entrar no sistema.");
+		painelLogin.add(textoHTML, 129, 190);
+		textoHTML.setSize("291px", "279px");
+		
+		Label lblEmprestimus = new Label("Emprestimus");
+		lblEmprestimus.setStyleName("nathaniel2");
+		painelLogin.add(lblEmprestimus, 10, 10);
 		
 		MyHandler handler = new MyHandler();
 		btnLogin.addClickHandler(handler);
