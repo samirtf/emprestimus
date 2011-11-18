@@ -25,7 +25,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements Greetin
 			throw new IllegalArgumentException("Entrada inconsistente");			
 		}
 		// Verify that the input is valid. 
-		if (!VerificadorDeCampos.ehNomeValido(nome)) {
+		if (!VerificadorDeCampos.ehNickValido(nome)) {
 			// If the nome is not valid, throw an IllegalArgumentException back to
 			// the client.
 			throw new IllegalArgumentException(MensagensWeb.NOME_CURTO.getMensagem());

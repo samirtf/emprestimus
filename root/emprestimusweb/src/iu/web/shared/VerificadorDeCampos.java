@@ -35,7 +35,7 @@ public class VerificadorDeCampos {
 	 * @param nome the name to validate
 	 * @return true if valid, false if invalid
 	 */
-	public static boolean ehNomeValido(String nome) {
+	public static boolean ehNickValido(String nome) {
 		if (nome == null || nome.contains("|")) {
 			return false;
 		}
@@ -51,5 +51,23 @@ public class VerificadorDeCampos {
 			return false;
 		}
 		return senha.length() > 5;
+	}
+
+	/**
+	 * @param nome
+	 * @return
+	 */
+	public static boolean ehNomeValido(String nome) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/**
+	 * @param endereco
+	 * @return
+	 */
+	public static boolean ehEnderecoValido(String endereco) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

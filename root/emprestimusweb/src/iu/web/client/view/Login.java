@@ -21,6 +21,8 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.InlineHTML;
 
 /**
+ * Painel de login
+ * 
  * @author José Nathaniel L de Abrante - nathaniel.una@gmail.com
  *
  */
@@ -28,17 +30,49 @@ public class Login extends Composite {
 	
 	private final GreetingServiceAsync greetingService = GWT.create(GreetingService.class);
 
-	private Label lblErro;
+	private AbsolutePanel painelLogin;
+	
+	//Componentes do login 
 	private TextBox txtLoginNick;
 	private PasswordTextBox ptbLoginSenha;
 	private Button btnLogin;
-
+	private Label lblErro;
+	
+	//Componentes do cadastro
+	private TextBox txtNomeCompleto;
+	private TextBox txtNick;
+	private TextBox txtEndereco;
+	private PasswordTextBox ptbSenha;
+	private PasswordTextBox ptbSenha2;
+	private Button btnCadastrar;
+	
 	public Login() {
 		
-		AbsolutePanel painelLogin = new AbsolutePanel();
+		painelLogin = new AbsolutePanel();
 		initWidget(painelLogin);
 		painelLogin.setSize("877px", "492px");
 		
+		iniciaComponentesDoLogin();
+		iniciaComponentesDoCadastro();
+		iniciaComponentesDoLadoEsquerdo();
+		
+		//Eventos do login
+		MyHandlerLogin handlerLogin = new MyHandlerLogin();
+		btnLogin.addClickHandler(handlerLogin);
+		txtLoginNick.addKeyUpHandler(handlerLogin);
+		ptbLoginSenha.addKeyUpHandler(handlerLogin);
+		
+		//Eventos do cadastro
+		MyHandlerCadastro handlerCadastro = new MyHandlerCadastro();
+		btnCadastrar.addClickHandler(handlerCadastro);
+		txtNomeCompleto.addKeyUpHandler(handlerCadastro);
+		txtNick.addKeyUpHandler(handlerCadastro);
+		txtEndereco.addKeyUpHandler(handlerCadastro);
+		ptbSenha.addKeyUpHandler(handlerCadastro);
+		ptbSenha2.addKeyUpHandler(handlerCadastro);
+	}
+
+	private void iniciaComponentesDoLogin() {
 		Label lblLoginNick = new Label("Nick:");
 		painelLogin.add(lblLoginNick, 508, 10);
 		
@@ -54,6 +88,12 @@ public class Login extends Composite {
 		btnLogin = new Button("Login");
 		painelLogin.add(btnLogin, 797, 74);
 		
+		lblErro = new Label("");
+		lblErro.setStyleName("serverResponseLabelError");
+		painelLogin.add(lblErro, 508, 74);
+	}
+	
+	private void iniciaComponentesDoCadastro() {
 		Label lblNovoPorAqui = new Label("Novo por aqui? Faça um cadastro:");
 		lblNovoPorAqui.setStyleName("nathaniel1");
 		painelLogin.add(lblNovoPorAqui, 560, 203);
@@ -73,33 +113,35 @@ public class Login extends Composite {
 		Label lblRepitaASenha = new Label("Repita a senha:");
 		painelLogin.add(lblRepitaASenha, 488, 405);
 		
-		TextBox txtNomeCompleto = new TextBox();
+		txtNomeCompleto = new TextBox();
 		painelLogin.add(txtNomeCompleto, 585, 233);
 		txtNomeCompleto.setSize("249px", "18px");
 		
-		TextBox txtNick = new TextBox();
+		txtNick = new TextBox();
 		painelLogin.add(txtNick, 585, 273);
 		txtNick.setSize("249px", "18px");
 		
-		TextBox txtEndereco = new TextBox();
+		txtEndereco = new TextBox();
 		painelLogin.add(txtEndereco, 585, 313);
 		txtEndereco.setSize("249px", "18px");
 		
-		PasswordTextBox ptbSenha = new PasswordTextBox();
+		ptbSenha = new PasswordTextBox();
 		painelLogin.add(ptbSenha, 585, 353);
 		ptbSenha.setSize("249px", "16px");
 		
-		PasswordTextBox ptbSenha2 = new PasswordTextBox();
+		ptbSenha2 = new PasswordTextBox();
 		painelLogin.add(ptbSenha2, 585, 391);
 		ptbSenha2.setSize("249px", "16px");
 		
-		Button btnCadastrar = new Button("Cadastrar");
+		btnCadastrar = new Button("Cadastrar");
 		painelLogin.add(btnCadastrar, 772, 425);
-		
-		lblErro = new Label("");
-		lblErro.setStyleName("serverResponseLabelError");
-		painelLogin.add(lblErro, 508, 74);
-		
+	}
+	
+	private void iniciaComponentesDoLadoEsquerdo() {
+		Label lblEmprestimus = new Label("Emprestimus"); //nome Emprestimus grande
+		lblEmprestimus.setStyleName("nathaniel2");
+		painelLogin.add(lblEmprestimus, 10, 10);
+
 		Image imagem3 = new Image("emprestimusweb/gwt/clean/imagens/mj.jpg");
 		painelLogin.add(imagem3, 10, 382);
 		imagem3.setSize("100px", "100px");
@@ -115,19 +157,15 @@ public class Login extends Composite {
 		InlineHTML textoHTML = new InlineHTML("<big>Pra que comprar um novo se você pode pedir emprestado?</big><br><br>\r\nEmprestimus é a primeira rede social de empréstimos do Brasil, aqui você pode conseguir filmes, jogos, livros e muito mais...<br>\r\nConheça novas pessoas, saiba quem mora perto de você que pode lhe emprestar um ítem que você deseja. Troque mensagens com seus amigos, empreste seus ítens para aumentar sua reputação, faça Emprestimus!<br><br>\r\nCrie agora uma conta grátis ou use seu Emprestimus Nick para entrar no sistema.");
 		painelLogin.add(textoHTML, 129, 190);
 		textoHTML.setSize("291px", "279px");
-		
-		Label lblEmprestimus = new Label("Emprestimus");
-		lblEmprestimus.setStyleName("nathaniel2");
-		painelLogin.add(lblEmprestimus, 10, 10);
-		
-		MyHandler handler = new MyHandler();
-		btnLogin.addClickHandler(handler);
-		txtLoginNick.addKeyUpHandler(handler);
-		ptbLoginSenha.addKeyUpHandler(handler);
 	}
-	
-	// Create a handler for the sendButton and nameField
-	class MyHandler implements ClickHandler, KeyUpHandler {
+
+	/**
+	 * Cria uma handler para o login
+	 * 
+	 * @author José Nathaniel L de Abrante - nathaniel.una@gmail.com
+	 *
+	 */
+	class MyHandlerLogin implements ClickHandler, KeyUpHandler {
 		public void onClick(ClickEvent event) {
 			enviaAoServidor();
 			
@@ -141,12 +179,12 @@ public class Login extends Composite {
 		}
 		private void enviaAoServidor() {
 			lblErro.setText("");
-			String nomeParaServidor = txtLoginNick.getText();
-			String senhaParaServidor = ptbLoginSenha.getText();
-			if (!VerificadorDeCampos.ehNomeValido(nomeParaServidor)) {
+			String nick = txtLoginNick.getText();
+			String senha = ptbLoginSenha.getText();
+			if (!VerificadorDeCampos.ehNickValido(nick)) {
 				lblErro.setText("Nome inválido");
 				return;
-			} else if (!VerificadorDeCampos.ehSenhaValida(senhaParaServidor)) {
+			} else if (!VerificadorDeCampos.ehSenhaValida(senha)) {
 				lblErro.setText("Senha inválida");
 				return;
 			}
@@ -154,13 +192,76 @@ public class Login extends Composite {
 			btnLogin.setEnabled(false);
 			txtLoginNick.setEnabled(false);
 			ptbLoginSenha.setEnabled(false);
-			greetingService.greetServer(nomeParaServidor+"|"+senhaParaServidor, new AsyncCallback<String>() {
+			greetingService.greetServer(nick+"|"+senha, new AsyncCallback<String>() {
 				public void onFailure(Throwable caught) {
 					lblErro.setText("Falha na conexão!");
 				}
 
 				public void onSuccess(String result) {
 					lblErro.setText("Sucesso: " + result);
+					//TODO
+				}
+			});
+		}
+	}
+	
+	/**
+	 * Cria uma handler para o cadastro de novo usuario
+	 * 
+	 * @author José Nathaniel L de Abrante - nathaniel.una@gmail.com
+	 *
+	 */
+	class MyHandlerCadastro implements ClickHandler, KeyUpHandler {
+		public void onClick(ClickEvent event) {
+			enviaAoServidor();
+			
+		}
+		public void onKeyUp(KeyUpEvent event) {
+			if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
+				if ((!txtNomeCompleto.getText().trim().equals(""))&&(!txtNick.getText().trim().equals(""))
+						&&(!txtEndereco.getText().trim().equals(""))&&(!ptbSenha.getText().trim().equals(""))
+						&&(!ptbSenha2.getText().trim().equals(""))) {
+					enviaAoServidor();
+				}
+			}
+		}
+		private void enviaAoServidor() {
+			String nome = txtNomeCompleto.getText();
+			String nick = txtNick.getText();
+			String endereco = txtEndereco.getText();
+			String senha = ptbSenha.getText();
+			String senha2 = ptbSenha2.getText();
+			
+			if (!VerificadorDeCampos.ehNomeValido(nome)) {
+				//TODO
+				return;
+			} else if (!VerificadorDeCampos.ehNickValido(nick)) {
+				//TODO
+				return;
+			} else if (!VerificadorDeCampos.ehEnderecoValido(endereco)) {
+				//TODO
+				return;
+			} else if (!senha.equals(senha2)) {
+				//TODO
+				return;
+			} else if (!VerificadorDeCampos.ehSenhaValida(senha)) {
+				//TODO
+				return;
+			}
+
+			btnCadastrar.setEnabled(false);
+			txtNomeCompleto.setEnabled(false);
+			txtNick.setEnabled(false);
+			txtEndereco.setEnabled(false);
+			ptbSenha.setEnabled(false);
+			ptbSenha2.setEnabled(false);
+			
+			greetingService.greetServer(nome+"|"+nick+"|"+endereco+"|"+senha, new AsyncCallback<String>() {
+				public void onFailure(Throwable caught) {
+					//TODO
+				}
+				public void onSuccess(String result) {
+					//TODO
 				}
 			});
 		}
