@@ -16,12 +16,23 @@ public class EmprestimoRepositorio {
 	/**
 	 * Calcula o id do proximo emprestimo a ser cadastrado.
 	 * 
-	 * @return O id do proximo emprestimo a ser cadastrado.
+	 * @return String
+	 * 		O id do proximo emprestimo a ser cadastrado.
 	 */
 	public static String geraIdProxNotificacao() {
 		return String.valueOf(contadorID + 1);
 	}
 
+	/**
+	 * Requisita um emprestimo
+	 * @param EmprestimoIF
+	 * 		Emprestimo a ser requisitado
+	 * 
+	 * @return String
+	 * 		ID
+	 * 
+	 * @throws Exception
+	 */
 	public static String requisitarEmprestimo(EmprestimoIF emp) throws Exception {
 		emp.setId(EmprestimoRepositorio.geraIdProxNotificacao());
 		emprestimosRealizados.put(++contadorID, emp);

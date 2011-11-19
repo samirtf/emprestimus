@@ -18,18 +18,41 @@ public class ChatRepositorio {
 	/**
 	 * Calcula o id do proximo emprestimo a ser cadastrado.
 	 * 
-	 * @return O id do proximo emprestimo a ser cadastrado.
+	 * @return String
+	 * 		O id do proximo emprestimo a ser cadastrado.
 	 */
 	public static String geraIdProxConversa() {
 		return String.valueOf(contadorID + 1);
 	}
 
+	/**
+	 * Registra uma Conversa
+	 * 
+	 * @param ChatIF
+	 * 		mensagem
+	 * 
+	 * @return String
+	 * 		ID
+	 * 
+	 * @throws Exception
+	 */
 	public static String registrarConversa(ChatIF mensagem) throws Exception {
 		mensagem.setIdMensagem(ChatRepositorio.geraIdProxConversa());
 		conversas.put(++contadorID, mensagem);
 		return String.valueOf(contadorID);
 	}
 
+	/**
+	 * Recupera uma Conversa
+	 * 
+	 * @param String
+	 * 		idConversa
+	 * 
+	 * @return ChatIF
+	 * 		Conversa
+	 * 
+	 * @throws Exception
+	 */
 	public static ChatIF recuperarConversa(String idConversa) throws Exception {
 		Long idLong = null;
 		try {
@@ -44,6 +67,18 @@ public class ChatRepositorio {
 		return msg;
 	}
 
+	/**
+	 * Retorna Atributo da Conversa
+	 * 
+	 * @param String
+	 * 		idConversa
+	 * @param String
+	 * 		atributo
+	 * 
+	 * @return String
+	 * 
+	 * @throws Exception
+	 */
 	public static String getAtributoConversa(String idConversa, String atributo) throws Exception {
 		ChatIF msg = recuperarConversa(idConversa);
 
@@ -63,7 +98,8 @@ public class ChatRepositorio {
 	/**
 	 * Calcula a quantidade de emprestimos cadastrados.
 	 * 
-	 * @return A quantidade de emprestimos cadastrados.
+	 * @return int
+	 * 		A quantidade de emprestimos cadastrados.
 	 */
 	public static int qntMensagens() {
 		return conversas.size();
@@ -72,10 +108,10 @@ public class ChatRepositorio {
 	/**
 	 * Verifica se um determinado emprestimos existe no repositorio.
 	 * 
-	 * @param idEmprestimo
-	 *            Um idEmprestimo.
-	 * @return True - Se o emprestimo procurado existir. False - Se o emprestimo
-	 *         não existir.
+	 * @param String
+	 * 		Um idEmprestimo.
+	 * @return boolean
+	 * 		True - Se o emprestimo procurado existir.
 	 */
 	public static boolean existeConversa(String idConversa) {
 		Long id;
@@ -87,6 +123,20 @@ public class ChatRepositorio {
 		return conversas.containsKey(Long.valueOf(idConversa));
 	}
 
+	/**
+	 * Diz se existe uma Conversa Entre As Pessoas Sobre Mesmo Assunto E Tipo
+	 * 
+	 * @param String
+	 * 		remetente
+	 * @param String
+	 * 		destinatario
+	 * @param String
+	 * 		assunto
+	 * @param boolean
+	 * 		ehOffTopic
+	 * 
+	 * @return
+	 */
 	public static ChatIF existeConversaEntreAsPessoasSobreMesmoAssuntoETipo(
 			String remetente, String destinatario, String assunto, boolean ehOffTopic) {
 
@@ -119,6 +169,9 @@ public class ChatRepositorio {
 		return null;
 	}
 
+	/**
+	 * retorna o repositorio a suas configurações iniciais
+	 */
 	public static void zerarRepositorio() {
 		conversas = new TreeMap<Long, ChatIF>();
 		contadorID = 0;
