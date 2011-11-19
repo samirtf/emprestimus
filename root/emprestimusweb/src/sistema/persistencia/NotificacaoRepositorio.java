@@ -31,18 +31,40 @@ public class NotificacaoRepositorio {
 	/**
 	 * Calcula o id do proximo emprestimo a ser cadastrado.
 	 * 
-	 * @return O id do proximo emprestimo a ser cadastrado.
+	 * @return String
+	 * 		O id do proximo emprestimo a ser cadastrado.
 	 */
 	public static String geraIdProxNotificacao() {
 		return String.valueOf(contadorID + 1);
 	}
 
+	/**
+	 * Cria uma nova notificação
+	 * 
+	 * @param Notificacao - notif
+	 * 		Nova notificação
+	 * 
+	 * @return String
+	 * 		ID
+	 * 
+	 * @throws Exception
+	 */
 	public String novaNotificacao(Notificacao notif) throws Exception {
 		notif.setId(NotificacaoRepositorio.geraIdProxNotificacao());
 		notificacoesCadastradas.put(++contadorID, notif);
 		return String.valueOf(contadorID);
 	}
 
+	/**
+	 * Recupera uma notificação
+	 * 
+	 * @param String idNotificacao
+	 * 
+	 * @return Notificacao
+	 * 		Notificação encontrada
+	 * 
+	 * @throws Exception
+	 */
 	public Notificacao recuperarNotificacao(String idNotificacao) throws Exception {
 		Long idLong = null;
 		try {
@@ -60,7 +82,8 @@ public class NotificacaoRepositorio {
 	/**
 	 * Calcula a quantidade de notificações cadastradas.
 	 * 
-	 * @return A quantidade de notificações cadastradas.
+	 * @return int
+	 * 		A quantidade de notificações cadastradas.
 	 */
 	public int qntNotificacoes() {
 		return notificacoesCadastradas.size();
@@ -69,10 +92,10 @@ public class NotificacaoRepositorio {
 	/**
 	 * Verifica se um determinada notificação existe no repositorio.
 	 * 
-	 * @param idNotificacao
-	 *            Um idEmprestimo.
-	 * @return True - Se a notificação procurado existir. False - Se a
-	 *         notificação não existir.
+	 * @param String - idNotificacao
+	 * 		Um idEmprestimo.
+	 * @return boolean
+	 * 		True - Se a notificação procurado existir.
 	 */
 	public boolean existeNotificacao(String idNotificacao) {
 		Long id;
@@ -84,6 +107,12 @@ public class NotificacaoRepositorio {
 		return notificacoesCadastradas.containsKey(id);
 	}
 
+	/**
+	 * Remove uma notificação
+	 * 
+	 * @param String
+	 * 		idNotificacao
+	 */
 	public void removerNotificacao(String idNotificacao) {
 		Long id;
 		try {
@@ -97,6 +126,9 @@ public class NotificacaoRepositorio {
 
 	}
 
+	/**
+	 * Zera o repositorio
+	 */
 	public static void zerarRepositorio() {
 		notificacoesCadastradas = new TreeMap<Long, Notificacao>();
 		contadorID = 0;

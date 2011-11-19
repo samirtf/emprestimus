@@ -19,18 +19,41 @@ public class ItemRepositorio {
 	/**
 	 * Calcula o id do proximo item a ser cadastrado.
 	 * 
-	 * @return O id do proximo item a ser cadastrado.
+	 * @return String
+	 * 		O id do proximo item a ser cadastrado.
 	 */
 	public static String geraIdProxItem() {
 		return String.valueOf(contadorID + 1);
 	}
 
+	/**
+	 * Cadastra um Item no repositorio
+	 * 
+	 * @param ItemIF
+	 * 		item
+	 * 
+	 * @return String
+	 * 		ID
+	 * 
+	 * @throws Exception
+	 */
 	public static String cadastrarItem(ItemIF item) throws Exception {
 		item.setId(ItemRepositorio.geraIdProxItem());
 		itensCadastrados.put(++contadorID, item);
 		return String.valueOf(contadorID);
 	}
 
+	/**
+	 * Recupera um Item
+	 * 
+	 * @param String
+	 * 		idItem
+	 * 
+	 * @return ItemIF
+	 * 		Item encontrado
+	 * 
+	 * @throws Exception
+	 */
 	public static ItemIF recuperarItem(String idItem) throws Exception {
 		Long idLong = null;
 		try {
@@ -45,6 +68,18 @@ public class ItemRepositorio {
 		return item;
 	}
 
+	/**
+	 * Retorna um atributo do Item
+	 * 
+	 * @param String
+	 * 		idItem
+	 * @param String
+	 * 		atributo
+	 * 
+	 * @return String
+	 * 
+	 * @throws Exception
+	 */
 	public static String getAtributoItem(String idItem, String atributo) throws Exception {
 		ItemIF item = recuperarItem(idItem);
 		String atrib = ((atributo.equals("categoria"))? "categorias":atributo);
@@ -65,7 +100,8 @@ public class ItemRepositorio {
 	/**
 	 * Calcula a quantidade de itens cadastrados.
 	 * 
-	 * @return A quantidade de itens cadastrados.
+	 * @return int
+	 * 		A quantidade de itens cadastrados.
 	 */
 	public static int qntItens() {
 		return itensCadastrados.size();
@@ -74,10 +110,10 @@ public class ItemRepositorio {
 	/**
 	 * Verifica se um determinado item existe no repositorio.
 	 * 
-	 * @param idItem
-	 *            Um idItem.
-	 * @return True - Se o item procurado existir. False - Se o item não
-	 *         existir.
+	 * @param String - idItem
+	 *  		Um idItem.
+	 * @return boolean
+	 * 		True - Se o item procurado existir.
 	 */
 	public static boolean existeItem(String idItem) {
 		Long id;
@@ -89,6 +125,12 @@ public class ItemRepositorio {
 		return itensCadastrados.containsKey(Long.valueOf(idItem));
 	}
 
+	/**
+	 * Remove um Item do repositorio
+	 * 
+	 * @param String
+	 * 		idItem
+	 */
 	public static void removerItem(String idItem) {
 		Long id;
 		try {
@@ -102,6 +144,9 @@ public class ItemRepositorio {
 
 	}
 
+	/**
+	 * zera o repositorio.
+	 */
 	public static void zerarRepositorio() {
 		itensCadastrados = new TreeMap<Long, ItemIF>();
 		contadorID = 0;

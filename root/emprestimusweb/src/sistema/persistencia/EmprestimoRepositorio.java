@@ -39,6 +39,17 @@ public class EmprestimoRepositorio {
 		return String.valueOf(contadorID);
 	}
 
+	/**
+	 * Recupera um Emprestimo
+	 * 
+	 * @param String
+	 * 		idEmprestimo
+	 * 
+	 * @return EmprestimoIF
+	 * 		Emprestimo encontrado
+	 * 
+	 * @throws Exception
+	 */
 	public static EmprestimoIF recuperarEmprestimo(String idEmprestimo) throws Exception {
 		Long idLong = null;
 		try {
@@ -53,6 +64,18 @@ public class EmprestimoRepositorio {
 		return emp;
 	}
 
+	/**
+	 * Retorna um atributo de um item
+	 * 
+	 * @param String
+	 * 		idEmprestimo
+	 * @param String
+	 * 		atributo
+	 * 
+	 * @return String
+	 * 
+	 * @throws Exception
+	 */
 	public static String getAtributoItem(String idEmprestimo, String atributo) throws Exception {
 		EmprestimoIF emp = recuperarEmprestimo(idEmprestimo);
 
@@ -72,7 +95,8 @@ public class EmprestimoRepositorio {
 	/**
 	 * Calcula a quantidade de emprestimos cadastrados.
 	 * 
-	 * @return A quantidade de emprestimos cadastrados.
+	 * @return int
+	 * 		A quantidade de emprestimos cadastrados.
 	 */
 	public static int qntEmprestimos() {
 		return emprestimosRealizados.size();
@@ -81,10 +105,10 @@ public class EmprestimoRepositorio {
 	/**
 	 * Verifica se um determinado emprestimos existe no repositorio.
 	 * 
-	 * @param idEmprestimo
+	 * @param String - idEmprestimo
 	 *            Um idEmprestimo.
-	 * @return True - Se o emprestimo procurado existir. False - Se o emprestimo
-	 *         não existir.
+	 * @return boolean
+	 * 		True - Se o emprestimo procurado existir.
 	 */
 	public static boolean existeEmprestimo(String idEmprestimo) {
 		Long id;
@@ -96,6 +120,11 @@ public class EmprestimoRepositorio {
 		return emprestimosRealizados.containsKey(Long.valueOf(idEmprestimo));
 	}
 
+	/**
+	 * Remove um Emprestimo
+	 * @param String
+	 * 		idEmprestimo
+	 */
 	public static void removerEmprestimo(String idEmprestimo) {
 		Long id;
 		try {
@@ -109,6 +138,9 @@ public class EmprestimoRepositorio {
 
 	}
 
+	/**
+	 * Zera o repositorio
+	 */
 	public static void zerarRepositorio() {
 		emprestimosRealizados = new TreeMap<Long, EmprestimoIF>();
 		contadorID = 0;
