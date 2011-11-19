@@ -22,9 +22,15 @@ public class NotificacaoEmprestimoAndamento implements Notificacao {
 	private String id;
 
 	/**
-	 * @param dono
-	 * @param beneficiado
-	 * @param item
+	 * Cria uma notificalçao de Emprestimo em andamento
+	 * 
+	 * @param UsuarioIF
+	 * 		dono do item
+	 * @param UsuarioIF
+	 * 		beneficiado no emprestimo
+	 * @param ItemIF
+	 * 		item em questão
+	 * 
 	 * @throws Exception
 	 */
 	public NotificacaoEmprestimoAndamento(UsuarioIF dono, UsuarioIF beneficiado,

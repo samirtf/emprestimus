@@ -22,6 +22,12 @@ public class Rack {
 		historico = new ArrayList<Notificacao>();
 	}
 
+	/**
+	 * retorna proprietario do Rack
+	 * 
+	 * @return String
+	 * 		proprietario
+	 */
 	public String getProprietario() {
 		return proprietario;
 	}
@@ -35,10 +41,24 @@ public class Rack {
 	// // removeNotificacao(), getIterador(), etc.
 	// }
 
+	/**
+	 * Adiciona Notificação
+	 * 
+	 * @param Notificacao
+	 * 		nova notificação
+	 */
 	public void addNotificacao(Notificacao notificacao) {
 		historico.add(0, notificacao);
 	}
 
+	/**
+	 * Republica um pedido
+	 * 
+	 * @param Notificacao
+	 * 		notificacao
+	 * 
+	 * @throws Exception
+	 */
 	public void republicarPedido(Notificacao notificacao) throws Exception {
 		Notificacao notificacaoAtulizada = notificacao;
 		historico.remove(notificacao);
@@ -46,10 +66,18 @@ public class Rack {
 		historico.add(0, notificacaoAtulizada);
 	}
 
+	/**
+	 * Zera o historico do rack
+	 */
 	public void zerarHistorico() {
 		historico.clear();
 	}
 
+	/**
+	 * retorna o historico na forma de um Iterator
+	 * 
+	 * @return Iterator<Notificacao>
+	 */
 	public Iterator<Notificacao> iterador() {
 		return historico.iterator();
 	}

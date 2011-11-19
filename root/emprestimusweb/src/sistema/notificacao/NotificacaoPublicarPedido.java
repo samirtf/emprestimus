@@ -20,6 +20,15 @@ public class NotificacaoPublicarPedido implements Notificacao {
 	private Date data;
 	private String id;
 
+	/**
+	 * Cria uma notificação de publicação de pedido
+	 * @param UsuarioIF
+	 * 		usuario
+	 * @param String
+	 * 		nomeItem
+	 * @param String
+	 * 		descricaoItem
+	 */
 	public NotificacaoPublicarPedido(UsuarioIF usuario, String nomeItem,
 			String descricaoItem) {
 		this.nomeItem = nomeItem;

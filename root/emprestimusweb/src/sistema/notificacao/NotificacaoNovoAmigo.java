@@ -18,6 +18,16 @@ public class NotificacaoNovoAmigo implements Notificacao {
 	private Date data;
 	private String id;
 
+	/**
+	 * Cria uma notificação de novo amigo
+	 * 
+	 * @param UsuarioIF 
+	 * 		usuario1
+	 * @param UsuarioIF
+	 * 		usuario2
+	 * 
+	 * @throws Exception
+	 */
 	public NotificacaoNovoAmigo(UsuarioIF usuario1, UsuarioIF usuario2) throws Exception {
 		this.usuario1 = usuario1;
 		this.usuario2 = usuario2;

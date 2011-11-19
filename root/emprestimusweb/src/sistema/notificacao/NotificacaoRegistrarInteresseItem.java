@@ -24,6 +24,18 @@ public class NotificacaoRegistrarInteresseItem implements Notificacao {
 	private NotificacaoRegistrarInteresseItem() {
 	}
 
+	/**
+	 * Cria uma notificação de Registro de interesse em Item
+	 * 
+	 * @param UsuarioIF
+	 * 		interessado
+	 * @param UsuarioIF 
+	 * 		amigo
+	 * @param ItemIF
+	 * 		item
+	 * 
+	 * @throws Exception
+	 */
 	public NotificacaoRegistrarInteresseItem(UsuarioIF interessado, UsuarioIF amigo,
 			ItemIF item) throws Exception {
 		this.interessado = interessado;

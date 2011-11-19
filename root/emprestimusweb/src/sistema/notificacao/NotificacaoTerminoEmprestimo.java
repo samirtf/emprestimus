@@ -15,6 +15,16 @@ public class NotificacaoTerminoEmprestimo implements Notificacao {
 	private Date data;
 	private String id;
 
+	/**
+	 * Cria Notificação de termino de Emprestimo
+	 * 
+	 * @param UsuarioIF
+	 * 		usuario
+	 * @param ItemIF
+	 * 		item
+	 * 
+	 * @throws InterruptedException
+	 */
 	public NotificacaoTerminoEmprestimo(UsuarioIF usuario, ItemIF item) throws InterruptedException {
 		this.usuario = usuario;
 		this.item = item;

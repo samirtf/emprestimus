@@ -19,6 +19,16 @@ public class NotificacaoNovoItem implements Notificacao {
 	private Date data;
 	private String id;
 
+	/**
+	 * Cria uma notificação de novo Item
+	 * 
+	 * @param UsuarioIF
+	 * 		usuario
+	 * @param ItemIF
+	 * 		item
+	 * 
+	 * @throws Exception
+	 */
 	public NotificacaoNovoItem(UsuarioIF usuario, ItemIF item) throws Exception {
 		this.usuario = usuario;
 		this.item = item;

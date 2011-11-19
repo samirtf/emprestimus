@@ -15,16 +15,18 @@ public interface Notificacao extends Comparable<Notificacao> {
 	/**
 	 * Devolve a data de criacao da notificação
 	 * 
-	 * @return data
+	 * @return Date
+	 * 		data
 	 */
 	public Date getData();
 
 	/**
 	 * Atribue uma nova data de atualizacao da notificacao
 	 * 
-	 * @return A notifação com a nova data
+	 * @return Notificacao
+	 * 		A notifação com a nova data
 	 * @throws Exception
-	 *             Caso a data não seja válida
+	 * 		Caso a data não seja válida
 	 */
 	public Notificacao setNovaData() throws Exception;
 
@@ -32,27 +34,31 @@ public interface Notificacao extends Comparable<Notificacao> {
 	 * Devolve a mensagem formatada ponta para para ser mostrada na timeline do
 	 * usuario
 	 * 
-	 * @param usuario
-	 *            Usuario que vai receber a mensagem para mostrar a notificação
+	 * @param UsuarioIF
+	 * 		Usuario que vai receber a mensagem para mostrar a notificação
 	 *            na sua timeline
-	 * @return notificação
+	 * @return String
+	 * 		notificação
 	 */
 	public String getMensagem(UsuarioIF usuario);
 
 	/**
 	 * Devolve o ID da notificação
 	 * 
-	 * @return
+	 * @return String
+	 * 		ID
 	 */
 	public String getId();
 
 	/**
 	 * Atribue um novo id a esta notificacao
 	 * 
-	 * @param id
-	 * @return A notificação com o novo ID
+	 * @param String
+	 * 		nova ID
+	 * @return Notificacao
+	 * 		A notificação com o novo ID
 	 * @throws Exception
-	 *             Caso o ID não seja válido
+	 * 		Caso o ID não seja válido
 	 */
 	public Notificacao setId(String novoId) throws Exception;
 
