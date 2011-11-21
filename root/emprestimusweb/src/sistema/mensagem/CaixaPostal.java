@@ -22,14 +22,26 @@ public class CaixaPostal {
 		conversasNegociacao = new ArrayList<ChatIF>();
 	}
 
+	/**
+	 * @return List<ChatIF>
+	 * 		Conversas Off Topic
+	 */
 	public List<ChatIF> getConversasOffTopic() {
 		return this.conversasOfftopic;
 	}
 
+	/**
+	 * @return List<ChatIF>
+	 * 		Conversas de Negociação
+	 */
 	public List<ChatIF> getConversasNegociacao() {
 		return this.conversasNegociacao;
 	}
 
+	/**
+	 * @return String
+	 * 		Proprietario da caixa postal
+	 */
 	public String getProprietario() {
 		return this.proprietario;
 	}

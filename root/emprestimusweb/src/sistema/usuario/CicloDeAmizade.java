@@ -22,26 +22,33 @@ public class CicloDeAmizade {
 		queroSerAmigoDeles = new ArrayList<UsuarioIF>();
 	}
 
+	/**
+	 * @return String
+	 * 		Propietario deste Circulo de Amizade.
+	 */
 	public String getProprietario() {
 		return proprietario;
 	}
 
 	/**
-	 * @return the amigos
+	 * @return List<UsuarioIF>
+	 * 		lista de amigos do proprietario.
 	 */
 	public List<UsuarioIF> getAmigos() {
 		return amigos;
 	}
 
 	/**
-	 * @return the amigos
+	 * @return List<UsuarioIF>
+	 * 		pessoas que querem ser amigos do proprietario.
 	 */
 	public List<UsuarioIF> getQueremSerMeusAmigos() {
 		return queremSerMeusAmigos;
 	}
 
 	/**
-	 * @return the amigos
+	 * @return List<UsuarioIF>
+	 * 		pessoas que o proprietario quer ser amigo.
 	 */
 	public List<UsuarioIF> getQueroSerAmigoDeles() {
 		return queroSerAmigoDeles;
