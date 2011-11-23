@@ -61,12 +61,12 @@ public class Usuario implements UsuarioIF {
 	/**
 	 * Constroi um usuario a partir de um login, nome e endereco.
 	 * 
-	 * @param login
-	 *            O login do usuario.
-	 * @param nome
-	 *            O nome do usuario.
-	 * @param endereco
-	 *            O endereco do usuario.
+	 * @param String
+	 * 		O login do usuario.
+	 * @param String
+	 * 		O nome do usuario.
+	 * @param String
+	 * 		O endereco do usuario.
 	 */
 	public Usuario(String login, String nome, String endereco) throws Exception {
 
@@ -155,11 +155,6 @@ public class Usuario implements UsuarioIF {
 		return AcervoDeItens.getInstance().getListaIdItens(login);
 	}
 
-	/**
-	 * Recupera a lista detodos os itens do usuario.
-	 * 
-	 * @return Lista de itens.
-	 */
 	@Override
 	public List<ItemIF> getItens() {
 		return AcervoDeItens.getInstance().getItens(this.getLogin());
@@ -312,11 +307,6 @@ public class Usuario implements UsuarioIF {
 				idRequisicaoEmprestimo);
 	}
 	
-	/**
-	 * @param amigo
-	 * @param item
-	 * @throws Exception 
-	 */
 	@Override
 	public void addHistoricoEmprestimoEmAndamento(UsuarioIF amigo, ItemIF item) throws Exception {
 		GerenciadorDeNotificacoes.getInstance().addHistoricoEmprestimoEmAndamento(
@@ -518,14 +508,16 @@ public class Usuario implements UsuarioIF {
 	}
 
 	/**
-	 * @return the senha
+	 * @return String
+	 * 		A senha do usuario
 	 */
 	private String getSenha() {
 		return senha;
 	}
 
 	/**
-	 * @param senha the senha to set
+	 * @param String
+	 * 		Nova senha
 	 */
 	public void setSenha(String senha) throws Exception {
 		assertStringNaoVazia(senha, Mensagem.SENHA_INVALIDA.getMensagem(), Mensagem.SENHA_INVALIDA.getMensagem());
@@ -592,11 +584,18 @@ public class Usuario implements UsuarioIF {
 		
 	}
 
-	
+	/**
+	 * @return String
+	 * 		Cartão de acesso de redefinição de senha
+	 */
 	public String getCartaoAcessoRedefSenha() {
 		return cartaoAcessoRedefSenha;
 	}
 
+	/**
+	 * @param String
+	 * 		Novo cartao de acesso de redefinicao de senha
+	 */
 	public synchronized void setCartaoAcessoRedefSenha(String cartaoAcessoRedefSenha) throws Exception {
 		this.cartaoAcessoRedefSenha = Criptografia.criptografaMD5(getLogin(), cartaoAcessoRedefSenha);;
 	}

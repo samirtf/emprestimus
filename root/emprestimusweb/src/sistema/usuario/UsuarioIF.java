@@ -23,20 +23,23 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	/**
 	 * Configura o login do usuario.
 	 * 
-	 * @param login
-	 *            O login do usuario.
+	 * @param String
+	 * 		O login do usuario.
+	 * 
 	 * @throws Exception
-	 * 			Caso o parâmetro seja inválido.
+	 * 		Caso o parâmetro seja inválido.
 	 */
 	public void setLogin(String login) throws Exception;
 
 	/**
 	 * Configura o nome do usuario.
 	 * 
-	 * @param nome
-	 *            O nome do usuario.
+	 * @param String
+	 * 		O nome do usuario.
+	 * 
 	 * @throws ArgumentoInvalidoException
 	 * 			Caso o parâmetro seja inválido.
+	 * 
 	 * @throws Exception
 	 * 			Caso o parâmetro seja inválido.
 	 */
@@ -45,7 +48,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	/**
 	 * COnfigura o endereco do usuario.
 	 * 
-	 * @param endereco
+	 * @param String
 	 * 		Endereço do usuário.
 	 */
 	public void setEndereco(String endereco);
@@ -53,7 +56,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	/**
 	 * Recupera o nome do usuario.
 	 * 
-	 * @return 
+	 * @return String
 	 * 		O nome do usuario.
 	 */
 	public String getLogin();
@@ -61,7 +64,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	/**
 	 * Recupera o nome do usuario.
 	 * 
-	 * @return
+	 * @return String
 	 * 		O nome do usuario.
 	 */
 	public String getNome();
@@ -69,7 +72,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	/**
 	 * Recupera o endereco do usuario.
 	 * 
-	 * @return
+	 * @return String
 	 * 		O endereco do usuario.
 	 */
 	public String getEndereco();
@@ -77,15 +80,20 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 
 	/**
 	 * Configura uma senha criptografada para um usuário.
-	 * @param senha A senha que será criptografada.
+	 * 
+	 * @param String
+	 * 		nova senha.
 	 */
 	public void setSenha(String senha) throws Exception;
 
 	/**
 	 * Loga usuário.
-	 * @param senha
-	 * @return	True - Se o usuário puder se logar.
-	 * 			False - Caso contrário.
+	 * 
+	 * @param String
+	 * 		senha
+	 * 
+	 * @return boolean
+	 * 		True - Se o usuário puder se logar.
 	 */
 	public boolean logar(String senha);
 	
@@ -95,14 +103,15 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	 * [loginUsuario]_[inteiro]. Por exemplo, samir_1, para o item primeiro;
 	 * samir_2.
 	 * 
-	 * @param nome
-	 *            O nome do item.
-	 * @param descricao
-	 *            A descrição do item.
-	 * @param categoria
-	 *            A categoria do item.
-	 * @return
-	 * 		O idItem (String) no formato login_inteiro.
+	 * @param String
+	 * 		O nome do item.
+	 * @param String
+	 * 		A descrição do item.
+	 * @param String
+	 * 		A categoria do item.
+	 * 
+	 * @return String
+	 * 		O idItem no formato login_inteiro.
 	 */
 	public String cadastrarItem(String nome, String descricao, String categoria)
 			throws Exception;
@@ -111,17 +120,19 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	 * Remove item da lista de itens do usuario. A remocao eh feita apenas pelo
 	 * idItem.
 	 * 
-	 * @param idItem
-	 *            IdItem do item a ser removido.
-	 * @return True - Se o item for removido. False - Se o item a ser removido
-	 *         nao existir.
+	 * @param String
+	 * 		IdItem do item a ser removido.
+	 * 
+	 * @return boolean
+	 * 		True - Se o item for removido.
 	 */
 	public boolean removerItem(String idItem) throws Exception;
 
 	/**
 	 * Recupera a lista ordenada de idItens de itens cadastrados.
 	 * 
-	 * @return Uma lista de idItens ordenada. Formatacao: "7 17 18 20 21"
+	 * @return String
+	 * 		Uma lista de idItens ordenada. Formatacao: "7 17 18 20 21"
 	 *         Retorna-se uma string vazia caso nao haja elementos.
 	 */
 	public String getListaIdItens() throws ArgumentoInvalidoException;
@@ -129,8 +140,9 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	/**
 	 * Recupera a lista de itens do usário.
 	 * 
-	 * @return
-	 * 		Lista (uma string) representativa dos itens
+	 * @return String
+	 * 		Lista (uma string) representativa dos itens.
+	 * 
 	 * @throws Exception
 	 * 		Devido a problemas internos.
 	 */
@@ -139,10 +151,11 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	/**
 	 * Recupera o ItemIF a partir do idItem.
 	 * 
-	 * @param idItem
-	 *            O idItem do item a ser procurado.
-	 * @return
-	 * 		A instancia de ItemIF. 
+	 * @param String
+	 * 		O idItem do item a ser procurado.
+	 * 
+	 * @return ItemIF
+	 * 		A Item encontrado.
 	 *      <code>null</code> - Caso o item nao exista.
 	 */
 	public ItemIF getItem(String idItem) throws ArgumentoInvalidoException;
@@ -150,17 +163,19 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	/**
 	 * Verifica se o usuario possui o item com id especifico cadastrado.
 	 * 
-	 * @param idItem
-	 *            O id do item a ser procurado.
-	 * @return
-	 * 		True - Se o item existir. False - Caso nao exista.
+	 * @param String
+	 * 		O id do item a ser procurado.
+	 * 
+	 * @return boolean
+	 * 		True - Se o item existir.
 	 */
 	public boolean existeItemID(String idItem) throws ArgumentoInvalidoException;
 
 	/**
 	 * Calcula a quantidade total de itens cadastrados.
 	 * 
-	 * @return int: quantidade de itens cadastrados.
+	 * @return int
+	 * 		quantidade de itens cadastrados.
 	 */
 	public int qntItens() throws ArgumentoInvalidoException;
 
@@ -168,7 +183,8 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	 * Calcula a quantidade de itens atualmente concedidos em emprestimo, ou
 	 * seja, a quantidade de livros nao disponiveis para emprestivo.
 	 * 
-	 * @return int: quantidade de itens atualmente emprestados.
+	 * @return int
+	 * 		quantidade de itens atualmente emprestados.
 	 */
 	public int qntItensEmprestados() throws ArgumentoInvalidoException;
 
@@ -176,7 +192,8 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	 * Recupera a lista ordenada de idItens de itens emprestados (concedidos a
 	 * alguém).
 	 * 
-	 * @return Uma lista ordenada de idItens emprestados.
+	 * @return String
+	 * 		Uma lista ordenada de idItens emprestados.
 	 */
 	public String getListaIdItensEmprestados() throws ArgumentoInvalidoException;
 
@@ -186,18 +203,21 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	/**
 	 * Verifica se o item pessoal estah disponivel a partir de um idItem.
 	 * 
-	 * @param idItem
-	 *            O idItem
-	 * @return True - Se o item nao estiver emprestado. False - Se o item nao
-	 *         existir ou se estiver emprestado.
+	 * @param String
+	 * 		O idItem
+	 * 
+	 * @return boolean
+	 * 		True - Se o item nao estiver emprestado.
+			False - Se o item nao existir ou se estiver emprestado.
 	 */
 	public boolean estahItemDisponivel(String idItem);
 	
 	/**
 	 * Adiciona uma requisitação de amizade a lista do usuário.
 	 * 
-	 * @param usuario
+	 * @param UsuarioIF
 	 * 		Usuario a ser adicionado.
+	 * 
 	 * @throws ArgumentoInvalidoException 
 	 */
 	public void usuarioQuerSerMeuAmigo( UsuarioIF usuario ) throws ArgumentoInvalidoException;
@@ -205,8 +225,9 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	/**
 	 * Requisita a amizade do usuário com o login informado.
 	 * 
-	 * @param login
+	 * @param String
 	 * 		Login a ser adicionado.
+	 * 
 	 * @throws Exception
 	 * 		Parâmetro inválido ou já adicionado.
 	 */
@@ -215,10 +236,12 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	/**
 	 * Verifica se os usuários já são amigos.
 	 * 
-	 * @param amigoProcurado
+	 * @param String
 	 * 		Login do outro usuário.
-	 * @return
-	 * 		Retorna true em caso afirmativo e false no inverso. 
+	 * 
+	 * @return boolean
+	 * 		True em caso o usuario passado seja amigo deste. 
+	 * 
 	 * @throws ArgumentoInvalidoException
 	 * 		Parâmetro inválido.
 	 */
@@ -227,10 +250,12 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	/**
 	 * Verifica se a amizade já foi requisitada.
 	 * 
-	 * @param login
+	 * @param String
 	 * 		Login do outro usuário.
-	 * @return
-	 * 		Retorna true em caso afirmativo e false no inverso.
+	 * 
+	 * @return boolean
+	 * 		True em caso a amizade já tenha sido requisitada.
+	 * 
 	 * @throws ArgumentoInvalidoException
 	 * 		Caso o login seja inválido.
 	 */
@@ -239,7 +264,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	/**
 	 * Recupera a lista de usuários que requisitaram a amizade do usuário.
 	 * 
-	 * @return
+	 * @return List<UsuarioIF>
 	 * 		Lista de usuários que requisitaram a amizade do usuário.
 	 */
 	public List<UsuarioIF> getQueremSerMeusAmigos() throws Exception;
@@ -247,7 +272,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	/**
 	 * Recupera a lista de usuários dos quais o usuário requisitou a amizade.
 	 * 
-	 * @return
+	 * @return List<UsuarioIF>
 	 * 		Lista de usuários dos quais o usuário requisitou a amizade.
 	 */
 	public List<UsuarioIF> getQueroSerAmigoDe() throws Exception;
@@ -256,19 +281,19 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	 * Verifica se dois Usuarios sao iguais. A verificacao eh feita a nivel de
 	 * interface. A comparacao eh realizada comparando apenas logins.
 	 * 
-	 * @param usuarioIF
-	 *            Uma implementacao de UsuarioIF sob o aspecto de interface
+	 * @param Object
+	 * 		Uma implementacao de UsuarioIF sob o aspecto de interface
 	 *            UsuarioIF.
 	 * 
-	 * @return True - Se os objetos forem iguais. False - Se forem objetos de
-	 *         instancias diferentes ou nao forem iguais.
+	 * @return boolean
+	 * 		True - Se os objetos forem iguais.
 	 */
 	public boolean equals(Object outroUsuario);
 
 	/**
 	 * Recupera a lista de itens do usuário.
 	 * 
-	 * @return
+	 * @return List<ItemIF>
 	 * 		Lista de itens do usuário.
 	 */
 	public List<ItemIF> getItens();
@@ -276,8 +301,9 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	/**
 	 * Recupera a lista de amigos do usuário.
 	 * 
-	 * @return
+	 * @return String
 	 * 		Lista de amigos do usuário.
+	 * 
 	 * @throws Exception
 	 * 		Haja problemas internos.
 	 */
@@ -286,8 +312,9 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	/**
 	 * Aprova uma requisitação de amizade.
 	 * 
-	 * @param login
+	 * @param String
 	 * 		Login do usuário que fez a requisitação de amizade.
+	 * 
 	 * @throws Exception
 	 * 		Em caso deles serem amigos ou a requisitação não existir.
 	 */
@@ -296,7 +323,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	/**
 	 * Verifica se a requisitação de amizade foi aprovada.
 	 * 
-	 * @param usuario
+	 * @param UsuarioIF
 	 * 		Outro usuário, para fazer a verificação.
 	 */
 	public void aprovouAmizade(UsuarioIF usuario) throws ArgumentoInvalidoException;
@@ -304,10 +331,12 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	/**
 	 * Verifica se o item seja do usuário.
 	 * 
-	 * @param idItem
+	 * @param String
 	 * 		ID do item a ser verificado.
-	 * @return
-	 * 		Caso o item seja do usuário, true, senão, false.
+	 * 
+	 * @return boolean
+	 * 		True caso o item seja do usuário.
+	 * 
 	 * @throws Exception
 	 * 		Caso o ID do item não exista.
 	 */
@@ -316,10 +345,12 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
     /**
      * Verifica se o item é de algum dos amigos do usuário.
      * 
-     * @param idItem
+     * @param String
      * 		ID do item a ser verificado.
-     * @return
-     * 		Caso o item seja de algum dos amigos do usuário, true, senão, false.
+     * 
+     * @return UsuarioIF
+     * 		True caso o item seja de algum dos amigos do usuário.
+     * 
      * @throws Exception
      * 		Caso o ID do item não exista.
      */
@@ -328,12 +359,14 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	/**
 	 * Requisita o empréstimo de um determinado item.
 	 * 
-	 * @param idItem
+	 * @param String
 	 * 		ID do item a ser requerido.
-	 * @param duracao
+	 * @param int
 	 * 		Duração pretendida para o empréstimo.
-	 * @return
+	 * 
+	 * @return String
 	 * 		ID da requisitação.
+	 * 
 	 * @throws Exception
 	 * 		Caso o id seja inexistente ou a duração seja não-positiva.
 	 */
@@ -342,10 +375,12 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	/**
 	 * Recupera a lista de empréstimos do usuário.
 	 * 
-	 * @param tipo
+	 * @param String
 	 * 		Tipo dos empréstimos que serão retornados (emprestador e/ou beneficiado)
-	 * @return
+	 * 
+	 * @return String
 	 * 		String que representa a lista de empréstimos do usuário.
+	 * 
 	 * @throws Exception
 	 * 		CAso o tipo seja inválido.
 	 */
@@ -354,7 +389,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	/**
 	 * Adiciona uma requisitação de empréstimo em espera de um amigo.
 	 * 
-	 * @param emp
+	 * @param EmprestimoIF
 	 * 		Empréstimo requerido.
 	 */
 	public void adicionarRequisicaoEmprestimoEmEsperaDeAmigo(EmprestimoIF emp) throws Exception;
@@ -362,10 +397,12 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	/**
 	 * Aprova um empréstimo.
 	 * 
-	 * @param idRequisicaoEmprestimo
+	 * @param String
 	 * 		ID da requisitação a ser aprovada.
-	 * @return
+	 * 
+	 * @return String
 	 * 		ID do empréstimo criado.
+	 * 
 	 * @throws Exception
 	 * 		Caso o parâmetro não corresponda à uma requisitação. 
 	 */
@@ -374,8 +411,9 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	/**
 	 * Verificar se o empréstimo foi aceito pelo amigo.
 	 * 
-	 * @param emp
+	 * @param EmprestimoIF
 	 * 		Empréstimo a ser verificado.
+	 * 
 	 * @throws Exception
 	 * 		Caso o parâmetro seja inválido.
 	 */
@@ -384,10 +422,12 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	/**
 	 * Verfica se o usuário possui algum amigo com o login especificado.
 	 * 
-	 * @param login
+	 * @param String
 	 * 		Login a ser pesquisado.
-	 * @return
+	 * 
+	 * @return UsuarioIF
 	 * 		O usuário do login, caso seja amigo realmente.
+	 * 
 	 * @throws Exception
 	 * 		Caso o login seja inexistente.
 	 */
@@ -398,7 +438,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	/**
 	 * Adiciona uma conversa off-topic à lista de conversas do usuário.
 	 * 
-	 * @param conversa
+	 * @param ChatIF
 	 * 		Conversa a ser adicionada.
 	 */
 	public void adicionaConversaOfftopicNaLista( ChatIF conversa ) throws Exception;
@@ -406,7 +446,7 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	/**
 	 * Adiciona uma conversa sobre uma negociação à lista de conversas do usuário.
 	 * 
-	 * @param conversa
+	 * @param ChatIF
 	 * 		Conversa a ser adicionada.
 	 */
 	public void adicionaConversaNegociacaoNaLista( ChatIF conversa ) throws Exception;
@@ -414,87 +454,322 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	/**
 	 * Envia uma mensagem off-topic.
 	 * 
-	 * @param destinatario
+	 * @param String
 	 * 		Destino da mensagem.
-	 * @param assunto
+	 * @param String
 	 * 		Assunto da mensagem.
-	 * @param mensagem
+	 * @param String
 	 * 		Mensagem a ser enviada.
-	 * @return
+	 * 
+	 * @return String
 	 * 		ID do tópico.
+	 * 
 	 * @throws Exception
 	 * 		Caso os parâmetros sejam inválidos.
 	 */
 	public String enviarMensagemOffTopic( String destinatario, String assunto, String mensagem ) throws Exception;
 	
 	/**
+	 * Envia mensagem de emprestimo
 	 * 
-	 * @param destinatario
-	 * @param assunto
-	 * @param mensagem
-	 * @param idRequisicaoEmprestimo
-	 * @return
+	 * @param String
+	 * 		destinatario da mensagem
+	 * @param String
+	 * 		assunto da mensagem
+	 * @param String
+	 * 		texto da mensagem
+	 * @param String idRequisicaoEmprestimo
+	 * 
+	 * @return String
+	 * 
 	 * @throws Exception
 	 */
 	public String enviarMensagemEmprestimo( String destinatario, String assunto, String mensagem, String idRequisicaoEmprestimo ) throws Exception;
 	
+	/**
+	 * Lê topicos
+	 * @param String
+	 * 		tipo do topico a ser lido
+	 * 
+	 * @return String
+	 * 		Topicos
+	 * 
+	 * @throws Exception
+	 */
 	public String lerTopicos( String tipo ) throws Exception;
 	
+	/**
+	 * Pesquisa um item
+	 * 
+	 * @param String
+	 * 		chave
+	 * @param String
+	 * 		atributo
+	 * @param String
+	 * 		tipoOrdenacao
+	 * @param String
+	 * 		criterioOrdenacao
+	 * 
+	 * @return String
+	 * 		Itens encontrados
+	 * 
+	 * @throws Exception
+	 */
 	public String pesquisarItem( String chave, String atributo, 
 			String tipoOrdenacao, String criterioOrdenacao ) throws Exception;
 	
+	/**
+	 * Incrementa a reputação do usuario
+	 */
 	public void incrementaReputacao();
+	
+	/**
+	 * Decrementa a reputação do usuario
+	 */
 	public void decrementaReputacao();
 	
+	/**
+	 * @return int
+	 * 		Reputação do usuario
+	 */
 	public int getReputacao();
 	
+	/**
+	 * Desfaz uma amizade
+	 * 
+	 * @param String
+	 * 		amigo a ser removido
+	 * 
+	 * @throws Exception
+	 */
 	public void desfazerAmizade( String amigo ) throws Exception;
 	
+	/**
+	 * Remove um amigo da lista
+	 * 
+	 * @param UsuarioIF
+	 * 		amigo a ser removido
+	 */
 	public void removerAmigoDaLista( UsuarioIF amigo );
 	
+	/**
+	 * Remove emprestimos requeridos por um amigo
+	 * 
+	 * @param UsuarioIF
+	 * 		amigo
+	 */
 	public void removerEmprestimosRequeridosPorAmigo( UsuarioIF amigo );
 	
+	/**
+	 * Remove emprestimos requeridos pelo usuario para um amigo
+	 * 
+	 * @param UsuarioIF
+	 * 		amigo
+	 */
 	public void removerEmprestimosRequeridosPorMim( UsuarioIF amigo );
 	
+	/**
+	 * Diz se um determinado item está incluido na lista de itens do usuario
+	 * 
+	 * @param String
+	 * 		id do item
+	 * 
+	 * @return boolean
+	 * 		True caso o item esteja incluido na lista de itens do usuario.
+	 * 
+	 * @throws Exception
+	 */
 	public boolean esteItemMePertence( String idItem ) throws Exception;
 
+	/**
+	 * Diz se um item já foi requisitado pelo usuario
+	 * 
+	 * @param String
+	 * 		id do item
+	 * 
+	 * @return String
+	 * 
+	 * @throws Exception
+	 */
 	public boolean requisiteiEsteItem( String idItem ) throws Exception;
 	
+	/** 
+	 * @return List<UsuarioIF>
+	 * 		Lista de amigos do usuario
+	 */
 	public List<UsuarioIF> getListaAmigos();
 	
+	/**
+	 * Apaga um determinado item da lista do usuario
+	 * 
+	 * @param String
+	 * 		id do item
+	 * 
+	 * @throws Exception
+	 */
 	public void apagarItem( String idItem ) throws Exception;
 	
+	/**
+	 * Remove a soliciacao de emprestimo feita pelo usuario
+	 * 
+	 * @param EmprestimoIF
+	 * 		emprestimo a ser removido
+	 */
 	public void removerMinhaSolicitacaoEmprestimo( EmprestimoIF emprestimo );
 
+	/**
+	 * Zera o historico do usuario
+	 */
 	public void zerarHistorico();
 	
+	/**
+	 * @return String
+	 * 		Historico do usuario
+	 * 
+	 * @throws ArgumentoInvalidoException
+	 */
 	public String getHistoricoToString() throws ArgumentoInvalidoException;
 
+	/**
+	 * Adiciona historico de emprestimo em andamento no usuario
+	 * 
+	 * @param UsuarioIF
+	 * 		amigo
+	 * @param ItemIF
+	 * 		item
+	 * 
+	 * @throws Exception
+	 */
 	public void addHistoricoEmprestimoEmAndamento(UsuarioIF amigo, ItemIF item) throws Exception;
 	
+	/**
+	 * Adiciona historico de amizade aprovada no usuario
+	 * 
+	 * @param UsuarioIF
+	 * 		amigo
+	 * 
+	 * @throws Exception
+	 */
 	public void addHistoricoAmizadeAprovada(UsuarioIF amigo) throws Exception;
 
+	/**
+	 * Registra interesse por um item
+	 * 
+	 * @param String
+	 * 		Id do item.
+	 * 
+	 * @throws Exception
+	 */
 	public void registrarInteressePorItem(String idItem) throws Exception;
 
+	/**
+	 * Adiciona historico de termino de emprestimo
+	 * 
+	 * @param ItemIF
+	 * 		item emprestado
+	 * 
+	 * @throws Exception
+	 */
 	public void addHistoricoTerminoEmprestimo(ItemIF item) throws Exception;
 
+	/**
+	 * Publica pedido de item
+	 * 
+	 * @param String
+	 * 		nome do Item
+	 * @param String
+	 * 		descricao do Item
+	 * 
+	 * @return String
+	 * 		ID da publicacao
+	 * 
+	 * @throws Exception
+	 */
 	public String publicarPedido(String nomeItem, String descricaoItem) throws Exception;
 
+	/**
+	 * Oferece Item
+	 * 
+	 * @param String
+	 * 		id da Publicacao de Pedido
+	 * @param String
+	 * 		id do Item
+	 * 
+	 * @throws Exception
+	 */
 	public void oferecerItem(String idPublicacaoPedido, String idItem) throws Exception;
 
+	/**
+	 * Republica pedido de Item
+	 * 
+	 * @param String
+	 * 		id da Publicacao de Pedido
+	 * 
+	 * @throws Exception
+	 */
 	public void republicarPedido(String idPublicacaoPedido) throws Exception;
 
+	/**
+	 * Envia uma Mensagem de Oferecimento de Item offtopic
+	 * 
+	 * @param String
+	 * 		destinatario
+	 * @param String
+	 * 		assunto
+	 * @param String
+	 * 		mensagem
+	 * 
+	 * @return String
+	 * 		ID da mensagem
+	 * 
+	 * @throws Exception
+	 */
 	public String enviarMensagemOferecimentoItemOffTopic(String destinatario,
 			String assunto, String mensagem) throws Exception;
 
+	/**
+	 * Cadastra e-mail de redefinicao de senha
+	 * 
+	 * @param String
+	 * 		email
+	 * 
+	 * @throws Exception
+	 */
 	public void cadastrarEmailRedefinicaoSenha(String email) throws Exception;
 
+	/**
+	 * Altera a senha do usuario
+	 * 
+	 * @param String
+	 * 		senha Atual
+	 * @param String
+	 * 		senha Nova
+	 * 
+	 * @throws Exception
+	 */
 	public void alterarSenha(String senhaAtual, String senhaNova) throws Exception;
 
+	/**
+	 * @return String
+	 * 		e-mail de redefinicao de senha.
+	 */
 	public String getEmailRedefinicaoSenha();
 
+	/**
+	 * Modifica cartao de acesso de redefinicao de senha
+	 * 
+	 * @param String senhaAleatoria
+	 * 
+	 * @throws Exception
+	 */
 	public void setCartaoAcessoRedefSenha(String senhaAleatoria) throws Exception;
 	
+	/**
+	 * @return String
+	 * 		Cartao de acesso a redefinição de senha
+	 * 
+	 * @throws Exception
+	 */
 	public String getCartaoAcessoRedefSenha() throws Exception;
 
 	
