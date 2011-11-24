@@ -16,10 +16,11 @@ public class Validador {
 	 * Testa se um dado objeto é nulo, passando-se uma mensagem de erro, que
 	 * será acoplada a uma ArgumentoInvalidoException
 	 * 
-	 * @param obj
-	 *            Objeto a ser verificado.
-	 * @param mensagem
-	 *            Mensagem da exceção gerada em caso do objeto ser nulo.
+	 * @param Object
+	 * 		Objeto a ser verificado.
+	 * @param String
+	 * 		Mensagem da exceção gerada em caso do objeto ser nulo.
+	 * 
 	 * @throws ArgumentoInvalidoException
 	 *             Exceção gerada em caso do objeto ser nulo.
 	 */
@@ -33,11 +34,15 @@ public class Validador {
 	 * espaços, passando-se uma mensagem de erro, que será acoplada a uma
 	 * ArgumentoInvalidoException
 	 * 
-	 * @param str
-	 *            String a ser testada.
-	 * @param mensagem
-	 *            Mensagem da exceção gerada em caso da String for inválida
+	 * @param String
+	 * 		String a ser testada.
+	 * @param String
+	 * 		Mensagem da exceção gerada em caso da String for inválida
 	 *            segundo os requisitos acima.
+	 * @param String
+	 * 		Mensagem da exceção gerada em caso da String for vazia
+	 *            segundo os requisitos acima.
+	 *            
 	 * @throws ArgumentoInvalidoException
 	 *             Exceção gerada em caso da String for inválida segundo os
 	 *             requisitos acima.
@@ -52,10 +57,11 @@ public class Validador {
 	 * Testa se um valor é verdadeiro. Caso seja falso lança uma
 	 * ArgumentoInvalidoException.
 	 * 
-	 * @param bool
-	 *            Boolean a ser verificado.
-	 * @param mensagem
-	 *            Mensagem para a exceção gerada, se for o caso.
+	 * @param boolean
+	 *      Boolean a ser verificado.
+	 * @param String
+	 * 		Mensagem para a exceção gerada, se for o caso.
+	 *            
 	 * @throws ArgumentoInvalidoException
 	 *             Exceção gerada em caso do boolean ser false.
 	 */
