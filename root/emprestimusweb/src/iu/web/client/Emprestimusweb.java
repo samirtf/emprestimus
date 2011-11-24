@@ -1,40 +1,33 @@
 package iu.web.client;
 
+import iu.web.client.view.Home;
 import iu.web.client.view.Login;
-import iu.web.shared.VerificadorDeCampos;
+
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyUpEvent;
-import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class Emprestimusweb implements EntryPoint {
+	Controlador controlador = new Controlador(this);
+	String idSessao;
 
 	/**
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-		Login compositeLogin = new Login();
+		Login compositeLogin = new Login(controlador);
 		compositeLogin.setVisible(true);
 		RootPanel.get("nameFieldContainer").add(compositeLogin);
-		
+
 //		new Image("emprestimusweb/gwt/clean/imagens/mj.jpg")
 	}
+	
+	public void abrirSessao(String idSessao) {
+		Home compositeHome = new Home(controlador);
+		compositeHome.setVisible(true);
+		RootPanel.get("nameFieldContainer").add(compositeHome);
+	}
+	
 }

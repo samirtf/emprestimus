@@ -1,7 +1,9 @@
 package iu.web.server;
 
+import java.rmi.UnexpectedException;
 import java.util.regex.Pattern;
 
+import iu.Emprestimus;
 import iu.web.client.GreetingService;
 import iu.web.shared.VerificadorDeCampos;
 import iu.web.shared.MensagensWeb;
@@ -15,32 +17,51 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class GreetingServiceImpl extends RemoteServiceServlet implements GreetingService {
 
 	public String greetServer(String input) throws IllegalArgumentException {
-		String nome = null;
-		String senha = null;
 		try {
 			String[] array = input.split(Pattern.quote("|"));
-			nome = array[0];
-			senha = array[1];
+			
+			if (array[0].equalsIgnoreCase("login")) {
+				return realizaLogin(array[1], array[2]);
+			} else if (array[0].equalsIgnoreCase("cadastro")) {
+				return cadastraUsuario(array[1], array[2], array[3], array[4]);
+			}
+		} catch (UnexpectedException e){
+			throw new IllegalArgumentException("Entrada inconsistente");
 		} catch (Exception e) {
-			throw new IllegalArgumentException("Entrada inconsistente");			
+			throw new IllegalArgumentException(e);
 		}
-		// Verify that the input is valid. 
-		if (!VerificadorDeCampos.ehNickValido(nome)) {
-			// If the nome is not valid, throw an IllegalArgumentException back to
-			// the client.
-			throw new IllegalArgumentException(MensagensWeb.NOME_CURTO.getMensagem());
+		return "Opçao inválida";
+	}
+
+	/**
+	 * 
+	 * @param nick
+	 * @param senha
+	 * @throws Exception
+	 */
+	private String realizaLogin(String nick, String senha) throws Exception {
+		if (!VerificadorDeCampos.ehNickValido(nick)) {
+			throw new Exception(MensagensWeb.NOME_CURTO.getMensagem());
 		} else if (!VerificadorDeCampos.ehSenhaValida(senha)) {
-			// If the senha is not valid, throw an IllegalArgumentException back to
-			// the client.
-			throw new IllegalArgumentException(MensagensWeb.SENHA_CURTA.getMensagem());
+			throw new Exception(MensagensWeb.SENHA_CURTA.getMensagem());
 		}
+		return Emprestimus.getInstance().abrirSessao(nick, senha);
+		
+	}
 
-
-//		// Escape data from the client to avoid cross-site script vulnerabilities.
-//		nome = escapeHtml(nome);
-//		senha = escapeHtml(senha);
-
-		return nome;
+	/**
+	 * 
+	 * @param nome
+	 * @param nick
+	 * @param endereco
+	 * @param senha
+	 * @return 
+	 * @throws Exception
+	 */
+	private String cadastraUsuario(String nome, String nick, String endereco,
+			String senha) throws Exception {
+		Emprestimus.getInstance().criarUsuario(nick, senha, nome, endereco);
+		return realizaLogin(nick, senha);
 	}
 
 	/**
@@ -50,11 +71,11 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements Greetin
 	 * @param html the html string to escape
 	 * @return the escaped string
 	 */
-	private String escapeHtml(String html) {
-		if (html == null) {
-			return null;
-		}
-		return html.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">",
-				"&gt;");
-	}
+//	private String escapeHtml(String html) {
+//		if (html == null) {
+//			return null;
+//		}
+//		return html.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">",
+//				"&gt;");
+//	}
 }

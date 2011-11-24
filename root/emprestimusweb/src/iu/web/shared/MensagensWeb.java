@@ -6,7 +6,8 @@ package iu.web.shared;
  */
 public enum MensagensWeb {
 	NOME_CURTO("O nome deve ter pelo menos 4 caracteres"),
-	SENHA_CURTA("A senha deve ter pelo menos 6 caracteres");
+	SENHA_CURTA("A senha deve ter pelo menos 6 caracteres"),
+	FALHA_NA_AUTENTICACAO("Falha na autenticação");
 	
 	private String mensagem;
 	

@@ -32,14 +32,14 @@ public class VerificadorDeCampos {
 	 * that usernames, passwords, email addresses, URLs, and other fields have the
 	 * proper syntax.
 	 * 
-	 * @param nome the name to validate
+	 * @param nick the name to validate
 	 * @return true if valid, false if invalid
 	 */
-	public static boolean ehNickValido(String nome) {
-		if (nome == null || nome.contains("|")) {
+	public static boolean ehNickValido(String nick) {
+		if (nick == null || nick.contains("|")) {
 			return false;
 		}
-		return nome.length() > 3;
+		return nick.length() > 3;
 	}
 
 	/**
@@ -58,8 +58,10 @@ public class VerificadorDeCampos {
 	 * @return
 	 */
 	public static boolean ehNomeValido(String nome) {
-		// TODO Auto-generated method stub
-		return false;
+		if (nome == null || nome.contains("|")) {
+			return false;
+		}
+		return nome.length() > 3;
 	}
 
 	/**
@@ -67,7 +69,9 @@ public class VerificadorDeCampos {
 	 * @return
 	 */
 	public static boolean ehEnderecoValido(String endereco) {
-		// TODO Auto-generated method stub
-		return false;
+		if (endereco == null || endereco.contains("|")) {
+			return false;
+		}
+		return endereco.length() > 3;
 	}
 }

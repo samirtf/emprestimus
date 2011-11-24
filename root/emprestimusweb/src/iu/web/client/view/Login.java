@@ -1,7 +1,9 @@
 package iu.web.client.view;
 
+import iu.web.client.Controlador;
 import iu.web.client.GreetingService;
 import iu.web.client.GreetingServiceAsync;
+import iu.web.shared.MensagensWeb;
 import iu.web.shared.VerificadorDeCampos;
 
 import com.google.gwt.core.client.GWT;
@@ -15,10 +17,10 @@ import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.InlineHTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.InlineHTML;
 
 /**
  * Painel de login
@@ -46,7 +48,10 @@ public class Login extends Composite {
 	private PasswordTextBox ptbSenha2;
 	private Button btnCadastrar;
 	
-	public Login() {
+	private Controlador controlador;
+
+	public Login(Controlador controlador) {
+		this.controlador = controlador;
 		
 		painelLogin = new AbsolutePanel();
 		initWidget(painelLogin);
@@ -86,7 +91,7 @@ public class Login extends Composite {
 		painelLogin.add(ptbLoginSenha, 687, 36);
 		
 		btnLogin = new Button("Login");
-		painelLogin.add(btnLogin, 797, 74);
+		painelLogin.add(btnLogin, 797, 76);
 		
 		lblErro = new Label("");
 		lblErro.setStyleName("serverResponseLabelError");
@@ -96,22 +101,22 @@ public class Login extends Composite {
 	private void iniciaComponentesDoCadastro() {
 		Label lblNovoPorAqui = new Label("Novo por aqui? Faça um cadastro:");
 		lblNovoPorAqui.setStyleName("nathaniel1");
-		painelLogin.add(lblNovoPorAqui, 560, 203);
+		painelLogin.add(lblNovoPorAqui, 538, 202);
 		
 		Label lblNomeCompleto = new Label("Nome Completo:");
-		painelLogin.add(lblNomeCompleto, 482, 249);
+		painelLogin.add(lblNomeCompleto, 482, 238);
 		
 		Label lblNick = new Label("Nick:");
-		painelLogin.add(lblNick, 549, 289);
+		painelLogin.add(lblNick, 549, 280);
 		
 		Label lblEndereo = new Label("Endereço:");
-		painelLogin.add(lblEndereo, 520, 329);
+		painelLogin.add(lblEndereo, 520, 320);
 		
 		Label lblSenha = new Label("Senha:");
-		painelLogin.add(lblSenha, 538, 367);
+		painelLogin.add(lblSenha, 538, 358);
 		
 		Label lblRepitaASenha = new Label("Repita a senha:");
-		painelLogin.add(lblRepitaASenha, 488, 405);
+		painelLogin.add(lblRepitaASenha, 488, 396);
 		
 		txtNomeCompleto = new TextBox();
 		painelLogin.add(txtNomeCompleto, 585, 233);
@@ -182,24 +187,25 @@ public class Login extends Composite {
 			String nick = txtLoginNick.getText();
 			String senha = ptbLoginSenha.getText();
 			if (!VerificadorDeCampos.ehNickValido(nick)) {
-				lblErro.setText("Nome inválido");
+				lblErro.setText(MensagensWeb.FALHA_NA_AUTENTICACAO.getMensagem());
 				return;
 			} else if (!VerificadorDeCampos.ehSenhaValida(senha)) {
-				lblErro.setText("Senha inválida");
+				lblErro.setText(MensagensWeb.FALHA_NA_AUTENTICACAO.getMensagem());
 				return;
 			}
 
-			btnLogin.setEnabled(false);
-			txtLoginNick.setEnabled(false);
-			ptbLoginSenha.setEnabled(false);
-			greetingService.greetServer(nick+"|"+senha, new AsyncCallback<String>() {
+//			btnLogin.setEnabled(false);
+//			txtLoginNick.setEnabled(false);
+//			ptbLoginSenha.setEnabled(false);
+			greetingService.greetServer("login|"+nick+"|"+senha, new AsyncCallback<String>() {
 				public void onFailure(Throwable caught) {
-					lblErro.setText("Falha na conexão!");
+					lblErro.setText(MensagensWeb.FALHA_NA_AUTENTICACAO.getMensagem());
 				}
 
-				public void onSuccess(String result) {
-					lblErro.setText("Sucesso: " + result);
-					//TODO
+				public void onSuccess(String idSessao) {
+					lblErro.setText("Sucesso: " + idSessao);
+					removeFromParent();
+					controlador.abrirSessao(idSessao);
 				}
 			});
 		}
@@ -214,7 +220,6 @@ public class Login extends Composite {
 	class MyHandlerCadastro implements ClickHandler, KeyUpHandler {
 		public void onClick(ClickEvent event) {
 			enviaAoServidor();
-			
 		}
 		public void onKeyUp(KeyUpEvent event) {
 			if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
@@ -233,35 +238,35 @@ public class Login extends Composite {
 			String senha2 = ptbSenha2.getText();
 			
 			if (!VerificadorDeCampos.ehNomeValido(nome)) {
-				//TODO
+				txtNomeCompleto.selectAll();
 				return;
 			} else if (!VerificadorDeCampos.ehNickValido(nick)) {
-				//TODO
+				txtNick.selectAll();
 				return;
 			} else if (!VerificadorDeCampos.ehEnderecoValido(endereco)) {
-				//TODO
+				txtEndereco.selectAll();
 				return;
 			} else if (!senha.equals(senha2)) {
-				//TODO
+				ptbSenha.selectAll();
 				return;
 			} else if (!VerificadorDeCampos.ehSenhaValida(senha)) {
-				//TODO
+				ptbSenha.selectAll();
 				return;
 			}
 
-			btnCadastrar.setEnabled(false);
-			txtNomeCompleto.setEnabled(false);
-			txtNick.setEnabled(false);
-			txtEndereco.setEnabled(false);
-			ptbSenha.setEnabled(false);
-			ptbSenha2.setEnabled(false);
+//			btnCadastrar.setEnabled(false);
+//			txtNomeCompleto.setEnabled(false);
+//			txtNick.setEnabled(false);
+//			txtEndereco.setEnabled(false);
+//			ptbSenha.setEnabled(false);
+//			ptbSenha2.setEnabled(false);
 			
-			greetingService.greetServer(nome+"|"+nick+"|"+endereco+"|"+senha, new AsyncCallback<String>() {
+			greetingService.greetServer("cadastro|"+nome+"|"+nick+"|"+endereco+"|"+senha, new AsyncCallback<String>() {
 				public void onFailure(Throwable caught) {
-					//TODO
+					lblErro.setText(caught.getMessage());
 				}
 				public void onSuccess(String result) {
-					//TODO
+					lblErro.setText("Suceso!!!");
 				}
 			});
 		}
