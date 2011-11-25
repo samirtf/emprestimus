@@ -79,7 +79,7 @@ public class Login extends Composite {
 	}
 
 	private void iniciaComponentesDoLogin() {
-		Label lblLoginNick = new Label("Nick:");
+		Label lblLoginNick = new Label("Username:");
 		painelLogin.add(lblLoginNick, 508, 10);
 		
 		Label lblLoginSenha = new Label("Senha:");
@@ -150,9 +150,9 @@ public class Login extends Composite {
 	
 	private void iniciaComponentesDoLadoEsquerdo() {
 		
-		Image image_1 = new Image("emprestimusweb/e.png");
-		painelLogin.add(image_1, 20, 6);
-		image_1.setSize("100px", "100px");
+		Image image_1 = new Image("emprestimusweb/logo2.png");
+		painelLogin.add(image_1, 31, 10);
+		image_1.setSize("400px", "127px");
 
 		Image imagem3 = new Image("emprestimusweb/gwt/clean/imagens/mj.jpg");
 		painelLogin.add(imagem3, 10, 382);
@@ -169,10 +169,6 @@ public class Login extends Composite {
 		InlineHTML textoHTML = new InlineHTML("<big>Pra quê comprar um novo se você pode pedir emprestado?</big><br><br>\r\nEmprestimus é a primeira rede social de empréstimos do Brasil, aqui você pode conseguir filmes, jogos, livros e muito mais...<br>\r\nConheça novas pessoas, saiba quem mora perto de você que pode lhe emprestar um ítem que você deseja. Troque mensagens com seus amigos, empreste seus ítens para aumentar sua reputação, faça Emprestimus!<br><br>\r\nCrie agora uma conta grátis ou use seu Emprestimus Nick para entrar no sistema.");
 		painelLogin.add(textoHTML, 129, 190);
 		textoHTML.setSize("291px", "279px");
-		
-		Image image = new Image("emprestimusweb/logo.png");
-		painelLogin.add(image, 10, 10);
-		image.setSize("418px", "80px");
 	}
 
 	/**
