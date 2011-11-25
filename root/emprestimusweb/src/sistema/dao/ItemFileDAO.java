@@ -19,7 +19,7 @@ public class ItemFileDAO implements ItemDAO {
 	 * 		O id do proximo item a ser cadastrado.
 	 */
 	public String calculaIdProxItem() {
-		return ItemRepositorio.calculaIdProxItem();
+		return ItemRepositorio.geraIdProxItem();
 	}
 
 	/**
