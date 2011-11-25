@@ -105,8 +105,8 @@ public class Login extends Composite {
 		lblNovoPorAqui.setStyleName("nathaniel1");
 		painelLogin.add(lblNovoPorAqui, 538, 202);
 		
-		Label lblNomeCompleto = new Label("Nome Completo:");
-		painelLogin.add(lblNomeCompleto, 482, 238);
+		Label lblNomeCompleto = new Label("Nome:");
+		painelLogin.add(lblNomeCompleto, 538, 244);
 		
 		Label lblNick = new Label("Nick:");
 		painelLogin.add(lblNick, 549, 280);
@@ -149,9 +149,10 @@ public class Login extends Composite {
 	}
 	
 	private void iniciaComponentesDoLadoEsquerdo() {
-		Label lblEmprestimus = new Label("Emprestimus"); //nome Emprestimus grande
-		lblEmprestimus.setStyleName("nathaniel2");
-		painelLogin.add(lblEmprestimus, 10, 10);
+		
+		Image image_1 = new Image("emprestimusweb/e.png");
+		painelLogin.add(image_1, 20, 6);
+		image_1.setSize("100px", "100px");
 
 		Image imagem3 = new Image("emprestimusweb/gwt/clean/imagens/mj.jpg");
 		painelLogin.add(imagem3, 10, 382);
@@ -165,9 +166,13 @@ public class Login extends Composite {
 		painelLogin.add(imagem1, 10, 165);
 		imagem1.setSize("100px", "100px");
 		
-		InlineHTML textoHTML = new InlineHTML("<big>Pra que comprar um novo se você pode pedir emprestado?</big><br><br>\r\nEmprestimus é a primeira rede social de empréstimos do Brasil, aqui você pode conseguir filmes, jogos, livros e muito mais...<br>\r\nConheça novas pessoas, saiba quem mora perto de você que pode lhe emprestar um ítem que você deseja. Troque mensagens com seus amigos, empreste seus ítens para aumentar sua reputação, faça Emprestimus!<br><br>\r\nCrie agora uma conta grátis ou use seu Emprestimus Nick para entrar no sistema.");
+		InlineHTML textoHTML = new InlineHTML("<big>Pra quê comprar um novo se você pode pedir emprestado?</big><br><br>\r\nEmprestimus é a primeira rede social de empréstimos do Brasil, aqui você pode conseguir filmes, jogos, livros e muito mais...<br>\r\nConheça novas pessoas, saiba quem mora perto de você que pode lhe emprestar um ítem que você deseja. Troque mensagens com seus amigos, empreste seus ítens para aumentar sua reputação, faça Emprestimus!<br><br>\r\nCrie agora uma conta grátis ou use seu Emprestimus Nick para entrar no sistema.");
 		painelLogin.add(textoHTML, 129, 190);
 		textoHTML.setSize("291px", "279px");
+		
+		Image image = new Image("emprestimusweb/logo.png");
+		painelLogin.add(image, 10, 10);
+		image.setSize("418px", "80px");
 	}
 
 	/**
