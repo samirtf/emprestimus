@@ -1,12 +1,12 @@
 package iu.web.server;
 
-import java.rmi.UnexpectedException;
-import java.util.regex.Pattern;
-
 import iu.Emprestimus;
 import iu.web.client.GreetingService;
-import iu.web.shared.VerificadorDeCampos;
 import iu.web.shared.MensagensWeb;
+import iu.web.shared.UsuarioSimples;
+import iu.web.shared.VerificadorDeCampos;
+import sistema.autenticacao.Autenticacao;
+import sistema.usuario.UsuarioIF;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -16,52 +16,33 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 @SuppressWarnings("serial")
 public class GreetingServiceImpl extends RemoteServiceServlet implements GreetingService {
 
-	public String greetServer(String input) throws IllegalArgumentException {
-		try {
-			String[] array = input.split(Pattern.quote("|"));
-			
-			if (array[0].equalsIgnoreCase("login")) {
-				return realizaLogin(array[1], array[2]);
-			} else if (array[0].equalsIgnoreCase("cadastro")) {
-				return cadastraUsuario(array[1], array[2], array[3], array[4]);
-			}
-		} catch (UnexpectedException e){
-			throw new IllegalArgumentException("Entrada inconsistente");
-		} catch (Exception e) {
-			throw new IllegalArgumentException(e);
-		}
-		return "Opçao inválida";
-	}
-
-	/**
-	 * 
-	 * @param nick
-	 * @param senha
-	 * @throws Exception
-	 */
-	private String realizaLogin(String nick, String senha) throws Exception {
-		if (!VerificadorDeCampos.ehNickValido(nick)) {
-			throw new Exception(MensagensWeb.NOME_CURTO.getMensagem());
+	@Override
+	public String login(String login, String senha) throws Exception {
+		if (!VerificadorDeCampos.ehNickValido(login)) {
+			throw new IllegalArgumentException(MensagensWeb.NOME_CURTO.getMensagem());
 		} else if (!VerificadorDeCampos.ehSenhaValida(senha)) {
-			throw new Exception(MensagensWeb.SENHA_CURTA.getMensagem());
+			throw new IllegalArgumentException(MensagensWeb.SENHA_CURTA.getMensagem());
 		}
-		return Emprestimus.getInstance().abrirSessao(nick, senha);
-		
+		return Emprestimus.getInstance().abrirSessao(login, senha);
 	}
 
-	/**
-	 * 
-	 * @param nome
-	 * @param nick
-	 * @param endereco
-	 * @param senha
-	 * @return 
-	 * @throws Exception
-	 */
-	private String cadastraUsuario(String nome, String nick, String endereco,
-			String senha) throws Exception {
-		Emprestimus.getInstance().criarUsuario(nick, senha, nome, endereco);
-		return realizaLogin(nick, senha);
+	@Override
+	public String cadastra(String nome, String login, String endereco, String senha) throws Exception {
+		Emprestimus.getInstance().criarUsuario(login, senha, nome, endereco);
+		return login(login, senha);
+	}
+
+	@Override
+	public UsuarioSimples getUsuarioSimples(String idSessao) throws Exception {
+		UsuarioIF usuario = Autenticacao.getInstance().getUsuarioPeloIDSessao(idSessao);
+		
+		UsuarioSimples usuarioSimples = new UsuarioSimples();
+		usuarioSimples.setId("...ID...");
+		usuarioSimples.setNome(usuario.getNome());
+		usuarioSimples.setFoto("...FOTO...");
+		usuarioSimples.setHistorico(usuario.getHistoricoToString());
+		
+		return usuarioSimples;
 	}
 
 	/**

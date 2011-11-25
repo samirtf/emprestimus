@@ -1,5 +1,7 @@
 package iu.web.client;
 
+import iu.web.shared.UsuarioSimples;
+
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
@@ -8,5 +10,9 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  */
 @RemoteServiceRelativePath("greet")
 public interface GreetingService extends RemoteService {
-	String greetServer(String name) throws IllegalArgumentException;
+	String login(String login, String senha) throws Exception;
+
+	String cadastra(String nome, String login, String endereco, String senha) throws Exception;
+	
+	UsuarioSimples getUsuarioSimples(String idSessao) throws Exception;
 }

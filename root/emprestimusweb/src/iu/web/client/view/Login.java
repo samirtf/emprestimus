@@ -47,6 +47,7 @@ public class Login extends Composite {
 	private PasswordTextBox ptbSenha;
 	private PasswordTextBox ptbSenha2;
 	private Button btnCadastrar;
+	private Label lblErroCadastro;
 	
 	private Controlador controlador;
 
@@ -55,7 +56,7 @@ public class Login extends Composite {
 		
 		painelLogin = new AbsolutePanel();
 		initWidget(painelLogin);
-		painelLogin.setSize("877px", "492px");
+		painelLogin.setSize("877px", "543px");
 		
 		iniciaComponentesDoLogin();
 		iniciaComponentesDoCadastro();
@@ -86,6 +87,7 @@ public class Login extends Composite {
 		
 		txtLoginNick = new TextBox();
 		painelLogin.add(txtLoginNick, 508, 34);
+		txtLoginNick.setFocus(true);
 		
 		ptbLoginSenha = new PasswordTextBox();
 		painelLogin.add(ptbLoginSenha, 687, 36);
@@ -140,6 +142,10 @@ public class Login extends Composite {
 		
 		btnCadastrar = new Button("Cadastrar");
 		painelLogin.add(btnCadastrar, 772, 425);
+		
+		lblErroCadastro = new Label("");
+		lblErroCadastro.setStyleName("serverResponseLabelError");
+		painelLogin.add(lblErroCadastro, 585, 464);
 	}
 	
 	private void iniciaComponentesDoLadoEsquerdo() {
@@ -188,22 +194,23 @@ public class Login extends Composite {
 			String senha = ptbLoginSenha.getText();
 			if (!VerificadorDeCampos.ehNickValido(nick)) {
 				lblErro.setText(MensagensWeb.FALHA_NA_AUTENTICACAO.getMensagem());
+				txtLoginNick.selectAll();
+				txtLoginNick.setFocus(true);
 				return;
 			} else if (!VerificadorDeCampos.ehSenhaValida(senha)) {
 				lblErro.setText(MensagensWeb.FALHA_NA_AUTENTICACAO.getMensagem());
+				ptbLoginSenha.selectAll();
+				ptbLoginSenha.setFocus(true);
 				return;
 			}
 
-//			btnLogin.setEnabled(false);
-//			txtLoginNick.setEnabled(false);
-//			ptbLoginSenha.setEnabled(false);
-			greetingService.greetServer("login|"+nick+"|"+senha, new AsyncCallback<String>() {
+			greetingService.login(nick, senha, new AsyncCallback<String>() {
 				public void onFailure(Throwable caught) {
 					lblErro.setText(MensagensWeb.FALHA_NA_AUTENTICACAO.getMensagem());
+					
 				}
 
 				public void onSuccess(String idSessao) {
-					lblErro.setText("Sucesso: " + idSessao);
 					removeFromParent();
 					controlador.abrirSessao(idSessao);
 				}
@@ -230,7 +237,10 @@ public class Login extends Composite {
 				}
 			}
 		}
+		
 		private void enviaAoServidor() {
+			lblErroCadastro.setStyleName("serverResponseLabelError");
+			lblErroCadastro.setText("");
 			String nome = txtNomeCompleto.getText();
 			String nick = txtNick.getText();
 			String endereco = txtEndereco.getText();
@@ -238,35 +248,50 @@ public class Login extends Composite {
 			String senha2 = ptbSenha2.getText();
 			
 			if (!VerificadorDeCampos.ehNomeValido(nome)) {
+				lblErroCadastro.setText("O nome não é válido");
 				txtNomeCompleto.selectAll();
+				txtNomeCompleto.setFocus(true);
 				return;
 			} else if (!VerificadorDeCampos.ehNickValido(nick)) {
+				lblErroCadastro.setText("O nick não é válido");
 				txtNick.selectAll();
+				txtNick.setFocus(true);
 				return;
 			} else if (!VerificadorDeCampos.ehEnderecoValido(endereco)) {
+				lblErroCadastro.setText("O endereço não é válido");
 				txtEndereco.selectAll();
+				txtEndereco.setFocus(true);
 				return;
 			} else if (!senha.equals(senha2)) {
+				lblErroCadastro.setText("As senhas não são igualis");
 				ptbSenha.selectAll();
+				ptbSenha.setFocus(true);
 				return;
 			} else if (!VerificadorDeCampos.ehSenhaValida(senha)) {
+				lblErroCadastro.setText("A senha não é válida");
 				ptbSenha.selectAll();
+				ptbSenha.setFocus(true);
 				return;
 			}
 
-//			btnCadastrar.setEnabled(false);
-//			txtNomeCompleto.setEnabled(false);
-//			txtNick.setEnabled(false);
-//			txtEndereco.setEnabled(false);
-//			ptbSenha.setEnabled(false);
-//			ptbSenha2.setEnabled(false);
-			
-			greetingService.greetServer("cadastro|"+nome+"|"+nick+"|"+endereco+"|"+senha, new AsyncCallback<String>() {
+			greetingService.cadastra(nome, nick, endereco, senha, new AsyncCallback<String>() {
 				public void onFailure(Throwable caught) {
-					lblErro.setText(caught.getMessage());
+					lblErroCadastro.setText(caught.getMessage());
+					txtNomeCompleto.selectAll();
+					txtNomeCompleto.setFocus(true);
 				}
 				public void onSuccess(String result) {
-					lblErro.setText("Suceso!!!");
+					txtNomeCompleto.setText("");
+					txtNick.setText("");
+					txtEndereco.setText("");
+					ptbSenha.setText("");
+					ptbSenha2.setText("");
+					
+					lblErroCadastro.setStyleName("label");
+					lblErroCadastro.setText("Novo usuário cadastrado com sucesso");
+					
+					txtLoginNick.selectAll();
+					txtLoginNick.setFocus(true);
 				}
 			});
 		}
