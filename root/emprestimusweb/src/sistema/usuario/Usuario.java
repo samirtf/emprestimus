@@ -52,6 +52,8 @@ public class Usuario implements UsuarioIF {
 	
 	private double longitude, latitude;
 
+	private String caminhoImagemPerfil;
+
 	/**
 	 * Construtor padrao eh privado e nao oferece implementacao.
 	 */
@@ -603,6 +605,20 @@ public class Usuario implements UsuarioIF {
 	@Override
 	public String getEmailRedefinicaoSenha() {
 		return this.emailRedefSenha;
+	}
+
+	@Override
+	public String getCaminhaImagemPerfil() {
+		return this.caminhoImagemPerfil;
+	}
+
+	@Override
+	public void setCaminhoImagemPerfil(String caminhoImagemPerfil)
+			throws Exception {
+		
+		Validador.assertStringNaoVazia(caminhoImagemPerfil, Mensagem.CAMINHO_IMG_INVALIDA.getMensagem(), Mensagem.CAMINHO_IMG_INVALIDA.getMensagem());
+		this.caminhoImagemPerfil = caminhoImagemPerfil;
+		
 	}
 
 	

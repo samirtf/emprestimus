@@ -772,5 +772,19 @@ public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
 	 */
 	public String getCartaoAcessoRedefSenha() throws Exception;
 
+	/**
+	 * Recupera o caminho da imagem da foto.
+	 * @return
+	 * 		O caminho da localização da imagem.
+	 */
+	public String getCaminhaImagemPerfil();
+	
+	/**
+	 * Configura um caminho para a imagem do perfil.
+	 * @param caminhoImagemPerfil
+	 * 		O caminho para a imagem do perfil.
+	 * @throws Exception
+	 */
+	public void setCaminhoImagemPerfil(String caminhoImagemPerfil) throws Exception;
 	
 }
