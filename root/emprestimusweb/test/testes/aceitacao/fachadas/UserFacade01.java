@@ -1,7 +1,7 @@
 package testes.aceitacao.fachadas;
 
-import iu.Emprestimus;
-import iu.EmprestimusIF;
+import iu.web.shared.Emprestimus;
+import iu.web.shared.EmprestimusIF;
 
 
 

@@ -1,0 +1,62 @@
+package iu.web.server.sistema.mensagem;
+
+import java.util.Date;
+import java.util.GregorianCalendar;
+
+import com.sun.swing.internal.plaf.synth.resources.synth;
+
+public class MensagemChat implements MensagemChatIF, Comparable<MensagemChatIF> {
+
+	String mensagem = "";
+	Date data;
+
+	public MensagemChat(String mensagem) {
+		this.mensagem = mensagem;
+		setData();
+	}
+
+	public synchronized void setData() {
+		try {
+			// atrasar em 2 milisegundo para a mensagem ser ordenada
+			// corretamente
+			Thread.sleep(3);
+		} catch (InterruptedException e) {
+
+			e.printStackTrace();
+		}
+		this.data = new GregorianCalendar().getTime();
+
+	}
+
+	@Override
+	public String getMensagem() {
+		return mensagem;
+	}
+
+	@Override
+	public void setMensagem(String mensagem) {
+		this.mensagem = mensagem;
+	}
+
+	@Override
+	public Date getData() {
+		return data;
+	}
+
+	@Override
+	public synchronized void setData(Date data) {
+		this.data = data;
+	}
+
+	@Override
+	public String toString() {
+		return "DATA:" + (String.format("%1$te/%1$tm/%1$tY - %tT", data)) + " MENSAGEM:"
+				+ mensagem;
+	}
+
+	@Override
+	public synchronized int compareTo(MensagemChatIF outra) {
+		return getData().compareTo(outra.getData());
+	}
+
+}

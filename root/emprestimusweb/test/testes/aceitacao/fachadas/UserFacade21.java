@@ -1,6 +1,6 @@
 package testes.aceitacao.fachadas;
 
-import sistema.autenticacao.ServicoRecuperacaoSenhaUsuario;
+import iu.web.server.sistema.autenticacao.ServicoRecuperacaoSenhaUsuario;
 
 public class UserFacade21 extends UserFacade20 {
 

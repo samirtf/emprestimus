@@ -1,12 +1,12 @@
 package iu.web.server;
 
-import iu.Emprestimus;
 import iu.web.client.GreetingService;
+import iu.web.server.sistema.autenticacao.Autenticacao;
+import iu.web.server.sistema.usuario.UsuarioIF;
+import iu.web.shared.Emprestimus;
 import iu.web.shared.MensagensWeb;
 import iu.web.shared.UsuarioSimples;
 import iu.web.shared.VerificadorDeCampos;
-import sistema.autenticacao.Autenticacao;
-import sistema.usuario.UsuarioIF;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 

@@ -1,7 +1,7 @@
 package testes.aceitacao.fachadas;
 
-import iu.Emprestimus;
-import iu.EmprestimusIF;
+import iu.web.shared.Emprestimus;
+import iu.web.shared.EmprestimusIF;
 
 /**
  * UFCG - CEEI - DSC- SI1 Projeto da Disciplina Sistema de Informa��o 1 - 2011.2

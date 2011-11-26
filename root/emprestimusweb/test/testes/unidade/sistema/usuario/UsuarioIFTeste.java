@@ -1,10 +1,10 @@
 package testes.unidade.sistema.usuario;
 
-import sistema.autenticacao.Autenticacao;
-import sistema.dao.ItemFileDAO;
-import sistema.persistencia.ItemRepositorio;
-import sistema.usuario.Usuario;
-import sistema.usuario.UsuarioIF;
+import iu.web.server.sistema.autenticacao.Autenticacao;
+import iu.web.server.sistema.dao.ItemFileDAO;
+import iu.web.server.sistema.persistencia.ItemRepositorio;
+import iu.web.server.sistema.usuario.Usuario;
+import iu.web.server.sistema.usuario.UsuarioIF;
 import junit.framework.Assert;
 import junit.framework.Test;
 import junit.framework.TestCase;
