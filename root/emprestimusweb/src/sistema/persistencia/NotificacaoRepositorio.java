@@ -133,4 +133,9 @@ public class NotificacaoRepositorio {
 		notificacoesCadastradas = new TreeMap<Long, Notificacao>();
 		contadorID = 0;
 	}
+
+	public void salvarEmArquivo() {
+		// TODO Auto-generated method stub
+		
+	}
 }

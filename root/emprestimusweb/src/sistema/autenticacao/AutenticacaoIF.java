@@ -4,9 +4,10 @@ import java.util.Collection;
 import java.util.List;
 
 import sistema.item.ItemIF;
+import sistema.persistencia.PersistenciaListener;
 import sistema.usuario.UsuarioIF;
 
-public interface AutenticacaoIF {
+public interface AutenticacaoIF extends PersistenciaListener {
 	
 	/**
 	 * Reseta o sistema para as configurações iniciais

@@ -336,4 +336,9 @@ public class GerenciadorDeNotificacoes {
 		GerenciadorDeNotificacoes.historicos.clear();
 	}
 
+	public void salvarEmArquivo() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

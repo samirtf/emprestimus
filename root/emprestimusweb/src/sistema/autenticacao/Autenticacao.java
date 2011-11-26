@@ -287,4 +287,10 @@ public class Autenticacao implements AutenticacaoIF {
 			throw new Exception(Mensagem.SESSAO_JAH_ENCERRADA.getMensagem());
 		}
 	}
+
+	@Override
+	public void notificaPersistenciaDoSistema() {
+		// TODO Auto-generated method stub
+		
+	}
 }

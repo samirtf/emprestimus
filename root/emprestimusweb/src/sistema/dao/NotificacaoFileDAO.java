@@ -18,33 +18,32 @@ public class NotificacaoFileDAO implements NotificacaoDAO {
 	@Override
 	public synchronized Notificacao recuperarNotificacao(String idNotificacao)
 			throws Exception {
-		return null;
+		return NotificacaoRepositorio.getInstance().recuperarNotificacao(idNotificacao);
 	}
 
 	@Override
 	public synchronized int qntNotificacoes() {
-		return 0;
+		return NotificacaoRepositorio.getInstance().qntNotificacoes();
 	}
 
 	@Override
 	public synchronized boolean existeNotificacao(String idNotificacao) {
-		return false;
+		return NotificacaoRepositorio.getInstance().existeNotificacao(idNotificacao);
 	}
 
 	@Override
 	public synchronized void removerNotificacao(String idNotificacao) {
-		
+		NotificacaoRepositorio.getInstance().removerNotificacao(idNotificacao);
 	}
 
 	@Override
 	public synchronized void zerarRepositorio() {
-		
+		NotificacaoRepositorio.zerarRepositorio();
 	}
 
 	@Override
 	public void notificaPersistenciaDoSistema() {
-		// TODO Auto-generated method stub
-		
+		NotificacaoRepositorio.getInstance().salvarEmArquivo();
 	}
 
 }

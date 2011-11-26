@@ -59,8 +59,7 @@ public class CorreioFileDAO implements CorreioDAO{
 
 	@Override
 	public void notificaPersistenciaDoSistema() {
-		// TODO Auto-generated method stub
-		
+		Correio.getInstance().salvarEmArquivo();
 	}
 
 }

@@ -106,8 +106,7 @@ public class RelacionamentosUsuariosFileDAO implements RelacionamentosUsuariosDA
 
 	@Override
 	public void notificaPersistenciaDoSistema() {
-		// TODO Auto-generated method stub
-		
+		RelacionamentosUsuarios.getInstance().salvarEmArquivo();
 	}
 
 }

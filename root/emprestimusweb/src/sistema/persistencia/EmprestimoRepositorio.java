@@ -157,4 +157,9 @@ public class EmprestimoRepositorio {
 		emprestimosRealizados = new TreeMap<Long, EmprestimoIF>();
 		contadorID = 0;
 	}
+
+	public void salvarEmArquivo() {
+		// TODO Auto-generated method stub
+		
+	}
 }

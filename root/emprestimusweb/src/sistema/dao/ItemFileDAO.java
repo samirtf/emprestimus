@@ -104,8 +104,7 @@ public class ItemFileDAO implements ItemDAO {
 
 	@Override
 	public void notificaPersistenciaDoSistema() {
-		// TODO Auto-generated method stub
-		
+		ItemRepositorio.getInstance().salvarEmArquivo();
 	}
 	
 

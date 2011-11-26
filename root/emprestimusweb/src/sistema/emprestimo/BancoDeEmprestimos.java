@@ -23,7 +23,7 @@ import sistema.utilitarios.Validador;
 /**
  * @author Mobile
  */
-public class BancoDeEmprestimos {
+public class BancoDeEmprestimos{
 
 	private static BancoDeEmprestimos bancoDeEmprestimos;
 	private static Map<String, Conta> contas;
@@ -385,6 +385,11 @@ public class BancoDeEmprestimos {
 	 */
 	public void zerarSistema() {
 		contas.clear();
+	}
+
+	public void salvarEmArquivo() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

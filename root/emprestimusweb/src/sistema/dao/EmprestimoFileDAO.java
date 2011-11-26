@@ -49,8 +49,7 @@ public class EmprestimoFileDAO implements EmprestimoDAO {
 
 	@Override
 	public void notificaPersistenciaDoSistema() {
-		// TODO Auto-generated method stub
-		
+		EmprestimoRepositorio.getInstance().salvarEmArquivo();
 	}
 
 }

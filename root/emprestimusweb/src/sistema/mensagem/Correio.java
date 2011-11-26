@@ -329,4 +329,9 @@ public class Correio {
 		Correio.caixasPostais.clear();
 	}
 
+	public void salvarEmArquivo() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

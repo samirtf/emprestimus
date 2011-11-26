@@ -188,4 +188,9 @@ public class ChatRepositorio {
 		contadorID = 0;
 	}
 
+	public void salvarEmArquivo() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

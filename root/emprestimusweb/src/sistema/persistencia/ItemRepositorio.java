@@ -163,6 +163,11 @@ public class ItemRepositorio {
 		itensCadastrados = new TreeMap<Long, ItemIF>();
 		contadorID = 0;
 	}
+
+	public void salvarEmArquivo() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 //	public void main(String [] args){
 //		List<String> lista =  new ArrayList<String>();

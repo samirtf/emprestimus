@@ -89,8 +89,7 @@ public class GerenciadorDeNotificacoesFileDAO implements GerenciadorDeNotificaco
 
 	@Override
 	public void notificaPersistenciaDoSistema() {
-		// TODO Auto-generated method stub
-		
+		GerenciadorDeNotificacoes.getInstance().salvarEmArquivo();
 	}
 
 }

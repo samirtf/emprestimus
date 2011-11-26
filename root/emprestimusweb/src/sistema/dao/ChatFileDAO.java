@@ -50,8 +50,7 @@ public class ChatFileDAO implements ChatDAO{
 
 	@Override
 	public void notificaPersistenciaDoSistema() {
-		// TODO Auto-generated method stub
-		
+		ChatRepositorio.getInstance().salvarEmArquivo();
 	}
 
 }
