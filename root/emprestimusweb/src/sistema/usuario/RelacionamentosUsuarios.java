@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import sistema.autenticacao.Autenticacao;
+import sistema.dao.ItemFileDAO;
 import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.item.DataCriacaoItemComparador;
 import sistema.item.ItemIF;
@@ -308,7 +309,7 @@ public class RelacionamentosUsuarios {
 				Mensagem.LOGIN_INVALIDO.getMensagem());
 		Validador.assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem(),
 				Mensagem.ID_ITEM_INVALIDO.getMensagem());
-		Validador.asserteTrue(ItemRepositorio.existeItem(idItem.trim()),
+		Validador.asserteTrue(new ItemFileDAO().existeItem(idItem.trim()),
 				Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
 
 		Iterator<UsuarioIF> iterador = ciclosDeAmizade.get(seuLogin).getAmigos()
