@@ -90,11 +90,11 @@ public class Login extends Composite {
                 painelLogin.add(lblLoginSenha, 667, 32);
                 
                 txtLoginNick = new TextBox();
-                painelLogin.add(txtLoginNick, 488, 54);
+                painelLogin.add(txtLoginNick, 480, 55);
                 txtLoginNick.setFocus(true);
                 
                 ptbLoginSenha = new PasswordTextBox();
-                painelLogin.add(ptbLoginSenha, 667, 56);
+                painelLogin.add(ptbLoginSenha, 667, 55);
                 
                 btnLogin = new Button("Login");
                 painelLogin.add(btnLogin, 777, 96);
@@ -162,7 +162,7 @@ public class Login extends Composite {
                 painelLogin.add(imagem3, 23, 382);
                 imagem3.setSize("100px", "100px");
                 
-                Image imagem2 = new Image("emprestimusweb/imagens/02.jpg");
+                Image imagem2 = new Image("emprestimusweb/imagens/joeffison/1232583652_4561_full.gif");
                 painelLogin.add(imagem2, 23, 271);
                 imagem2.setSize("100px", "100px");
                 
