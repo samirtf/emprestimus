@@ -12,7 +12,7 @@ public class RelacionamentosUsuariosFileDAO implements RelacionamentosUsuariosDA
 	@Override
 	public void adicionaCicloDeAmizadeAoUsuario(String usuario)
 			throws Exception {
-		adicionaCicloDeAmizadeAoUsuario(usuario);
+		RelacionamentosUsuarios.getInstance().adicionaCicloDeAmizadeAoUsuario(usuario);
 	}
 
 	@Override
