@@ -12,13 +12,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-
 import sistema.autenticacao.Autenticacao;
 import sistema.dao.ChatFileDAO;
 import sistema.dao.EmprestimoFileDAO;
 import sistema.emprestimo.EmprestimoIF;
-import sistema.persistencia.ChatRepositorio;
-import sistema.persistencia.EmprestimoRepositorio;
 import sistema.usuario.UsuarioIF;
 import sistema.utilitarios.Mensagem;
 
@@ -44,14 +41,14 @@ public class Correio {
 		return correio;
 	}
 
-	public static void adicionaCaixaPostalAoUsuario(String usuario) throws Exception {
+	public void adicionaCaixaPostalAoUsuario(String usuario) throws Exception {
 		if (caixasPostais.containsKey(usuario))
 			throw new Exception(Mensagem.PROPRIETARIO_CAIXA_POSTAL_JAH_CADASTRADO
 					.getMensagem());
 		caixasPostais.put(usuario, new CaixaPostal(usuario));
 	}
 
-	public static void removeCaixaPostalDoUsuario(String usuario) throws Exception {
+	public void removeCaixaPostalDoUsuario(String usuario) throws Exception {
 		caixasPostais.remove(usuario);
 	}
 
@@ -66,7 +63,7 @@ public class Correio {
 	 * 
 	 * @throws Exception
 	 */
-	public synchronized static void adicionaConversaOfftopicNaLista(String usuario, ChatIF conversa) throws Exception {
+	public synchronized void adicionaConversaOfftopicNaLista(String usuario, ChatIF conversa) throws Exception {
 		CaixaPostal caixaPostal = caixasPostais.get(usuario);
 		if (caixaPostal == null)
 			throw new Exception(Mensagem.PROPRIETARIO_CAIXA_POSTAL_INEXISTENTE
@@ -86,7 +83,7 @@ public class Correio {
 	 * 
 	 * @throws Exception
 	 */
-	public static void adicionaConversaNegociacaoNaLista(String usuario, ChatIF conversa) throws Exception {
+	public void adicionaConversaNegociacaoNaLista(String usuario, ChatIF conversa) throws Exception {
 		CaixaPostal caixaPostal = caixasPostais.get(usuario);
 		if (caixaPostal == null)
 			throw new Exception(Mensagem.PROPRIETARIO_CAIXA_POSTAL_INEXISTENTE
@@ -112,7 +109,7 @@ public class Correio {
 	 * @throws Exception
 	 * 		Caso os parâmetros sejam inválidos.
 	 */
-	public synchronized static String enviarMensagemOffTopic(String remetente,
+	public synchronized String enviarMensagemOffTopic(String remetente,
 			String destinatario, String assunto, String mensagem) throws Exception {
 
 		assertStringNaoVazia(remetente, Mensagem.REMETENTE_INVALIDO.getMensagem(),
@@ -166,7 +163,7 @@ public class Correio {
 	 * 
 	 * @throws Exception
 	 */
-	public synchronized static String enviarMensagemEmprestimo(String remetente,
+	public synchronized String enviarMensagemEmprestimo(String remetente,
 			String destinatario, String assunto, String mensagem,
 			String idRequisicaoEmprestimo) throws Exception {
 
@@ -226,7 +223,7 @@ public class Correio {
 	 * 
 	 * @throws Exception
 	 */
-	public static String lerTopicos(String proprietario, String tipo) throws Exception {
+	public String lerTopicos(String proprietario, String tipo) throws Exception {
 
 		assertStringNaoVazia(proprietario, Mensagem.PROPRIETARIO_CAIXA_POSTAL_INEXISTENTE
 				.getMensagem(), Mensagem.PROPRIETARIO_CAIXA_POSTAL_INEXISTENTE
@@ -289,7 +286,7 @@ public class Correio {
 	 * 
 	 * @throws Exception
 	 */
-	public static String enviarMensagemOferecimentoItemOffTopic(String remetente,
+	public String enviarMensagemOferecimentoItemOffTopic(String remetente,
 			String destinatario, String assunto, String mensagem) throws Exception {
 
 		assertStringNaoVazia(remetente, Mensagem.REMETENTE_INVALIDO.getMensagem(),
