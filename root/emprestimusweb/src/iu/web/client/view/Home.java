@@ -18,6 +18,7 @@ import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineHyperlink;
+import com.google.gwt.user.client.ui.PushButton;
 
 /**
  * @author José Nathaniel L de Abrante - nathaniel.una@gmail.com
@@ -59,19 +60,26 @@ public class Home extends Composite {
 		painelSuperior = new AbsolutePanel();
 		painelGlobal.addNorth(painelSuperior, 9.1);
 		
-		Image image = new Image(IMAGEM_LOGO);
+		Image image = new Image("emprestimusweb/imagens/logo2.png");
 		painelSuperior.add(image, 10, 10);
 		image.setSize("311px", "105px");
 		
-		Button btnSair = new Button("Sair");
-		painelSuperior.add(btnSair, 851, 10);
-		btnSair.addClickHandler(new MyHandlerSair());
+		HTML htmlSair = new HTML("<a href = #> Sair </a>", true);
+		painelSuperior.add(htmlSair, 867, 10);
+		
+		Image image_1 = new Image((String) null);
+		painelSuperior.add(image_1, 515, 18);
+		image_1.setSize("100px", "100px");
 		
 	}
 	
 	private void inicializaPainelLateral() {
 		painelLateral = new AbsolutePanel();
 		painelGlobal.addWest(painelLateral, 16.1);
+		
+		Image image = new Image("emprestimusweb/imagens/vertical.png");
+		painelLateral.add(image, 204, 0);
+		image.setSize("5px", "390px");
 		
 		foto = FOTO_DEFAULT;
 		painelLateral.add(foto, 28, 10);
@@ -117,15 +125,4 @@ public class Home extends Composite {
 		html.setHTML("<h2>Bemvindo, "+controlador.getNome()+"</h2><br>Histórico de atualizações:<br>"
 				+controlador.getHistorico());
 	}
-	
-    class MyHandlerSair implements ClickHandler {
-        public void onClick(ClickEvent event) {
-                enviaAoServidor();
-                
-        }
-        private void enviaAoServidor() {
-        	removeFromParent();
-        	controlador.fecharSessao();
-        }
-}
 }
