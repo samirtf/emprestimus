@@ -11,6 +11,7 @@ import com.google.gwt.user.client.ui.InlineHyperlink;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Button;
 
 /**
  * @author José Nathaniel L de Abrante - nathaniel.una@gmail.com
@@ -22,8 +23,6 @@ public class Home extends Composite {
 	private AbsolutePanel painelSuperior;
 	private AbsolutePanel painelLateral;
 	private AbsolutePanel painelInferior;
-	private Label lblEmprestimus;
-	private Hyperlink lnkSair;
 	private InlineHyperlink lnkMural;
 	private Image imagem;
 	private InlineHyperlink lnkPerfil;
@@ -49,13 +48,13 @@ public class Home extends Composite {
 	private void inicializaPainelSuperior() {
 		painelSuperior = new AbsolutePanel();
 		painelGlobal.addNorth(painelSuperior, 9.1);
-
-		lblEmprestimus = new Label("Emprestimus");
-		lblEmprestimus.setStyleName("nathaniel2");
-		painelSuperior.add(lblEmprestimus, 41, 29);
 		
-		lnkSair = new Hyperlink("Sair", false, "newHistoryToken");
-		painelSuperior.add(lnkSair, 867, 10);
+		Image image = new Image("emprestimusweb/logo2.png");
+		painelSuperior.add(image, 10, 10);
+		image.setSize("311px", "105px");
+		
+		Button btnSair = new Button("Sair");
+		painelSuperior.add(btnSair, 851, 10);
 		
 	}
 	
@@ -63,8 +62,8 @@ public class Home extends Composite {
 		painelLateral = new AbsolutePanel();
 		painelGlobal.addWest(painelLateral, 16.1);
 		
-		imagem = new Image("emprestimusweb/gwt/clean/imagens/avril.jpg");
-		painelLateral.add(imagem, 10, 10);
+		imagem = new Image("emprestimusweb/03.jpg");
+		painelLateral.add(imagem, 28, 10);
 		imagem.setSize("155px", "155px");
 		
 		lnkMural = new InlineHyperlink("Mural", false, "newHistoryToken");
@@ -78,10 +77,10 @@ public class Home extends Composite {
 		painelLateral.add(lnkMensagens, 41, 245);
 		
 		lnkItens = new InlineHyperlink("Itens", false, "newHistoryToken");
-		painelLateral.add(lnkItens, 41, 269);
+		painelLateral.add(lnkItens, 41, 293);
 		
 		lnkAmigos = new InlineHyperlink("Amigos", false, "newHistoryToken");
-		painelLateral.add(lnkAmigos, 41, 293);
+		painelLateral.add(lnkAmigos, 41, 269);
 	}
 
 	private void inicializaPainelInferior() {
