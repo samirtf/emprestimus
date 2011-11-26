@@ -21,8 +21,7 @@ public class NotificacaoRegistrarInteresseItem implements Notificacao {
 	private Date data;
 	private String id;
 
-	private NotificacaoRegistrarInteresseItem() {
-	}
+	private NotificacaoRegistrarInteresseItem() {}
 
 	/**
 	 * Cria uma notificação de Registro de interesse em Item

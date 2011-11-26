@@ -1,5 +1,7 @@
 package sistema.autenticacao;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -44,6 +46,14 @@ public class Autenticacao implements AutenticacaoIF {
 	private Autenticacao() {
 		usuariosCadastrados = new TreeMap<String, UsuarioIF>();
 		sessoes = new TreeMap<String, UsuarioIF>();
+		File file = new File("./teste.txt");
+		try {
+			file.createNewFile();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("eh CILADA BINO");
+		}
 	}
 
 	public static Autenticacao getInstance() {
