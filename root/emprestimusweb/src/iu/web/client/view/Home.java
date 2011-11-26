@@ -41,6 +41,7 @@ public class Home extends Composite {
 	private InlineHyperlink lnkItens;
 	private InlineHyperlink lnkAmigos;
 	private HTML html;
+	private Image image_4;
 
 	public Home(Controlador controlador) {
 		this.controlador = controlador;
@@ -65,11 +66,19 @@ public class Home extends Composite {
 		image.setSize("311px", "105px");
 		
 		HTML htmlSair = new HTML("<a href = #> Sair </a>", true);
-		painelSuperior.add(htmlSair, 867, 10);
+		painelSuperior.add(htmlSair, 867, 67);
 		
-		Image image_1 = new Image((String) null);
-		painelSuperior.add(image_1, 515, 18);
-		image_1.setSize("100px", "100px");
+		Image image_1 = new Image("emprestimusweb/imagens/05.png");
+		painelSuperior.add(image_1, 651, 63);
+		image_1.setSize("33px", "22px");
+		
+		Image image_2 = new Image("emprestimusweb/imagens/06.png");
+		painelSuperior.add(image_2, 545, 59);
+		image_2.setSize("33px", "26");
+		
+		Image image_3 = new Image("emprestimusweb/imagens/09.png");
+		painelSuperior.add(image_3, 447, 59);
+		image_3.setSize("30", "26px");
 		
 	}
 	
@@ -77,29 +86,32 @@ public class Home extends Composite {
 		painelLateral = new AbsolutePanel();
 		painelGlobal.addWest(painelLateral, 16.1);
 		
-		Image image = new Image("emprestimusweb/imagens/vertical.png");
-		painelLateral.add(image, 204, 0);
-		image.setSize("5px", "390px");
-		
 		foto = FOTO_DEFAULT;
 		painelLateral.add(foto, 28, 10);
 		foto.setSize("155px", "155px");
 		
 		lnkMural = new InlineHyperlink("Mural", false, "newHistoryToken");
 		lnkMural.setHTML("Mural");
-		painelLateral.add(lnkMural, 41, 197);
+		painelLateral.add(lnkMural, 46, 207);
 		
 		lnkPerfil = new InlineHyperlink("Perfil", false, "newHistoryToken");
-		painelLateral.add(lnkPerfil, 41, 221);
+		painelLateral.add(lnkPerfil, 46, 231);
 		
 		lnkMensagens = new InlineHyperlink("Mensagens", false, "newHistoryToken");
-		painelLateral.add(lnkMensagens, 41, 245);
+		painelLateral.add(lnkMensagens, 46, 255);
 		
 		lnkItens = new InlineHyperlink("Itens", false, "newHistoryToken");
-		painelLateral.add(lnkItens, 41, 293);
+		painelLateral.add(lnkItens, 46, 303);
 		
 		lnkAmigos = new InlineHyperlink("Amigos", false, "newHistoryToken");
-		painelLateral.add(lnkAmigos, 41, 269);
+		painelLateral.add(lnkAmigos, 46, 279);
+		
+		HTML htmlMudarImagem = new HTML("<a href = #> Mudar Imagem </a>", true);
+		painelLateral.add(htmlMudarImagem, 57, 171);
+		htmlMudarImagem.setHeight("");
+		
+		image_4 = new Image((String) null);
+		painelLateral.add(image_4, -30, 151);
 	}
 
 	private void inicializaPainelInferior() {

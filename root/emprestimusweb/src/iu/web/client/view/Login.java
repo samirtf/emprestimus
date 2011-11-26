@@ -166,7 +166,7 @@ public class Login extends Composite {
                 painelLogin.add(imagem2, 23, 271);
                 imagem2.setSize("100px", "100px");
                 
-                Image imagem1 = new Image("emprestimusweb/imagens/.svn/text-base/01.jpg.svn-base");
+                Image imagem1 = new Image("emprestimusweb/imagens/01.jpg");
                 painelLogin.add(imagem1, 23, 165);
                 imagem1.setSize("100px", "100px");
                 
