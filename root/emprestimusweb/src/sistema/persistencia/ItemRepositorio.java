@@ -11,10 +11,22 @@ import sistema.item.ItemIF;
 import sistema.utilitarios.Mensagem;
 
 public class ItemRepositorio {
+	
+	private static ItemRepositorio repositorio;
 
-	private static long contadorID = 0;
+	private long contadorID = 0;
 
-	private static Map<Long, ItemIF> itensCadastrados = new TreeMap<Long, ItemIF>();
+	private Map<Long, ItemIF> itensCadastrados = new TreeMap<Long, ItemIF>();
+	
+	private ItemRepositorio() {
+	}
+
+	public static ItemRepositorio getInstance() {
+		if (repositorio == null) {
+			repositorio = new ItemRepositorio();
+		}
+		return repositorio;
+	}
 
 	/**
 	 * Calcula o id do proximo item a ser cadastrado.
@@ -22,7 +34,7 @@ public class ItemRepositorio {
 	 * @return String
 	 * 		O id do proximo item a ser cadastrado.
 	 */
-	public static String geraIdProxItem() {
+	public String geraIdProxItem() {
 		return String.valueOf(contadorID + 1);
 	}
 
@@ -37,8 +49,8 @@ public class ItemRepositorio {
 	 * 
 	 * @throws Exception
 	 */
-	public static String cadastrarItem(ItemIF item) throws Exception {
-		item.setId(ItemRepositorio.geraIdProxItem());
+	public String cadastrarItem(ItemIF item) throws Exception {
+		item.setId(geraIdProxItem());
 		itensCadastrados.put(++contadorID, item);
 		return String.valueOf(contadorID);
 	}
@@ -54,7 +66,7 @@ public class ItemRepositorio {
 	 * 
 	 * @throws Exception
 	 */
-	public static ItemIF recuperarItem(String idItem) throws Exception {
+	public ItemIF recuperarItem(String idItem) throws Exception {
 		Long idLong = null;
 		try {
 			idLong = Long.parseLong(idItem);
@@ -80,7 +92,7 @@ public class ItemRepositorio {
 	 * 
 	 * @throws Exception
 	 */
-	public static String getAtributoItem(String idItem, String atributo) throws Exception {
+	public String getAtributoItem(String idItem, String atributo) throws Exception {
 		ItemIF item = recuperarItem(idItem);
 		String atrib = ((atributo.equals("categoria"))? "categorias":atributo);
 		String valor = null;
@@ -103,7 +115,7 @@ public class ItemRepositorio {
 	 * @return int
 	 * 		A quantidade de itens cadastrados.
 	 */
-	public static int qntItens() {
+	public int qntItens() {
 		return itensCadastrados.size();
 	}
 
@@ -115,7 +127,7 @@ public class ItemRepositorio {
 	 * @return boolean
 	 * 		True - Se o item procurado existir.
 	 */
-	public static boolean existeItem(String idItem) {
+	public boolean existeItem(String idItem) {
 		Long id;
 		try {
 			id = Long.valueOf(idItem);
@@ -131,7 +143,7 @@ public class ItemRepositorio {
 	 * @param String
 	 * 		idItem
 	 */
-	public static void removerItem(String idItem) {
+	public void removerItem(String idItem) {
 		Long id;
 		try {
 			id = Long.valueOf(idItem);
@@ -147,12 +159,12 @@ public class ItemRepositorio {
 	/**
 	 * zera o repositorio.
 	 */
-	public static void zerarRepositorio() {
+	public void zerarRepositorio() {
 		itensCadastrados = new TreeMap<Long, ItemIF>();
 		contadorID = 0;
 	}
 	
-//	public static void main(String [] args){
+//	public void main(String [] args){
 //		List<String> lista =  new ArrayList<String>();
 //		lista.add("samir");
 ////		lista.add("trajano");

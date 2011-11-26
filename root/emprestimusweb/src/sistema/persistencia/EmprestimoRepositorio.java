@@ -8,10 +8,22 @@ import sistema.emprestimo.EmprestimoIF;
 import sistema.utilitarios.Mensagem;
 
 public class EmprestimoRepositorio {
+	
+	private static EmprestimoRepositorio repositorio;
 
-	private static long contadorID = 0;
+	private long contadorID = 0;
 
-	private static Map<Long, EmprestimoIF> emprestimosRealizados = new TreeMap<Long, EmprestimoIF>();
+	private Map<Long, EmprestimoIF> emprestimosRealizados = new TreeMap<Long, EmprestimoIF>();
+	
+	private EmprestimoRepositorio() {
+	}
+
+	public static EmprestimoRepositorio getInstance() {
+		if (repositorio == null) {
+			repositorio = new EmprestimoRepositorio();
+		}
+		return repositorio;
+	}
 
 	/**
 	 * Calcula o id do proximo emprestimo a ser cadastrado.
@@ -19,7 +31,7 @@ public class EmprestimoRepositorio {
 	 * @return String
 	 * 		O id do proximo emprestimo a ser cadastrado.
 	 */
-	public static String geraIdProxNotificacao() {
+	public String geraIdProxNotificacao() {
 		return String.valueOf(contadorID + 1);
 	}
 
@@ -33,8 +45,8 @@ public class EmprestimoRepositorio {
 	 * 
 	 * @throws Exception
 	 */
-	public static String requisitarEmprestimo(EmprestimoIF emp) throws Exception {
-		emp.setId(EmprestimoRepositorio.geraIdProxNotificacao());
+	public String requisitarEmprestimo(EmprestimoIF emp) throws Exception {
+		emp.setId(geraIdProxNotificacao());
 		emprestimosRealizados.put(++contadorID, emp);
 		return String.valueOf(contadorID);
 	}
@@ -50,14 +62,14 @@ public class EmprestimoRepositorio {
 	 * 
 	 * @throws Exception
 	 */
-	public static EmprestimoIF recuperarEmprestimo(String idEmprestimo) throws Exception {
+	public EmprestimoIF recuperarEmprestimo(String idEmprestimo) throws Exception {
 		Long idLong = null;
 		try {
 			idLong = Long.parseLong(idEmprestimo);
 		} catch (Exception e) {
 			throw new Exception(Mensagem.EMPRESTIMO_INEXISTENTE.getMensagem());
 		}
-		EmprestimoIF emp = emprestimosRealizados.get(Long.parseLong(idEmprestimo));
+		EmprestimoIF emp = emprestimosRealizados.get(idLong);
 		if (emp == null)
 			throw new Exception(Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
 
@@ -76,7 +88,7 @@ public class EmprestimoRepositorio {
 	 * 
 	 * @throws Exception
 	 */
-	public static String getAtributoItem(String idEmprestimo, String atributo) throws Exception {
+	public String getAtributoItem(String idEmprestimo, String atributo) throws Exception {
 		EmprestimoIF emp = recuperarEmprestimo(idEmprestimo);
 
 		String valor = null;
@@ -98,7 +110,7 @@ public class EmprestimoRepositorio {
 	 * @return int
 	 * 		A quantidade de emprestimos cadastrados.
 	 */
-	public static int qntEmprestimos() {
+	public int qntEmprestimos() {
 		return emprestimosRealizados.size();
 	}
 
@@ -110,14 +122,14 @@ public class EmprestimoRepositorio {
 	 * @return boolean
 	 * 		True - Se o emprestimo procurado existir.
 	 */
-	public static boolean existeEmprestimo(String idEmprestimo) {
-		Long id;
+	public boolean existeEmprestimo(String idEmprestimo) {
+		Long idLong;
 		try {
-			id = Long.valueOf(idEmprestimo);
+			idLong = Long.valueOf(idEmprestimo);
 		} catch (Exception e) {
 			return false;
 		}
-		return emprestimosRealizados.containsKey(Long.valueOf(idEmprestimo));
+		return emprestimosRealizados.containsKey(idLong);
 	}
 
 	/**
@@ -125,7 +137,7 @@ public class EmprestimoRepositorio {
 	 * @param String
 	 * 		idEmprestimo
 	 */
-	public static void removerEmprestimo(String idEmprestimo) {
+	public void removerEmprestimo(String idEmprestimo) {
 		Long id;
 		try {
 			id = Long.valueOf(idEmprestimo);
@@ -141,7 +153,7 @@ public class EmprestimoRepositorio {
 	/**
 	 * Zera o repositorio
 	 */
-	public static void zerarRepositorio() {
+	public void zerarRepositorio() {
 		emprestimosRealizados = new TreeMap<Long, EmprestimoIF>();
 		contadorID = 0;
 	}

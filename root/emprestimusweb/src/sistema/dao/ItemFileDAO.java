@@ -1,12 +1,7 @@
 package sistema.dao;
 
-import java.lang.reflect.Field;
-import java.util.Map;
-import java.util.TreeMap;
-
 import sistema.item.ItemIF;
 import sistema.persistencia.ItemRepositorio;
-import sistema.utilitarios.Mensagem;
 
 public class ItemFileDAO implements ItemDAO {
 	
@@ -19,7 +14,7 @@ public class ItemFileDAO implements ItemDAO {
 	 * 		O id do proximo item a ser cadastrado.
 	 */
 	public String calculaIdProxItem() {
-		return ItemRepositorio.geraIdProxItem();
+		return ItemRepositorio.getInstance().geraIdProxItem();
 	}
 
 	/**
@@ -34,7 +29,7 @@ public class ItemFileDAO implements ItemDAO {
 	 * @throws Exception
 	 */
 	public String cadastrarItem(ItemIF item) throws Exception {
-		return ItemRepositorio.cadastrarItem(item);
+		return ItemRepositorio.getInstance().cadastrarItem(item);
 	}
 
 	/**
@@ -49,7 +44,7 @@ public class ItemFileDAO implements ItemDAO {
 	 * @throws Exception
 	 */
 	public ItemIF recuperarItem(String idItem) throws Exception {
-		return ItemRepositorio.recuperarItem(idItem);
+		return ItemRepositorio.getInstance().recuperarItem(idItem);
 	}
 
 	/**
@@ -65,7 +60,7 @@ public class ItemFileDAO implements ItemDAO {
 	 * @throws Exception
 	 */
 	public String getAtributoItem(String idItem, String atributo) throws Exception {
-		return ItemRepositorio.getAtributoItem(idItem, atributo);
+		return ItemRepositorio.getInstance().getAtributoItem(idItem, atributo);
 	}
 
 	/**
@@ -75,7 +70,7 @@ public class ItemFileDAO implements ItemDAO {
 	 * 		A quantidade de itens cadastrados.
 	 */
 	public int qntItens() {
-		return ItemRepositorio.qntItens();
+		return ItemRepositorio.getInstance().qntItens();
 	}
 
 	/**
@@ -87,7 +82,7 @@ public class ItemFileDAO implements ItemDAO {
 	 * 		True - Se o item procurado existir.
 	 */
 	public boolean existeItem(String idItem) {
-		return ItemRepositorio.existeItem(idItem);
+		return ItemRepositorio.getInstance().existeItem(idItem);
 	}
 
 	/**
@@ -97,14 +92,14 @@ public class ItemFileDAO implements ItemDAO {
 	 * 		idItem
 	 */
 	public void removerItem(String idItem) {
-		ItemRepositorio.removerItem(idItem);
+		ItemRepositorio.getInstance().removerItem(idItem);
 	}
 
 	/**
 	 * zera o repositorio.
 	 */
 	public void zerarRepositorio() {
-		ItemRepositorio.zerarRepositorio();
+		ItemRepositorio.getInstance().zerarRepositorio();
 	}
 	
 

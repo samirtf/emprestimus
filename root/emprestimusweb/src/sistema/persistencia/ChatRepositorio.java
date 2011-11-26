@@ -10,10 +10,22 @@ import sistema.mensagem.ChatIF;
 import sistema.utilitarios.Mensagem;
 
 public class ChatRepositorio {
+	
+	private static ChatRepositorio repositorio;
 
-	private static long contadorID = 0;
+	private long contadorID = 0;
 
-	private static Map<Long, ChatIF> conversas = new TreeMap<Long, ChatIF>();
+	private Map<Long, ChatIF> conversas = new TreeMap<Long, ChatIF>();
+	
+	private ChatRepositorio() {
+	}
+
+	public static ChatRepositorio getInstance() {
+		if (repositorio == null) {
+			repositorio = new ChatRepositorio();
+		}
+		return repositorio;
+	}
 
 	/**
 	 * Calcula o id do proximo emprestimo a ser cadastrado.
@@ -21,7 +33,7 @@ public class ChatRepositorio {
 	 * @return String
 	 * 		O id do proximo emprestimo a ser cadastrado.
 	 */
-	public static String geraIdProxConversa() {
+	public String geraIdProxConversa() {
 		return String.valueOf(contadorID + 1);
 	}
 
@@ -36,8 +48,8 @@ public class ChatRepositorio {
 	 * 
 	 * @throws Exception
 	 */
-	public static String registrarConversa(ChatIF mensagem) throws Exception {
-		mensagem.setIdMensagem(ChatRepositorio.geraIdProxConversa());
+	public String registrarConversa(ChatIF mensagem) throws Exception {
+		mensagem.setIdMensagem(geraIdProxConversa());
 		conversas.put(++contadorID, mensagem);
 		return String.valueOf(contadorID);
 	}
@@ -53,14 +65,14 @@ public class ChatRepositorio {
 	 * 
 	 * @throws Exception
 	 */
-	public static ChatIF recuperarConversa(String idConversa) throws Exception {
+	public ChatIF recuperarConversa(String idConversa) throws Exception {
 		Long idLong = null;
 		try {
 			idLong = Long.parseLong(idConversa);
 		} catch (Exception e) {
 			throw new Exception(Mensagem.ID_MENSAGEM_INVALIDO.getMensagem());
 		}
-		ChatIF msg = conversas.get(Long.parseLong(idConversa));
+		ChatIF msg = conversas.get(idLong);
 		if (msg == null)
 			throw new Exception(Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
 
@@ -79,7 +91,7 @@ public class ChatRepositorio {
 	 * 
 	 * @throws Exception
 	 */
-	public static String getAtributoConversa(String idConversa, String atributo) throws Exception {
+	public String getAtributoConversa(String idConversa, String atributo) throws Exception {
 		ChatIF msg = recuperarConversa(idConversa);
 
 		String valor = null;
@@ -101,7 +113,7 @@ public class ChatRepositorio {
 	 * @return int
 	 * 		A quantidade de emprestimos cadastrados.
 	 */
-	public static int qntMensagens() {
+	public int qntMensagens() {
 		return conversas.size();
 	}
 
@@ -113,14 +125,14 @@ public class ChatRepositorio {
 	 * @return boolean
 	 * 		True - Se o emprestimo procurado existir.
 	 */
-	public static boolean existeConversa(String idConversa) {
-		Long id;
+	public boolean existeConversa(String idConversa) {
+		Long idLong;
 		try {
-			id = Long.valueOf(idConversa);
+			idLong = Long.valueOf(idConversa);
 		} catch (Exception e) {
 			return false;
 		}
-		return conversas.containsKey(Long.valueOf(idConversa));
+		return conversas.containsKey(idLong);
 	}
 
 	/**
@@ -137,11 +149,10 @@ public class ChatRepositorio {
 	 * 
 	 * @return
 	 */
-	public static ChatIF existeConversaEntreAsPessoasSobreMesmoAssuntoETipo(
+	public ChatIF existeConversaEntreAsPessoasSobreMesmoAssuntoETipo(
 			String remetente, String destinatario, String assunto, boolean ehOffTopic) {
 
 		Iterator<Entry<Long, ChatIF>> iterador = conversas.entrySet().iterator();
-		ChatIF conversaSaida = null;
 		while (iterador.hasNext()) {
 			Entry<Long, ChatIF> conversaEntrada = iterador.next();
 			ChatIF conversa = conversaEntrada.getValue();
@@ -172,7 +183,7 @@ public class ChatRepositorio {
 	/**
 	 * retorna o repositorio a suas configurações iniciais
 	 */
-	public static void zerarRepositorio() {
+	public void zerarRepositorio() {
 		conversas = new TreeMap<Long, ChatIF>();
 		contadorID = 0;
 	}
