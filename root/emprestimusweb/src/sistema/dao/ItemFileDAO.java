@@ -13,7 +13,7 @@ public class ItemFileDAO implements ItemDAO {
 	 * @return String
 	 * 		O id do proximo item a ser cadastrado.
 	 */
-	public String calculaIdProxItem() {
+	public synchronized String calculaIdProxItem() {
 		return ItemRepositorio.getInstance().geraIdProxItem();
 	}
 
@@ -28,7 +28,7 @@ public class ItemFileDAO implements ItemDAO {
 	 * 
 	 * @throws Exception
 	 */
-	public String cadastrarItem(ItemIF item) throws Exception {
+	public synchronized String cadastrarItem(ItemIF item) throws Exception {
 		return ItemRepositorio.getInstance().cadastrarItem(item);
 	}
 
@@ -43,7 +43,7 @@ public class ItemFileDAO implements ItemDAO {
 	 * 
 	 * @throws Exception
 	 */
-	public ItemIF recuperarItem(String idItem) throws Exception {
+	public synchronized ItemIF recuperarItem(String idItem) throws Exception {
 		return ItemRepositorio.getInstance().recuperarItem(idItem);
 	}
 
@@ -59,7 +59,7 @@ public class ItemFileDAO implements ItemDAO {
 	 * 
 	 * @throws Exception
 	 */
-	public String getAtributoItem(String idItem, String atributo) throws Exception {
+	public synchronized String getAtributoItem(String idItem, String atributo) throws Exception {
 		return ItemRepositorio.getInstance().getAtributoItem(idItem, atributo);
 	}
 
@@ -69,7 +69,7 @@ public class ItemFileDAO implements ItemDAO {
 	 * @return int
 	 * 		A quantidade de itens cadastrados.
 	 */
-	public int qntItens() {
+	public synchronized int qntItens() {
 		return ItemRepositorio.getInstance().qntItens();
 	}
 
@@ -81,7 +81,7 @@ public class ItemFileDAO implements ItemDAO {
 	 * @return boolean
 	 * 		True - Se o item procurado existir.
 	 */
-	public boolean existeItem(String idItem) {
+	public synchronized boolean existeItem(String idItem) {
 		return ItemRepositorio.getInstance().existeItem(idItem);
 	}
 
@@ -91,14 +91,14 @@ public class ItemFileDAO implements ItemDAO {
 	 * @param String
 	 * 		idItem
 	 */
-	public void removerItem(String idItem) {
+	public synchronized void removerItem(String idItem) {
 		ItemRepositorio.getInstance().removerItem(idItem);
 	}
 
 	/**
 	 * zera o repositorio.
 	 */
-	public void zerarRepositorio() {
+	public synchronized void zerarRepositorio() {
 		ItemRepositorio.getInstance().zerarRepositorio();
 	}
 	
