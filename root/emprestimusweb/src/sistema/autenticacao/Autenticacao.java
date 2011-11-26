@@ -11,8 +11,16 @@ import java.util.Random;
 import java.util.TreeMap;
 import maps.ComparaDistancia;
 import maps.RefCoordenadas;
+import sistema.dao.AcervoDeItensDAO;
+import sistema.dao.AcervoDeItensFileDAO;
+import sistema.dao.BancoDeEmprestimosDAO;
+import sistema.dao.BancoDeEmprestimosFileDAO;
 import sistema.dao.CorreioDAO;
 import sistema.dao.CorreioFileDAO;
+import sistema.dao.GerenciadorDeNotificacoesDAO;
+import sistema.dao.GerenciadorDeNotificacoesFileDAO;
+import sistema.dao.RelacionamentosUsuariosDAO;
+import sistema.dao.RelacionamentosUsuariosFileDAO;
 import sistema.emprestimo.BancoDeEmprestimos;
 import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.item.AcervoDeItens;
@@ -91,10 +99,10 @@ public class Autenticacao implements AutenticacaoIF {
 		usuariosCadastrados.put(login, novoUsuario);
 		// adicionando caixa postal ao usuario
 		((CorreioDAO) new CorreioFileDAO()).adicionaCaixaPostalAoUsuario(login);
-		BancoDeEmprestimos.getInstance().adicionaContaAoUsuario(login);
-		AcervoDeItens.getInstance().adicionaBauhAoUsuario(login);
-		RelacionamentosUsuarios.getInstance().adicionaCicloDeAmizadeAoUsuario(login);
-		GerenciadorDeNotificacoes.getInstance().adicionaRackAoUsuario(login);
+		((BancoDeEmprestimosDAO) new BancoDeEmprestimosFileDAO()).adicionaContaAoUsuario(login);
+		((AcervoDeItensDAO) new AcervoDeItensFileDAO()).adicionaBauhAoUsuario(login);
+		((RelacionamentosUsuariosDAO) new RelacionamentosUsuariosFileDAO()).adicionaCicloDeAmizadeAoUsuario(login);
+		((GerenciadorDeNotificacoesDAO) new GerenciadorDeNotificacoesFileDAO()).adicionaRackAoUsuario(login);
 	}
 
 	@Override
@@ -261,10 +269,10 @@ public class Autenticacao implements AutenticacaoIF {
 		usuariosCadastrados.put(login, novoUsuario);
 		// adicionando caixa postal ao usuario
 		((CorreioDAO) new CorreioFileDAO()).adicionaCaixaPostalAoUsuario(login);
-		BancoDeEmprestimos.getInstance().adicionaContaAoUsuario(login);
-		AcervoDeItens.getInstance().adicionaBauhAoUsuario(login);
-		RelacionamentosUsuarios.getInstance().adicionaCicloDeAmizadeAoUsuario(login);
-		GerenciadorDeNotificacoes.getInstance().adicionaRackAoUsuario(login);
+		((BancoDeEmprestimosDAO) new BancoDeEmprestimosFileDAO()).adicionaContaAoUsuario(login);
+		((AcervoDeItensDAO) new AcervoDeItensFileDAO()).adicionaBauhAoUsuario(login);
+		((RelacionamentosUsuariosDAO) new RelacionamentosUsuariosFileDAO()).adicionaCicloDeAmizadeAoUsuario(login);
+		((GerenciadorDeNotificacoesDAO) new GerenciadorDeNotificacoesFileDAO()).adicionaRackAoUsuario(login);
 
 	}
 

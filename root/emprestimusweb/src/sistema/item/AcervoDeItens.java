@@ -13,7 +13,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import sistema.autenticacao.Autenticacao;
+import sistema.dao.BancoDeEmprestimosDAO;
+import sistema.dao.BancoDeEmprestimosFileDAO;
 import sistema.dao.EmprestimoFileDAO;
+import sistema.dao.GerenciadorDeNotificacoesDAO;
+import sistema.dao.GerenciadorDeNotificacoesFileDAO;
 import sistema.dao.ItemFileDAO;
 import sistema.emprestimo.BancoDeEmprestimos;
 import sistema.emprestimo.EmprestimoIF;
@@ -311,11 +315,14 @@ public class AcervoDeItens {
 	}
 
 	/**
-	 * FIXME: não entendi o titulo deste metodo.
-	 * TODO: terminar este bloco.
+	 * Verifica se este item pertence ao usuário.
 	 * @param login
+	 * 		O login do usuário.
 	 * @param idItem
+	 * 		O id do item.
 	 * @return
+	 * 		<code>True</code> - Se o item pertencer ao usuário.
+	 * 		<code>False</code> - Caso contrário.
 	 * @throws Exception
 	 */
 	public boolean esteItemMePertence(String login, String idItem) throws Exception {
@@ -347,7 +354,7 @@ public class AcervoDeItens {
 	public void apagarItem(String login, String idItem) throws Exception {
 		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
-		BancoDeEmprestimos banco = BancoDeEmprestimos.getInstance();
+		BancoDeEmprestimosDAO banco = new BancoDeEmprestimosFileDAO();
 		Iterator<EmprestimoIF> iteradorEmprestimosRequeridosPorAmigos = banco.getConta(
 				login).getEmprestimosRequeridosPorAmigosEmEspera().iterator();
 		while (iteradorEmprestimosRequeridosPorAmigos.hasNext()) {
@@ -401,7 +408,7 @@ public class AcervoDeItens {
 		assertNaoNulo(amigo,
 				Mensagem.USUARIO_NAO_TEM_PERMISSAO_REGISTRAR_INTERESSE_NESSE_ITEM.getMensagem());
 		item.adicionaInteressado(Autenticacao.getUsuarioPorLogin(seuLogin));
-		GerenciadorDeNotificacoes.getInstance().addHistoricoInteressePorItem(seuLogin,
+		((GerenciadorDeNotificacoesDAO) new GerenciadorDeNotificacoesFileDAO()).addHistoricoInteressePorItem(seuLogin,
 				amigo, item);
 	}
 

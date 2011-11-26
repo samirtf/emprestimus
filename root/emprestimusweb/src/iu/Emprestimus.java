@@ -51,6 +51,7 @@ public class Emprestimus implements EmprestimusIF {
 	private ItemDAO itemDao;
 	private EmprestimoDAO emprestimoDao;
 	private ChatDAO chatDao;
+	private GerenciadorDeNotificacoesDAO gerenciadorNotificacoesDao;
 	
 	private Emprestimus(){
 		autenticacao = Autenticacao.getInstance();
@@ -59,6 +60,7 @@ public class Emprestimus implements EmprestimusIF {
 		itemDao = new ItemFileDAO();
 		emprestimoDao = new EmprestimoFileDAO();
 		chatDao = new ChatFileDAO();
+		gerenciadorNotificacoesDao = new GerenciadorDeNotificacoesFileDAO();
 	}
 	
 	/**
@@ -699,7 +701,7 @@ public class Emprestimus implements EmprestimusIF {
 
 	@Override
 	public String historicoAtividadesConjunto(String idSessao) throws Exception {
-		return GerenciadorDeNotificacoes.getInstance().getHistoricoAtividadesConjunto(
+		return ((GerenciadorDeNotificacoesDAO) new GerenciadorDeNotificacoesFileDAO()).getHistoricoAtividadesConjunto(
 				autenticacao.getUsuarioPeloIDSessao(idSessao));
 	}
 
