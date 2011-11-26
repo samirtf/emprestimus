@@ -26,7 +26,7 @@ public class ServicoRecuperacaoSenhaUsuario {
 	private static ServicoRecuperacaoSenhaUsuario sharedInstance;
 	private static int tempoHorasPassadasRedefinicaoSenha = 0;
 	
-	private static Map<String, Date> usuariosRedefinicoesRequisitadas = new TreeMap();
+	private static Map<String, Date> usuariosRedefinicoesRequisitadas = new TreeMap<String, Date>();
 	
 	private static ExecutorService threadExecutor = Executors.newFixedThreadPool(50);
 	

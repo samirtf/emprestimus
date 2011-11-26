@@ -27,7 +27,6 @@ import sistema.dao.ItemFileDAO;
 import sistema.emprestimo.EmprestimoIF;
 import sistema.item.ItemIF;
 import sistema.mensagem.ChatIF;
-import sistema.notificacao.GerenciadorDeNotificacoes;
 import sistema.usuario.ReputacaoUsuarioComparator;
 import sistema.usuario.UsuarioIF;
 import sistema.utilitarios.Mensagem;

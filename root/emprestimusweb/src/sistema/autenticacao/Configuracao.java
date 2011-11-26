@@ -4,7 +4,7 @@ public class Configuracao {
 	
 	private static Configuracao sharedInstance;
 	
-	private static int tempoHorasPrazoRedefinicao = 1;
+	private static int tempoHorasPrazoRedefinicao = 48;
 
 	private static String emailSMTP = "email.com";
 	private static String usernameSMTP = "email";
@@ -32,7 +32,7 @@ public class Configuracao {
 	}
 
 	private static void inicializaConfiguracao() {
-		tempoHorasPrazoRedefinicao = 1;
+		tempoHorasPrazoRedefinicao = 48;
 		emailSMTP = "emprestimuswebsi@gmail.com";
 		usernameSMTP = "emprestimuswebsi";
 		passwordSMTP = "Roguespear";
