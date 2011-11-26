@@ -10,8 +10,7 @@ import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-
-import com.sun.corba.se.impl.orbutil.concurrent.Sync;
+import sistema.dao.*;
 
 import maps.ComparaDistancia;
 import maps.RefCoordenadas;
@@ -25,22 +24,15 @@ import sistema.dao.EmprestimoDAO;
 import sistema.dao.EmprestimoFileDAO;
 import sistema.dao.ItemDAO;
 import sistema.dao.ItemFileDAO;
-import sistema.emprestimo.BancoDeEmprestimos;
 import sistema.emprestimo.EmprestimoIF;
-import sistema.excecoes.ArgumentoInvalidoException;
-import sistema.item.AcervoDeItens;
 import sistema.item.ItemIF;
 import sistema.mensagem.ChatIF;
-import sistema.mensagem.Correio;
 import sistema.notificacao.GerenciadorDeNotificacoes;
-import sistema.persistencia.ChatRepositorio;
-import sistema.persistencia.EmprestimoRepositorio;
-import sistema.persistencia.ItemRepositorio;
-import sistema.usuario.RelacionamentosUsuarios;
 import sistema.usuario.ReputacaoUsuarioComparator;
 import sistema.usuario.UsuarioIF;
 import sistema.utilitarios.Mensagem;
 import sistema.utilitarios.Validador;
+
 
 /**
  * Classe que implementa a fachada EmprestimusIF.
@@ -541,11 +533,11 @@ public class Emprestimus implements EmprestimusIF {
 		emprestimoDao.zerarRepositorio();
 		itemDao.zerarRepositorio();
 		// Limpar Gerenciamentos
-		RelacionamentosUsuarios.getInstance().zerarSistema();
-		BancoDeEmprestimos.getInstance().zerarSistema();
-		AcervoDeItens.getInstance().zerarSistema();
-		Correio.getInstance().zerarSistema();
-		GerenciadorDeNotificacoes.getInstance().zerarSistema();
+		((RelacionamentosUsuariosDAO) new RelacionamentosUsuariosFileDAO()).zerarSistema();
+		((BancoDeEmprestimosDAO) new BancoDeEmprestimosFileDAO()).zerarSistema();
+		((AcervoDeItensDAO) new AcervoDeItensFileDAO()).zerarSistema();
+		((GerenciadorDeNotificacoesDAO) new GerenciadorDeNotificacoesFileDAO()).zerarSistema();
+		((CorreioDAO) new CorreioFileDAO()).zerarSistema();
 	}
 
 	/*
