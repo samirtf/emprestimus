@@ -506,8 +506,7 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public synchronized void republicarPedido(String idPublicacaoPedido) throws Exception {
-		GerenciadorDeNotificacoes.getInstance()
-				.republicarPedido(this, idPublicacaoPedido);
+		gerenciadorNotificacoesDao.republicarPedido(this, idPublicacaoPedido);
 
 	}
 
