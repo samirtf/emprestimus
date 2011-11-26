@@ -14,6 +14,7 @@ import maps.GetCoordenadas;
 import maps.RefCoordenadas;
 import sistema.autenticacao.Autenticacao;
 import sistema.autenticacao.ServicoRecuperacaoSenhaUsuario;
+import sistema.dao.ItemFileDAO;
 import sistema.emprestimo.BancoDeEmprestimos;
 import sistema.emprestimo.Emprestimo;
 import sistema.emprestimo.EmprestimoIF;
@@ -136,7 +137,7 @@ public class Usuario implements UsuarioIF {
 		Validador.assertStringNaoVazia(nome, Mensagem.NOME_INVALIDO.getMensagem(), Mensagem.NOME_INVALIDO.getMensagem());
 		String idItem = AcervoDeItens.getInstance().cadastrarItem(this.getLogin(), nome,
 				descricao, categoria);
-		ItemIF item = ItemRepositorio.recuperarItem(idItem);
+		ItemIF item = new ItemFileDAO().recuperarItem(idItem);
 		addHistoricoCadastrarItem(item);
 		return item.getId();
 
@@ -268,7 +269,7 @@ public class Usuario implements UsuarioIF {
 	public boolean oItemMePertence(String idItem) throws ArgumentoInvalidoException {
 		Validador.assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem(),
 				Mensagem.ID_ITEM_INVALIDO.getMensagem());
-		Validador.asserteTrue(ItemRepositorio.existeItem(idItem.trim()),
+		Validador.asserteTrue(new ItemFileDAO().existeItem(idItem.trim()),
 				Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
 		Iterator<ItemIF> iterador = getItens().iterator();
 		while (iterador.hasNext()) {
@@ -417,7 +418,7 @@ public class Usuario implements UsuarioIF {
 	public boolean esteItemMePertence(String idItem) throws Exception {
 		assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem(),
 				Mensagem.ID_ITEM_INVALIDO.getMensagem());
-		asserteTrue(ItemRepositorio.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE
+		asserteTrue(new ItemFileDAO().existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE
 				.getMensagem());
 		return AcervoDeItens.getInstance().esteItemMePertence(this.getLogin(), idItem);
 	}
@@ -460,7 +461,7 @@ public class Usuario implements UsuarioIF {
 			throws Exception {
 
 		assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
-		asserteTrue(ItemRepositorio.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
+		asserteTrue(new ItemFileDAO().existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
 		AcervoDeItens.getInstance().registrarInteressePorItem(this.getLogin(), idItem);
 	}
 	
