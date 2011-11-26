@@ -222,4 +222,5 @@ public interface RelacionamentosUsuariosDAO extends PersistenciaListener{
 	 * zera o sistema.
 	 */
 	public void zerarSistema();
+	
 }
