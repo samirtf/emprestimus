@@ -12,6 +12,8 @@ import com.google.gwt.user.client.ui.RootPanel;
 public class Emprestimusweb implements EntryPoint {
 	Controlador controlador = new Controlador(this);
 	String idSessao;
+	
+	Home compositeHome;
 
 	/**
 	 * This is the entry point method.
@@ -25,9 +27,13 @@ public class Emprestimusweb implements EntryPoint {
 	}
 	
 	public void abrirSessao(String idSessao) {
-		Home compositeHome = new Home(controlador);
+		compositeHome = new Home(controlador);
 		compositeHome.setVisible(true);
 		RootPanel.get("nameFieldContainer").add(compositeHome);
+	}
+	
+	public void atualizaHtmlCentral() {
+		compositeHome.atualizaHtmlCentral();
 	}
 	
 }

@@ -17,27 +17,23 @@ public class Controlador {
 	private String idSessao;
 	private Emprestimusweb entryPoint;
 	
-	private UsuarioSimples usuario = new UsuarioSimples();
+	private UsuarioSimples usuario;
 
 	/**
 	 * @param emprestimusweb
 	 */
 	public Controlador(Emprestimusweb entryPoint) {
-		synchronized (usuario) {
-			this.entryPoint = entryPoint;			
-		}
+		this.entryPoint = entryPoint;			
 	}
 
 	/**
 	 * @param idSessao
 	 * @throws Exception 
 	 */
-	public synchronized void abrirSessao(String idSessao) {
-		synchronized (usuario) {
-			this.idSessao = idSessao;
-			criaUsuarioSimples();
-			entryPoint.abrirSessao(idSessao);			
-		}
+	public void abrirSessao(String idSessao) {
+		this.idSessao = idSessao;
+		criaUsuarioSimples();
+		entryPoint.abrirSessao(idSessao);			
 		
 	}
 	
@@ -45,26 +41,31 @@ public class Controlador {
 	 * 
 	 */
 	private void criaUsuarioSimples() {
-		synchronized (usuario) {
-			try {
-				greetingService.getUsuarioSimples(idSessao, new AsyncCallback<UsuarioSimples>() {
-					@Override
-					public void onFailure(Throwable caught) {
-						
-						// TODO Auto-generated method stub
-						caught.printStackTrace();
-						
-					}
-					@Override
-					public void onSuccess(UsuarioSimples result) {
+		try {
+			greetingService.getUsuarioSimples(idSessao, new AsyncCallback<UsuarioSimples>() {
+				@Override
+				public void onFailure(Throwable caught) {
+					
+					// TODO Auto-generated method stub
+					caught.printStackTrace();
+					
+				}
+				@Override
+				public void onSuccess(UsuarioSimples result) {
+					try {
 						usuario = result;
+						entryPoint.atualizaHtmlCentral();
+//						notifyAll();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
-				});
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			
-			}
+				}
+			});
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		
 		}
 	}
 
@@ -72,31 +73,25 @@ public class Controlador {
 	 * @return idSessao
 	 */
 	public String getIdSessao() {
-		synchronized (usuario) {
-			return idSessao;
-		}
+		return idSessao;
 	}
 	
-	public synchronized UsuarioSimples getUsuarioSimples() {
-		return usuario;
+//	public synchronized UsuarioSimples getUsuarioSimples() {
+//		return usuario;
+//	}
+
+	/**
+	 * @return
+	 */
+	public String getNome() {
+		return usuario.getNome();
 	}
 
 	/**
 	 * @return
 	 */
-	public synchronized String getNome() {
-		synchronized (usuario) {
-			return usuario.getNome();
-		}
-	}
-
-	/**
-	 * @return
-	 */
-	public synchronized String getHistorico() {
-		synchronized (usuario) {
-			return usuario.getHistorico();
-		}
+	public String getHistorico() {
+		return usuario.getHistorico();
 	}
 
 }

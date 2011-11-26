@@ -4,20 +4,20 @@ import iu.web.client.Controlador;
 
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineHyperlink;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.Hyperlink;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.Button;
 
 /**
  * @author José Nathaniel L de Abrante - nathaniel.una@gmail.com
  *
  */
 public class Home extends Composite {
+	private static final String IMAGEM_LOGO = "emprestimusweb/logo2.png";
+	
 	private Controlador controlador;
 	private DockLayoutPanel painelGlobal;
 	private AbsolutePanel painelSuperior;
@@ -49,7 +49,7 @@ public class Home extends Composite {
 		painelSuperior = new AbsolutePanel();
 		painelGlobal.addNorth(painelSuperior, 9.1);
 		
-		Image image = new Image("emprestimusweb/logo2.png");
+		Image image = new Image(IMAGEM_LOGO);
 		painelSuperior.add(image, 10, 10);
 		image.setSize("311px", "105px");
 		
@@ -90,9 +90,13 @@ public class Home extends Composite {
 	}
 	
 	private void inicializaHtmlCentral() {
-		html = new HTML("<h2>"+controlador.getNome()+"</h2>"
-				+controlador.getHistorico(), true);
+		html = new HTML("Carregando...", true);
 		painelGlobal.add(html);
 		
+	}
+	
+	public void atualizaHtmlCentral() {
+		html.setHTML("<h2>Bemvindo, "+controlador.getNome()+"</h2><br>Histórico de atualizações:<br>"
+				+controlador.getHistorico());
 	}
 }
