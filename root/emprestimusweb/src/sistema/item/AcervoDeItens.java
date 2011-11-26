@@ -12,15 +12,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-
 import sistema.autenticacao.Autenticacao;
+import sistema.dao.EmprestimoFileDAO;
+import sistema.dao.ItemFileDAO;
 import sistema.emprestimo.BancoDeEmprestimos;
 import sistema.emprestimo.EmprestimoIF;
 import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.notificacao.GerenciadorDeNotificacoes;
 import sistema.notificacao.NotificacaoPublicarPedido;
-import sistema.persistencia.EmprestimoRepositorio;
-import sistema.persistencia.ItemRepositorio;
 import sistema.persistencia.NotificacaoRepositorio;
 import sistema.usuario.RelacionamentosUsuarios;
 import sistema.usuario.UsuarioIF;
@@ -114,7 +113,7 @@ public class AcervoDeItens {
 
 		ItemIF item = new Item(nome, descricao, categoria, Autenticacao
 				.getUsuarioPorLogin(login));
-		ItemRepositorio.cadastrarItem(item);
+		new ItemFileDAO().cadastrarItem(item);
 		bauhs.get(login).getItens().add(item);// o item eh modificado pelo
 												// repositorio possuindo agora
 		// um id valido
@@ -324,7 +323,7 @@ public class AcervoDeItens {
 				Mensagem.LOGIN_INVALIDO.getMensagem());
 		assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem(),
 				Mensagem.ID_ITEM_INVALIDO.getMensagem());
-		asserteTrue(ItemRepositorio.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE
+		asserteTrue(new ItemFileDAO().existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE
 				.getMensagem());
 
 		Iterator<ItemIF> iteradorItens = bauhs.get(login).getItens().iterator();
@@ -357,7 +356,7 @@ public class AcervoDeItens {
 
 				UsuarioIF amigoQueSolicitou = emprestimo.getBeneficiado();
 				amigoQueSolicitou.removerMinhaSolicitacaoEmprestimo(emprestimo);
-				EmprestimoRepositorio.removerEmprestimo(emprestimo.getIdEmprestimo());
+				new EmprestimoFileDAO().removerEmprestimo(emprestimo.getIdEmprestimo());
 				iteradorEmprestimosRequeridosPorAmigos.remove();
 			}
 		}
@@ -386,22 +385,21 @@ public class AcervoDeItens {
 				Mensagem.LOGIN_INVALIDO.getMensagem());
 		assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem(),
 				Mensagem.ID_ITEM_INVALIDO.getMensagem());
-		asserteTrue(ItemRepositorio.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE
+		asserteTrue(new ItemFileDAO().existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE
 				.getMensagem());
 
-		ItemIF item = ItemRepositorio.recuperarItem(idItem);
-
-		// FIXME usar as mensagens constantes do enum Mensagem
+		ItemIF item = new ItemFileDAO().recuperarItem(idItem);
 
 		asserteTrue(!item.getInteresasados().contains(
 				Autenticacao.getUsuarioPorLogin(seuLogin)),
-				"O usuário já registrou interesse neste item");
-		asserteTrue(!esteItemMePertence(seuLogin, idItem),
-				"O usuário não pode registrar interesse no próprio item");
+				Mensagem.USUARIO_JAH_REGISTROU_INTERESSE_NESTE_ITEM.getMensagem());
+		asserteTrue(!item.getInteresasados().contains(
+				Autenticacao.getUsuarioPorLogin(seuLogin)),
+				Mensagem.USUARIO_NAO_PODE_REGISTRAR_INTERESSE_PROPRIO_ITEM.getMensagem());
 		UsuarioIF amigo = RelacionamentosUsuarios.getInstance().ehItemDoMeuAmigo(
 				seuLogin, idItem);
 		assertNaoNulo(amigo,
-				"O usuário não tem permissão para registrar interesse neste item");
+				Mensagem.USUARIO_NAO_TEM_PERMISSAO_REGISTRAR_INTERESSE_NESSE_ITEM.getMensagem());
 		item.adicionaInteressado(Autenticacao.getUsuarioPorLogin(seuLogin));
 		GerenciadorDeNotificacoes.getInstance().addHistoricoInteressePorItem(seuLogin,
 				amigo, item);
@@ -434,13 +432,13 @@ public class AcervoDeItens {
 		}
 		assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem(),
 				Mensagem.ID_ITEM_INVALIDO.getMensagem());
-		asserteTrue(ItemRepositorio.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE
+		asserteTrue(new ItemFileDAO().existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE
 				.getMensagem());
 		UsuarioIF usuario = Autenticacao.getUsuarioPorLogin(login);
 		if (!usuario.esteItemMePertence(idItem)) {
 			throw new Exception(Mensagem.ITEM_NAO_ME_PERTENCE.getMensagem());
 		}
-		ItemIF item = ItemRepositorio.recuperarItem(idItem);
+		ItemIF item = new ItemFileDAO().recuperarItem(idItem);
 		usuario.enviarMensagemOferecimentoItemOffTopic(notificacao
 				.getOriginadorMensagem().getLogin(), String.format(
 				"O usuário %s ofereceu o item %s", usuario.getNome(), item.getNome()),

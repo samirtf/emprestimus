@@ -14,6 +14,8 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import sistema.autenticacao.Autenticacao;
+import sistema.dao.ChatFileDAO;
+import sistema.dao.EmprestimoFileDAO;
 import sistema.emprestimo.EmprestimoIF;
 import sistema.persistencia.ChatRepositorio;
 import sistema.persistencia.EmprestimoRepositorio;
@@ -127,14 +129,14 @@ public class Correio {
 		assertStringNaoVazia(mensagem, Mensagem.MENSAGEM_INVALIDA.getMensagem(),
 				Mensagem.MENSAGEM_INVALIDA.getMensagem());
 
-		ChatIF conversa = ChatRepositorio
+		ChatIF conversa = new ChatFileDAO()
 				.existeConversaEntreAsPessoasSobreMesmoAssuntoETipo(usuario.getLogin(),
 						destinatario, assunto, true);
 
 		if (conversa == null) {
 			conversa = new Chat(usuario, amigo, assunto.trim(), mensagem.trim());
 			conversa.setTipoOffTopicMsg();
-			ChatRepositorio.registrarConversa(conversa);
+			new ChatFileDAO().registrarConversa(conversa);
 			caixasPostais.get(remetente).getConversasOffTopic().add(conversa);
 			// usuario.conversasOfftopic.add(conversa);
 			amigo.adicionaConversaOfftopicNaLista(conversa);
@@ -183,17 +185,17 @@ public class Correio {
 				Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem(),
 				Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
 		asserteTrue(
-				EmprestimoRepositorio.existeEmprestimo(idRequisicaoEmprestimo.trim()),
+				new EmprestimoFileDAO().existeEmprestimo(idRequisicaoEmprestimo.trim()),
 				Mensagem.ID_REQUISICAO_EMP_INEXISTENTE.getMensagem());
 
-		EmprestimoIF emprestimo = EmprestimoRepositorio
+		EmprestimoIF emprestimo = new EmprestimoFileDAO()
 				.recuperarEmprestimo(idRequisicaoEmprestimo);
 		if (!usuario.equals(emprestimo.getEmprestador())
 				&& !usuario.equals(emprestimo.getBeneficiado()))
 			throw new Exception(Mensagem.USUARIO_NAO_PARTICIPA_DESTE_EMPRESTIMO
 					.getMensagem());
 
-		ChatIF conversa = ChatRepositorio
+		ChatIF conversa = new ChatFileDAO()
 				.existeConversaEntreAsPessoasSobreMesmoAssuntoETipo(usuario.getLogin(),
 						destinatario, assunto, false);
 
@@ -201,7 +203,7 @@ public class Correio {
 			conversa = new Chat(usuario, amigo, assunto.trim(), mensagem,
 					idRequisicaoEmprestimo);
 			conversa.setTipoNegociacaoMsg();
-			ChatRepositorio.registrarConversa(conversa);
+			new ChatFileDAO().registrarConversa(conversa);
 			caixasPostais.get(remetente).getConversasNegociacao().add(conversa);
 			// this.conversasNegociacao.add(conversa);
 			amigo.adicionaConversaNegociacaoNaLista(conversa);
@@ -304,14 +306,14 @@ public class Correio {
 		assertStringNaoVazia(mensagem, Mensagem.MENSAGEM_INVALIDA.getMensagem(),
 				Mensagem.MENSAGEM_INVALIDA.getMensagem());
 
-		ChatIF conversa = ChatRepositorio
+		ChatIF conversa = new ChatFileDAO()
 				.existeConversaEntreAsPessoasSobreMesmoAssuntoETipo(usuario.getLogin(),
 						destinatario, assunto, true);
 
 		if (conversa == null) {
 			conversa = new Chat(usuario, amigoDeAmigo, assunto.trim(), mensagem.trim());
 			conversa.setTipoOffTopicMsg();
-			ChatRepositorio.registrarConversa(conversa);
+			new ChatFileDAO().registrarConversa(conversa);
 			caixasPostais.get(remetente).getConversasOffTopic().add(conversa);
 			// usuario.conversasOfftopic.add(conversa);
 			amigoDeAmigo.adicionaConversaOfftopicNaLista(conversa);
