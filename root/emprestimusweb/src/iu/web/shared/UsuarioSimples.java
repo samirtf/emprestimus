@@ -9,12 +9,10 @@ import java.io.Serializable;
 public class UsuarioSimples implements Serializable {
 
 	private static final long serialVersionUID = -406661456909671205L;
-	private static final int INDICE_ID = 0;
-	private static final int INDICE_NOME = 1;
-	private static final int INDICE_FOTO = 2;
-	private static final int INDICE_HISTORICO = 3;
+	private static final int INDICE_NOME = 0;
+	private static final int INDICE_FOTO = 1;
+	private static final int INDICE_HISTORICO = 2;
 
-	private String id;
 	private String nome;
 	private String foto;
 	private String historico;
@@ -28,7 +26,6 @@ public class UsuarioSimples implements Serializable {
 
 	//
 	// /**
-	// * @param id
 	// * @param nome
 	// * @param foto
 	// * @param historico
@@ -38,7 +35,6 @@ public class UsuarioSimples implements Serializable {
 	//
 	// //FIXME Testar parâmetros nulos
 	//
-	// this.id = id;
 	// this.nome = nome;
 	// this.foto = foto;
 	// this.historico = historico;
@@ -89,26 +85,9 @@ public class UsuarioSimples implements Serializable {
 		this.historico = historico;
 	}
 
-	/**
-	 * @return id
-	 */
-	public String getId() {
-		return id;
-	}
-
-	/**
-	 * @param id
-	 *            id que deseja configurar
-	 */
-	public void setId(String id) {
-		this.id = id;
-	}
-
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(id);
-		sb.append("|");
 		sb.append(nome);
 		sb.append("|");
 		sb.append(foto);
@@ -131,7 +110,6 @@ public class UsuarioSimples implements Serializable {
 	public static UsuarioSimples valueOf(String entrada) throws Exception {
 		UsuarioSimples usuario = new UsuarioSimples();
 		String[] array = entrada.split("|");
-		usuario.setId(array[INDICE_ID]);
 		usuario.setNome(array[INDICE_NOME]);
 		usuario.setFoto(array[INDICE_FOTO]);
 		usuario.setHistorico(array[INDICE_HISTORICO]);

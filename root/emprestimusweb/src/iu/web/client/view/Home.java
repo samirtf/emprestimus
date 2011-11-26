@@ -1,8 +1,16 @@
 package iu.web.client.view;
 
 import iu.web.client.Controlador;
+import iu.web.shared.MensagensWeb;
+import iu.web.shared.VerificadorDeCampos;
 
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
@@ -17,6 +25,8 @@ import com.google.gwt.user.client.ui.InlineHyperlink;
  */
 public class Home extends Composite {
 	private static final String IMAGEM_LOGO = "emprestimusweb/logo2.png";
+
+	private static final Image FOTO_DEFAULT = new Image("emprestimusweb/imagens/defaultFoto.jpg");
 	
 	private Controlador controlador;
 	private DockLayoutPanel painelGlobal;
@@ -24,7 +34,7 @@ public class Home extends Composite {
 	private AbsolutePanel painelLateral;
 	private AbsolutePanel painelInferior;
 	private InlineHyperlink lnkMural;
-	private Image imagem;
+	private Image foto;
 	private InlineHyperlink lnkPerfil;
 	private InlineHyperlink lnkMensagens;
 	private InlineHyperlink lnkItens;
@@ -55,6 +65,7 @@ public class Home extends Composite {
 		
 		Button btnSair = new Button("Sair");
 		painelSuperior.add(btnSair, 851, 10);
+		btnSair.addClickHandler(new MyHandlerSair());
 		
 	}
 	
@@ -62,9 +73,9 @@ public class Home extends Composite {
 		painelLateral = new AbsolutePanel();
 		painelGlobal.addWest(painelLateral, 16.1);
 		
-		imagem = new Image("emprestimusweb/03.jpg");
-		painelLateral.add(imagem, 28, 10);
-		imagem.setSize("155px", "155px");
+		foto = FOTO_DEFAULT;
+		painelLateral.add(foto, 28, 10);
+		foto.setSize("155px", "155px");
 		
 		lnkMural = new InlineHyperlink("Mural", false, "newHistoryToken");
 		lnkMural.setHTML("Mural");
@@ -95,8 +106,26 @@ public class Home extends Composite {
 		
 	}
 	
-	public void atualizaHtmlCentral() {
+	public void inicializaAtributosDoUsiario() {
+		String caminhoFoto = controlador.getFoto();
+		if (caminhoFoto == null) {
+			foto = FOTO_DEFAULT;
+		} else {
+			foto = new Image(caminhoFoto);
+		}
+		
 		html.setHTML("<h2>Bemvindo, "+controlador.getNome()+"</h2><br>Histórico de atualizações:<br>"
 				+controlador.getHistorico());
 	}
+	
+    class MyHandlerSair implements ClickHandler {
+        public void onClick(ClickEvent event) {
+                enviaAoServidor();
+                
+        }
+        private void enviaAoServidor() {
+        	removeFromParent();
+        	controlador.fecharSessao();
+        }
+}
 }

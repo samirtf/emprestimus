@@ -37,9 +37,8 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements Greetin
 		UsuarioIF usuario = Autenticacao.getInstance().getUsuarioPeloIDSessao(idSessao);
 		
 		UsuarioSimples usuarioSimples = new UsuarioSimples();
-		usuarioSimples.setId("...ID...");
 		usuarioSimples.setNome(usuario.getNome());
-		usuarioSimples.setFoto("...FOTO...");
+		usuarioSimples.setFoto(usuario.getCaminhaImagemPerfil());
 		usuarioSimples.setHistorico(usuario.getHistoricoToString());
 		
 		return usuarioSimples;

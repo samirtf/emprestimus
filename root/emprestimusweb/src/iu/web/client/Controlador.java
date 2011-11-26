@@ -3,6 +3,7 @@ package iu.web.client;
 import iu.web.shared.UsuarioSimples;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 
@@ -54,7 +55,7 @@ public class Controlador {
 				public void onSuccess(UsuarioSimples result) {
 					try {
 						usuario = result;
-						entryPoint.atualizaHtmlCentral();
+						entryPoint.usuarioFoiAtualizado();
 //						notifyAll();
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
@@ -92,6 +93,22 @@ public class Controlador {
 	 */
 	public String getHistorico() {
 		return usuario.getHistorico();
+	}
+
+	/**
+	 * @return
+	 */
+	public String getFoto() {
+		return usuario.getFoto();
+	}
+
+	/**
+	 * 
+	 */
+	public void fecharSessao() {
+		idSessao = null;
+		usuario = null;
+		entryPoint.onModuleLoad();
 	}
 
 }
