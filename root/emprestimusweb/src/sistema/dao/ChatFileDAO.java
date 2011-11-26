@@ -48,4 +48,10 @@ public class ChatFileDAO implements ChatDAO{
 		ChatRepositorio.getInstance().zerarRepositorio();	
 	}
 
+	@Override
+	public void notificaPersistenciaDoSistema() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

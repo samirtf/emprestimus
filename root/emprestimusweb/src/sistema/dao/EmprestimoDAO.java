@@ -1,8 +1,9 @@
 package sistema.dao;
 
 import sistema.emprestimo.EmprestimoIF;
+import sistema.persistencia.PersistenciaListener;
 
-public interface EmprestimoDAO {
+public interface EmprestimoDAO extends PersistenciaListener{
 
 	/**
 	 * Calcula o id do proximo emprestimo a ser cadastrado.

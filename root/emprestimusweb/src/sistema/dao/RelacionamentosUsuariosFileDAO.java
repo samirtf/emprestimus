@@ -104,4 +104,10 @@ public class RelacionamentosUsuariosFileDAO implements RelacionamentosUsuariosDA
 		RelacionamentosUsuarios.getInstance().zerarSistema();
 	}
 
+	@Override
+	public void notificaPersistenciaDoSistema() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -87,4 +87,10 @@ public class GerenciadorDeNotificacoesFileDAO implements GerenciadorDeNotificaco
 		GerenciadorDeNotificacoes.getInstance().zerarSistema();		
 	}
 
+	@Override
+	public void notificaPersistenciaDoSistema() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

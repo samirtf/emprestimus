@@ -80,4 +80,10 @@ public class BancoDeEmprestimosFileDAO implements BancoDeEmprestimosDAO {
 		
 	}
 
+	@Override
+	public void notificaPersistenciaDoSistema() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -41,4 +41,10 @@ public class NotificacaoFileDAO implements NotificacaoDAO {
 		
 	}
 
+	@Override
+	public void notificaPersistenciaDoSistema() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -57,4 +57,10 @@ public class CorreioFileDAO implements CorreioDAO{
 		Correio.getInstance().zerarSistema();		
 	}
 
+	@Override
+	public void notificaPersistenciaDoSistema() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

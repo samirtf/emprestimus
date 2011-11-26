@@ -3,6 +3,7 @@ package sistema.dao;
 import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.item.ItemIF;
 import sistema.notificacao.Rack;
+import sistema.persistencia.PersistenciaListener;
 import sistema.usuario.UsuarioIF;
 
 
@@ -10,7 +11,7 @@ import sistema.usuario.UsuarioIF;
  * @author Mobile
  * 
  */
-public interface GerenciadorDeNotificacoesDAO {
+public interface GerenciadorDeNotificacoesDAO extends PersistenciaListener{
 
 	/**
 	 * Adiciona um Rack a um determinado usuario

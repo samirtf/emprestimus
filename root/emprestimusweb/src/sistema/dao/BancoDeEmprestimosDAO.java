@@ -2,12 +2,13 @@ package sistema.dao;
 
 import sistema.emprestimo.Conta;
 import sistema.emprestimo.EmprestimoIF;
+import sistema.persistencia.PersistenciaListener;
 import sistema.usuario.UsuarioIF;
 
 /**
  * @author Mobile
  */
-public interface BancoDeEmprestimosDAO {
+public interface BancoDeEmprestimosDAO extends PersistenciaListener {
 
 	/**
 	 * Cadastra um usuario no banco de emprestimos

@@ -4,13 +4,14 @@ import java.util.List;
 import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.item.Bauh;
 import sistema.item.ItemIF;
+import sistema.persistencia.PersistenciaListener;
 
 
 /**
  * @author Mobile
  * 
  */
-public interface AcervoDeItensDAO {
+public interface AcervoDeItensDAO extends PersistenciaListener {
 	
 	/**
 	 * Adiciona um Bauh a um determinado usuario.

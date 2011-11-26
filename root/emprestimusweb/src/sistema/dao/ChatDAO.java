@@ -1,8 +1,9 @@
 package sistema.dao;
 
 import sistema.mensagem.ChatIF;
+import sistema.persistencia.PersistenciaListener;
 
-public interface ChatDAO {
+public interface ChatDAO extends PersistenciaListener{
 
 	/**
 	 * Calcula o id do proximo emprestimo a ser cadastrado.

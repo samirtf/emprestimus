@@ -1,9 +1,10 @@
 package sistema.dao;
 
 import sistema.item.ItemIF;
+import sistema.persistencia.PersistenciaListener;
 
 
-public interface ItemDAO {
+public interface ItemDAO extends PersistenciaListener{
 	
 	/**
 	 * Calcula o id do proximo item a ser cadastrado.

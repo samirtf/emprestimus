@@ -101,6 +101,12 @@ public class ItemFileDAO implements ItemDAO {
 	public synchronized void zerarRepositorio() {
 		ItemRepositorio.getInstance().zerarRepositorio();
 	}
+
+	@Override
+	public void notificaPersistenciaDoSistema() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 
 }

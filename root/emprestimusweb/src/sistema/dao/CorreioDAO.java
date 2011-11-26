@@ -1,12 +1,13 @@
 package sistema.dao;
 
 import sistema.mensagem.ChatIF;
+import sistema.persistencia.PersistenciaListener;
 
 /**
  * @author Mobile
  * 
  */
-public interface CorreioDAO {
+public interface CorreioDAO extends PersistenciaListener{
 
 	public void adicionaCaixaPostalAoUsuario(String usuario) throws Exception;
 

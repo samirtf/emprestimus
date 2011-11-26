@@ -109,4 +109,10 @@ public class AcervoDeItensFileDAO implements AcervoDeItensDAO {
 		AcervoDeItens.getInstance().zerarSistema();
 	}
 
+	@Override
+	public void notificaPersistenciaDoSistema() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

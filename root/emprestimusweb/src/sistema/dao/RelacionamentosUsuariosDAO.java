@@ -3,6 +3,7 @@ package sistema.dao;
 
 import java.util.List;
 import sistema.excecoes.ArgumentoInvalidoException;
+import sistema.persistencia.PersistenciaListener;
 import sistema.usuario.CicloDeAmizade;
 import sistema.usuario.UsuarioIF;
 
@@ -11,7 +12,7 @@ import sistema.usuario.UsuarioIF;
  * Campina Grande
  */
 
-public interface RelacionamentosUsuariosDAO {
+public interface RelacionamentosUsuariosDAO extends PersistenciaListener{
 
 	
 	/**

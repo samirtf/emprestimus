@@ -1,6 +1,7 @@
 package sistema.dao;
 
 import sistema.notificacao.Notificacao;
+import sistema.persistencia.PersistenciaListener;
 
 /**
  * Singleton
@@ -8,7 +9,7 @@ import sistema.notificacao.Notificacao;
  * @author Nathaniel
  * 
  */
-public interface NotificacaoDAO {
+public interface NotificacaoDAO extends PersistenciaListener{
 	
 
 	/**
