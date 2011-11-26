@@ -19,6 +19,12 @@ import maps.RefCoordenadas;
 import sistema.autenticacao.Autenticacao;
 import sistema.autenticacao.Configuracao;
 import sistema.autenticacao.ServicoRecuperacaoSenhaUsuario;
+import sistema.dao.ChatDAO;
+import sistema.dao.ChatFileDAO;
+import sistema.dao.EmprestimoDAO;
+import sistema.dao.EmprestimoFileDAO;
+import sistema.dao.ItemDAO;
+import sistema.dao.ItemFileDAO;
 import sistema.emprestimo.BancoDeEmprestimos;
 import sistema.emprestimo.EmprestimoIF;
 import sistema.excecoes.ArgumentoInvalidoException;
@@ -50,11 +56,17 @@ public class Emprestimus implements EmprestimusIF {
 	private ServicoRecuperacaoSenhaUsuario srs;
 	private Calendar dataCorrente;
 	private int diasExtras = 0;
+	private ItemDAO itemDao;
+	private EmprestimoDAO emprestimoDao;
+	private ChatDAO chatDao;
 	
 	private Emprestimus(){
 		autenticacao = Autenticacao.getInstance();
 		srs = ServicoRecuperacaoSenhaUsuario.getInstance();
 		srs.iniciarServico();
+		itemDao = new ItemFileDAO();
+		emprestimoDao = new EmprestimoFileDAO();
+		chatDao = new ChatFileDAO();
 	}
 	
 	/**
@@ -118,13 +130,14 @@ public class Emprestimus implements EmprestimusIF {
 
 	@Override
 	public String getAtributoItem( String idItem, String atributo ) throws Exception {
-		
 		assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
-		asserteTrue(ItemRepositorio.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
+		asserteTrue(itemDao.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
+		//asserteTrue(ItemRepositorio.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
 		assertStringNaoVazia(atributo, Mensagem.ATRIBUTO_INVALIDO.getMensagem(),Mensagem.ATRIBUTO_INVALIDO.getMensagem());
 		
 		atributo = atributo.toLowerCase().trim();
-		String str = ItemRepositorio.getAtributoItem(idItem, atributo);
+		String str = itemDao.getAtributoItem(idItem, atributo);
+//		String str = ItemRepositorio.getAtributoItem(idItem, atributo);
 		return str;
 		
 	}
@@ -274,7 +287,7 @@ public class Emprestimus implements EmprestimusIF {
 		Validador.assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(), Mensagem.SESSAO_INVALIDA.getMensagem());
 		Validador.asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
 		Validador.assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
-		Validador.asserteTrue(ItemRepositorio.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
+		Validador.asserteTrue(itemDao.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
 		Validador.asserteTrue(duracao > 0, Mensagem.EMPRESTIMO_DURACAO_INVALIDA.getMensagem());
 		
 		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
@@ -287,10 +300,9 @@ public class Emprestimus implements EmprestimusIF {
 		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(), Mensagem.SESSAO_INVALIDA.getMensagem());
 		asserteTrue(autenticacao.existeIdSessao(idSessao.trim()), Mensagem.SESSAO_INEXISTENTE.getMensagem());
 		assertStringNaoVazia(idRequisicaoEmprestimo, Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem(), Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
-		asserteTrue(EmprestimoRepositorio.existeEmprestimo(idRequisicaoEmprestimo.trim()), Mensagem.ID_REQUISICAO_EMP_INEXISTENTE.getMensagem());
+		asserteTrue(emprestimoDao.existeEmprestimo(idRequisicaoEmprestimo.trim()), Mensagem.ID_REQUISICAO_EMP_INEXISTENTE.getMensagem());
 		
-		EmprestimoIF emp = EmprestimoRepositorio.recuperarEmprestimo(idRequisicaoEmprestimo); 
-		
+		//EmprestimoIF emp = emprestimoDao.recuperarEmprestimo(idRequisicaoEmprestimo); 
 		
 		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao.trim());
 		String saida = usuario.aprovarEmprestimo(idRequisicaoEmprestimo);
@@ -304,7 +316,6 @@ public class Emprestimus implements EmprestimusIF {
 		asserteTrue(autenticacao.existeIdSessao(idSessao.trim()), Mensagem.SESSAO_INEXISTENTE.getMensagem());
 		assertStringNaoVazia(tipo, Mensagem.TIPO_INVALIDO.getMensagem(), Mensagem.TIPO_INVALIDO.getMensagem());
 		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao.trim());
-		String result = null;
 		return usuario.getEmprestimos(tipo); 
 		
 	}
@@ -316,10 +327,10 @@ public class Emprestimus implements EmprestimusIF {
 		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(), Mensagem.SESSAO_INVALIDA.getMensagem());
 		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
 		assertStringNaoVazia(idEmprestimo, Mensagem.ID_EMPRESTIMO_INVALIDO.getMensagem(), Mensagem.ID_EMPRESTIMO_INVALIDO.getMensagem());
-		asserteTrue(EmprestimoRepositorio.existeEmprestimo(idEmprestimo), Mensagem.EMPRESTIMO_INEXISTENTE.getMensagem());
+		asserteTrue(emprestimoDao.existeEmprestimo(idEmprestimo), Mensagem.EMPRESTIMO_INEXISTENTE.getMensagem());
 		
 		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
-		EmprestimoIF emp = EmprestimoRepositorio.recuperarEmprestimo(idEmprestimo);
+		EmprestimoIF emp = emprestimoDao.recuperarEmprestimo(idEmprestimo);
 		asserteTrue(emp.getBeneficiado().equals(usuario),Mensagem.EMPRESTIMO_DEVOLUCAO_APENAS_BENEFICIADO.getMensagem());
 		
 		emp.devolverEmprestimo();
@@ -334,7 +345,7 @@ public class Emprestimus implements EmprestimusIF {
 		assertStringNaoVazia(idEmprestimo, Mensagem.ID_EMPRESTIMO_INVALIDO.getMensagem(), Mensagem.ID_EMPRESTIMO_INVALIDO.getMensagem());
 		
 		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
-		EmprestimoIF emprestimo = EmprestimoRepositorio.recuperarEmprestimo(idEmprestimo);
+		EmprestimoIF emprestimo = emprestimoDao.recuperarEmprestimo(idEmprestimo);
 		asserteTrue(emprestimo.getEmprestador().equals(usuario),
 				"O usuário não tem permissão para requisitar a devolução deste item");
 
@@ -386,11 +397,11 @@ public class Emprestimus implements EmprestimusIF {
 				.getMensagem());
 		assertStringNaoVazia(idEmprestimo, Mensagem.ID_EMPRESTIMO_INVALIDO.getMensagem(),
 				Mensagem.ID_EMPRESTIMO_INVALIDO.getMensagem());
-		asserteTrue(EmprestimoRepositorio.existeEmprestimo(idEmprestimo),
+		asserteTrue(emprestimoDao.existeEmprestimo(idEmprestimo),
 				Mensagem.EMPRESTIMO_INEXISTENTE.getMensagem());
 
 		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
-		EmprestimoIF emp = EmprestimoRepositorio.recuperarEmprestimo(idEmprestimo);
+		EmprestimoIF emp = emprestimoDao.recuperarEmprestimo(idEmprestimo);
 		asserteTrue(emp.getEmprestador().equals(usuario),
 				Mensagem.EMPRESTIMO_DEVOLUCAO_CONFIRMADA_APENAS_EMPRESTADOR.getMensagem());
 		// asserteTrue(!emp.getEstadoEnum().equals(EmprestimoEstado.CONFIRMADO),
@@ -416,7 +427,7 @@ public class Emprestimus implements EmprestimusIF {
 	 * @throws Exception 
 	 */
 	private void liberaItem(String idSessao, String idEmprestimo) throws Exception {
-		EmprestimoIF emprestimo = EmprestimoRepositorio.recuperarEmprestimo(idEmprestimo);
+		EmprestimoIF emprestimo = emprestimoDao.recuperarEmprestimo(idEmprestimo);
 		UsuarioIF dono = emprestimo.getEmprestador();
 		ItemIF item = emprestimo.getItem();
 		
@@ -469,7 +480,7 @@ public class Emprestimus implements EmprestimusIF {
 				Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem(),
 				Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
 		asserteTrue(
-				EmprestimoRepositorio.existeEmprestimo(idRequisicaoEmprestimo.trim()),
+				emprestimoDao.existeEmprestimo(idRequisicaoEmprestimo.trim()),
 				Mensagem.ID_REQUISICAO_EMP_INEXISTENTE.getMensagem());
 		return usuario.enviarMensagemEmprestimo(destinatario, assunto, mensagem,
 				idRequisicaoEmprestimo);
@@ -497,10 +508,10 @@ public class Emprestimus implements EmprestimusIF {
 				.getMensagem());
 		assertStringNaoVazia(idTopico, Mensagem.TOPICO_ID_INVALIDO.getMensagem(),
 				Mensagem.TOPICO_ID_INVALIDO.getMensagem());
-		asserteTrue(ChatRepositorio.existeConversa(idTopico),
+		asserteTrue(chatDao.existeConversa(idTopico),
 				Mensagem.TOPICO_ID_INEXISTENTE.getMensagem());
 
-		ChatIF conversa = ChatRepositorio.recuperarConversa(idTopico);
+		ChatIF conversa = chatDao.recuperarConversa(idTopico);
 		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
 		if(!usuario.equals(conversa.getRemetente()) && !usuario.equals(conversa.getDestinatario()))
 			throw new Exception(Mensagem.USUARIO_SEM_PERMISSAO_LEITURA_TOPICO.getMensagem());
@@ -514,7 +525,7 @@ public class Emprestimus implements EmprestimusIF {
 		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(), Mensagem.SESSAO_INVALIDA.getMensagem());
 		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
 		assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
-		asserteTrue(ItemRepositorio.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
+		asserteTrue(itemDao.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
 		
 		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
 		usuario.registrarInteressePorItem(idItem);
@@ -526,9 +537,9 @@ public class Emprestimus implements EmprestimusIF {
 		//Zerar o BD
 		autenticacao.zerarSistema();
 		srs.iniciarServico();
-		ChatRepositorio.zerarRepositorio();
-		EmprestimoRepositorio.zerarRepositorio();
-		ItemRepositorio.zerarRepositorio();
+		chatDao.zerarRepositorio();
+		emprestimoDao.zerarRepositorio();
+		itemDao.zerarRepositorio();
 		// Limpar Gerenciamentos
 		RelacionamentosUsuarios.getInstance().zerarSistema();
 		BancoDeEmprestimos.getInstance().zerarSistema();
@@ -618,17 +629,17 @@ public class Emprestimus implements EmprestimusIF {
 				.getMensagem());
 		assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem(),
 				Mensagem.ID_ITEM_INVALIDO.getMensagem());
-		asserteTrue(ItemRepositorio.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE
+		asserteTrue(itemDao.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE
 				.getMensagem());
 
 		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
 		asserteTrue(usuario.esteItemMePertence(idItem),
 				Mensagem.SEM_PERMISSAO_APAGAR_ITEM.getMensagem());
-		ItemIF item = ItemRepositorio.recuperarItem(idItem.trim());
+		ItemIF item = itemDao.recuperarItem(idItem.trim());
 		asserteTrue(item.estahDisponivel(), Mensagem.NAO_PODE_EMPRESTAR_ITEM_EMPRESTADO.getMensagem());
 		
 		usuario.apagarItem( idItem.trim() );
-		ItemRepositorio.removerItem(idItem);
+		itemDao.removerItem(idItem);
 		
 	}
 
