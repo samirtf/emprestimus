@@ -80,9 +80,9 @@ public class Login extends Composite {
 
         private void iniciaComponentesDoLogin() {
                 
-                Image image = new Image("emprestimusweb/back.png");
-                painelLogin.add(image, 10, 10);
-                image.setSize("834px", "143px");
+                Image image = new Image("emprestimusweb/imagens/back.png");
+                painelLogin.add(image, 10, 155);
+                image.setSize("857px", "342px");
                 Label lblLoginNick = new Label("Username:");
                 painelLogin.add(lblLoginNick, 488, 30);
                 
@@ -154,25 +154,29 @@ public class Login extends Composite {
         
         private void iniciaComponentesDoLadoEsquerdo() {
                 
-                Image image_1 = new Image("emprestimusweb/logo2.png");
+                Image image_1 = new Image("emprestimusweb/imagens/.svn/text-base/logo2.png.svn-base");
                 painelLogin.add(image_1, 31, 10);
                 image_1.setSize("400px", "127px");
 
-                Image imagem3 = new Image("emprestimusweb/03.jpg");
-                painelLogin.add(imagem3, 10, 382);
+                Image imagem3 = new Image("emprestimusweb/imagens/03.jpg");
+                painelLogin.add(imagem3, 23, 382);
                 imagem3.setSize("100px", "100px");
                 
-                Image imagem2 = new Image("emprestimusweb/02.jpg");
-                painelLogin.add(imagem2, 10, 271);
+                Image imagem2 = new Image("emprestimusweb/imagens/02.jpg");
+                painelLogin.add(imagem2, 23, 271);
                 imagem2.setSize("100px", "100px");
                 
-                Image imagem1 = new Image("emprestimusweb/01.jpg");
-                painelLogin.add(imagem1, 10, 165);
+                Image imagem1 = new Image("emprestimusweb/imagens/.svn/text-base/01.jpg.svn-base");
+                painelLogin.add(imagem1, 23, 165);
                 imagem1.setSize("100px", "100px");
                 
                 InlineHTML textoHTML = new InlineHTML("<big>Pra quê comprar um novo se você pode pedir emprestado?</big><br><br>\r\nEmprestimus é a primeira rede social de empréstimos do Brasil, aqui você pode conseguir filmes, jogos, livros e muito mais...<br>\r\nConheça novas pessoas, saiba quem mora perto de você que pode lhe emprestar um ítem que você deseja. Troque mensagens com seus amigos, empreste seus ítens para aumentar sua reputação, faça Emprestimus!<br><br>\r\nCrie agora uma conta grátis!");
-                painelLogin.add(textoHTML, 129, 190);
+                painelLogin.add(textoHTML, 140, 190);
                 textoHTML.setSize("291px", "279px");
+                
+                InlineHTML nlnhtmlNewInlinehtml = new InlineHTML("<a href=\"esquecimento.html\">\rEsqueceu a senha?</a> ");
+                nlnhtmlNewInlinehtml.setStyleName("h1");
+                painelLogin.add(nlnhtmlNewInlinehtml, 546, 108);
         }
 
         /**

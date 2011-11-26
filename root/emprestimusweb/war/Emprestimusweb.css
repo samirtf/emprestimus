@@ -2,9 +2,9 @@
 
 /** Example rules used by the template application (remove for your app) */
 h1 {
-	color: #bfbfbf;
+	color: gray;
 	margin: 20px 0px;
-	font-size: 3em;
+	font-size: 12px;
 	font-weight: bold;
 	text-align: center;
 }
@@ -53,8 +53,8 @@ label {
 	font-weight: normal;
 }
 texto01 {
-	color: #bfbfbf;
+	color: gray;
 	margin: 20px 0px;
-	font-size: 2em;
+	font-size: 12;
 	text-align: justify;
 }
