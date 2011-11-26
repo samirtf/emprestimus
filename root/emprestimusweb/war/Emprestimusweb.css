@@ -4,7 +4,7 @@
 h1 {
 	color: #bfbfbf;
 	margin: 20px 0px;
-	font-size: 2em;
+	font-size: 3em;
 	font-weight: bold;
 	text-align: center;
 }
@@ -51,4 +51,10 @@ h2 {
 label {
 	color: GrayText;
 	font-weight: normal;
+}
+texto01 {
+	color: #bfbfbf;
+	margin: 20px 0px;
+	font-size: 2em;
+	text-align: justify;
 }
