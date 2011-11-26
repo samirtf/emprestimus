@@ -11,6 +11,8 @@ import java.util.Random;
 import java.util.TreeMap;
 import maps.ComparaDistancia;
 import maps.RefCoordenadas;
+import sistema.dao.CorreioDAO;
+import sistema.dao.CorreioFileDAO;
 import sistema.emprestimo.BancoDeEmprestimos;
 import sistema.excecoes.ArgumentoInvalidoException;
 import sistema.item.AcervoDeItens;
@@ -32,7 +34,7 @@ public class Autenticacao implements AutenticacaoIF {
 
 	// Mapa das sessoes de usuarios logados no sistema
 	private Map<String, UsuarioIF> sessoes = new TreeMap<String, UsuarioIF>();
-	private final int qntMaxSessoes = Integer.MAX_VALUE - 1024; // Quantidade
+	//private final int qntMaxSessoes = Integer.MAX_VALUE - 1024; // Quantidade
 																// maxima de
 																// sessoes.
 
@@ -88,7 +90,7 @@ public class Autenticacao implements AutenticacaoIF {
 
 		usuariosCadastrados.put(login, novoUsuario);
 		// adicionando caixa postal ao usuario
-		Correio.adicionaCaixaPostalAoUsuario(login);
+		((CorreioDAO) new CorreioFileDAO()).adicionaCaixaPostalAoUsuario(login);
 		BancoDeEmprestimos.getInstance().adicionaContaAoUsuario(login);
 		AcervoDeItens.getInstance().adicionaBauhAoUsuario(login);
 		RelacionamentosUsuarios.getInstance().adicionaCicloDeAmizadeAoUsuario(login);
@@ -258,7 +260,7 @@ public class Autenticacao implements AutenticacaoIF {
 
 		usuariosCadastrados.put(login, novoUsuario);
 		// adicionando caixa postal ao usuario
-		Correio.adicionaCaixaPostalAoUsuario(login);
+		((CorreioDAO) new CorreioFileDAO()).adicionaCaixaPostalAoUsuario(login);
 		BancoDeEmprestimos.getInstance().adicionaContaAoUsuario(login);
 		AcervoDeItens.getInstance().adicionaBauhAoUsuario(login);
 		RelacionamentosUsuarios.getInstance().adicionaCicloDeAmizadeAoUsuario(login);
