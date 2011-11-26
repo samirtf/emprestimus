@@ -270,7 +270,10 @@ public enum Mensagem {
 	SENHA_INVALIDA("Senha inválida"), 
 	SESSAO_JAH_ENCERRADA("Sessão já encerrada"),
 	EMAIL_INVALIDO_INEXISTENTE("Email inválido ou inexistente"),
-	CAMINHO_IMG_INVALIDA("O caminho da imagem é invalido");
+	CAMINHO_IMG_INVALIDA("O caminho da imagem é invalido"),
+	USUARIO_NAO_PODE_REGISTRAR_INTERESSE_PROPRIO_ITEM("O usuário não pode registrar interesse no próprio item"),
+	USUARIO_JAH_REGISTROU_INTERESSE_NESTE_ITEM("O usuário já registrou interesse neste item"),
+	USUARIO_NAO_TEM_PERMISSAO_REGISTRAR_INTERESSE_NESSE_ITEM("O usuário não tem permissão para registrar interesse neste item");
 
 	private final String mensagem;
 

@@ -1,6 +1,7 @@
 package testes.unidade.sistema.usuario;
 
 import sistema.autenticacao.Autenticacao;
+import sistema.dao.ItemFileDAO;
 import sistema.persistencia.ItemRepositorio;
 import sistema.usuario.Usuario;
 import sistema.usuario.UsuarioIF;
@@ -253,7 +254,7 @@ public class UsuarioIFTeste extends TestCase implements Test {
 
 			try {
 				// cadastrando item para Usuario1
-				Assert.assertEquals(0, ItemRepositorio.qntItens());
+				Assert.assertEquals(0, new ItemFileDAO().qntItens());
 				Assert.assertEquals(0, us1.qntItens());
 				String idItem01 = us1.cadastrarItem("  nomeItem  ", null, " FILME ");
 				System.out.println(idItem01);
@@ -265,7 +266,7 @@ public class UsuarioIFTeste extends TestCase implements Test {
 				Assert.assertEquals("", us1.getItem(idItem01).getDescricao());
 				Assert.assertEquals("FILME", us1.getItem(idItem01).getListaCategorias()[0]);
 				Assert.assertEquals("1", us1.getListaIdItens());
-				Assert.assertEquals(1, ItemRepositorio.qntItens());
+				Assert.assertEquals(1, new ItemFileDAO().qntItens());
 
 				// cadastrando item para Usuario2
 				Assert.assertEquals(0, us2.qntItens());
@@ -279,7 +280,7 @@ public class UsuarioIFTeste extends TestCase implements Test {
 				Assert.assertEquals("", us2.getItem(idItem02).getDescricao());
 				Assert.assertEquals("FiLmE", us2.getItem(idItem02).getListaCategorias()[0]);
 				Assert.assertEquals("2", us2.getListaIdItens());
-				Assert.assertEquals(2, ItemRepositorio.qntItens());
+				Assert.assertEquals(2, new ItemFileDAO().qntItens());
 
 				// cadastrando item para Usuario3
 				Assert.assertEquals(0, us3.qntItens());
@@ -294,7 +295,7 @@ public class UsuarioIFTeste extends TestCase implements Test {
 				Assert.assertEquals("um jogo legal", us3.getItem(idItem03).getDescricao());
 				Assert.assertEquals("jogo", us3.getItem(idItem03).getListaCategorias()[0]);
 				Assert.assertEquals("3", us3.getListaIdItens());
-				Assert.assertEquals(3, ItemRepositorio.qntItens());
+				Assert.assertEquals(3, new ItemFileDAO().qntItens());
 
 				// adicionando mais itens aos usuarios
 
@@ -311,7 +312,7 @@ public class UsuarioIFTeste extends TestCase implements Test {
 				Assert.assertEquals("descricaoI4", us1.getItem(idItem04).getDescricao());
 				Assert.assertEquals("JOGO", us1.getItem(idItem04).getListaCategorias()[0]);
 				Assert.assertEquals("1 4", us1.getListaIdItens());
-				Assert.assertEquals(4, ItemRepositorio.qntItens());
+				Assert.assertEquals(4, new ItemFileDAO().qntItens());
 
 				// cadastrando item 5 ao usuario 1
 				Assert.assertEquals(2, us1.qntItens());
@@ -326,7 +327,7 @@ public class UsuarioIFTeste extends TestCase implements Test {
 				Assert.assertEquals("descricaoI5", us1.getItem(idItem05).getDescricao());
 				Assert.assertEquals("JOGO", us1.getItem(idItem05).getListaCategorias()[0]);
 				Assert.assertEquals("1 4 5", us1.getListaIdItens());
-				Assert.assertEquals(5, ItemRepositorio.qntItens());
+				Assert.assertEquals(5, new ItemFileDAO().qntItens());
 
 				// cadastrando item 6 ao usuario 2
 				Assert.assertEquals(1, us2.qntItens());
@@ -341,7 +342,7 @@ public class UsuarioIFTeste extends TestCase implements Test {
 				Assert.assertEquals("descricaoI6", us2.getItem(idItem06).getDescricao());
 				Assert.assertEquals("JOGO", us2.getItem(idItem06).getListaCategorias()[0]);
 				Assert.assertEquals("2 6", us2.getListaIdItens());
-				Assert.assertEquals(6, ItemRepositorio.qntItens());
+				Assert.assertEquals(6, new ItemFileDAO().qntItens());
 
 				// testes de carga
 
@@ -369,7 +370,7 @@ public class UsuarioIFTeste extends TestCase implements Test {
 						"3 9 12 15 18 21 24 27 30 33 36 39 42 45 48 51 54 57 60 63 66 69 72 75 78 81 84 87 90 93 96",
 						us3.getListaIdItens());
 
-				Assert.assertEquals(96, ItemRepositorio.qntItens()); // ha no
+				Assert.assertEquals(96, new ItemFileDAO().qntItens()); // ha no
 																		// total
 																		// 96
 																		// itens
