@@ -1,24 +1,14 @@
 package iu.web.client.view;
 
 import iu.web.client.Controlador;
-import iu.web.shared.MensagensWeb;
-import iu.web.shared.VerificadorDeCampos;
-
 import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyUpEvent;
-import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineHyperlink;
-import com.google.gwt.user.client.ui.PushButton;
+
 
 /**
  * @author José Nathaniel L de Abrante - nathaniel.una@gmail.com
@@ -61,7 +51,7 @@ public class Home extends Composite {
 		painelSuperior = new AbsolutePanel();
 		painelGlobal.addNorth(painelSuperior, 9.1);
 		
-		Image image = new Image("emprestimusweb/imagens/logo2.png");
+		Image image = new Image(IMAGEM_LOGO);
 		painelSuperior.add(image, 10, 10);
 		image.setSize("311px", "105px");
 		
