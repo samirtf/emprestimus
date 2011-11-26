@@ -14,6 +14,8 @@ import maps.GetCoordenadas;
 import maps.RefCoordenadas;
 import sistema.autenticacao.Autenticacao;
 import sistema.autenticacao.ServicoRecuperacaoSenhaUsuario;
+import sistema.dao.CorreioDAO;
+import sistema.dao.CorreioFileDAO;
 import sistema.dao.ItemFileDAO;
 import sistema.emprestimo.BancoDeEmprestimos;
 import sistema.emprestimo.Emprestimo;
@@ -39,27 +41,22 @@ import sistema.utilitarios.Validador;
  */
 
 public class Usuario implements UsuarioIF {
-	/* Atributos estaticos. */
-	private static int ID_Prox_Usuario = 1; // ID do proximo usuario sera
-											// guardado nesta variavel estatica.
 
 	/* Atributos do objeto. */
 	private String login, nome, endereco, senha, emailRedefSenha = "";
 	private String cartaoAcessoRedefSenha = "";
-
-	private final int id = ID_Prox_Usuario++; // id (codigo unico) do usuario
 	
 	private int reputacao = 0;
 	
 	private double longitude, latitude;
 
 	private String caminhoImagemPerfil;
+	private transient CorreioDAO correioDao = new CorreioFileDAO();
 
 	/**
 	 * Construtor padrao eh privado e nao oferece implementacao.
 	 */
-	private Usuario() {
-	}
+	private Usuario() {}
 
 	/**
 	 * Constroi um usuario a partir de um login, nome e endereco.
@@ -329,19 +326,19 @@ public class Usuario implements UsuarioIF {
 
 	@Override
 	public void adicionaConversaOfftopicNaLista(ChatIF conversa) throws Exception {
-		Correio.adicionaConversaOfftopicNaLista(this.getLogin(), conversa);
+		new CorreioFileDAO().adicionaConversaOfftopicNaLista(this.getLogin(), conversa);
 	}
 
 	@Override
 	public void adicionaConversaNegociacaoNaLista(ChatIF conversa) throws Exception {
-		Correio.adicionaConversaNegociacaoNaLista(this.getLogin(), conversa);
+		correioDao.adicionaConversaNegociacaoNaLista(this.getLogin(), conversa);
 	}
 
 	@Override
 	public synchronized String enviarMensagemOffTopic(String destinatario,
 			String assunto, String mensagem) throws Exception {
 
-		return Correio.enviarMensagemOffTopic(this.getLogin(), destinatario, assunto,
+		return correioDao.enviarMensagemOffTopic(this.getLogin(), destinatario, assunto,
 				mensagem);
 	}
 
@@ -349,13 +346,13 @@ public class Usuario implements UsuarioIF {
 	public synchronized String enviarMensagemEmprestimo(String destinatario,
 			String assunto, String mensagem, String idRequisicaoEmprestimo) throws Exception {
 
-		return Correio.enviarMensagemEmprestimo(this.getLogin(), destinatario, assunto,
+		return correioDao.enviarMensagemEmprestimo(this.getLogin(), destinatario, assunto,
 				mensagem, idRequisicaoEmprestimo);
 	}
 
 	@Override
 	public synchronized String lerTopicos(String tipo) throws Exception {
-		return Correio.lerTopicos(this.getLogin(), tipo);
+		return correioDao.lerTopicos(this.getLogin(), tipo);
 	}
 
 	@Override
@@ -506,7 +503,7 @@ public class Usuario implements UsuarioIF {
 	public String enviarMensagemOferecimentoItemOffTopic(String destinatario,
 			String assunto, String mensagem) throws Exception {
 
-		return Correio.enviarMensagemOferecimentoItemOffTopic(this.getLogin(),
+		return correioDao.enviarMensagemOferecimentoItemOffTopic(this.getLogin(),
 				destinatario, assunto, mensagem);
 	}
 
