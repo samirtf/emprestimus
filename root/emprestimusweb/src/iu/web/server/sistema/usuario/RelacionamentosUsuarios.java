@@ -51,7 +51,7 @@ public class RelacionamentosUsuarios implements Serializable{
 		//ciclosDeAmizade = new TreeMap<String, CicloDeAmizade>();
 		
 		Configuracao conf = Configuracao.getInstance();
-		File arquivo = new File("./"+conf.getDiretorioBD()+"correio.bd");
+		File arquivo = new File("./"+conf.getDiretorioBD()+"relacionamentosUsuarios.bd");
 		File diretorio = new File("./"+conf.getDiretorioBD());
 		if(!diretorio.exists() || !arquivo.exists()){
 			diretorio.mkdir();
