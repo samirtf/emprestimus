@@ -93,8 +93,6 @@ public class ChatRepositorio implements Serializable{
             objectIn.close();
         }
         
-        contadorID = conversas.size();
-        
     }
 
 	/**

@@ -85,7 +85,7 @@ public class EmprestimoRepositorio implements Serializable{
         ObjectInputStream objectIn = null;
         try{
         	objectIn = new ObjectInputStream(
-                    new BufferedInputStream(new FileInputStream("./"+conf.getDiretorioBD()+"bancoEmprestimos.bd")));
+                    new BufferedInputStream(new FileInputStream("./"+conf.getDiretorioBD()+"emprestimoRepositorio.bd")));
             Object[] vetor = ((Object[])objectIn.readObject());
             emprestimosRealizados = ((TreeMap<Long, EmprestimoIF>) vetor[0]);
             contadorID = emprestimosRealizados.size();
@@ -234,14 +234,14 @@ public class EmprestimoRepositorio implements Serializable{
 
 	public void salvarEmArquivo() {
 		Configuracao conf = Configuracao.getInstance();
-		File arquivo = new File("./"+conf.getDiretorioBD()+"bancoEmprestimos.bd");
+		File arquivo = new File("./"+conf.getDiretorioBD()+"emprestimoRepositorio.bd");
 		File diretorio = new File("./"+conf.getDiretorioBD());
 		ObjectOutputStream objectOut = null;
 		try {
 			Object[] vetor = new Object[1];
 			emprestimosRealizados = ((TreeMap<Long, EmprestimoIF>) vetor[0]);
 			objectOut = new ObjectOutputStream(
-	            new BufferedOutputStream(new FileOutputStream("./"+conf.getDiretorioBD()+"bancoEmprestimos.bd")));
+	            new BufferedOutputStream(new FileOutputStream("./"+conf.getDiretorioBD()+"emprestimoRepositorio.bd")));
 			objectOut.reset();
 	           objectOut.writeObject(vetor);
 	                
