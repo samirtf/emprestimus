@@ -1,5 +1,7 @@
 package iu.web.shared;
 
+import java.io.Serializable;
+
 
 
 /**
@@ -22,7 +24,12 @@ package iu.web.shared;
  * JavaScript (such as Widgets) cannot be run on the server.
  * </p>
  */
-public class VerificadorDeCampos {
+public class VerificadorDeCampos implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6007844788584621501L;
 
 	/**
 	 * Verifies that the specified name is valid for our service.

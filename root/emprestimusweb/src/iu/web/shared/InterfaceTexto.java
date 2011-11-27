@@ -1,13 +1,16 @@
 package iu.web.shared;
 
-import iu.web.server.Emprestimus;
-import iu.web.server.EmprestimusIF;
 import iu.web.server.sistema.utilitarios.Mensagem;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
-public class InterfaceTexto {
+public class InterfaceTexto implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1433683455892788079L;
 	private static EmprestimusIF emprestimus;
 	private static String login_logado;
 	private static String id_sessao;
