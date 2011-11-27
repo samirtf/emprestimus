@@ -1,12 +1,14 @@
 package iu.web.server;
 
+import java.io.Serializable;
+
 /**
  * Fachada para as funcionalidades do sistema.
  * 
  * @author Joeffison Silverio de Andrade, 21011853, joeffisonsa@gmail.com
  * @version 1.5
  */
-public interface EmprestimusIF {
+public interface EmprestimusIF extends Serializable {
 
 	// Creio que este sistema seria melhor aplicado à aparelhos móveis.
 	// (Joeffison) 

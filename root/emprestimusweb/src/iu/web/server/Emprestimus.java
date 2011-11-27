@@ -17,6 +17,7 @@ import iu.web.server.sistema.usuario.UsuarioIF;
 import iu.web.server.sistema.utilitarios.Mensagem;
 import iu.web.server.sistema.utilitarios.Validador;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.GregorianCalendar;
@@ -37,7 +38,11 @@ import maps.RefCoordenadas;
  * @since 05/09/2011
  * @version 1.0
  */
-public class Emprestimus implements EmprestimusIF {
+public class Emprestimus implements EmprestimusIF, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4157196287810723400L;
 	private static Emprestimus emprestimus;
 	private Autenticacao autenticacao;
 	private ServicoRecuperacaoSenhaUsuario srs;
@@ -49,13 +54,19 @@ public class Emprestimus implements EmprestimusIF {
 	private PersistenciaInteligente persistenciaInteligente;
 	
 	private Emprestimus(){
+		try{
 		autenticacao = Autenticacao.getInstance();
 		srs = ServicoRecuperacaoSenhaUsuario.getInstance();
 		srs.iniciarServico();
 		itemDao = new ItemFileDAO();
 		emprestimoDao = new EmprestimoFileDAO();
 		chatDao = new ChatFileDAO();
+		persistenciaInteligente = new PersistenciaInteligente();
 		persistenciaInteligente.iniciar();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+
 	}
 	
 	/**
@@ -87,6 +98,7 @@ public class Emprestimus implements EmprestimusIF {
 	
 	@Override
 	public String abrirSessao(String login, String senha) throws Exception {
+		System.out.println("ERRRRRRRRRRRRR");
 		return autenticacao.abrirSessao(login, senha);
 	}
 

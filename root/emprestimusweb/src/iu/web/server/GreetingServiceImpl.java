@@ -1,5 +1,7 @@
 package iu.web.server;
 
+import java.io.Serializable;
+
 import iu.web.client.GreetingService;
 import iu.web.server.sistema.autenticacao.Autenticacao;
 import iu.web.server.sistema.usuario.UsuarioIF;
@@ -13,7 +15,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * The server side implementation of the RPC service.
  */
 @SuppressWarnings("serial")
-public class GreetingServiceImpl extends RemoteServiceServlet implements GreetingService {
+public class GreetingServiceImpl extends RemoteServiceServlet implements GreetingService, Serializable {
 
 	@Override
 	public String login(String login, String senha) throws Exception {
