@@ -21,10 +21,10 @@ public interface CorreioDAO extends PersistenciaListener{
 	/**
 	 * Adiciona uma conversa off-topic à lista de conversas do usuário.
 	 * 
-	 * @param usuario - String
+	 * @param String - usuario
 	 * 		O login do usuario.
 	 *            
-	 * @param conversa - ChatIF
+	 * @param ChatIF - conversa
 	 * 		Conversa a ser adicionada.
 	 * 
 	 * @throws Exception
@@ -35,10 +35,10 @@ public interface CorreioDAO extends PersistenciaListener{
 	 * Adiciona uma conversa sobre uma negociação à lista de conversas do
 	 * usuário.
 	 * 
-	 * @param usuario - String
+	 * @param String - usuario
 	 * 		O login do usuario.
 	 *            
-	 * @param conversa - ChatIF
+	 * @param ChatIF - conversa
 	 * 		Conversa a ser adicionada.
 	 * 
 	 * @throws Exception
@@ -48,13 +48,13 @@ public interface CorreioDAO extends PersistenciaListener{
 	/**
 	 * Envia uma mensagem off-topic.
 	 * 
-	 * @param usuario - String
+	 * @param String - usuario
 	 *  	O login do usuario.
-	 * @param destinatario - String
+	 * @param String - destinatario
 	 * 		Destino da mensagem.
-	 * @param assunto - String
+	 * @param String - assunto
 	 * 		Assunto da mensagem.
-	 * @param mensagem - String
+	 * @param String - mensagem
 	 * 		Mensagem a ser enviada.
 	 *            
 	 * @return String
@@ -69,15 +69,15 @@ public interface CorreioDAO extends PersistenciaListener{
 	/**
 	 * Envia mensagem de emprestimo
 	 * 
-	 * @param usuario - String
+	 * @param String - usuario
 	 * 		O login do usuario.
-	 * @param destinatario - String
+	 * @param String - destinatario
 	 * 		Destino da mensagem.
-	 * @param assunto - String
+	 * @param String - assunto
 	 * 		Assunto da mensagem.
-	 * @param mensagem - String
+	 * @param String - mensagem
 	 * 		Mensagem a ser enviada.
-	 * @param idRequisicaoEmprestimo - String
+	 * @param String - idRequisicaoEmprestimo
 	 * 		Id da requisicao de emprestimo.
 	 * 
 	 * @return String
@@ -91,9 +91,9 @@ public interface CorreioDAO extends PersistenciaListener{
 	/**
 	 * Lê topicos
 	 * 
-	 * @param usuario - String
+	 * @param String - usuario
 	 * 		O login do usuario.
-	 * @param tipo String
+	 * @param String - tipo
 	 * 		Tipo do topico.
 	 * 
 	 * @return String
@@ -106,13 +106,13 @@ public interface CorreioDAO extends PersistenciaListener{
 	/**
 	 * Envia uma mensagem de oferecimento de item Off Topic
 	 * 
-	 * @param remetente - String
+	 * @param String - remetente
 	 * 		remetente da mensagem.
-	 * @param destinatario - String
+	 * @param String - destinatario
 	 * 		Destinatario da mensagem
-	 * @param assunto - String
+	 * @param String - assunto
 	 * 		Assunto da mensagem
-	 * @param mensagem - String
+	 * @param String - mensagem
 	 * 		texto da mensagem
 	 * 
 	 * @return String

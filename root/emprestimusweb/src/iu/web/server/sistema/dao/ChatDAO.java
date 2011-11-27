@@ -88,7 +88,7 @@ public interface ChatDAO extends PersistenciaListener{
 	 * @param boolean
 	 * 		ehOffTopic
 	 * 
-	 * @return
+	 * @return ChatIF
 	 */
 	public ChatIF existeConversaEntreAsPessoasSobreMesmoAssuntoETipo(
 			String remetente, String destinatario, String assunto, boolean ehOffTopic);
