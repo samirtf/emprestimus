@@ -40,7 +40,7 @@ public class GerenciadorDeNotificacoes {
 	private static Map<String, Rack> historicos;
 
 	private GerenciadorDeNotificacoes() {
-		historicos = new TreeMap<String, Rack>();
+		//historicos = new TreeMap<String, Rack>();
 		
 		Configuracao conf = Configuracao.getInstance();
 		File arquivo = new File("./"+conf.getDiretorioBD()+"gerenciadorNotificacoes.bd");

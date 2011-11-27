@@ -49,7 +49,7 @@ public class AcervoDeItens {
 	private static Map<String, Bauh> bauhs;
 
 	private AcervoDeItens() {
-		bauhs = new TreeMap<String, Bauh>();
+//		bauhs = new TreeMap<String, Bauh>();
 		
 		Configuracao conf = Configuracao.getInstance();
 		File arquivo = new File("./"+conf.getDiretorioBD()+"acervoItens.bd");

@@ -41,7 +41,7 @@ public class BancoDeEmprestimos{
 	
 
 	private BancoDeEmprestimos() {
-		contas = new TreeMap<String, Conta>();
+		//contas = new TreeMap<String, Conta>();
 		
 		Configuracao conf = Configuracao.getInstance();
 		File arquivo = new File("./"+conf.getDiretorioBD()+"bancoEmprestimos.bd");

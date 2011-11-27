@@ -27,7 +27,7 @@ public class ItemRepositorio {
 
 	private static long contadorID = 0;
 
-	private static Map<Long, ItemIF> itensCadastrados = new TreeMap<Long, ItemIF>();
+	private static Map<Long, ItemIF> itensCadastrados;// = new TreeMap<Long, ItemIF>();
 	
 	private ItemRepositorio() {
 		
@@ -83,6 +83,7 @@ public class ItemRepositorio {
                     new BufferedInputStream(new FileInputStream("./"+conf.getDiretorioBD()+"itensRepositorio.bd")));
             Object[] vetor = ((Object[])objectIn.readObject());
             itensCadastrados = ((TreeMap<Long, ItemIF>) vetor[0]);
+            contadorID = itensCadastrados.size();
         
         }catch(Exception e){
             e.printStackTrace();
@@ -90,7 +91,7 @@ public class ItemRepositorio {
             objectIn.close();
         }
         
-        contadorID = itensCadastrados.size();
+
         
     }
 

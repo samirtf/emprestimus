@@ -43,7 +43,7 @@ public class RelacionamentosUsuarios {
 	private static Map<String, CicloDeAmizade> ciclosDeAmizade;
 
 	private RelacionamentosUsuarios() {
-		ciclosDeAmizade = new TreeMap<String, CicloDeAmizade>();
+		//ciclosDeAmizade = new TreeMap<String, CicloDeAmizade>();
 		
 		Configuracao conf = Configuracao.getInstance();
 		File arquivo = new File("./"+conf.getDiretorioBD()+"correio.bd");

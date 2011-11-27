@@ -27,7 +27,7 @@ public class NotificacaoRepositorio {
 	private static long contadorID = 0;
 	private static NotificacaoRepositorio repositorio;
 
-	private static Map<Long, Notificacao> notificacoesCadastradas = new TreeMap<Long, Notificacao>();
+	private static Map<Long, Notificacao> notificacoesCadastradas;// = new TreeMap<Long, Notificacao>();
 
 	private NotificacaoRepositorio() {
 		
@@ -83,6 +83,7 @@ public class NotificacaoRepositorio {
                     new BufferedInputStream(new FileInputStream("./"+conf.getDiretorioBD()+"notificacaoRepositorio.bd")));
             Object[] vetor = ((Object[])objectIn.readObject());
             notificacoesCadastradas = ((TreeMap<Long, Notificacao>) vetor[0]);
+            contadorID = notificacoesCadastradas.size();
         
         }catch(Exception e){
             e.printStackTrace();
@@ -90,7 +91,7 @@ public class NotificacaoRepositorio {
             objectIn.close();
         }
         
-        contadorID = notificacoesCadastradas.size();
+
         
     }
 

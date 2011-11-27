@@ -25,7 +25,7 @@ public class EmprestimoRepositorio {
 
 	private static long contadorID = 0;
 
-	private static Map<Long, EmprestimoIF> emprestimosRealizados = new TreeMap<Long, EmprestimoIF>();
+	private static Map<Long, EmprestimoIF> emprestimosRealizados;// = new TreeMap<Long, EmprestimoIF>();
 	
 	private EmprestimoRepositorio() {
 		
@@ -81,13 +81,14 @@ public class EmprestimoRepositorio {
                     new BufferedInputStream(new FileInputStream("./"+conf.getDiretorioBD()+"bancoEmprestimos.bd")));
             Object[] vetor = ((Object[])objectIn.readObject());
             emprestimosRealizados = ((TreeMap<Long, EmprestimoIF>) vetor[0]);
+            contadorID = emprestimosRealizados.size();
         
         }catch(Exception e){
             e.printStackTrace();
         }finally{
             objectIn.close();
         }
-        contadorID = emprestimosRealizados.size();
+
         
     }
 

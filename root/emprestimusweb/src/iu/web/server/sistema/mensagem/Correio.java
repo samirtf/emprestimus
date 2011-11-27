@@ -38,10 +38,10 @@ import java.util.TreeMap;
 public class Correio {
 
 	private static Correio correio;
-	private static Map<String, CaixaPostal> caixasPostais = new TreeMap<String, CaixaPostal>();
+	private static Map<String, CaixaPostal> caixasPostais;// = new TreeMap<String, CaixaPostal>();
 
 	private Correio() {
-		caixasPostais = new TreeMap<String, CaixaPostal>();
+		//caixasPostais = new TreeMap<String, CaixaPostal>();
 		
 		Configuracao conf = Configuracao.getInstance();
 		File arquivo = new File("./"+conf.getDiretorioBD()+"correio.bd");

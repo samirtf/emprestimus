@@ -27,7 +27,7 @@ public class ChatRepositorio {
 
 	private static long contadorID = 0;
 
-	private static Map<Long, ChatIF> conversas = new TreeMap<Long, ChatIF>();
+	private static Map<Long, ChatIF> conversas;// = new TreeMap<Long, ChatIF>();
 	
 	private ChatRepositorio() {
 		
@@ -83,6 +83,7 @@ public class ChatRepositorio {
                     new BufferedInputStream(new FileInputStream("./"+conf.getDiretorioBD()+"chatRepositorio.bd")));
             Object[] vetor = ((Object[])objectIn.readObject());
             conversas = ((TreeMap<Long, ChatIF>) vetor[0]);
+            contadorID = conversas.size();
         
         }catch(Exception e){
             e.printStackTrace();
