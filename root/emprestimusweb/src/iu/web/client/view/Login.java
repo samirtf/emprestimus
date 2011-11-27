@@ -109,11 +109,11 @@ public class Login extends Composite {
 		btnLogin = new Button("Login");
 		painelLogin.add(btnLogin, 777, 93);
 
-		Hyperlink hprlnkEsqueceuASenha = new Hyperlink("Esqueceu a senha", false,
-				"newHistoryToken");
-		hprlnkEsqueceuASenha
-				.setHTML("<a href=\"esquecimento.html\">\rEsqueceu a senha?</a> ");
-		painelLogin.add(hprlnkEsqueceuASenha, 488, 95);
+//		Hyperlink hprlnkEsqueceuASenha = new Hyperlink("Esqueceu a senha", false,
+//				"newHistoryToken");
+//		hprlnkEsqueceuASenha
+//				.setHTML("<a href=\"esquecimento.html\">\rEsqueceu a senha?</a> ");
+//		painelLogin.add(hprlnkEsqueceuASenha, 488, 95);
 
 		lblErro = new Label("");
 		lblErro.setWordWrap(false);
