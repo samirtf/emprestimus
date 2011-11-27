@@ -55,7 +55,6 @@ public class PersistenciaInteligente {
     	for(PersistenciaListener listenersDao : persistenciaListeners){
     		listenersDao.iniciarListener();
     	}
-    
     }
     
     public void iniciar(){
@@ -66,6 +65,10 @@ public class PersistenciaInteligente {
             	}
             }
         }, delay, interval);
+    }
+    
+    public void parar(){
+    	timer.cancel();
     }
 
 }

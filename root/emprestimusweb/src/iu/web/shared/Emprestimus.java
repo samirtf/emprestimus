@@ -547,6 +547,7 @@ public class Emprestimus implements EmprestimusIF {
 		// Salva dados em persistencia e encerra.
 		autenticacao.encerrarSistema();
 		srs.pararServico();
+		persistenciaInteligente.parar();
 		// System.exit(0);
 	}
 
