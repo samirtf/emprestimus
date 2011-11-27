@@ -17,8 +17,16 @@ import iu.web.server.sistema.usuario.UsuarioIF;
 import iu.web.server.sistema.utilitarios.Mensagem;
 import iu.web.server.sistema.utilitarios.Validador;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FilterOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -39,7 +47,7 @@ public class Autenticacao implements AutenticacaoIF {
 	private static Map<String, UsuarioIF> usuariosCadastrados = new TreeMap<String, UsuarioIF>();
 
 	// Mapa das sessoes de usuarios logados no sistema
-	private Map<String, UsuarioIF> sessoes = new TreeMap<String, UsuarioIF>();
+	private static Map<String, UsuarioIF> sessoes = new TreeMap<String, UsuarioIF>();
 	//private final int qntMaxSessoes = Integer.MAX_VALUE - 1024; // Quantidade
 																// maxima de
 																// sessoes.
@@ -47,24 +55,70 @@ public class Autenticacao implements AutenticacaoIF {
 	private Autenticacao() {
 		usuariosCadastrados = new TreeMap<String, UsuarioIF>();
 		sessoes = new TreeMap<String, UsuarioIF>();
-		File file = new File("./teste.txt");
-		try {
-			file.createNewFile();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("eh CILADA BINO");
+		
+		Configuracao conf = Configuracao.getInstance();
+		File arquivo = new File("./"+conf.getDiretorioBD()+"autenticacao.bd");
+		File diretorio = new File("./"+conf.getDiretorioBD());
+		if(!diretorio.exists()){
+			diretorio.mkdir();
+			ObjectOutputStream objectOut = null;
+			try {
+				arquivo.createNewFile();
+				Object[] vetor = new Object[2];
+				vetor[0] =  new TreeMap<String, UsuarioIF>();
+				vetor[1] =  new TreeMap<String, UsuarioIF>();
+				objectOut = new ObjectOutputStream(
+	                    new BufferedOutputStream(new FileOutputStream("./"+conf.getDiretorioBD()+"autenticacao.bd")));
+	                objectOut.writeObject(vetor);
+	                
+			} catch (IOException e) {
+				e.printStackTrace();
+			}finally{
+				try {
+					objectOut.close();
+				} catch (IOException e) {}
+			}
+			
+		}else{
+			try {
+				inicializarDados();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
+		
+		
 	}
-
+	
 	public static Autenticacao getInstance() {
 		if (autenticacao == null) {
 			autenticacao = new Autenticacao();
-
+			
 			return autenticacao;
 		}
 		return autenticacao;
 	}
+	
+	private static void inicializarDados() throws Exception {
+		Configuracao conf = Configuracao.getInstance();
+        
+        ObjectInputStream objectIn = null;
+        try{
+        	objectIn = new ObjectInputStream(
+                    new BufferedInputStream(new FileInputStream("./"+conf.getDiretorioBD()+"autenticacao.bd")));
+            Object[] vetor = ((Object[])objectIn.readObject());
+            usuariosCadastrados = ((TreeMap<String, UsuarioIF>) vetor[0]);
+    		sessoes = ((TreeMap<String, UsuarioIF>) vetor[1]);
+        
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            objectIn.close();
+        }
+        
+    }
+
+	
 
 	@Override
 	public void zerarSistema() {
@@ -284,14 +338,45 @@ public class Autenticacao implements AutenticacaoIF {
 
 	public void encerrarSessao(String idSessao) throws Exception {
 		
-		if(autenticacao.sessoes.remove(idSessao) == null){
+		if(sessoes.remove(idSessao) == null){
 			throw new Exception(Mensagem.SESSAO_JAH_ENCERRADA.getMensagem());
 		}
 	}
 
 	@Override
 	public void notificaPersistenciaDoSistema() {
-		// TODO Auto-generated method stub
+
+		Configuracao conf = Configuracao.getInstance();
+		File arquivo = new File("./"+conf.getDiretorioBD()+"autenticacao.bd");
+		File diretorio = new File("./"+conf.getDiretorioBD());
+		if(!diretorio.exists()){
+			diretorio.mkdir();
+			ObjectOutputStream objectOut = null;
+			try {
+				arquivo.createNewFile();
+				Object[] vetor = new Object[2];
+				vetor[0] =  usuariosCadastrados;
+				vetor[1] =  sessoes;
+				objectOut = new ObjectOutputStream(
+	                    new BufferedOutputStream(new FileOutputStream("./"+conf.getDiretorioBD()+"autenticacao.bd")));
+				objectOut.reset();
+	            objectOut.writeObject(vetor);
+	                
+			} catch (IOException e) {
+				e.printStackTrace();
+			}finally{
+				try {
+					objectOut.close();
+				} catch (IOException e) {}
+			}
+			
+		}else{
+			try {
+				inicializarDados();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		
 	}
 }
