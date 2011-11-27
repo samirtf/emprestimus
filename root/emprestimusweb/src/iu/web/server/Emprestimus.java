@@ -55,14 +55,15 @@ public class Emprestimus implements EmprestimusIF, Serializable {
 	
 	private Emprestimus(){
 		try{
-		autenticacao = Autenticacao.getInstance();
-		srs = ServicoRecuperacaoSenhaUsuario.getInstance();
-		srs.iniciarServico();
-		itemDao = new ItemFileDAO();
-		emprestimoDao = new EmprestimoFileDAO();
-		chatDao = new ChatFileDAO();
-		persistenciaInteligente = new PersistenciaInteligente();
-		persistenciaInteligente.iniciar();
+			persistenciaInteligente = new PersistenciaInteligente();
+			persistenciaInteligente.iniciar();
+			autenticacao = Autenticacao.getInstance();
+			srs = ServicoRecuperacaoSenhaUsuario.getInstance();
+			srs.iniciarServico();
+			itemDao = new ItemFileDAO();
+			emprestimoDao = new EmprestimoFileDAO();
+			chatDao = new ChatFileDAO();
+		
 		}catch(Exception e){
 			e.printStackTrace();
 		}
