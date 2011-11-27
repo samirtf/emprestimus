@@ -4,16 +4,26 @@ import static iu.web.server.sistema.utilitarios.Validador.assertStringNaoVazia;
 import static iu.web.server.sistema.utilitarios.Validador.asserteTrue;
 
 import iu.web.server.sistema.autenticacao.Autenticacao;
+import iu.web.server.sistema.autenticacao.Configuracao;
 import iu.web.server.sistema.dao.ItemFileDAO;
 import iu.web.server.sistema.excecoes.ArgumentoInvalidoException;
 import iu.web.server.sistema.item.DataCriacaoItemComparador;
 import iu.web.server.sistema.item.ItemIF;
 import iu.web.server.sistema.item.NomeItemComparador;
+import iu.web.server.sistema.mensagem.CaixaPostal;
 import iu.web.server.sistema.persistencia.ItemRepositorio;
 import iu.web.server.sistema.usuario.UsuarioIF;
 import iu.web.server.sistema.utilitarios.Mensagem;
 import iu.web.server.sistema.utilitarios.Validador;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.text.Normalizer;
 import java.util.Arrays;
 import java.util.Collections;
@@ -37,6 +47,37 @@ public class RelacionamentosUsuarios {
 
 	private RelacionamentosUsuarios() {
 		ciclosDeAmizade = new TreeMap<String, CicloDeAmizade>();
+		
+		Configuracao conf = Configuracao.getInstance();
+		File arquivo = new File("./"+conf.getDiretorioBD()+"correio.bd");
+		File diretorio = new File("./"+conf.getDiretorioBD());
+		if(!diretorio.exists()){
+			diretorio.mkdir();
+			ObjectOutputStream objectOut = null;
+			try {
+				arquivo.createNewFile();
+				Object[] vetor = new Object[1];
+				vetor[0] =  new TreeMap<String, CicloDeAmizade>();
+				objectOut = new ObjectOutputStream(
+	                    new BufferedOutputStream(new FileOutputStream("./"+conf.getDiretorioBD()+"relacionamentosUsuarios.bd")));
+	                objectOut.writeObject(vetor);
+	                
+			} catch (IOException e) {
+				e.printStackTrace();
+			}finally{
+				try {
+					objectOut.close();
+				} catch (IOException e) {}
+			}
+			
+		}else{
+			try {
+				inicializarDados();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 
 	/**
@@ -51,6 +92,24 @@ public class RelacionamentosUsuarios {
 		}
 		return relacionamentosUsuarios;
 	}
+	
+	private static void inicializarDados() throws Exception {
+		Configuracao conf = Configuracao.getInstance();
+        
+        ObjectInputStream objectIn = null;
+        try{
+        	objectIn = new ObjectInputStream(
+                    new BufferedInputStream(new FileInputStream("./"+conf.getDiretorioBD()+"relacionamentosUsuarios.bd")));
+            Object[] vetor = ((Object[])objectIn.readObject());
+            ciclosDeAmizade = ((TreeMap<String, CicloDeAmizade>) vetor[0]);
+        
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            objectIn.close();
+        }
+        
+    }
 
 	/**
 	 * Adiciona um ciclo de amizade a um usuario

@@ -6,13 +6,23 @@ package iu.web.server.sistema.notificacao;
 import static iu.web.server.sistema.utilitarios.Validador.assertStringNaoVazia;
 
 import iu.web.server.sistema.autenticacao.Autenticacao;
+import iu.web.server.sistema.autenticacao.Configuracao;
 import iu.web.server.sistema.excecoes.ArgumentoInvalidoException;
 import iu.web.server.sistema.item.ItemIF;
+import iu.web.server.sistema.mensagem.CaixaPostal;
 import iu.web.server.sistema.persistencia.NotificacaoRepositorio;
 import iu.web.server.sistema.usuario.UsuarioIF;
 import iu.web.server.sistema.utilitarios.Mensagem;
 import iu.web.server.sistema.utilitarios.Validador;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -32,6 +42,37 @@ public class GerenciadorDeNotificacoes {
 
 	private GerenciadorDeNotificacoes() {
 		historicos = new TreeMap<String, Rack>();
+		
+		Configuracao conf = Configuracao.getInstance();
+		File arquivo = new File("./"+conf.getDiretorioBD()+"gerenciadorNotificacoes.bd");
+		File diretorio = new File("./"+conf.getDiretorioBD());
+		if(!diretorio.exists()){
+			diretorio.mkdir();
+			ObjectOutputStream objectOut = null;
+			try {
+				arquivo.createNewFile();
+				Object[] vetor = new Object[1];
+				vetor[0] =  new TreeMap<String, Rack>();
+				objectOut = new ObjectOutputStream(
+	                    new BufferedOutputStream(new FileOutputStream("./"+conf.getDiretorioBD()+"gerenciadorNotificacoes.bd")));
+	                objectOut.writeObject(vetor);
+	                
+			} catch (IOException e) {
+				e.printStackTrace();
+			}finally{
+				try {
+					objectOut.close();
+				} catch (IOException e) {}
+			}
+			
+		}else{
+			try {
+				inicializarDados();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 
 	public static GerenciadorDeNotificacoes getInstance() {
@@ -42,6 +83,24 @@ public class GerenciadorDeNotificacoes {
 		}
 		return gerenciadorDeNotificacoes;
 	}
+	
+	private static void inicializarDados() throws Exception {
+		Configuracao conf = Configuracao.getInstance();
+        
+        ObjectInputStream objectIn = null;
+        try{
+        	objectIn = new ObjectInputStream(
+                    new BufferedInputStream(new FileInputStream("./"+conf.getDiretorioBD()+"gerenciadorNotificacoes.bd")));
+            Object[] vetor = ((Object[])objectIn.readObject());
+            historicos = ((TreeMap<String, Rack>) vetor[0]);
+        
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            objectIn.close();
+        }
+        
+    }
 
 	/**
 	 * Adiciona um Rack a um determinado usuario

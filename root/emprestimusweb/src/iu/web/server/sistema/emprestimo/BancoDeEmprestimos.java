@@ -7,6 +7,7 @@ import static iu.web.server.sistema.utilitarios.Validador.assertStringNaoVazia;
 import static iu.web.server.sistema.utilitarios.Validador.asserteTrue;
 
 import iu.web.server.sistema.autenticacao.Autenticacao;
+import iu.web.server.sistema.autenticacao.Configuracao;
 import iu.web.server.sistema.dao.EmprestimoFileDAO;
 import iu.web.server.sistema.dao.ItemFileDAO;
 import iu.web.server.sistema.item.ItemIF;
@@ -14,6 +15,14 @@ import iu.web.server.sistema.usuario.UsuarioIF;
 import iu.web.server.sistema.utilitarios.Mensagem;
 import iu.web.server.sistema.utilitarios.Validador;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -32,6 +41,37 @@ public class BancoDeEmprestimos{
 
 	private BancoDeEmprestimos() {
 		contas = new TreeMap<String, Conta>();
+		
+		Configuracao conf = Configuracao.getInstance();
+		File arquivo = new File("./"+conf.getDiretorioBD()+"bancoEmprestimos.bd");
+		File diretorio = new File("./"+conf.getDiretorioBD());
+		if(!diretorio.exists()){
+			diretorio.mkdir();
+			ObjectOutputStream objectOut = null;
+			try {
+				arquivo.createNewFile();
+				Object[] vetor = new Object[1];
+				vetor[0] =  new TreeMap<String, Conta>();
+				objectOut = new ObjectOutputStream(
+	                    new BufferedOutputStream(new FileOutputStream("./"+conf.getDiretorioBD()+"bancoEmprestimos.bd")));
+	                objectOut.writeObject(vetor);
+	                
+			} catch (IOException e) {
+				e.printStackTrace();
+			}finally{
+				try {
+					objectOut.close();
+				} catch (IOException e) {}
+			}
+			
+		}else{
+			try {
+				inicializarDados();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 
 	/**
@@ -45,6 +85,24 @@ public class BancoDeEmprestimos{
 		}
 		return bancoDeEmprestimos;
 	}
+	
+	private static void inicializarDados() throws Exception {
+		Configuracao conf = Configuracao.getInstance();
+        
+        ObjectInputStream objectIn = null;
+        try{
+        	objectIn = new ObjectInputStream(
+                    new BufferedInputStream(new FileInputStream("./"+conf.getDiretorioBD()+"bancoEmprestimos.bd")));
+            Object[] vetor = ((Object[])objectIn.readObject());
+            contas = ((TreeMap<String, Conta>) vetor[0]);
+        
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            objectIn.close();
+        }
+        
+    }
 
 	/**
 	 * Cadastra um usuario no banco de emprestimos

@@ -8,6 +8,7 @@ import static iu.web.server.sistema.utilitarios.Validador.assertStringNaoVazia;
 import static iu.web.server.sistema.utilitarios.Validador.asserteTrue;
 
 import iu.web.server.sistema.autenticacao.Autenticacao;
+import iu.web.server.sistema.autenticacao.Configuracao;
 import iu.web.server.sistema.dao.BancoDeEmprestimosDAO;
 import iu.web.server.sistema.dao.BancoDeEmprestimosFileDAO;
 import iu.web.server.sistema.dao.EmprestimoFileDAO;
@@ -25,6 +26,14 @@ import iu.web.server.sistema.usuario.UsuarioIF;
 import iu.web.server.sistema.utilitarios.Mensagem;
 import iu.web.server.sistema.utilitarios.Validador;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -41,6 +50,36 @@ public class AcervoDeItens {
 
 	private AcervoDeItens() {
 		bauhs = new TreeMap<String, Bauh>();
+		
+		Configuracao conf = Configuracao.getInstance();
+		File arquivo = new File("./"+conf.getDiretorioBD()+"acervoItens.bd");
+		File diretorio = new File("./"+conf.getDiretorioBD());
+		if(!diretorio.exists()){
+			diretorio.mkdir();
+			ObjectOutputStream objectOut = null;
+			try {
+				arquivo.createNewFile();
+				Object[] vetor = new Object[1];
+				vetor[0] =  new TreeMap<String, Bauh>();
+				objectOut = new ObjectOutputStream(
+	                    new BufferedOutputStream(new FileOutputStream("./"+conf.getDiretorioBD()+"acervoItens.bd")));
+	                objectOut.writeObject(vetor);
+	                
+			} catch (IOException e) {
+				e.printStackTrace();
+			}finally{
+				try {
+					objectOut.close();
+				} catch (IOException e) {}
+			}
+			
+		}else{
+			try {
+				inicializarDados();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public static AcervoDeItens getInstance() {
@@ -51,6 +90,24 @@ public class AcervoDeItens {
 		}
 		return acervoDeItens;
 	}
+	
+	private static void inicializarDados() throws Exception {
+		Configuracao conf = Configuracao.getInstance();
+        
+        ObjectInputStream objectIn = null;
+        try{
+        	objectIn = new ObjectInputStream(
+                    new BufferedInputStream(new FileInputStream("./"+conf.getDiretorioBD()+"acervoItens.bd")));
+            Object[] vetor = ((Object[])objectIn.readObject());
+            bauhs = ((TreeMap<String, Bauh>) vetor[0]);
+        
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            objectIn.close();
+        }
+        
+    }
 
 	/**
 	 * Adiciona um Bauh a um determinado usuario.
