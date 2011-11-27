@@ -22,7 +22,7 @@ public interface AcervoDeItensDAO extends PersistenciaListener {
 	/**
 	 * Adiciona um Bauh a um determinado usuario.
 	 * 
-	 * @param usuario - String
+	 * @param String - usuario
 	 * 		Usuario desejado
 	 * 
 	 * @throws Exception
@@ -32,7 +32,7 @@ public interface AcervoDeItensDAO extends PersistenciaListener {
 	/**
 	 * Remove conta do usuario
 	 * 
-	 * @param usuario - String
+	 * @param String - usuario
 	 * 		Usuario desejado
 	 * 
 	 * @throws Exception
@@ -42,7 +42,7 @@ public interface AcervoDeItensDAO extends PersistenciaListener {
 	/**
 	 * Retorna o Bauh de um determinado usuario
 	 * 
-	 * @param login - String
+	 * @param String - login
 	 * 		Login do usuario desejado
 	 * 
 	 * @return Bauh
@@ -55,13 +55,13 @@ public interface AcervoDeItensDAO extends PersistenciaListener {
 	/**
 	 * Cadastra um item.
 	 * 
-	 * @param login - String
+	 * @param String - login
 	 * 		Login do usuario
-	 * @param nome - String
+	 * @param String - nome
 	 * 		Nome do item a ser cadastrado
-	 * @param descricao - String
+	 * @param String - descricao
 	 * 		Descrição do item a ser cadastrado
-	 * @param categoria - String
+	 * @param String - categoria
 	 * 		Categoria(s) do item a ser cadastrado
 	 * 
 	 * @return String
@@ -75,9 +75,9 @@ public interface AcervoDeItensDAO extends PersistenciaListener {
 	/**
 	 * Remove um item previamente cadastrado.
 	 * 
-	 * @param login - String
+	 * @param String - login
 	 * 		Login do usuario
-	 * @param idItem - String
+	 * @param String - idItem
 	 * 		ID do item a ser removido
 	 * 
 	 * @return boolean
@@ -90,7 +90,7 @@ public interface AcervoDeItensDAO extends PersistenciaListener {
 	/**
 	 * Retorna a lista completa de itens de um determinado usuario
 	 * 
-	 * @param login - String
+	 * @param String - login
 	 * 		Loguin do usuario desejado
 	 * 
 	 * @return String
@@ -103,7 +103,7 @@ public interface AcervoDeItensDAO extends PersistenciaListener {
 	/**
 	 * Retorna uma lista de itens de um determinado usuario.
 	 * 
-	 * @param login - String
+	 * @param String - login
 	 * 		Login do usuario desejado.
 	 * 
 	 * @return List<ItemIF>
@@ -113,9 +113,10 @@ public interface AcervoDeItensDAO extends PersistenciaListener {
 
 	/**
 	 * Retorna um determinado item de um determinado usuario.
-	 * @param login - String
+	 * 
+	 * @param String - login
 	 * 		Login do usuario desejado.
-	 * @param idItem - String
+	 * @param String - idItem
 	 * 		ID do item desejado.
 	 * 
 	 * @return ItemIF
@@ -127,7 +128,8 @@ public interface AcervoDeItensDAO extends PersistenciaListener {
 
 	/**
 	 * Retorna quantidade de itens de um determinado usuario
-	 * @param login - String
+	 * 
+	 * @param String - login
 	 * 		Login do usuario desejado.
 	 * 
 	 * @return int
@@ -138,7 +140,9 @@ public interface AcervoDeItensDAO extends PersistenciaListener {
 	public int qntItens(String login) throws ArgumentoInvalidoException;
 
 	/**
-	 * @param login - String
+	 * Quantidade de itens emprestados
+	 * 
+	 * @param String - login
 	 * 		Login do usuario desejado.
 	 * 
 	 * @return int
@@ -149,7 +153,9 @@ public interface AcervoDeItensDAO extends PersistenciaListener {
 	public int qntItensEmprestados(String login) throws ArgumentoInvalidoException;
 
 	/**
-	 * @param login - String
+	 * Lista de id de itens emprestados
+	 * 
+	 * @param String - login
 	 * 		Login do usuario desejado.
 	 * 
 	 * @return String
@@ -162,9 +168,9 @@ public interface AcervoDeItensDAO extends PersistenciaListener {
 	/**
 	 * Testa se um determinado item existe dentro da lista do usuario
 	 * 
-	 * @param login - String
+	 * @param String - login
 	 * 		Login do usuario desejado.
-	 * @param idItem - String
+	 * @param String - idItem
 	 * 		ID do item a ser testado
 	 * 
 	 * @return boolean
@@ -175,7 +181,9 @@ public interface AcervoDeItensDAO extends PersistenciaListener {
 	public boolean existeItemID(String login, String idItem) throws ArgumentoInvalidoException;
 
 	/**
-	 * @param login - String
+	 * Lista de itens de um usuario
+	 * 
+	 * @param String - login
 	 * 		Login do usuario desejado.
 	 * 
 	 * @return String
@@ -187,13 +195,15 @@ public interface AcervoDeItensDAO extends PersistenciaListener {
 
 	/**
 	 * Verifica se o item pertence ao usuário.
-	 * @param login
+	 * 
+	 * @param String - login
 	 * 		Login do usuário.
-	 * @param idItem
+	 * @param String - idItem
 	 * 		Id do item.
-	 * @return
+	 * 
+	 * @return boolean
 	 * 		<code>True</code> - Se o item pertencer ao usuário.
-	 * 		<code>False</code> - Caso contrário.. 
+	 * 
 	 * @throws Exception
 	 */
 	public boolean esteItemMePertence(String login, String idItem) throws Exception;
@@ -201,9 +211,9 @@ public interface AcervoDeItensDAO extends PersistenciaListener {
 	/**
 	 * Apaga um determinado item
 	 * 
-	 * @param login - String
+	 * @param String - login
 	 * 		Login do usuario desejado.
-	 * @param idItem - String
+	 * @param String - idItem
 	 * 		ID do item a ser apagado
 	 * 
 	 * @throws Exception
@@ -213,9 +223,9 @@ public interface AcervoDeItensDAO extends PersistenciaListener {
 	/**
 	 * Registra interesse por um determinado item
 	 * 
-	 * @param seuLogin - String
+	 * @param String - seuLogin
 	 * 		Login do usuario.
-	 * @param idItem - String
+	 * @param String - idItem
 	 * 		ID do item a ser registrado
 	 * 
 	 * @throws Exception
@@ -225,11 +235,11 @@ public interface AcervoDeItensDAO extends PersistenciaListener {
 	/**
 	 * Oferece um Item
 	 * 
-	 * @param  - String
+	 * @param String - login
 	 * 		Login do usuario.
-	 * @param idPublicacaoPedido - String
+	 * @param String - idPublicacaoPedido
 	 * 		ID da publicacao do pedido
-	 * @param idItem - String
+	 * @param String - idItem
 	 * 		ID do item pedido.
 	 * 
 	 * @throws Exception
