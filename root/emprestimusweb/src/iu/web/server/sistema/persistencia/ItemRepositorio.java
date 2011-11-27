@@ -227,8 +227,27 @@ public class ItemRepositorio {
 	}
 
 	public void salvarEmArquivo() {
-		// TODO Auto-generated method stub
-		
+		Configuracao conf = Configuracao.getInstance();
+		File arquivo = new File("./"+conf.getDiretorioBD()+"itensRepositorio.bd");
+		File diretorio = new File("./"+conf.getDiretorioBD());
+		ObjectOutputStream objectOut = null;
+		try {
+			arquivo.createNewFile();
+			Object[] vetor = new Object[1];
+			itensCadastrados = ((TreeMap<Long, ItemIF>) vetor[0]);
+			objectOut = new ObjectOutputStream(
+	            new BufferedOutputStream(new FileOutputStream("./"+conf.getDiretorioBD()+"itensRepositorio.bd")));
+			objectOut.reset();
+	           objectOut.writeObject(vetor);
+	                
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				objectOut.close();
+			} catch (IOException e) {}
+		}
+
 	}
 	
 //	public void main(String [] args){

@@ -2,6 +2,7 @@ package iu.web.server.sistema.persistencia;
 
 import iu.web.server.sistema.autenticacao.Configuracao;
 import iu.web.server.sistema.emprestimo.Conta;
+import iu.web.server.sistema.item.Bauh;
 import iu.web.server.sistema.mensagem.ChatIF;
 import iu.web.server.sistema.utilitarios.Mensagem;
 
@@ -249,8 +250,27 @@ public class ChatRepositorio {
 	}
 
 	public void salvarEmArquivo() {
-		// TODO Auto-generated method stub
-		
+		Configuracao conf = Configuracao.getInstance();
+		File arquivo = new File("./"+conf.getDiretorioBD()+"chatRepositorio.bd");
+		File diretorio = new File("./"+conf.getDiretorioBD());
+		ObjectOutputStream objectOut = null;
+		try {
+			arquivo.createNewFile();
+			Object[] vetor = new Object[1];
+			conversas = ((TreeMap<Long, ChatIF>) vetor[0]);
+			objectOut = new ObjectOutputStream(
+	            new BufferedOutputStream(new FileOutputStream("./"+conf.getDiretorioBD()+"chatRepositorio.bd")));
+			objectOut.reset();
+	           objectOut.writeObject(vetor);
+	                
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				objectOut.close();
+			} catch (IOException e) {}
+		}
+
 	}
 
 }
