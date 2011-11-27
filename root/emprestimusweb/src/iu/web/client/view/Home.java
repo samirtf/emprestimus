@@ -17,7 +17,7 @@ import com.google.gwt.user.client.ui.InlineHyperlink;
 public class Home extends Composite {
 	private static final String IMAGEM_LOGO = "emprestimusweb/logo2.png";
 
-	private static final Image FOTO_DEFAULT = new Image("emprestimusweb/imagens/joeffison/AdamGontier.jpg");
+	private static final Image FOTO_DEFAULT = new Image("emprestimusweb/imagens/joeffison/.svn/text-base/AdamGontier.jpg.svn-base");
 	
 	private Controlador controlador;
 	private DockLayoutPanel painelGlobal;
@@ -100,7 +100,7 @@ public class Home extends Composite {
 		painelLateral.add(htmlMudarImagem, 57, 171);
 		htmlMudarImagem.setHeight("");
 		
-		image_4 = new Image((String) null);
+		image_4 = new Image("");
 		painelLateral.add(image_4, -30, 151);
 	}
 
