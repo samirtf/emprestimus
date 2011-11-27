@@ -3,6 +3,7 @@ package iu.web.server.sistema.autenticacao;
 import iu.web.server.sistema.usuario.Usuario;
 import iu.web.server.sistema.usuario.UsuarioIF;
 
+import java.io.IOException;
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -49,7 +50,13 @@ public class ServicoRecuperacaoSenhaUsuario {
 	}
 	
 	protected void adicionaRequisicaoRedefinicaoSenha(String login){
-		Configuracao configuracao = Configuracao.getInstance();
+		Configuracao configuracao = null;
+		try {
+			configuracao = Configuracao.getInstance();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		GregorianCalendar gc = new GregorianCalendar();
 		gc.add(Calendar.HOUR, configuracao.getTempoHorasPrazoRefinicaoSenha());
 		usuariosRedefinicoesRequisitadas.put(login, gc.getTime());
