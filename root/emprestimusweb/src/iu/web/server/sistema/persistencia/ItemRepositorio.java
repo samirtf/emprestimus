@@ -1,8 +1,18 @@
 package iu.web.server.sistema.persistencia;
 
+import iu.web.server.sistema.autenticacao.Configuracao;
+import iu.web.server.sistema.emprestimo.EmprestimoIF;
 import iu.web.server.sistema.item.ItemIF;
 import iu.web.server.sistema.utilitarios.Mensagem;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Map;
@@ -15,11 +25,42 @@ public class ItemRepositorio {
 	
 	private static ItemRepositorio repositorio;
 
-	private long contadorID = 0;
+	private static long contadorID = 0;
 
-	private Map<Long, ItemIF> itensCadastrados = new TreeMap<Long, ItemIF>();
+	private static Map<Long, ItemIF> itensCadastrados = new TreeMap<Long, ItemIF>();
 	
 	private ItemRepositorio() {
+		
+		Configuracao conf = Configuracao.getInstance();
+		File arquivo = new File("./"+conf.getDiretorioBD()+"itensRepositorio.bd");
+		File diretorio = new File("./"+conf.getDiretorioBD());
+		if(!diretorio.exists()){
+			diretorio.mkdir();
+			ObjectOutputStream objectOut = null;
+			try {
+				arquivo.createNewFile();
+				Object[] vetor = new Object[1];
+				vetor[0] =  new TreeMap<Long, ItemIF>();
+				objectOut = new ObjectOutputStream(
+	                    new BufferedOutputStream(new FileOutputStream("./"+conf.getDiretorioBD()+"itensRepositorio.bd")));
+	                objectOut.writeObject(vetor);
+	                
+			} catch (IOException e) {
+				e.printStackTrace();
+			}finally{
+				try {
+					objectOut.close();
+				} catch (IOException e) {}
+			}
+			
+		}else{
+			try {
+				inicializarDados();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 
 	public static ItemRepositorio getInstance() {
@@ -28,6 +69,26 @@ public class ItemRepositorio {
 		}
 		return repositorio;
 	}
+	
+	private static void inicializarDados() throws Exception {
+		Configuracao conf = Configuracao.getInstance();
+        
+        ObjectInputStream objectIn = null;
+        try{
+        	objectIn = new ObjectInputStream(
+                    new BufferedInputStream(new FileInputStream("./"+conf.getDiretorioBD()+"itensRepositorio.bd")));
+            Object[] vetor = ((Object[])objectIn.readObject());
+            itensCadastrados = ((TreeMap<Long, ItemIF>) vetor[0]);
+        
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            objectIn.close();
+        }
+        
+        contadorID = itensCadastrados.size();
+        
+    }
 
 	/**
 	 * Calcula o id do proximo item a ser cadastrado.
