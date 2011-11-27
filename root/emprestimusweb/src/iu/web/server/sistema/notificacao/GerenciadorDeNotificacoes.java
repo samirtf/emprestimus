@@ -9,7 +9,6 @@ import iu.web.server.sistema.autenticacao.Autenticacao;
 import iu.web.server.sistema.autenticacao.Configuracao;
 import iu.web.server.sistema.excecoes.ArgumentoInvalidoException;
 import iu.web.server.sistema.item.ItemIF;
-import iu.web.server.sistema.mensagem.CaixaPostal;
 import iu.web.server.sistema.persistencia.NotificacaoRepositorio;
 import iu.web.server.sistema.usuario.UsuarioIF;
 import iu.web.server.sistema.utilitarios.Mensagem;
@@ -399,7 +398,6 @@ public class GerenciadorDeNotificacoes {
 	public void salvarEmArquivo() {
 		Configuracao conf = Configuracao.getInstance();
 		File arquivo = new File("./"+conf.getDiretorioBD()+"gerenciadorNotificacoes.bd");
-		File diretorio = new File("./"+conf.getDiretorioBD());
 		ObjectOutputStream objectOut = null;
 		try {
 			arquivo.createNewFile();

@@ -9,14 +9,10 @@ import iu.web.server.sistema.persistencia.NotificacaoRepositorio;
 import iu.web.server.sistema.usuario.UsuarioIF;
 import iu.web.server.sistema.utilitarios.Mensagem;
 import iu.web.server.sistema.utilitarios.Validador;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-
-import com.google.gwt.user.client.rpc.core.java.util.Collections;
 
 
 /**

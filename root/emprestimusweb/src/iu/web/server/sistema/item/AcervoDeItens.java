@@ -521,7 +521,7 @@ public class AcervoDeItens {
 	public void salvarEmArquivo() {
 		Configuracao conf = Configuracao.getInstance();
 		File arquivo = new File("./"+conf.getDiretorioBD()+"acervoItens.bd");
-		File diretorio = new File("./"+conf.getDiretorioBD());
+
 		ObjectOutputStream objectOut = null;
 		try {
 			arquivo.createNewFile();

@@ -10,13 +10,9 @@ import iu.web.server.sistema.excecoes.ArgumentoInvalidoException;
 import iu.web.server.sistema.item.DataCriacaoItemComparador;
 import iu.web.server.sistema.item.ItemIF;
 import iu.web.server.sistema.item.NomeItemComparador;
-import iu.web.server.sistema.mensagem.CaixaPostal;
-import iu.web.server.sistema.notificacao.Rack;
-import iu.web.server.sistema.persistencia.ItemRepositorio;
 import iu.web.server.sistema.usuario.UsuarioIF;
 import iu.web.server.sistema.utilitarios.Mensagem;
 import iu.web.server.sistema.utilitarios.Validador;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -699,7 +695,7 @@ public class RelacionamentosUsuarios {
 	public void salvarEmArquivo() {
 		Configuracao conf = Configuracao.getInstance();
 		File arquivo = new File("./"+conf.getDiretorioBD()+"relacionamentosUsuarios.bd");
-		File diretorio = new File("./"+conf.getDiretorioBD());
+
 		ObjectOutputStream objectOut = null;
 		try {
 			arquivo.createNewFile();

@@ -34,6 +34,7 @@ public class NotificacaoPublicarPedido implements Notificacao {
 			String descricaoItem) {
 		this.nomeItem = nomeItem;
 		this.usuario = usuario;
+		this.descricaoItem = descricaoItem;
 		try {
 			Thread.sleep(1);
 		} catch (InterruptedException e) {
