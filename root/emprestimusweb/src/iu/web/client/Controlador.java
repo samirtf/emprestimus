@@ -4,6 +4,7 @@ import iu.web.shared.UsuarioSimples;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.rpc.IsSerializable;
 
 
 
@@ -11,7 +12,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  * @author José Nathaniel L de Abrante - nathaniel.una@gmail.com
  *
  */
-public class Controlador {
+public class Controlador implements IsSerializable{
 	private final GreetingServiceAsync greetingService = GWT.create(GreetingService.class);
 	
 	private String idSessao;

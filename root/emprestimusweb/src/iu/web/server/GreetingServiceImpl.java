@@ -24,30 +24,36 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements Greetin
 		} else if (!VerificadorDeCampos.ehSenhaValida(senha)) {
 			throw new IllegalArgumentException(MensagensWeb.SENHA_CURTA.getMensagem());
 		}
-		return Emprestimus.getInstance().abrirSessao(login, senha);
+		return Emprestimus1.getInstance().abrirSessao(login, senha);
 	}
 
 	@Override
 	public String cadastra(String nome, String login, String endereco, String senha) throws Exception {
-		Emprestimus.getInstance().criarUsuario(login, senha, nome, endereco);
+		Emprestimus1.getInstance().criarUsuario(login, senha, nome, endereco);
 		return login(login, senha);
 	}
 
 	@Override
 	public UsuarioSimples getUsuarioSimples(String idSessao) throws Exception {
-		UsuarioIF usuario = Autenticacao.getInstance().getUsuarioPeloIDSessao(idSessao);
+		UsuarioIF usuario = null;
+		UsuarioSimples usuarioSimples = null;
+		try{
+		usuario = Autenticacao.getInstance().getUsuarioPeloIDSessao(idSessao);
 		
-		UsuarioSimples usuarioSimples = new UsuarioSimples();
+		usuarioSimples = new UsuarioSimples();
 		usuarioSimples.setNome(usuario.getNome());
 		usuarioSimples.setFoto(usuario.getCaminhaImagemPerfil());
 		usuarioSimples.setHistorico(usuario.getHistoricoToString());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		
 		return usuarioSimples;
 	}
 
 	@Override
 	public String encerraSessao(String idSessao) throws Exception {
-		Emprestimus.getInstance().encerrarSessao(idSessao);
+		Emprestimus1.getInstance().encerrarSessao(idSessao);
 		return "";
 	}
 

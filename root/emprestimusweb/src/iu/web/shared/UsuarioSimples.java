@@ -1,14 +1,13 @@
 package iu.web.shared;
 
-import java.io.Serializable;
+import com.google.gwt.user.client.rpc.*;
 
 /**
  * @author José Nathaniel L de Abrante - nathaniel.una@gmail.com
  * 
  */
-public class UsuarioSimples implements Serializable {
+public class UsuarioSimples implements IsSerializable{
 
-	private static final long serialVersionUID = -406661456909671205L;
 	private static final int INDICE_NOME = 0;
 	private static final int INDICE_FOTO = 1;
 	private static final int INDICE_HISTORICO = 2;

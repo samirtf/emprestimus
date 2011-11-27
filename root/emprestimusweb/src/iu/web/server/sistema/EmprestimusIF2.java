@@ -1,4 +1,4 @@
-package iu.web.shared;
+package iu.web.server.sistema;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
@@ -8,7 +8,7 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  * @author Joeffison Silverio de Andrade, 21011853, joeffisonsa@gmail.com
  * @version 1.5
  */
-public interface EmprestimusIF extends IsSerializable {
+public interface EmprestimusIF2 extends IsSerializable{
 
 	// Creio que este sistema seria melhor aplicado à aparelhos móveis.
 	// (Joeffison)

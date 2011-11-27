@@ -2,11 +2,13 @@ package iu.web.shared;
 
 import java.io.Serializable;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
+
 /**
  * @author José Nathaniel L de Abrante - nathaniel.una@gmail.com
  *
  */
-public enum MensagensWeb implements Serializable{
+public enum MensagensWeb implements IsSerializable{
 	NOME_CURTO("O nome deve ter pelo menos 4 caracteres"),
 	SENHA_CURTA("A senha deve ter pelo menos 6 caracteres"),
 	FALHA_NA_AUTENTICACAO("Falha na autenticação");
