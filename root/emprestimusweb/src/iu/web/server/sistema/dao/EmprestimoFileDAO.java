@@ -52,4 +52,9 @@ public class EmprestimoFileDAO implements EmprestimoDAO {
 		EmprestimoRepositorio.getInstance().salvarEmArquivo();
 	}
 
+	@Override
+	public void iniciarDAO() {
+		EmprestimoRepositorio.getInstance();
+	}
+
 }

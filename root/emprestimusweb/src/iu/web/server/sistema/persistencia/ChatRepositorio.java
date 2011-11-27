@@ -25,7 +25,7 @@ public class ChatRepositorio {
 	
 	private static ChatRepositorio repositorio;
 
-	private long contadorID = 0;
+	private static long contadorID = 0;
 
 	private static Map<Long, ChatIF> conversas = new TreeMap<Long, ChatIF>();
 	
@@ -85,6 +85,8 @@ public class ChatRepositorio {
         }finally{
             objectIn.close();
         }
+        
+        contadorID = conversas.size();
         
     }
 

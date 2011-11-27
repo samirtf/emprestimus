@@ -3,6 +3,7 @@ package iu.web.server.sistema.dao;
 import iu.web.server.sistema.emprestimo.BancoDeEmprestimos;
 import iu.web.server.sistema.emprestimo.Conta;
 import iu.web.server.sistema.emprestimo.EmprestimoIF;
+import iu.web.server.sistema.item.AcervoDeItens;
 import iu.web.server.sistema.usuario.UsuarioIF;
 
 public class BancoDeEmprestimosFileDAO implements BancoDeEmprestimosDAO {
@@ -84,6 +85,11 @@ public class BancoDeEmprestimosFileDAO implements BancoDeEmprestimosDAO {
 	public void notificaPersistenciaDoSistema() {
 		BancoDeEmprestimos.getInstance().salvarEmArquivo();
 		
+	}
+
+	@Override
+	public void iniciarDAO() {
+		BancoDeEmprestimos.getInstance();
 	}
 
 }

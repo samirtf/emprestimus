@@ -12,6 +12,11 @@ import iu.web.server.sistema.usuario.UsuarioIF;
  * 
  */
 public interface GerenciadorDeNotificacoesDAO extends PersistenciaListener{
+	
+	/**
+	 * Inicia construção do DAO.
+	 */
+	public void iniciarDAO();
 
 	/**
 	 * Adiciona um Rack a um determinado usuario

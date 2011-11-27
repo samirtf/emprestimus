@@ -62,4 +62,9 @@ public class CorreioFileDAO implements CorreioDAO{
 		Correio.getInstance().salvarEmArquivo();
 	}
 
+	@Override
+	public void iniciarDAO() {
+		Correio.getInstance();
+	}
+
 }

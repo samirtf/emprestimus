@@ -11,6 +11,10 @@ import iu.web.server.sistema.persistencia.PersistenciaListener;
  */
 public interface NotificacaoDAO extends PersistenciaListener{
 	
+	/**
+	 * Inicia construção do DAO.
+	 */
+	public void iniciarDAO();
 
 	/**
 	 * Calcula o id do proximo emprestimo a ser cadastrado.

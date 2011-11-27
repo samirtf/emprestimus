@@ -4,6 +4,11 @@ import iu.web.server.sistema.emprestimo.EmprestimoIF;
 import iu.web.server.sistema.persistencia.PersistenciaListener;
 
 public interface EmprestimoDAO extends PersistenciaListener{
+	
+	/**
+	 * Inicia construção do DAO.
+	 */
+	public void iniciarDAO();
 
 	/**
 	 * Calcula o id do proximo emprestimo a ser cadastrado.

@@ -7,6 +7,11 @@ import iu.web.server.sistema.persistencia.PersistenciaListener;
 public interface ItemDAO extends PersistenciaListener{
 	
 	/**
+	 * Inicia construção do DAO.
+	 */
+	public void iniciarDAO();
+	
+	/**
 	 * Calcula o id do proximo item a ser cadastrado.
 	 * 
 	 * @return String

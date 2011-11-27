@@ -1,6 +1,7 @@
 package iu.web.server.sistema.dao;
 
 import iu.web.server.sistema.notificacao.Notificacao;
+import iu.web.server.sistema.persistencia.EmprestimoRepositorio;
 import iu.web.server.sistema.persistencia.NotificacaoRepositorio;
 
 public class NotificacaoFileDAO implements NotificacaoDAO {
@@ -44,6 +45,11 @@ public class NotificacaoFileDAO implements NotificacaoDAO {
 	@Override
 	public void notificaPersistenciaDoSistema() {
 		NotificacaoRepositorio.getInstance().salvarEmArquivo();
+	}
+
+	@Override
+	public void iniciarDAO() {
+		EmprestimoRepositorio.getInstance();
 	}
 
 }

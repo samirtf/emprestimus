@@ -115,4 +115,9 @@ public class AcervoDeItensFileDAO implements AcervoDeItensDAO {
 		AcervoDeItens.getInstance().salvarEmArquivo();
 	}
 
+	@Override
+	public void iniciarDAO() {
+		AcervoDeItens.getInstance();
+	}
+
 }

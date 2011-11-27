@@ -4,6 +4,7 @@ import iu.web.server.sistema.excecoes.ArgumentoInvalidoException;
 import iu.web.server.sistema.item.ItemIF;
 import iu.web.server.sistema.notificacao.GerenciadorDeNotificacoes;
 import iu.web.server.sistema.notificacao.Rack;
+import iu.web.server.sistema.persistencia.EmprestimoRepositorio;
 import iu.web.server.sistema.usuario.UsuarioIF;
 
 public class GerenciadorDeNotificacoesFileDAO implements GerenciadorDeNotificacoesDAO {
@@ -90,6 +91,11 @@ public class GerenciadorDeNotificacoesFileDAO implements GerenciadorDeNotificaco
 	@Override
 	public void notificaPersistenciaDoSistema() {
 		GerenciadorDeNotificacoes.getInstance().salvarEmArquivo();
+	}
+
+	@Override
+	public void iniciarDAO() {
+		EmprestimoRepositorio.getInstance();
 	}
 
 }

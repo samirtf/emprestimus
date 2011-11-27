@@ -1,6 +1,7 @@
 package iu.web.server.sistema.dao;
 
 import iu.web.server.sistema.item.ItemIF;
+import iu.web.server.sistema.persistencia.EmprestimoRepositorio;
 import iu.web.server.sistema.persistencia.ItemRepositorio;
 
 public class ItemFileDAO implements ItemDAO {
@@ -105,6 +106,11 @@ public class ItemFileDAO implements ItemDAO {
 	@Override
 	public void notificaPersistenciaDoSistema() {
 		ItemRepositorio.getInstance().salvarEmArquivo();
+	}
+
+	@Override
+	public void iniciarDAO() {
+		EmprestimoRepositorio.getInstance();
 	}
 	
 

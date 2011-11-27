@@ -2,25 +2,15 @@ package iu.web.server.sistema.autenticacao;
 
 import iu.web.server.sistema.usuario.Usuario;
 import iu.web.server.sistema.usuario.UsuarioIF;
-
-import java.io.IOException;
-import java.sql.Time;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Properties;
 import java.util.TreeMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-
 
 
 public class ServicoRecuperacaoSenhaUsuario {

@@ -1,6 +1,7 @@
 package iu.web.server.sistema.dao;
 
 import iu.web.server.sistema.excecoes.ArgumentoInvalidoException;
+import iu.web.server.sistema.persistencia.EmprestimoRepositorio;
 import iu.web.server.sistema.usuario.CicloDeAmizade;
 import iu.web.server.sistema.usuario.RelacionamentosUsuarios;
 import iu.web.server.sistema.usuario.UsuarioIF;
@@ -108,6 +109,11 @@ public class RelacionamentosUsuariosFileDAO implements RelacionamentosUsuariosDA
 	@Override
 	public void notificaPersistenciaDoSistema() {
 		RelacionamentosUsuarios.getInstance().salvarEmArquivo();
+	}
+
+	@Override
+	public void iniciarDAO() {
+		EmprestimoRepositorio.getInstance();
 	}
 
 }

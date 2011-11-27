@@ -14,7 +14,11 @@ import java.util.List;
  */
 
 public interface RelacionamentosUsuariosDAO extends PersistenciaListener{
-
+	
+	/**
+	 * Inicia construção do DAO.
+	 */
+	public void iniciarDAO();
 	
 	/**
 	 * Adiciona um ciclo de amizade a um usuario

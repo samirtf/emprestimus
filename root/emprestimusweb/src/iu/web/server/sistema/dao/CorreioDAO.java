@@ -8,6 +8,11 @@ import iu.web.server.sistema.persistencia.PersistenciaListener;
  * 
  */
 public interface CorreioDAO extends PersistenciaListener{
+	
+	/**
+	 * Inicia construção do DAO.
+	 */
+	public void iniciarDAO();
 
 	public void adicionaCaixaPostalAoUsuario(String usuario) throws Exception;
 

@@ -15,6 +15,11 @@ import java.util.List;
 public interface AcervoDeItensDAO extends PersistenciaListener {
 	
 	/**
+	 * Inicia construção do DAO.
+	 */
+	public void iniciarDAO();
+	
+	/**
 	 * Adiciona um Bauh a um determinado usuario.
 	 * 
 	 * @param usuario - String

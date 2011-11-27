@@ -11,6 +11,11 @@ import iu.web.server.sistema.usuario.UsuarioIF;
 public interface BancoDeEmprestimosDAO extends PersistenciaListener {
 
 	/**
+	 * Inicia construção do DAO.
+	 */
+	public void iniciarDAO();
+	
+	/**
 	 * Cadastra um usuario no banco de emprestimos
 	 * 
 	 * @param usuario - String
