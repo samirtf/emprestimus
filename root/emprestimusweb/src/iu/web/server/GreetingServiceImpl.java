@@ -5,6 +5,7 @@ import java.io.Serializable;
 import iu.web.client.GreetingService;
 import iu.web.server.sistema.autenticacao.Autenticacao;
 import iu.web.server.sistema.usuario.UsuarioIF;
+import iu.web.shared.Emprestimus;
 import iu.web.shared.MensagensWeb;
 import iu.web.shared.UsuarioSimples;
 import iu.web.shared.VerificadorDeCampos;
@@ -24,12 +25,17 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements Greetin
 		} else if (!VerificadorDeCampos.ehSenhaValida(senha)) {
 			throw new IllegalArgumentException(MensagensWeb.SENHA_CURTA.getMensagem());
 		}
-		return Emprestimus1.getInstance().abrirSessao(login, senha);
+		return Emprestimus.getInstance().abrirSessao(login, senha);
 	}
 
 	@Override
 	public String cadastra(String nome, String login, String endereco, String senha) throws Exception {
-		Emprestimus1.getInstance().criarUsuario(login, senha, nome, endereco);
+		try{
+		Emprestimus.getInstance().criarUsuario(login, senha, nome, endereco);
+		}catch(Exception e){
+			System.out.println("CADASTRA - GREETING SERVICE IMPL");
+			e.printStackTrace();
+		}
 		return login(login, senha);
 	}
 
@@ -53,7 +59,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements Greetin
 
 	@Override
 	public String encerraSessao(String idSessao) throws Exception {
-		Emprestimus1.getInstance().encerrarSessao(idSessao);
+		Emprestimus.getInstance().encerrarSessao(idSessao);
 		return "";
 	}
 
