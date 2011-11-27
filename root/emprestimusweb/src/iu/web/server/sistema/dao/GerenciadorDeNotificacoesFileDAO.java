@@ -10,12 +10,12 @@ import iu.web.server.sistema.usuario.UsuarioIF;
 public class GerenciadorDeNotificacoesFileDAO implements GerenciadorDeNotificacoesDAO {
 
 	@Override
-	public void adicionaRackAoUsuario(String usuario) throws Exception {
+	public synchronized void adicionaRackAoUsuario(String usuario) throws Exception {
 		GerenciadorDeNotificacoes.getInstance().adicionaRackAoUsuario(usuario);
 	}
 
 	@Override
-	public void removeRackDoUsuario(String usuario) throws Exception {
+	public synchronized void removeRackDoUsuario(String usuario) throws Exception {
 		GerenciadorDeNotificacoes.getInstance().removeRackDoUsuario(usuario);
 	}
 
@@ -25,25 +25,25 @@ public class GerenciadorDeNotificacoesFileDAO implements GerenciadorDeNotificaco
 	}
 
 	@Override
-	public void addHistoricoNovoItem(String seuLogin, ItemIF item)
+	public synchronized void addHistoricoNovoItem(String seuLogin, ItemIF item)
 			throws Exception {
 		GerenciadorDeNotificacoes.getInstance().addHistoricoNovoItem(seuLogin, item);
 	}
 
 	@Override
-	public void addHistoricoAmizadeAprovada(String seuLogin, UsuarioIF amigo)
+	public synchronized void addHistoricoAmizadeAprovada(String seuLogin, UsuarioIF amigo)
 			throws Exception {
 		GerenciadorDeNotificacoes.getInstance().addHistoricoAmizadeAprovada(seuLogin, amigo);
 	}
 
 	@Override
-	public void addHistoricoEmprestimoEmAndamento(String seuLogin,
+	public synchronized void addHistoricoEmprestimoEmAndamento(String seuLogin,
 			UsuarioIF amigo, ItemIF item) throws Exception {
 		GerenciadorDeNotificacoes.getInstance().addHistoricoEmprestimoEmAndamento(seuLogin, amigo, item);
 	}
 
 	@Override
-	public void zerarHistorico(String seuLogin) {
+	public synchronized void zerarHistorico(String seuLogin) {
 		GerenciadorDeNotificacoes.getInstance().zerarHistorico(seuLogin);
 	}
 
@@ -54,13 +54,13 @@ public class GerenciadorDeNotificacoesFileDAO implements GerenciadorDeNotificaco
 	}
 
 	@Override
-	public void addHistoricoInteressePorItem(String seuLogin, UsuarioIF amigo,
+	public synchronized void addHistoricoInteressePorItem(String seuLogin, UsuarioIF amigo,
 			ItemIF item) throws Exception {
 		GerenciadorDeNotificacoes.getInstance().addHistoricoInteressePorItem(seuLogin, amigo, item);
 	}
 
 	@Override
-	public void addHistoricoTerminoEmprestimo(String seuLogin, ItemIF item)
+	public synchronized void addHistoricoTerminoEmprestimo(String seuLogin, ItemIF item)
 			throws Exception {
 		GerenciadorDeNotificacoes.getInstance().addHistoricoTerminoEmprestimo(seuLogin, item);
 	}
@@ -78,28 +78,28 @@ public class GerenciadorDeNotificacoesFileDAO implements GerenciadorDeNotificaco
 	}
 
 	@Override
-	public void republicarPedido(UsuarioIF usuario, String idPublicacaoPedido)
+	public synchronized void republicarPedido(UsuarioIF usuario, String idPublicacaoPedido)
 			throws Exception {
 		GerenciadorDeNotificacoes.getInstance().republicarPedido(usuario, idPublicacaoPedido)		;
 	}
 
 	@Override
-	public void zerarSistema() {
+	public synchronized void zerarSistema() {
 		GerenciadorDeNotificacoes.getInstance().zerarSistema();		
 	}
 
 	@Override
-	public void notificaPersistenciaDoSistema() {
+	public synchronized void notificaPersistenciaDoSistema() {
 		GerenciadorDeNotificacoes.getInstance().salvarEmArquivo();
 	}
 
 	@Override
-	public void iniciarDAO() {
+	public synchronized void iniciarDAO() {
 		EmprestimoRepositorio.getInstance();
 	}
 	
 	@Override
-	public void iniciarListener() {
+	public synchronized void iniciarListener() {
 		iniciarDAO();
 	}
 

@@ -48,17 +48,17 @@ public class EmprestimoFileDAO implements EmprestimoDAO {
 	}
 
 	@Override
-	public void notificaPersistenciaDoSistema() {
+	public synchronized void notificaPersistenciaDoSistema() {
 		EmprestimoRepositorio.getInstance().salvarEmArquivo();
 	}
 
 	@Override
-	public void iniciarDAO() {
+	public synchronized void iniciarDAO() {
 		EmprestimoRepositorio.getInstance();
 	}
 	
 	@Override
-	public void iniciarListener() {
+	public synchronized void iniciarListener() {
 		iniciarDAO();
 	}
 

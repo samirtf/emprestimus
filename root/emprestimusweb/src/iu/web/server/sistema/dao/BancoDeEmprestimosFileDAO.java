@@ -9,12 +9,12 @@ import iu.web.server.sistema.usuario.UsuarioIF;
 public class BancoDeEmprestimosFileDAO implements BancoDeEmprestimosDAO {
 
 	@Override
-	public void adicionaContaAoUsuario(String usuario) throws Exception {
+	public synchronized void adicionaContaAoUsuario(String usuario) throws Exception {
 		BancoDeEmprestimos.getInstance().adicionaContaAoUsuario(usuario);
 	}
 
 	@Override
-	public void removeContaDoUsuario(String usuario) throws Exception {
+	public synchronized void removeContaDoUsuario(String usuario) throws Exception {
 		BancoDeEmprestimos.getInstance().removeContaDoUsuario(usuario);
 	}
 
@@ -24,7 +24,7 @@ public class BancoDeEmprestimosFileDAO implements BancoDeEmprestimosDAO {
 	}
 
 	@Override
-	public void adicionarRequisicaoEmprestimoEmEsperaDeAmigo(String login,
+	public synchronized void adicionarRequisicaoEmprestimoEmEsperaDeAmigo(String login,
 			EmprestimoIF emp) throws Exception {
 		BancoDeEmprestimos.getInstance().adicionarRequisicaoEmprestimoEmEsperaDeAmigo(login, emp);
 	}
@@ -47,19 +47,19 @@ public class BancoDeEmprestimosFileDAO implements BancoDeEmprestimosDAO {
 	}
 
 	@Override
-	public void emprestimoAceitoPorAmigo(String login, EmprestimoIF emp)
+	public synchronized void emprestimoAceitoPorAmigo(String login, EmprestimoIF emp)
 			throws Exception {
 		BancoDeEmprestimos.getInstance().emprestimoAceitoPorAmigo(login, emp);
 	}
 
 	@Override
-	public void removerEmprestimosRequeridosPorAmigo(String login,
+	public synchronized void removerEmprestimosRequeridosPorAmigo(String login,
 			UsuarioIF amigo) {
 		BancoDeEmprestimos.getInstance().removerEmprestimosRequeridosPorAmigo(login, amigo);
 	}
 
 	@Override
-	public void removerEmprestimosRequeridosPorMim(String login, UsuarioIF amigo) {
+	public synchronized void removerEmprestimosRequeridosPorMim(String login, UsuarioIF amigo) {
 		BancoDeEmprestimos.getInstance().removerEmprestimosRequeridosPorMim(login, amigo);
 	}
 
@@ -70,30 +70,30 @@ public class BancoDeEmprestimosFileDAO implements BancoDeEmprestimosDAO {
 	}
 
 	@Override
-	public void removerMinhaSolicitacaoEmprestimo(String login,
+	public synchronized void removerMinhaSolicitacaoEmprestimo(String login,
 			EmprestimoIF emprestimo) {
 		BancoDeEmprestimos.getInstance().removerMinhaSolicitacaoEmprestimo(login, emprestimo);
 	}
 
 	@Override
-	public void zerarSistema() {
+	public synchronized void zerarSistema() {
 		BancoDeEmprestimos.getInstance().zerarSistema();
 		
 	}
 
 	@Override
-	public void notificaPersistenciaDoSistema() {
+	public synchronized void notificaPersistenciaDoSistema() {
 		BancoDeEmprestimos.getInstance().salvarEmArquivo();
 		
 	}
 
 	@Override
-	public void iniciarDAO() {
+	public synchronized void iniciarDAO() {
 		BancoDeEmprestimos.getInstance();
 	}
 	
 	@Override
-	public void iniciarListener() {
+	public synchronized void iniciarListener() {
 		iniciarDAO();
 	}
 

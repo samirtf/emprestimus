@@ -55,16 +55,17 @@ public class PersistenciaInteligente {
     	for(PersistenciaListener listenersDao : persistenciaListeners){
     		listenersDao.iniciarListener();
     	}
-    	
-    	
-        timer.scheduleAtFixedRate(new TimerTask() {
+    
+    }
+    
+    public void iniciar(){
+    	timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
             	for(PersistenciaListener listenersDao : persistenciaListeners){
             		listenersDao.notificaPersistenciaDoSistema();
             	}
             }
         }, delay, interval);
-    
     }
 
 }

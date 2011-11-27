@@ -121,13 +121,13 @@ public class Autenticacao implements AutenticacaoIF {
 	
 
 	@Override
-	public void zerarSistema() {
+	public synchronized void zerarSistema() {
 		usuariosCadastrados = new TreeMap<String, UsuarioIF>();
 		sessoes = new TreeMap<String, UsuarioIF>();
 	}
 
 	@Override
-	public void encerrarSistema() {
+	public synchronized void encerrarSistema() {
 		//System.exit(0);
 	}
 
@@ -150,7 +150,7 @@ public class Autenticacao implements AutenticacaoIF {
 	}
 
 	@Override
-	public void criarUsuario(String login, String nome, String endereco) throws Exception {
+	public synchronized void criarUsuario(String login, String nome, String endereco) throws Exception {
 		UsuarioIF novoUsuario = new Usuario(login, nome, endereco);
 		if (usuariosCadastrados.containsKey(login.trim())) {
 			throw new Exception(Mensagem.LOGIN_JAH_CADASTRADO.getMensagem());
@@ -319,7 +319,7 @@ public class Autenticacao implements AutenticacaoIF {
 		return idSessao;
 	}
 
-	public void criarUsuario(String login, String senha, String nome,
+	public synchronized void criarUsuario(String login, String senha, String nome,
 			String endereco) throws Exception {
 		UsuarioIF novoUsuario = new Usuario(login, senha, nome, endereco);
 		if (usuariosCadastrados.containsKey(login.trim())) {
@@ -336,7 +336,7 @@ public class Autenticacao implements AutenticacaoIF {
 
 	}
 
-	public void encerrarSessao(String idSessao) throws Exception {
+	public synchronized void encerrarSessao(String idSessao) throws Exception {
 		
 		if(sessoes.remove(idSessao) == null){
 			throw new Exception(Mensagem.SESSAO_JAH_ENCERRADA.getMensagem());
@@ -369,12 +369,12 @@ public class Autenticacao implements AutenticacaoIF {
 	}
 
 	@Override
-	public void notificaPersistenciaDoSistema() {
+	public synchronized void notificaPersistenciaDoSistema() {
 		salvarEmArquivo();
 	}
 
 	@Override
-	public void iniciarListener() {
+	public synchronized void iniciarListener() {
 		// TODO Posteriormente, separar o bd desta classe e iniciar o DAO.
 		// Este, por sinal, já é inicializado ao chamar getInstance() em PersistenciaInteligente.
 		// Método dumb.

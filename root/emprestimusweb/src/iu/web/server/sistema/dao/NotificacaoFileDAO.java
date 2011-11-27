@@ -43,17 +43,17 @@ public class NotificacaoFileDAO implements NotificacaoDAO {
 	}
 
 	@Override
-	public void notificaPersistenciaDoSistema() {
+	public synchronized void notificaPersistenciaDoSistema() {
 		NotificacaoRepositorio.getInstance().salvarEmArquivo();
 	}
 
 	@Override
-	public void iniciarDAO() {
+	public synchronized void iniciarDAO() {
 		EmprestimoRepositorio.getInstance();
 	}
 	
 	@Override
-	public void iniciarListener() {
+	public synchronized void iniciarListener() {
 		iniciarDAO();
 	}
 

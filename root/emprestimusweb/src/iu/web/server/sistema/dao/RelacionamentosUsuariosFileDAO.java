@@ -12,13 +12,13 @@ import java.util.List;
 public class RelacionamentosUsuariosFileDAO implements RelacionamentosUsuariosDAO {
 
 	@Override
-	public void adicionaCicloDeAmizadeAoUsuario(String usuario)
+	public synchronized void adicionaCicloDeAmizadeAoUsuario(String usuario)
 			throws Exception {
 		RelacionamentosUsuarios.getInstance().adicionaCicloDeAmizadeAoUsuario(usuario);
 	}
 
 	@Override
-	public void removeCicloDeAmizadeDoUsuario(String usuario) throws Exception {
+	public synchronized void removeCicloDeAmizadeDoUsuario(String usuario) throws Exception {
 		RelacionamentosUsuarios.getInstance().removeCicloDeAmizadeDoUsuario(usuario);
 	}
 
@@ -28,13 +28,13 @@ public class RelacionamentosUsuariosFileDAO implements RelacionamentosUsuariosDA
 	}
 
 	@Override
-	public void aprovarAmizade(String seuLogin, String novoAmigo)
+	public synchronized void aprovarAmizade(String seuLogin, String novoAmigo)
 			throws Exception {
 		RelacionamentosUsuarios.getInstance().aprovarAmizade(seuLogin, novoAmigo);
 	}
 
 	@Override
-	public void aprovouAmizade(String seuLogin, UsuarioIF usuario)
+	public synchronized void aprovouAmizade(String seuLogin, UsuarioIF usuario)
 			throws ArgumentoInvalidoException {
 		RelacionamentosUsuarios.getInstance().aprovouAmizade(seuLogin, usuario);
 	}
@@ -52,13 +52,13 @@ public class RelacionamentosUsuariosFileDAO implements RelacionamentosUsuariosDA
 	}
 
 	@Override
-	public void requisitarAmizade(String seuLogin, String loginDoAmigo)
+	public synchronized void requisitarAmizade(String seuLogin, String loginDoAmigo)
 			throws Exception {
 		RelacionamentosUsuarios.getInstance().requisitarAmizade(seuLogin, loginDoAmigo);
 	}
 
 	@Override
-	public void usuarioQuerSerMeuAmigo(String seuLogin,
+	public synchronized void usuarioQuerSerMeuAmigo(String seuLogin,
 			UsuarioIF usuarioSolicitante) throws ArgumentoInvalidoException {
 		RelacionamentosUsuarios.getInstance().usuarioQuerSerMeuAmigo(seuLogin, usuarioSolicitante);
 	}
@@ -87,12 +87,12 @@ public class RelacionamentosUsuariosFileDAO implements RelacionamentosUsuariosDA
 	}
 
 	@Override
-	public void desfazerAmizade(String seuLogin, String amigo) throws Exception {
+	public synchronized void desfazerAmizade(String seuLogin, String amigo) throws Exception {
 		RelacionamentosUsuarios.getInstance().desfazerAmizade(seuLogin, amigo);
 	}
 
 	@Override
-	public void removerAmigoDaLista(String seuLogin, UsuarioIF amigo) {
+	public synchronized void removerAmigoDaLista(String seuLogin, UsuarioIF amigo) {
 		RelacionamentosUsuarios.getInstance().removerAmigoDaLista(seuLogin, amigo);
 	}
 
@@ -102,22 +102,22 @@ public class RelacionamentosUsuariosFileDAO implements RelacionamentosUsuariosDA
 	}
 
 	@Override
-	public void zerarSistema() {
+	public synchronized void zerarSistema() {
 		RelacionamentosUsuarios.getInstance().zerarSistema();
 	}
 
 	@Override
-	public void notificaPersistenciaDoSistema() {
+	public synchronized void notificaPersistenciaDoSistema() {
 		RelacionamentosUsuarios.getInstance().salvarEmArquivo();
 	}
 
 	@Override
-	public void iniciarDAO() {
+	public synchronized void iniciarDAO() {
 		EmprestimoRepositorio.getInstance();
 	}
 	
 	@Override
-	public void iniciarListener() {
+	public synchronized void iniciarListener() {
 		iniciarDAO();
 	}
 

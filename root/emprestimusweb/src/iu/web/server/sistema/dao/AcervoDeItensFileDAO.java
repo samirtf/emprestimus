@@ -11,12 +11,12 @@ import java.util.List;
 public class AcervoDeItensFileDAO implements AcervoDeItensDAO {
 
 	@Override
-	public void adicionaBauhAoUsuario(String usuario) throws Exception {
+	public synchronized void adicionaBauhAoUsuario(String usuario) throws Exception {
 		AcervoDeItens.getInstance().adicionaBauhAoUsuario(usuario);
 	}
 
 	@Override
-	public void removeContaDoUsuario(String usuario) throws Exception {
+	public synchronized void removeContaDoUsuario(String usuario) throws Exception {
 		AcervoDeItens.getInstance().removeContaDoUsuario(usuario);
 	}
 
@@ -89,39 +89,39 @@ public class AcervoDeItensFileDAO implements AcervoDeItensDAO {
 	}
 
 	@Override
-	public void apagarItem(String login, String idItem) throws Exception {
+	public synchronized void apagarItem(String login, String idItem) throws Exception {
 		AcervoDeItens.getInstance().apagarItem(login, idItem);
 	}
 
 	@Override
-	public void registrarInteressePorItem(String seuLogin, String idItem)
+	public synchronized void registrarInteressePorItem(String seuLogin, String idItem)
 			throws Exception {
 		AcervoDeItens.getInstance().registrarInteressePorItem(seuLogin, idItem);
 	}
 
 	@Override
-	public void oferecerItem(String login, String idPublicacaoPedido,
+	public synchronized void oferecerItem(String login, String idPublicacaoPedido,
 			String idItem) throws Exception {
 		AcervoDeItens.getInstance().oferecerItem(login, idPublicacaoPedido, idItem);
 	}
 
 	@Override
-	public void zerarSistema() {
+	public synchronized void zerarSistema() {
 		AcervoDeItens.getInstance().zerarSistema();
 	}
 
 	@Override
-	public void notificaPersistenciaDoSistema() {
+	public synchronized void notificaPersistenciaDoSistema() {
 		AcervoDeItens.getInstance().salvarEmArquivo();
 	}
 
 	@Override
-	public void iniciarDAO() {
+	public synchronized void iniciarDAO() {
 		AcervoDeItens.getInstance();
 	}
 
 	@Override
-	public void iniciarListener() {
+	public synchronized void iniciarListener() {
 		iniciarDAO();
 	}
 

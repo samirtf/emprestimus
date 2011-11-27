@@ -6,23 +6,23 @@ import iu.web.server.sistema.mensagem.Correio;
 public class CorreioFileDAO implements CorreioDAO{
 
 	@Override
-	public void adicionaCaixaPostalAoUsuario(String usuario) throws Exception {
+	public synchronized void adicionaCaixaPostalAoUsuario(String usuario) throws Exception {
 		Correio.getInstance().adicionaCaixaPostalAoUsuario(usuario);
 	}
 
 	@Override
-	public void removeCaixaPostalDoUsuario(String usuario) throws Exception {
+	public synchronized void removeCaixaPostalDoUsuario(String usuario) throws Exception {
 		Correio.getInstance().removeCaixaPostalDoUsuario(usuario);
 	}
 
 	@Override
-	public void adicionaConversaOfftopicNaLista(String usuario, ChatIF conversa)
+	public synchronized void adicionaConversaOfftopicNaLista(String usuario, ChatIF conversa)
 			throws Exception {
 		Correio.getInstance().adicionaConversaOfftopicNaLista(usuario, conversa);
 	}
 
 	@Override
-	public void adicionaConversaNegociacaoNaLista(String usuario,
+	public synchronized void adicionaConversaNegociacaoNaLista(String usuario,
 			ChatIF conversa) throws Exception {
 		Correio.getInstance().adicionaConversaNegociacaoNaLista(usuario, conversa);
 	}
@@ -53,22 +53,22 @@ public class CorreioFileDAO implements CorreioDAO{
 	}
 
 	@Override
-	public void zerarSistema() {
+	public synchronized void zerarSistema() {
 		Correio.getInstance().zerarSistema();		
 	}
 
 	@Override
-	public void notificaPersistenciaDoSistema() {
+	public synchronized void notificaPersistenciaDoSistema() {
 		Correio.getInstance().salvarEmArquivo();
 	}
 
 	@Override
-	public void iniciarDAO() {
+	public synchronized void iniciarDAO() {
 		Correio.getInstance();
 	}
 	
 	@Override
-	public void iniciarListener() {
+	public synchronized void iniciarListener() {
 		iniciarDAO();
 	}
 
