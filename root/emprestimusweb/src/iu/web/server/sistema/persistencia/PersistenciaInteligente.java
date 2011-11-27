@@ -2,6 +2,7 @@ package iu.web.server.sistema.persistencia;
 
 import iu.web.server.sistema.autenticacao.Autenticacao;
 import iu.web.server.sistema.autenticacao.AutenticacaoIF;
+import iu.web.server.sistema.autenticacao.Configuracao;
 import iu.web.server.sistema.dao.AcervoDeItensDAO;
 import iu.web.server.sistema.dao.AcervoDeItensFileDAO;
 import iu.web.server.sistema.dao.BancoDeEmprestimosDAO;
@@ -28,14 +29,17 @@ import java.util.TimerTask;
 
 public class PersistenciaInteligente {
 	
+	
 	private List<PersistenciaListener> persistenciaListeners;
 	
-	int delay = 5000;   // delay de 5 seg.
-    int interval = 1000;  // intervalo de 1 seg.
+	int delay = 1000 * 60;   // delay de 1 seg * 60 = 1 minuto.
+    int interval = 1000 * 60 * 4;  // intervalo de 1 seg * 60 * 4 = 4 minutos.
     Timer timer = new Timer();
     
     public PersistenciaInteligente(){
-    	
+    	Configuracao configuracao = Configuracao.getInstance();
+    	delay = configuracao.getDelayTimerTaskBD();
+    	interval = configuracao.getIntervalTimerTaskBD();
     	persistenciaListeners = new ArrayList<PersistenciaListener>();
     	persistenciaListeners.add(Autenticacao.getInstance());
     	persistenciaListeners.add(new ItemFileDAO());

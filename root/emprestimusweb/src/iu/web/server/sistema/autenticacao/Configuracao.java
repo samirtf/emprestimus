@@ -21,6 +21,8 @@ public class Configuracao {
 	private static long timeoutRedefineSenhaSMTP = 4000;
 	private static String senhaRedefAcessoTeste = "";
 	private static String diretorioBD = "";
+	private static int delayTimerTaskBD = 60000;   // delay de 1 seg * 60 = 1 minuto.
+    private static int intervalTimerTaskBD = 240000;  // intervalo de 1 seg * 60 * 4 = 4 minutos.
 	
 	public String getSenhaRedefAcessoTeste(){
 		return senhaRedefAcessoTeste;
@@ -67,7 +69,7 @@ public class Configuracao {
         if(!arquivo.exists() || !arquivo.canRead()){
             verificarConsistencia();
         }else{
-        	String[] configuracoes = new String[7];
+        	String[] configuracoes = new String[9];
         	File f = new File("./");
         	try {
 				System.out.println(f.getCanonicalPath());
@@ -115,6 +117,8 @@ public class Configuracao {
             timeoutRedefineSenhaSMTP = Integer.valueOf(configuracoes[4]);
             senhaRedefAcessoTeste = configuracoes[5];
             setDiretorioBD(configuracoes[6]);
+            setDelayTimerTaskBD(Integer.valueOf(configuracoes[7]));
+            setIntervalTimerTaskBD(Integer.valueOf(configuracoes[8]));
             
         }
     }
@@ -148,7 +152,25 @@ public class Configuracao {
 		Configuracao.diretorioBD = diretorioBD;
 	}
 	
-	
+	public static void main(String[] args){
+		System.out.println(Integer.valueOf("1000"));
+	}
+
+	public int getDelayTimerTaskBD() {
+		return delayTimerTaskBD;
+	}
+
+	private static void setDelayTimerTaskBD(int delayTimerTaskBD) {
+		Configuracao.delayTimerTaskBD = delayTimerTaskBD;
+	}
+
+	public int getIntervalTimerTaskBD() {
+		return intervalTimerTaskBD;
+	}
+
+	private static void setIntervalTimerTaskBD(int intervalTimerTaskBD) {
+		Configuracao.intervalTimerTaskBD = intervalTimerTaskBD;
+	}
 
 
 }
