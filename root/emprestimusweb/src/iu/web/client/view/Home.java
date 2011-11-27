@@ -1,13 +1,19 @@
 package iu.web.client.view;
 
 import iu.web.client.Controlador;
+
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.InlineHyperlink;
+import com.google.gwt.user.client.ui.MenuBar;
+import com.google.gwt.user.client.ui.MenuItem;
 
 
 /**
@@ -15,23 +21,17 @@ import com.google.gwt.user.client.ui.InlineHyperlink;
  *
  */
 public class Home extends Composite {
-	private static final String IMAGEM_LOGO = "emprestimusweb/logo2.png";
+	private static final Image IMAGEM_LOGO = new Image("emprestimusweb/imagens/logo2.png");
 
-	private static final Image FOTO_DEFAULT = new Image("emprestimusweb/imagens/joeffison/.svn/text-base/AdamGontier.jpg.svn-base");
+	private static final Image fotoPerfilDefault = new Image("emprestimusweb/imagens/default-profile.png");
 	
 	private Controlador controlador;
 	private DockLayoutPanel painelGlobal;
 	private AbsolutePanel painelSuperior;
 	private AbsolutePanel painelLateral;
 	private AbsolutePanel painelInferior;
-	private InlineHyperlink lnkMural;
 	private Image foto;
-	private InlineHyperlink lnkPerfil;
-	private InlineHyperlink lnkMensagens;
-	private InlineHyperlink lnkItens;
-	private InlineHyperlink lnkAmigos;
-	private HTML html;
-	private Image image_4;
+	private HTML htmlCentral;
 
 	public Home(Controlador controlador) {
 		this.controlador = controlador;
@@ -51,24 +51,28 @@ public class Home extends Composite {
 		painelSuperior = new AbsolutePanel();
 		painelGlobal.addNorth(painelSuperior, 9.1);
 		
-		Image image = new Image(IMAGEM_LOGO);
-		painelSuperior.add(image, 10, 10);
-		image.setSize("311px", "105px");
+		Image imgEmprestimus = IMAGEM_LOGO;
+		painelSuperior.add(imgEmprestimus, 10, 10);
+		imgEmprestimus.setSize("311px", "105px");
 		
-		HTML htmlSair = new HTML("<a href = #> Sair </a>", true);
-		painelSuperior.add(htmlSair, 867, 67);
+		Image imgCogumelo = new Image("emprestimusweb/imagens/09.png");
+		painelSuperior.add(imgCogumelo, 447, 59);
+		imgCogumelo.setSize("30", "26px");
 		
-		Image image_1 = new Image("emprestimusweb/imagens/05.png");
-		painelSuperior.add(image_1, 651, 63);
-		image_1.setSize("33px", "22px");
+		Image imgFitaDeck = new Image("emprestimusweb/imagens/06.png");
+		painelSuperior.add(imgFitaDeck, 545, 59);
+		imgFitaDeck.setSize("33px", "26");
 		
-		Image image_2 = new Image("emprestimusweb/imagens/06.png");
-		painelSuperior.add(image_2, 545, 59);
-		image_2.setSize("33px", "26");
+		Image imgNew = new Image("emprestimusweb/imagens/05.png");
+		painelSuperior.add(imgNew, 651, 63);
+		imgNew.setSize("33px", "22px");
 		
-		Image image_3 = new Image("emprestimusweb/imagens/09.png");
-		painelSuperior.add(image_3, 447, 59);
-		image_3.setSize("30", "26px");
+		Hyperlink hprlnkEditarPerfil = new Hyperlink("Editar Perfil", false, "newHistoryToken");
+		painelSuperior.add(hprlnkEditarPerfil, 777, 10);
+		
+		Hyperlink hprlnkSair = new Hyperlink("Sair", false, "newHistoryToken");
+		hprlnkSair.addClickHandler(new MyHandlerSair());
+		painelSuperior.add(hprlnkSair, 867, 10);
 		
 	}
 	
@@ -76,32 +80,33 @@ public class Home extends Composite {
 		painelLateral = new AbsolutePanel();
 		painelGlobal.addWest(painelLateral, 16.1);
 		
-		foto = FOTO_DEFAULT;
-		painelLateral.add(foto, 28, 10);
+		foto = fotoPerfilDefault;
+		painelLateral.add(foto, 10, 10);
 		foto.setSize("155px", "155px");
 		
-		lnkMural = new InlineHyperlink("Mural", false, "newHistoryToken");
-		lnkMural.setHTML("Mural");
-		painelLateral.add(lnkMural, 46, 207);
+		MenuBar menuBar = new MenuBar(true);
+		painelLateral.add(menuBar, 24, 202);
+		menuBar.setSize("124px", "144px");
 		
-		lnkPerfil = new InlineHyperlink("Perfil", false, "newHistoryToken");
-		painelLateral.add(lnkPerfil, 46, 231);
+		MenuItem mntmMural = new MenuItem("Mural", false, (Command) null);
+		mntmMural.setHTML("<menuItem>Mural</menuItem>");
+		menuBar.addItem(mntmMural);
 		
-		lnkMensagens = new InlineHyperlink("Mensagens", false, "newHistoryToken");
-		painelLateral.add(lnkMensagens, 46, 255);
+		MenuItem mntmPerfil = new MenuItem("Perfil", false, (Command) null);
+		mntmPerfil.setHTML("<menuItem>Perfil</menuItem>");
+		menuBar.addItem(mntmPerfil);
 		
-		lnkItens = new InlineHyperlink("Itens", false, "newHistoryToken");
-		painelLateral.add(lnkItens, 46, 303);
+		MenuItem mntmMensagens = new MenuItem("Mensagens", false, (Command) null);
+		mntmMensagens.setHTML("<menuItem>Mensagens</menuItem>");
+		menuBar.addItem(mntmMensagens);
 		
-		lnkAmigos = new InlineHyperlink("Amigos", false, "newHistoryToken");
-		painelLateral.add(lnkAmigos, 46, 279);
+		MenuItem mntmAmigos = new MenuItem("Amigos", false, (Command) null);
+		mntmAmigos.setHTML("<menuItem>Amigos</menuItem>");
+		menuBar.addItem(mntmAmigos);
 		
-		HTML htmlMudarImagem = new HTML("<a href = #> Mudar Imagem </a>", true);
-		painelLateral.add(htmlMudarImagem, 57, 171);
-		htmlMudarImagem.setHeight("");
-		
-		image_4 = new Image("");
-		painelLateral.add(image_4, -30, 151);
+		MenuItem mntmItens = new MenuItem("Itens", false, (Command) null);
+		mntmItens.setHTML("<menuItem>Itens</menuItem>");
+		menuBar.addItem(mntmItens);
 	}
 
 	private void inicializaPainelInferior() {
@@ -111,20 +116,30 @@ public class Home extends Composite {
 	}
 	
 	private void inicializaHtmlCentral() {
-		html = new HTML("Carregando...", true);
-		painelGlobal.add(html);
+		htmlCentral = new HTML("<br><br><h2>Carregando...</h2>", true);
+		painelGlobal.add(htmlCentral);
 		
 	}
 	
 	public void inicializaAtributosDoUsiario() {
 		String caminhoFoto = controlador.getFoto();
 		if (caminhoFoto == null) {
-			foto = FOTO_DEFAULT;
+			foto = fotoPerfilDefault;
 		} else {
 			foto = new Image(caminhoFoto);
 		}
 		
-		html.setHTML("<h2>Bemvindo, "+controlador.getNome()+"</h2><br>Histórico de atualizações:<br>"
+		htmlCentral.setHTML("<h2>Bemvindo, "+controlador.getNome()+"</h2><br>Histórico de atualizações:<br>"
 				+controlador.getHistorico());
+	}
+	
+	class MyHandlerSair implements ClickHandler {
+
+		@Override
+		public void onClick(ClickEvent event) {
+			removeFromParent();
+			controlador.fecharSessao();
+		}
+		
 	}
 }

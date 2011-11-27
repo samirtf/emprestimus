@@ -14,4 +14,6 @@ public interface GreetingServiceAsync {
 			AsyncCallback<String> callback) throws IllegalArgumentException;
 
 	void getUsuarioSimples(String idSessao, AsyncCallback<UsuarioSimples> callback) throws Exception;
+	
+	void encerraSessao(String idSessao, AsyncCallback<String> callback);
 }

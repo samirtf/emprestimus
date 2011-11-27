@@ -58,3 +58,8 @@ texto01 {
 	font-size: 12;
 	text-align: justify;
 }
+menuItem {
+	color: #006699;
+	font-size: 18px;
+	font-weight: normal;
+}

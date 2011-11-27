@@ -44,6 +44,12 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements Greetin
 		return usuarioSimples;
 	}
 
+	@Override
+	public String encerraSessao(String idSessao) throws Exception {
+		Emprestimus.getInstance().encerrarSessao(idSessao);
+		return "";
+	}
+
 	/**
 	 * Escape an html string. Escaping data received from the client helps to
 	 * prevent cross-site script vulnerabilities.

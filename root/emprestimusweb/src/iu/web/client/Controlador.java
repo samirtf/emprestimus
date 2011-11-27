@@ -3,7 +3,6 @@ package iu.web.client;
 import iu.web.shared.UsuarioSimples;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 
@@ -33,8 +32,8 @@ public class Controlador {
 	 */
 	public void abrirSessao(String idSessao) {
 		this.idSessao = idSessao;
-		criaUsuarioSimples();
 		entryPoint.abrirSessao(idSessao);			
+		criaUsuarioSimples();
 		
 	}
 	
@@ -106,9 +105,27 @@ public class Controlador {
 	 * 
 	 */
 	public void fecharSessao() {
+		try {
+			greetingService.encerraSessao(idSessao, new AsyncCallback<String>() {
+				@Override
+				public void onFailure(Throwable caught) {
+					
+					// TODO Auto-generated method stub
+					caught.printStackTrace();
+					
+				}
+				@Override
+				public void onSuccess(String result) {
+					entryPoint.onModuleLoad();
+				}
+			});
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		
+		}
 		idSessao = null;
 		usuario = null;
-		entryPoint.onModuleLoad();
 	}
 
 }

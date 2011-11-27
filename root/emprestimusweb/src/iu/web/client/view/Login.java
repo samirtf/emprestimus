@@ -21,6 +21,7 @@ import com.google.gwt.user.client.ui.InlineHTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.Hyperlink;
 
 /**
  * Painel de login
@@ -31,6 +32,11 @@ import com.google.gwt.user.client.ui.TextBox;
 public class Login extends Composite {
         
         private final GreetingServiceAsync greetingService = GWT.create(GreetingService.class);
+
+        private final Image IMAGEM_Emprestimus = new Image("emprestimusweb/logo2.png");
+        private Image IMAGEM1 = new Image("emprestimusweb/01.jpg");
+        private Image IMAGEM2 = new Image("emprestimusweb/02.jpg");
+        private Image IMAGEM3 = new Image("emprestimusweb/03.jpg");
 
         private AbsolutePanel painelLogin;
         
@@ -65,12 +71,14 @@ public class Login extends Composite {
                 //Eventos do login
                 MyHandlerLogin handlerLogin = new MyHandlerLogin();
                 btnLogin.addClickHandler(handlerLogin);
+                btnLogin.addKeyUpHandler(handlerLogin);
                 txtLoginNick.addKeyUpHandler(handlerLogin);
                 ptbLoginSenha.addKeyUpHandler(handlerLogin);
                 
                 //Eventos do cadastro
                 MyHandlerCadastro handlerCadastro = new MyHandlerCadastro();
                 btnCadastrar.addClickHandler(handlerCadastro);
+                btnCadastrar.addKeyUpHandler(handlerCadastro);
                 txtNomeCompleto.addKeyUpHandler(handlerCadastro);
                 txtNick.addKeyUpHandler(handlerCadastro);
                 txtEndereco.addKeyUpHandler(handlerCadastro);
@@ -83,8 +91,9 @@ public class Login extends Composite {
                 Image image = new Image("emprestimusweb/imagens/back.png");
                 painelLogin.add(image, 10, 155);
                 image.setSize("857px", "342px");
-                Label lblLoginNick = new Label("Username:");
-                painelLogin.add(lblLoginNick, 488, 30);
+                
+                Label lblLoginUsername = new Label("Username:");
+                painelLogin.add(lblLoginUsername, 488, 30);
                 
                 Label lblLoginSenha = new Label("Senha:");
                 painelLogin.add(lblLoginSenha, 667, 32);
@@ -97,11 +106,16 @@ public class Login extends Composite {
                 painelLogin.add(ptbLoginSenha, 667, 55);
                 
                 btnLogin = new Button("Login");
-                painelLogin.add(btnLogin, 777, 96);
+                painelLogin.add(btnLogin, 777, 93);
+                
+                Hyperlink hprlnkEsqueceuASenha = new Hyperlink("Esqueceu a senha", false, "newHistoryToken");
+                hprlnkEsqueceuASenha.setHTML("<a href=\"esquecimento.html\">\rEsqueceu a senha?</a> ");
+                painelLogin.add(hprlnkEsqueceuASenha, 488, 95);
                 
                 lblErro = new Label("");
+                lblErro.setWordWrap(false);
                 lblErro.setStyleName("serverResponseLabelError");
-                painelLogin.add(lblErro, 508, 74);
+                painelLogin.add(lblErro, 488, 119);
         }
         
         private void iniciaComponentesDoCadastro() {
@@ -154,29 +168,25 @@ public class Login extends Composite {
         
         private void iniciaComponentesDoLadoEsquerdo() {
                 
-                Image image_1 = new Image("emprestimusweb/imagens/.svn/text-base/logo2.png.svn-base");
-                painelLogin.add(image_1, 31, 10);
-                image_1.setSize("400px", "127px");
+                Image imgEmprestimus = IMAGEM_Emprestimus;
+                painelLogin.add(imgEmprestimus, 31, 10);
+                imgEmprestimus.setSize("400px", "127px");
 
-                Image imagem3 = new Image("emprestimusweb/imagens/joeffison/marilynmanson.jpg");
+                Image imagem3 = IMAGEM3;
                 painelLogin.add(imagem3, 23, 382);
                 imagem3.setSize("100px", "100px");
                 
-                Image imagem2 = new Image("emprestimusweb/imagens/joeffison/1232583652_4561_full.gif");
+                Image imagem2 = IMAGEM2;
                 painelLogin.add(imagem2, 23, 271);
                 imagem2.setSize("100px", "100px");
                 
-                Image imagem1 = new Image("emprestimusweb/imagens/joeffison/Robert_del_Naja_by_shonarain.jpg");
+                Image imagem1 = IMAGEM1;
                 painelLogin.add(imagem1, 23, 165);
                 imagem1.setSize("100px", "100px");
                 
                 InlineHTML textoHTML = new InlineHTML("<big>Pra quê comprar um novo se você pode pedir emprestado?</big><br><br>\r\nEmprestimus é a primeira rede social de empréstimos do Brasil, aqui você pode conseguir filmes, jogos, livros e muito mais...<br>\r\nConheça novas pessoas, saiba quem mora perto de você que pode lhe emprestar um ítem que você deseja. Troque mensagens com seus amigos, empreste seus ítens para aumentar sua reputação, faça Emprestimus!<br><br>\r\nCrie agora uma conta grátis!");
                 painelLogin.add(textoHTML, 140, 190);
                 textoHTML.setSize("291px", "279px");
-                
-                InlineHTML nlnhtmlNewInlinehtml = new InlineHTML("<a href=\"esquecimento.html\">\rEsqueceu a senha?</a> ");
-                nlnhtmlNewInlinehtml.setStyleName("h1");
-                painelLogin.add(nlnhtmlNewInlinehtml, 546, 108);
         }
 
         /**
@@ -198,6 +208,8 @@ public class Login extends Composite {
                         }
                 }
                 private void enviaAoServidor() {
+                		btnLogin.setEnabled(false);
+                		
                         lblErro.setText("");
                         String nick = txtLoginNick.getText();
                         String senha = ptbLoginSenha.getText();
@@ -226,6 +238,8 @@ public class Login extends Composite {
                                         home.setVisible(true);
                                 }
                         });
+                        
+                        btnLogin.setEnabled(true);
                 }
         }
         
@@ -250,6 +264,8 @@ public class Login extends Composite {
                 }
                 
                 private void enviaAoServidor() {
+                		btnCadastrar.setEnabled(false);
+                		
                         lblErroCadastro.setStyleName("serverResponseLabelError");
                         lblErroCadastro.setText("");
                         String nome = txtNomeCompleto.getText();
@@ -305,6 +321,8 @@ public class Login extends Composite {
                                         txtLoginNick.setFocus(true);
                                 }
                         });
+                        
+                        btnCadastrar.setEnabled(true);
                 }
         }
 }
