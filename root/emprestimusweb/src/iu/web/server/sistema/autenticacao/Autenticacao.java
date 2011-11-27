@@ -44,17 +44,17 @@ public class Autenticacao implements AutenticacaoIF {
 	private static Autenticacao autenticacao;
 
 	// Mapa dos usuarios cadastrados no sistema
-	private static Map<String, UsuarioIF> usuariosCadastrados = new TreeMap<String, UsuarioIF>();
+	private static Map<String, UsuarioIF> usuariosCadastrados;// = new TreeMap<String, UsuarioIF>();
 
 	// Mapa das sessoes de usuarios logados no sistema
-	private static Map<String, UsuarioIF> sessoes = new TreeMap<String, UsuarioIF>();
+	private static Map<String, UsuarioIF> sessoes;// = new TreeMap<String, UsuarioIF>();
 	//private final int qntMaxSessoes = Integer.MAX_VALUE - 1024; // Quantidade
 																// maxima de
 																// sessoes.
 
 	private Autenticacao() {
-		usuariosCadastrados = new TreeMap<String, UsuarioIF>();
-		sessoes = new TreeMap<String, UsuarioIF>();
+//		usuariosCadastrados = new TreeMap<String, UsuarioIF>();
+//		sessoes = new TreeMap<String, UsuarioIF>();
 		
 		Configuracao conf = Configuracao.getInstance();
 		File arquivo = new File("./"+conf.getDiretorioBD()+"autenticacao.bd");
