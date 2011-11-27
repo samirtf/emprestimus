@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author Joeffison Silverio de Andrade, 21011853, joeffisonsa@gmail.com
  * @version 1.5
  */
-public interface EmprestimusIF extends Serializable {
+public interface EmprestimusIF  {
 
 	// Creio que este sistema seria melhor aplicado à aparelhos móveis.
 	// (Joeffison)

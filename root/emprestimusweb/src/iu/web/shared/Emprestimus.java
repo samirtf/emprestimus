@@ -38,11 +38,8 @@ import maps.RefCoordenadas;
  * @since 05/09/2011
  * @version 1.0
  */
-public class Emprestimus implements EmprestimusIF, Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 2542958542424248147L;
+public class Emprestimus implements EmprestimusIF {
+	
 	private static Emprestimus emprestimus;
 	private Autenticacao autenticacao;
 	private ServicoRecuperacaoSenhaUsuario srs;
