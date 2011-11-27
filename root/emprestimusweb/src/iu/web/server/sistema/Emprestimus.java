@@ -61,7 +61,8 @@ public class Emprestimus implements EmprestimusIF {
 	/**
 	 * Metodo 'getInstance' do padrão Singleton.
 	 * 
-	 * @return Emprestimus - Objeto responsavel pela execução do sistema.
+	 * @return Emprestimus
+	 * 		Objeto responsavel pela execução do sistema.
 	 * 			[unica para toda a execução.]
 	 */
 	public synchronized static Emprestimus getInstance() {
