@@ -1,5 +1,7 @@
 package iu.web.shared;
 
+import iu.web.server.Emprestimus;
+import iu.web.server.EmprestimusIF;
 import iu.web.server.sistema.utilitarios.Mensagem;
 
 import java.util.Scanner;
