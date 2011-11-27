@@ -9,7 +9,7 @@ package iu.web.server;
 public interface EmprestimusIF {
 
 	// Creio que este sistema seria melhor aplicado à aparelhos móveis.
-	// (Joeffison)
+	// (Joeffison) 
 
 	// US01
 	/**
