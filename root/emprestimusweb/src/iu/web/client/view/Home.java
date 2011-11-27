@@ -87,27 +87,21 @@ public class Home extends Composite {
 		
 		MenuBar menuBar = new MenuBar(true);
 		painelLateral.add(menuBar, 24, 202);
-		menuBar.setSize("124px", "144px");
 		
 		MenuItem mntmMural = new MenuItem("Mural", false, (Command) null);
 		mntmMural.setHTML("<menuItem>Mural</menuItem>");
 		menuBar.addItem(mntmMural);
-		mntmMural.setCommand(new Command() {
-			
-			@Override
-			public void execute() {
-				// TODO Auto-generated method stub
-				
-			}
-		});
+		mntmMural.setCommand(new MyCommandMostraMural());
 		
 		MenuItem mntmPerfil = new MenuItem("Perfil", false, (Command) null);
 		mntmPerfil.setHTML("<menuItem>Perfil</menuItem>");
 		menuBar.addItem(mntmPerfil);
+		mntmPerfil.setCommand(new MyCommandMostraPerfil());
 		
 		MenuItem mntmMensagens = new MenuItem("Mensagens", false, (Command) null);
 		mntmMensagens.setHTML("<menuItem>Mensagens</menuItem>");
 		menuBar.addItem(mntmMensagens);
+		mntmPerfil.setCommand(new MyCommandMostraMensagens());
 		
 		MenuItem mntmAmigos = new MenuItem("Amigos", false, (Command) null);
 		mntmAmigos.setHTML("<menuItem>Amigos</menuItem>");
@@ -143,11 +137,42 @@ public class Home extends Composite {
 	}
 	
 	class MyHandlerSair implements ClickHandler {
-
 		@Override
 		public void onClick(ClickEvent event) {
 			removeFromParent();
 			controlador.fecharSessao();
+		}
+	}
+	
+	class MyCommandMostraMural implements Command {
+		@Override
+		public void execute() {
+			htmlCentral.setHTML("<h2><br><br>Mural</h2>");
+			
+		}
+	}
+	class MyCommandMostraPerfil implements Command {
+		@Override
+		public void execute() {
+			htmlCentral.setHTML("<h2><br><br>Pefil</h2>");
+		}
+	}
+	class MyCommandMostraMensagens implements Command {
+		@Override
+		public void execute() {
+			htmlCentral.setHTML("<h2><br><br>Mensagens</h2>");
+		}
+	}
+	class MyCommandMostraAmigos implements Command {
+		@Override
+		public void execute() {
+			htmlCentral.setHTML("<h2><br><br>Amigos</h2>");
+		}
+	}
+	class MyCommandMostraItens implements Command {
+		@Override
+		public void execute() {
+			htmlCentral.setHTML("<h2><br><br>Itens</h2>");
 		}
 	}
 }
