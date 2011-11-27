@@ -72,6 +72,7 @@ public interface ItemDAO extends PersistenciaListener{
 	 * 
 	 * @param String - idItem
 	 *  		Um idItem.
+	 *  
 	 * @return boolean
 	 * 		True - Se o item procurado existir.
 	 */

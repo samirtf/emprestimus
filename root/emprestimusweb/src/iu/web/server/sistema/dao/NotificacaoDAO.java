@@ -62,6 +62,7 @@ public interface NotificacaoDAO extends PersistenciaListener{
 	 * 
 	 * @param String - idNotificacao
 	 * 		Um idEmprestimo.
+	 * 
 	 * @return boolean
 	 * 		True - Se a notificação procurado existir.
 	 */

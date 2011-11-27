@@ -79,6 +79,7 @@ public class ItemFileDAO implements ItemDAO {
 	 * 
 	 * @param String - idItem
 	 *  		Um idItem.
+	 *  
 	 * @return boolean
 	 * 		True - Se o item procurado existir.
 	 */
