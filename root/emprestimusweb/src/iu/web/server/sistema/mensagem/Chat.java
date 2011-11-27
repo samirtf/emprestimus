@@ -15,6 +15,10 @@ import static iu.web.server.sistema.utilitarios.Validador.*;
 
 public class Chat implements ChatIF {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8256573020953616277L;
 	String idMensagem;
 	UsuarioIF remetente;
 	UsuarioIF destinatario;

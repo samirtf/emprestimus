@@ -24,6 +24,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -34,8 +35,12 @@ import java.util.TreeMap;
 /**
  * @author Mobile
  */
-public class BancoDeEmprestimos{
+public class BancoDeEmprestimos implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5902348125776992484L;
 	private static BancoDeEmprestimos bancoDeEmprestimos;
 	private static Map<String, Conta> contas;
 	

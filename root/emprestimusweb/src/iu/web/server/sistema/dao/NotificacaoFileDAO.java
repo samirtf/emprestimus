@@ -6,6 +6,11 @@ import iu.web.server.sistema.persistencia.NotificacaoRepositorio;
 
 public class NotificacaoFileDAO implements NotificacaoDAO {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7755187054469596547L;
+
 	@Override
 	public synchronized String geraIdProxNotificacao() {
 		return NotificacaoRepositorio.geraIdProxNotificacao();

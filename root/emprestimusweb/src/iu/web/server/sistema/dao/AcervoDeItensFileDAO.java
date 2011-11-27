@@ -10,6 +10,11 @@ import java.util.List;
 
 public class AcervoDeItensFileDAO implements AcervoDeItensDAO {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6510104541538570812L;
+
 	@Override
 	public synchronized void adicionaBauhAoUsuario(String usuario) throws Exception {
 		AcervoDeItens.getInstance().adicionaBauhAoUsuario(usuario);

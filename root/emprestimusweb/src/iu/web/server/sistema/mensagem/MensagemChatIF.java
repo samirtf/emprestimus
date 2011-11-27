@@ -1,8 +1,9 @@
 package iu.web.server.sistema.mensagem;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public interface MensagemChatIF {
+public interface MensagemChatIF extends Serializable {
 
 	/**
 	 * @return String

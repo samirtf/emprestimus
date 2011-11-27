@@ -1,9 +1,16 @@
 package iu.web.server.sistema.dao;
 
+import java.io.Serializable;
+
 import iu.web.server.sistema.mensagem.ChatIF;
 import iu.web.server.sistema.persistencia.ChatRepositorio;
 
-public class ChatFileDAO implements ChatDAO{
+public class ChatFileDAO implements ChatDAO, Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8894772963573463978L;
 
 	@Override
 	public synchronized String geraIdProxConversa() {

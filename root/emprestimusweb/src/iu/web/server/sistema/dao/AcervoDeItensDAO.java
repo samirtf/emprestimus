@@ -5,6 +5,7 @@ import iu.web.server.sistema.item.Bauh;
 import iu.web.server.sistema.item.ItemIF;
 import iu.web.server.sistema.persistencia.PersistenciaListener;
 
+import java.io.Serializable;
 import java.util.List;
 
 
@@ -12,7 +13,7 @@ import java.util.List;
  * @author Mobile
  * 
  */
-public interface AcervoDeItensDAO extends PersistenciaListener {
+public interface AcervoDeItensDAO extends PersistenciaListener, Serializable {
 	
 	/**
 	 * Inicia construção do DAO.

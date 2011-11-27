@@ -1,9 +1,12 @@
 package iu.web.server.sistema.mensagem;
 
 import static iu.web.server.sistema.utilitarios.Validador.assertStringNaoVazia;
+
+import java.io.Serializable;
+
 import iu.web.server.sistema.utilitarios.Mensagem;
 
-public enum MensagemTipo {
+public enum MensagemTipo implements Serializable{
 
 	OFF_TOPIC("offtopic"),
 	NEGOCIACAO("negociacao");

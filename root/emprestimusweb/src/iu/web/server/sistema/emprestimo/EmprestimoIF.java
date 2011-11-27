@@ -4,6 +4,7 @@ import iu.web.server.sistema.excecoes.ArgumentoInvalidoException;
 import iu.web.server.sistema.item.ItemIF;
 import iu.web.server.sistema.usuario.UsuarioIF;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 
@@ -13,7 +14,7 @@ import java.util.Calendar;
  * @author Joeffison Silverio de Andrade, 21011853, joeffisonsa@gmail.com
  * @version 1.5
  */
-public interface EmprestimoIF extends Comparable<EmprestimoIF> {
+public interface EmprestimoIF extends Comparable<EmprestimoIF>, Serializable {
 
 	/**
 	 * Altera o id do empréstimo.

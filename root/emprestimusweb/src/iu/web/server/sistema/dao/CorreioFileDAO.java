@@ -1,9 +1,16 @@
 package iu.web.server.sistema.dao;
 
+import java.io.Serializable;
+
 import iu.web.server.sistema.mensagem.ChatIF;
 import iu.web.server.sistema.mensagem.Correio;
 
-public class CorreioFileDAO implements CorreioDAO{
+public class CorreioFileDAO implements CorreioDAO, Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1720105466378499225L;
 
 	@Override
 	public synchronized void adicionaCaixaPostalAoUsuario(String usuario) throws Exception {

@@ -9,6 +9,11 @@ public class ItemFileDAO implements ItemDAO {
 	
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2986036220988340586L;
+
+	/**
 	 * Calcula o id do proximo item a ser cadastrado.
 	 * 
 	 * @return String

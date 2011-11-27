@@ -1,10 +1,16 @@
 package iu.web.server.sistema.emprestimo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Conta implements Comparable<Conta> {
+public class Conta implements Comparable<Conta>, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 33704979272994725L;
+	
 	private String proprietario;
 	private List<EmprestimoIF> emprestimos;
 	private List<EmprestimoIF> emprestimosRequeridosPorAmigosEmEspera;

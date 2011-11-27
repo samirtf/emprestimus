@@ -1,9 +1,11 @@
 package iu.web.server.sistema.dao;
 
+import java.io.Serializable;
+
 import iu.web.server.sistema.emprestimo.EmprestimoIF;
 import iu.web.server.sistema.persistencia.PersistenciaListener;
 
-public interface EmprestimoDAO extends PersistenciaListener{
+public interface EmprestimoDAO extends PersistenciaListener, Serializable{
 	
 	/**
 	 * Inicia construção do DAO.

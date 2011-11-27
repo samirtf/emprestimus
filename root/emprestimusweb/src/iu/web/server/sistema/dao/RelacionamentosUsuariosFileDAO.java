@@ -11,6 +11,11 @@ import java.util.List;
 
 public class RelacionamentosUsuariosFileDAO implements RelacionamentosUsuariosDAO {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5992127281194452276L;
+
 	@Override
 	public synchronized void adicionaCicloDeAmizadeAoUsuario(String usuario)
 			throws Exception {

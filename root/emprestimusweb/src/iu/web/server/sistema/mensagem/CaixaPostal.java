@@ -3,6 +3,7 @@
  */
 package iu.web.server.sistema.mensagem;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,8 +11,13 @@ import java.util.List;
  * @author Mobile
  * 
  */
-public class CaixaPostal {
+public class CaixaPostal implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -772251712196247143L;
+	
 	private String proprietario; // proprietario da caixa postal
 	private List<ChatIF> conversasOfftopic; // lista de conversas offtopic
 	private List<ChatIF> conversasNegociacao; // lista de conversas negociacao

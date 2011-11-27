@@ -1,9 +1,15 @@
 package iu.web.server.sistema.item;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Comparator;
 
-public class DataCriacaoItemComparador implements Comparator<ItemIF> {
+public class DataCriacaoItemComparador implements Comparator<ItemIF>, Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2292400569127188109L;
 
 	@Override
 	public int compare(ItemIF item1, ItemIF item2) {

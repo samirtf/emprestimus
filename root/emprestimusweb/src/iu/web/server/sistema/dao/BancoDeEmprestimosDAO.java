@@ -1,5 +1,7 @@
 package iu.web.server.sistema.dao;
 
+import java.io.Serializable;
+
 import iu.web.server.sistema.emprestimo.Conta;
 import iu.web.server.sistema.emprestimo.EmprestimoIF;
 import iu.web.server.sistema.persistencia.PersistenciaListener;
@@ -8,7 +10,7 @@ import iu.web.server.sistema.usuario.UsuarioIF;
 /**
  * @author Mobile
  */
-public interface BancoDeEmprestimosDAO extends PersistenciaListener {
+public interface BancoDeEmprestimosDAO extends PersistenciaListener, Serializable {
 
 	/**
 	 * Inicia construção do DAO.

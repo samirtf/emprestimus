@@ -9,6 +9,11 @@ import iu.web.server.sistema.usuario.UsuarioIF;
 
 public class GerenciadorDeNotificacoesFileDAO implements GerenciadorDeNotificacoesDAO {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8702679682945102182L;
+
 	@Override
 	public synchronized void adicionaRackAoUsuario(String usuario) throws Exception {
 		GerenciadorDeNotificacoes.getInstance().adicionaRackAoUsuario(usuario);

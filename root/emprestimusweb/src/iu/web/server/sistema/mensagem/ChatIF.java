@@ -3,10 +3,11 @@ package iu.web.server.sistema.mensagem;
 import iu.web.server.sistema.excecoes.ArgumentoInvalidoException;
 import iu.web.server.sistema.usuario.UsuarioIF;
 
+import java.io.Serializable;
 import java.util.Date;
 
 
-public interface ChatIF extends Comparable<ChatIF> {
+public interface ChatIF extends Comparable<ChatIF>, Serializable {
 
 	/**
 	 * Set o tipo da mensagem para OFF TOPIC

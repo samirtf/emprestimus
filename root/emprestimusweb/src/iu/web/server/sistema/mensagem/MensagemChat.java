@@ -7,6 +7,10 @@ import com.sun.swing.internal.plaf.synth.resources.synth;
 
 public class MensagemChat implements MensagemChatIF, Comparable<MensagemChatIF> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1139070563960152784L;
 	String mensagem = "";
 	Date data;
 

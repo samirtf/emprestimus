@@ -24,6 +24,11 @@ import java.util.List;
  */
 public class Item implements ItemIF {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5228028338959329142L;
+	
 	private String idItem, nome, descricao;
 	private List<String> categorias;
 	private Date dataCriacao;

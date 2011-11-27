@@ -34,6 +34,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -44,7 +45,12 @@ import java.util.TreeMap;
  * @author Mobile
  * 
  */
-public class AcervoDeItens {
+public class AcervoDeItens implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8738337935877061657L;
+	
 	private static AcervoDeItens acervoDeItens;
 	private static Map<String, Bauh> bauhs;
 

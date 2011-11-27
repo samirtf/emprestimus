@@ -3,6 +3,7 @@
  */
 package iu.web.server.sistema.item;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,8 +11,14 @@ import java.util.List;
  * @author Mobile
  * 
  */
-public class Bauh {
+public class Bauh implements Serializable {
 
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2988391625202458717L;
+	
 	private String proprietario;
 	private List<ItemIF> itens;
 	private List<ItemIF> itensEmprestados;

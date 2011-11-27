@@ -5,6 +5,11 @@ import iu.web.server.sistema.persistencia.EmprestimoRepositorio;
 
 public class EmprestimoFileDAO implements EmprestimoDAO {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6581115138846209979L;
+
 	@Override
 	public synchronized String geraIdProxNotificacao() {
 		return EmprestimoRepositorio.getInstance().geraIdProxNotificacao();

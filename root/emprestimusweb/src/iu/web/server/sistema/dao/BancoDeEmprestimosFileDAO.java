@@ -8,6 +8,11 @@ import iu.web.server.sistema.usuario.UsuarioIF;
 
 public class BancoDeEmprestimosFileDAO implements BancoDeEmprestimosDAO {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2994544983545599174L;
+
 	@Override
 	public synchronized void adicionaContaAoUsuario(String usuario) throws Exception {
 		BancoDeEmprestimos.getInstance().adicionaContaAoUsuario(usuario);

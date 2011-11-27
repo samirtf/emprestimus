@@ -7,12 +7,17 @@ import iu.web.server.sistema.usuario.UsuarioIF;
 import iu.web.server.sistema.utilitarios.Mensagem;
 import iu.web.server.sistema.utilitarios.Validador;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 
-public class Emprestimo implements EmprestimoIF {
+public class Emprestimo implements EmprestimoIF, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7150719800303309829L;
 	String id;
 	int duracao; // Em dias
 	UsuarioIF emprestador; // quem concedeu De

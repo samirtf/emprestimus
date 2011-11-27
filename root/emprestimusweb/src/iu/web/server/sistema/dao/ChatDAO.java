@@ -1,9 +1,11 @@
 package iu.web.server.sistema.dao;
 
+import java.io.Serializable;
+
 import iu.web.server.sistema.mensagem.ChatIF;
 import iu.web.server.sistema.persistencia.PersistenciaListener;
 
-public interface ChatDAO extends PersistenciaListener{
+public interface ChatDAO extends PersistenciaListener, Serializable{
 
 	/**
 	 * Inicia construção do DAO.

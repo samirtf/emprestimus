@@ -2,6 +2,7 @@ package iu.web.server.sistema.item;
 
 import iu.web.server.sistema.usuario.UsuarioIF;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
  * @author José Ulisses de Brito Lira Filho, 20911806
  * @version 1.2
  */
-public interface ItemIF extends Comparable<ItemIF> {
+public interface ItemIF extends Comparable<ItemIF>, Serializable {
 
 	/**
 	 * Adiciona um usuário que está interessado neste item.

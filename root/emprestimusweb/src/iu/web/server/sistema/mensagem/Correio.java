@@ -24,6 +24,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -35,8 +36,12 @@ import java.util.TreeMap;
  * @author Mobile
  * 
  */
-public class Correio {
+public class Correio implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2630742023630038375L;
 	private static Correio correio;
 	private static Map<String, CaixaPostal> caixasPostais;// = new TreeMap<String, CaixaPostal>();
 
