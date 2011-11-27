@@ -55,7 +55,7 @@ public class Emprestimus implements EmprestimusIF {
 		itemDao = new ItemFileDAO();
 		emprestimoDao = new EmprestimoFileDAO();
 		chatDao = new ChatFileDAO();
-		//persistenciaInteligente.iniciar();
+		persistenciaInteligente.iniciar();
 	}
 	
 	/**
