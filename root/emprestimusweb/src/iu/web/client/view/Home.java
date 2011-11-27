@@ -22,9 +22,7 @@ import com.google.gwt.user.client.ui.MenuItem;
  *
  */
 public class Home extends Composite {
-	private static final Image IMAGEM_LOGO = new Image("emprestimusweb/imagens/logo2.png");
-
-	private static final Image fotoPerfilDefault = new Image("emprestimusweb/imagens/default-profile.png");
+	private static final String fotoPerfilDefault = "emprestimusweb/imagens/default-profile.png";
 	
 	private Controlador controlador;
 	private DockLayoutPanel painelGlobal;
@@ -52,7 +50,7 @@ public class Home extends Composite {
 		painelSuperior = new AbsolutePanel();
 		painelGlobal.addNorth(painelSuperior, 9.1);
 		
-		Image imgEmprestimus = IMAGEM_LOGO;
+		Image imgEmprestimus = new Image(Login.IMAGEM_Emprestimus.getUrl());
 		painelSuperior.add(imgEmprestimus, 10, 10);
 		imgEmprestimus.setSize("311px", "105px");
 		
@@ -81,37 +79,32 @@ public class Home extends Composite {
 		painelLateral = new AbsolutePanel();
 		painelGlobal.addWest(painelLateral, 16.1);
 		
-		foto = fotoPerfilDefault;
+		foto = new Image(fotoPerfilDefault);
 		painelLateral.add(foto, 10, 10);
 		foto.setSize("155px", "155px");
 		
 		MenuBar menuBar = new MenuBar(true);
 		painelLateral.add(menuBar, 24, 202);
 		
-		MenuItem mntmMural = new MenuItem("Mural", false, (Command) null);
+		MenuItem mntmMural = new MenuItem("Mural", false, new MyCommandMostraMural());
 		mntmMural.setHTML("<menuItem>Mural</menuItem>");
 		menuBar.addItem(mntmMural);
-		mntmMural.setCommand(new MyCommandMostraMural());
 		
-		MenuItem mntmPerfil = new MenuItem("Perfil", false, (Command) null);
+		MenuItem mntmPerfil = new MenuItem("Perfil", false, new MyCommandMostraPerfil());
 		mntmPerfil.setHTML("<menuItem>Perfil</menuItem>");
 		menuBar.addItem(mntmPerfil);
-		mntmPerfil.setCommand(new MyCommandMostraPerfil());
 		
-		MenuItem mntmMensagens = new MenuItem("Mensagens", false, (Command) null);
+		MenuItem mntmMensagens = new MenuItem("Mensagens", false, new MyCommandMostraMensagens());
 		mntmMensagens.setHTML("<menuItem>Mensagens</menuItem>");
 		menuBar.addItem(mntmMensagens);
-		mntmPerfil.setCommand(new MyCommandMostraMensagens());
 		
-		MenuItem mntmAmigos = new MenuItem("Amigos", false, (Command) null);
+		MenuItem mntmAmigos = new MenuItem("Amigos", false, new MyCommandMostraAmigos());
 		mntmAmigos.setHTML("<menuItem>Amigos</menuItem>");
 		menuBar.addItem(mntmAmigos);
-		mntmPerfil.setCommand(new MyCommandMostraAmigos());
 		
-		MenuItem mntmItens = new MenuItem("Itens", false, (Command) null);
+		MenuItem mntmItens = new MenuItem("Itens", false, new MyCommandMostraItens());
 		mntmItens.setHTML("<menuItem>Itens</menuItem>");
 		menuBar.addItem(mntmItens);
-		mntmPerfil.setCommand(new MyCommandMostraItens());
 	}
 
 	private void inicializaPainelInferior() {
@@ -129,7 +122,7 @@ public class Home extends Composite {
 	public void inicializaAtributosDoUsiario() {
 		String caminhoFoto = controlador.getFoto();
 		if (caminhoFoto == null) {
-			foto = fotoPerfilDefault;
+			foto = new Image(fotoPerfilDefault);
 		} else {
 			foto = new Image(caminhoFoto);
 		}

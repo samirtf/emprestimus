@@ -21,7 +21,6 @@ import com.google.gwt.user.client.ui.InlineHTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.Hyperlink;
 
 /**
  * Painel de login
@@ -34,10 +33,10 @@ public class Login extends Composite {
 	private final GreetingServiceAsync greetingService = GWT
 			.create(GreetingService.class);
 
-	private final Image IMAGEM_Emprestimus = new Image("emprestimusweb/logo2.png");
-	private Image IMAGEM1 = new Image("emprestimusweb/01.jpg");
-	private Image IMAGEM2 = new Image("emprestimusweb/02.jpg");
-	private Image IMAGEM3 = new Image("emprestimusweb/03.jpg");
+	public static final Image IMAGEM_Emprestimus = new Image("emprestimusweb/imagens/logo2.png");
+	private Image IMAGEM1 = new Image("emprestimusweb/imagens/01.jpg");
+	private Image IMAGEM2 = new Image("emprestimusweb/imagens/02.jpg");
+	private Image IMAGEM3 = new Image("emprestimusweb/imagens/03.jpg");
 
 	private AbsolutePanel painelLogin;
 
