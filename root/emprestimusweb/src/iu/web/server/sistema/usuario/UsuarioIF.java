@@ -7,6 +7,7 @@ import iu.web.server.sistema.item.ItemIF;
 import iu.web.server.sistema.mensagem.ChatIF;
 import iu.web.server.sistema.utilitarios.Criptografia;
 
+import java.io.Serializable;
 import java.util.List;
 import maps.Coordenadas;
 
@@ -19,7 +20,7 @@ import maps.Coordenadas;
  * interface deve ser feita com upcast para a interface.
  * 
  */
-public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas {
+public interface UsuarioIF extends Comparable<UsuarioIF>, Coordenadas, Serializable {
 
 	/**
 	 * Configura o login do usuario.

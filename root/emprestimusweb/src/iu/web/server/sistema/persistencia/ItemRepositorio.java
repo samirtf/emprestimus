@@ -13,6 +13,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Map;
@@ -21,8 +22,13 @@ import java.util.TreeMap;
 import java.util.List;
 
 
-public class ItemRepositorio {
+public class ItemRepositorio implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4894298282171838142L;
+
 	private static ItemRepositorio repositorio;
 
 	private static long contadorID = 0;

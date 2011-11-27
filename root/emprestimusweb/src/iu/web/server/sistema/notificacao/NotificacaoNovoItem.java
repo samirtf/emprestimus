@@ -15,6 +15,10 @@ import java.util.GregorianCalendar;
  * 
  */
 public class NotificacaoNovoItem implements Notificacao {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2513649314729958491L;
 	private UsuarioIF usuario;
 	private ItemIF item;
 	private Date data;

@@ -22,6 +22,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -34,8 +35,12 @@ import java.util.TreeMap;
  * @author Mobile
  * 
  */
-public class GerenciadorDeNotificacoes {
+public class GerenciadorDeNotificacoes implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4185149564223983280L;
 	private static GerenciadorDeNotificacoes gerenciadorDeNotificacoes;
 	private static Map<String, Rack> historicos;
 

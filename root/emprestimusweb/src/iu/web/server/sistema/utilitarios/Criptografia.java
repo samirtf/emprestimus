@@ -1,9 +1,10 @@
 package iu.web.server.sistema.utilitarios;
 
+import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class Criptografia {
+public class Criptografia implements Serializable{
 
 	private static String stringHexa(byte[] bytes) {
 		StringBuilder s = new StringBuilder();

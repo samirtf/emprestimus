@@ -3,6 +3,7 @@
  */
 package iu.web.server.sistema.notificacao;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -12,8 +13,12 @@ import java.util.List;
  * @author Mobile
  * 
  */
-public class Rack {
+public class Rack implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3756691728740936325L;
 	private String proprietario;
 	private List<Notificacao> historico;
 

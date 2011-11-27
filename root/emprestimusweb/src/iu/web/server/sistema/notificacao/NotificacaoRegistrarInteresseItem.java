@@ -16,6 +16,10 @@ import java.util.GregorianCalendar;
  */
 public class NotificacaoRegistrarInteresseItem implements Notificacao {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 690904877279637914L;
 	private UsuarioIF interessado;
 	private UsuarioIF amigo;
 	private ItemIF item;

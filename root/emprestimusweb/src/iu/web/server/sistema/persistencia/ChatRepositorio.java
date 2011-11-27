@@ -14,6 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.Iterator;
 import java.util.Map;
@@ -21,7 +22,7 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 
 
-public class ChatRepositorio {
+public class ChatRepositorio implements Serializable{
 	
 	private static ChatRepositorio repositorio;
 

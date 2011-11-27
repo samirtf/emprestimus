@@ -51,6 +51,10 @@ import maps.RefCoordenadas;
 
 public class Usuario implements UsuarioIF {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2227949303430022493L;
 	/* Atributos do objeto. */
 	private String login, nome, endereco, senha, emailRedefSenha = "";
 	private String cartaoAcessoRedefSenha = "";

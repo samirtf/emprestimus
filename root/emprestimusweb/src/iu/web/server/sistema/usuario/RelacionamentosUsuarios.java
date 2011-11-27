@@ -21,6 +21,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.text.Normalizer;
 import java.util.Arrays;
 import java.util.Collections;
@@ -37,8 +38,12 @@ import java.util.TreeMap;
  * Campina Grande
  */
 
-public class RelacionamentosUsuarios {
+public class RelacionamentosUsuarios implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static RelacionamentosUsuarios relacionamentosUsuarios;
 	private static Map<String, CicloDeAmizade> ciclosDeAmizade;
 

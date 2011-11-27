@@ -11,6 +11,10 @@ import java.util.GregorianCalendar;
  * 
  */
 public class NotificacaoTerminoEmprestimo implements Notificacao {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1288612927774743910L;
 	private UsuarioIF usuario;
 	private ItemIF item;
 	private Date data;

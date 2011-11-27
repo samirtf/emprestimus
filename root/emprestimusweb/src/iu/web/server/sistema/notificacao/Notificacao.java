@@ -2,6 +2,7 @@ package iu.web.server.sistema.notificacao;
 
 import iu.web.server.sistema.usuario.UsuarioIF;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -11,7 +12,7 @@ import java.util.Date;
  * @version 1.0
  * 
  */
-public interface Notificacao extends Comparable<Notificacao> {
+public interface Notificacao extends Comparable<Notificacao>, Serializable {
 
 	/**
 	 * Devolve a data de criacao da notificação

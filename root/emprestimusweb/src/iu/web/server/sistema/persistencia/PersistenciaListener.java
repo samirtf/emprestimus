@@ -1,6 +1,8 @@
 package iu.web.server.sistema.persistencia;
 
-public interface PersistenciaListener {
+import java.io.Serializable;
+
+public interface PersistenciaListener extends Serializable {
 
 	/**
 	 * Notifica ao objeto a ordem de persistir seus dados.

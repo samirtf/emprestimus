@@ -13,6 +13,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -23,7 +24,11 @@ import java.util.TreeMap;
  * @author Nathaniel
  * 
  */
-public class NotificacaoRepositorio {
+public class NotificacaoRepositorio implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7123139241320763894L;
 	private static long contadorID = 0;
 	private static NotificacaoRepositorio repositorio;
 

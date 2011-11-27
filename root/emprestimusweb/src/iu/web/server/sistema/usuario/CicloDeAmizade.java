@@ -1,5 +1,6 @@
 package iu.web.server.sistema.usuario;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,8 +9,12 @@ import java.util.List;
  * Campina Grande
  */
 
-public class CicloDeAmizade {
+public class CicloDeAmizade implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5229585841504100025L;
 	private String proprietario;
 	private List<UsuarioIF> amigos; // Grupo de amigos
 	private List<UsuarioIF> queremSerMeusAmigos; // solicitacoes de amizade

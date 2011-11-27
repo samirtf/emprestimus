@@ -1,5 +1,7 @@
 package iu.web.server.sistema.utilitarios;
 
+import java.io.Serializable;
+
 /**
  * Emprestimus Projeto de Sistemas de Informação I Universidade Federal de
  * Campina Grande
@@ -10,7 +12,7 @@ package iu.web.server.sistema.utilitarios;
  * @author Joeffison Silverio de Andrade, 21011853, joeffisonsa@gmail.com
  * @version 1.0
  */
-public enum Mensagem {
+public enum Mensagem implements Serializable{
 
 	/* Especiais */
 	NOME_PROJETO("Emprestimus"),

@@ -1,5 +1,6 @@
 package iu.web.server.sistema.usuario;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 /**
@@ -7,7 +8,12 @@ import java.util.Comparator;
  * Campina Grande
  */
 
-public class ReputacaoUsuarioComparator implements Comparator<UsuarioIF> {
+public class ReputacaoUsuarioComparator implements Comparator<UsuarioIF>, Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Override
 	public int compare(UsuarioIF usuario1, UsuarioIF usuario2) {

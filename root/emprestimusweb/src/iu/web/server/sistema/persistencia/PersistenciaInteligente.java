@@ -22,14 +22,20 @@ import iu.web.server.sistema.dao.NotificacaoFileDAO;
 import iu.web.server.sistema.dao.RelacionamentosUsuariosDAO;
 import iu.web.server.sistema.dao.RelacionamentosUsuariosFileDAO;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class PersistenciaInteligente {
+public class PersistenciaInteligente implements Serializable{
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7470818762035548659L;
+
 	private List<PersistenciaListener> persistenciaListeners;
 	
 	int delay = 1000;   // delay de 1 seg * 60 = 1 minuto.

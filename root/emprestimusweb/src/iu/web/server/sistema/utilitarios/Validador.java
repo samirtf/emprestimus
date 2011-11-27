@@ -1,5 +1,7 @@
 package iu.web.server.sistema.utilitarios;
 
+import java.io.Serializable;
+
 import iu.web.server.sistema.excecoes.ArgumentoInvalidoException;
 
 /**
@@ -10,7 +12,12 @@ import iu.web.server.sistema.excecoes.ArgumentoInvalidoException;
  * algo.
  */
 
-public class Validador {
+public class Validador implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1239403381483522944L;
 
 	/**
 	 * Testa se um dado objeto é nulo, passando-se uma mensagem de erro, que

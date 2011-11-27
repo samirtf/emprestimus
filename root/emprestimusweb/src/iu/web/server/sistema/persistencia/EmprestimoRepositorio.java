@@ -14,13 +14,19 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.TreeMap;
 
 
-public class EmprestimoRepositorio {
+public class EmprestimoRepositorio implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4031736279525961191L;
+
 	private static EmprestimoRepositorio repositorio;
 
 	private static long contadorID = 0;
