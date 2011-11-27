@@ -18,7 +18,7 @@ public interface BancoDeEmprestimosDAO extends PersistenciaListener {
 	/**
 	 * Cadastra um usuario no banco de emprestimos
 	 * 
-	 * @param usuario - String
+	 * @param String - usuario
 	 * 		Usuario a ser cadastrado
 	 * 
 	 * @throws Exception
@@ -29,7 +29,7 @@ public interface BancoDeEmprestimosDAO extends PersistenciaListener {
 	/**
 	 * Remove um usuario no banco de emprestimos
 	 * 
-	 * @param usuario - String
+	 * @param String - usuario
 	 * 		Usuario a ser cadastrado
 	 * 
 	 * @throws Exception
@@ -38,7 +38,9 @@ public interface BancoDeEmprestimosDAO extends PersistenciaListener {
 	public void removeContaDoUsuario(String usuario) throws Exception;
 
 	/**
-	 * @param login - String
+	 * Retorna a conta de um determinado usuario
+	 * 
+	 * @param String - login
 	 * 		Login do usuario desejado
 	 * 
 	 * @return Conta
@@ -51,9 +53,9 @@ public interface BancoDeEmprestimosDAO extends PersistenciaListener {
 	/**
 	 * Adiciona uma requisição de emprestimo de um amigo
 	 * 
-	 * @param login - String
+	 * @param String - login
 	 * 		amigo desejado
-	 * @param emp - EmprestimoIF
+	 * @param EmprestimoIF - emp 
 	 * 		emprestimo a ser cadastrado na requisição
 	 * 
 	 * @throws Exception
@@ -65,11 +67,11 @@ public interface BancoDeEmprestimosDAO extends PersistenciaListener {
 	/**
 	 * Requisita um emprestimo
 	 * 
-	 * @param login - String
+	 * @param String - login
 	 * 		Loguin do usuario
-	 * @param idItem - String
+	 * @param String - idItem
 	 * 		ID do item desejado
-	 * @param duracao - String
+	 * @param String - duracao
 	 * 		Duração do emprestimo
 	 * 
 	 * @return String
@@ -81,14 +83,27 @@ public interface BancoDeEmprestimosDAO extends PersistenciaListener {
 	public String requisitarEmprestimo(String login, String idItem,
 			int duracao) throws Exception;
 
+	/**
+	 * Retorna os emprestimos de um usuario
+	 * 
+	 * @param String - login
+	 * 		Login do usuario
+	 * @param  String - tipo
+	 * 		Tipo do emprestimo
+	 * 
+	 * @return String
+	 * 		Emprestimos do usuario
+	 * 
+	 * @throws Exception
+	 */
 	public String getEmprestimos(String login, String tipo) throws Exception;
 
 	/**
 	 * Aproma um determinado emprestimo
 	 * 
-	 * @param login - String
+	 * @param String - login
 	 * 		Loguin do usuario
-	 * @param idRequisicaoEmprestimo String
+	 * @param  String - idRequisicaoEmprestimo
 	 * 		ID da requisição a ser aprovada
 	 * 
 	 * @return String
@@ -102,9 +117,9 @@ public interface BancoDeEmprestimosDAO extends PersistenciaListener {
 	/**
 	 * Adiciona ao banco de emprestimos um emprestimo aceito por um amigo
 	 * 
-	 * @param login - String
+	 * @param String - login
 	 * 		Loguin do usuario
-	 * @param emp - EmprestimoIF
+	 * @param EmprestimoIF - emp
 	 * 		Emprestimo a ser adicionado
 	 * 
 	 * @throws Exception
@@ -124,9 +139,9 @@ public interface BancoDeEmprestimosDAO extends PersistenciaListener {
 	/**
 	 * Remove emprestimos requeridos pelo proprio usuario
 	 * 
-	 * @param login - String
+	 * @param String - login
 	 * 		Loguin do usuario
-	 * @param amigo - UsuarioIF
+	 * @param UsuarioIF - amigo
 	 * 		Objeto referente ao amigo
 	 */
 	public void removerEmprestimosRequeridosPorMim(String login, UsuarioIF amigo);
@@ -134,11 +149,12 @@ public interface BancoDeEmprestimosDAO extends PersistenciaListener {
 	/**
 	 * Marca um determinado item como requesitado
 	 * 
-	 * @param login - String
+	 * @param String - login
 	 * 		Loguin do usuario
-	 * @param idItem - String
+	 * @param String - idItem
 	 * 
 	 * @return boolean
+	 * 		True caso a operação seja completada com sucesso
 	 * 
 	 * @throws Exception
 	 */
@@ -147,9 +163,9 @@ public interface BancoDeEmprestimosDAO extends PersistenciaListener {
 	/**
 	 * Remove uma solicitação de emprestimo
 	 * 
-	 * @param login - String
+	 * @param String - login
 	 * 		Loguin do usuario
-	 * @param emprestimo - EmprestimoIF
+	 * @param EmprestimoIF - emprestimo
 	 * 		Emprestimo a ser removido
 	 */
 	public void removerMinhaSolicitacaoEmprestimo(String login, EmprestimoIF emprestimo);
