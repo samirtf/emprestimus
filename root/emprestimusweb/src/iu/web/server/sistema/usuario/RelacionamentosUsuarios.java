@@ -64,6 +64,7 @@ public class RelacionamentosUsuarios implements Serializable{
 			try {
 				Object[] vetor = new Object[1];
 				vetor[0] =  new TreeMap<String, CicloDeAmizade>();
+				ciclosDeAmizade = new TreeMap<String, CicloDeAmizade>();
 				objectOut = new ObjectOutputStream(
 	                    new BufferedOutputStream(new FileOutputStream("./"+conf.getDiretorioBD()+"relacionamentosUsuarios.bd")));
 	                objectOut.writeObject(vetor);

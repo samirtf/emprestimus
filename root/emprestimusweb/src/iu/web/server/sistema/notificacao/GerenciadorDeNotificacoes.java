@@ -84,7 +84,7 @@ public class GerenciadorDeNotificacoes implements Serializable {
 		
 	}
 
-	public static GerenciadorDeNotificacoes getInstance() {
+	public synchronized static GerenciadorDeNotificacoes getInstance() {
 		if (gerenciadorDeNotificacoes == null) {
 			gerenciadorDeNotificacoes = new GerenciadorDeNotificacoes();
 
@@ -93,7 +93,7 @@ public class GerenciadorDeNotificacoes implements Serializable {
 		return gerenciadorDeNotificacoes;
 	}
 	
-	private static void inicializarDados() throws Exception {
+	private synchronized static void inicializarDados() throws Exception {
 		Configuracao conf = Configuracao.getInstance();
         
         ObjectInputStream objectIn = null;
@@ -102,6 +102,7 @@ public class GerenciadorDeNotificacoes implements Serializable {
                     new BufferedInputStream(new FileInputStream("./"+conf.getDiretorioBD()+"gerenciadorNotificacoes.bd")));
             Object[] vetor = ((Object[])objectIn.readObject());
             historicos = ((TreeMap<String, Rack>) vetor[0]);
+            System.out.println("TAMANHO HISTORICOS: "+historicos.size());
         
         }catch(Exception e){
             e.printStackTrace();
@@ -120,7 +121,7 @@ public class GerenciadorDeNotificacoes implements Serializable {
 	 * @throws Exception
 	 * 		Caso o rack já tenha sido cadastrado
 	 */
-	public void adicionaRackAoUsuario(String usuario) throws Exception {
+	public synchronized void adicionaRackAoUsuario(String usuario) throws Exception {
 		if (historicos.containsKey(usuario))
 			throw new Exception(Mensagem.PROPRIETARIO_RACK_JAH_CADASTRADO.getMensagem());
 		historicos.put(usuario, new Rack(usuario));
@@ -135,7 +136,7 @@ public class GerenciadorDeNotificacoes implements Serializable {
 	 * 
 	 * @throws Exception
 	 */
-	public void removeRackDoUsuario(String usuario) throws Exception {
+	public synchronized void removeRackDoUsuario(String usuario) throws Exception {
 		historicos.remove(usuario);
 	}
 
@@ -148,7 +149,7 @@ public class GerenciadorDeNotificacoes implements Serializable {
 	 * 
 	 * @throws Exception
 	 */
-	public Rack getRack(String login) throws Exception {
+	public synchronized Rack getRack(String login) throws Exception {
 		return historicos.get(login);
 	}
 
@@ -162,7 +163,7 @@ public class GerenciadorDeNotificacoes implements Serializable {
 	 * 
 	 * @throws Exception
 	 */
-	public void addHistoricoNovoItem(String seuLogin, ItemIF item) throws Exception {
+	public synchronized void addHistoricoNovoItem(String seuLogin, ItemIF item) throws Exception {
 		Validador.assertStringNaoVazia(seuLogin, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
 		UsuarioIF usuario = Autenticacao.getUsuarioPorLogin(seuLogin);
@@ -182,7 +183,7 @@ public class GerenciadorDeNotificacoes implements Serializable {
 	 * 
 	 * @throws Exception
 	 */
-	public void addHistoricoAmizadeAprovada(String seuLogin, UsuarioIF amigo) throws Exception {
+	public synchronized void addHistoricoAmizadeAprovada(String seuLogin, UsuarioIF amigo) throws Exception {
 		Validador.assertStringNaoVazia(seuLogin, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
 		UsuarioIF usuario = Autenticacao.getUsuarioPorLogin(seuLogin);
@@ -206,7 +207,7 @@ public class GerenciadorDeNotificacoes implements Serializable {
 	 * 
 	 * @throws Exception
 	 */
-	public void addHistoricoEmprestimoEmAndamento(String seuLogin, UsuarioIF amigo,
+	public synchronized void addHistoricoEmprestimoEmAndamento(String seuLogin, UsuarioIF amigo,
 			ItemIF item) throws Exception {
 		Validador.assertStringNaoVazia(seuLogin, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
@@ -226,7 +227,7 @@ public class GerenciadorDeNotificacoes implements Serializable {
 	 * @param String
 	 * 		seuLogin
 	 */
-	public void zerarHistorico(String seuLogin) {
+	public synchronized void zerarHistorico(String seuLogin) {
 		historicos.get(seuLogin).zerarHistorico();
 	}
 
@@ -241,12 +242,14 @@ public class GerenciadorDeNotificacoes implements Serializable {
 	 * 
 	 * @throws ArgumentoInvalidoException
 	 */
-	public String getHistoricoToString(String seuLogin) throws ArgumentoInvalidoException {
+	public synchronized String getHistoricoToString(String seuLogin) throws ArgumentoInvalidoException {
 		Validador.assertStringNaoVazia(seuLogin, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
 		UsuarioIF usuario = Autenticacao.getUsuarioPorLogin(seuLogin);
 
 		StringBuffer sb = new StringBuffer();
+		System.out.println("HISTORICOS = NULL???" + historicos);
+		System.out.println("LOGIN :"+seuLogin+":");
 		Iterator<Notificacao> iterador = historicos.get(seuLogin).iterador();
 		while (iterador.hasNext()) {
 			sb.append(iterador.next().getMensagem(usuario));
@@ -269,7 +272,7 @@ public class GerenciadorDeNotificacoes implements Serializable {
 	 * 
 	 * @throws Exception
 	 */
-	public void addHistoricoInteressePorItem(String seuLogin, UsuarioIF amigo, ItemIF item) throws Exception {
+	public synchronized void addHistoricoInteressePorItem(String seuLogin, UsuarioIF amigo, ItemIF item) throws Exception {
 		Validador.assertStringNaoVazia(seuLogin, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
 		UsuarioIF usuario = Autenticacao.getUsuarioPorLogin(seuLogin);
@@ -287,7 +290,7 @@ public class GerenciadorDeNotificacoes implements Serializable {
 	 * 		item
 	 * @throws Exception
 	 */
-	public void addHistoricoTerminoEmprestimo(String seuLogin, ItemIF item) throws Exception {
+	public synchronized void addHistoricoTerminoEmprestimo(String seuLogin, ItemIF item) throws Exception {
 		Validador.assertStringNaoVazia(seuLogin, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
 		UsuarioIF usuario = Autenticacao.getUsuarioPorLogin(seuLogin);
@@ -365,7 +368,7 @@ public class GerenciadorDeNotificacoes implements Serializable {
 	 * 
 	 * @throws Exception
 	 */
-	public String addHistoricoPublicarPedido(String seuLogin, String nomeItem,
+	public synchronized String addHistoricoPublicarPedido(String seuLogin, String nomeItem,
 			String descricaoItem) throws Exception {
 		Validador.assertStringNaoVazia(seuLogin, Mensagem.LOGIN_INVALIDO.getMensagem(),
 				Mensagem.LOGIN_INVALIDO.getMensagem());
@@ -387,7 +390,7 @@ public class GerenciadorDeNotificacoes implements Serializable {
 	 * 
 	 * @throws Exception
 	 */
-	public void republicarPedido(UsuarioIF usuario, String idPublicacaoPedido) throws Exception {
+	public synchronized void republicarPedido(UsuarioIF usuario, String idPublicacaoPedido) throws Exception {
 		assertStringNaoVazia(idPublicacaoPedido, Mensagem.PUBLICACAO_ID_INVALIDO
 				.getMensagem(), Mensagem.PUBLICACAO_ID_INVALIDO.getMensagem());
 		if (!NotificacaoRepositorio.getInstance().existeNotificacao(idPublicacaoPedido))
@@ -401,11 +404,11 @@ public class GerenciadorDeNotificacoes implements Serializable {
 	/**
 	 * Retorna o sistema para suas configurações iniciais.
 	 */
-	public void zerarSistema() {
+	public synchronized void zerarSistema() {
 		GerenciadorDeNotificacoes.historicos.clear();
 	}
 
-	public void salvarEmArquivo() {
+	public synchronized void salvarEmArquivo() {
 		Configuracao conf = Configuracao.getInstance();
 		File arquivo = new File("./"+conf.getDiretorioBD()+"gerenciadorNotificacoes.bd");
 		ObjectOutputStream objectOut = null;

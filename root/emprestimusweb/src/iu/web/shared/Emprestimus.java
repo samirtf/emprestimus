@@ -52,16 +52,11 @@ public class Emprestimus implements EmprestimusIF {
 	private Emprestimus(){
 		try{
 			autenticacao = Autenticacao.getInstance();
-			
-			
 			srs = ServicoRecuperacaoSenhaUsuario.getInstance();
 			srs.iniciarServico();
 			itemDao = new ItemFileDAO();
 			emprestimoDao = new EmprestimoFileDAO();
 			chatDao = new ChatFileDAO();
-			persistenciaInteligente = new PersistenciaInteligente();
-			persistenciaInteligente.iniciar();
-		
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -86,23 +81,23 @@ public class Emprestimus implements EmprestimusIF {
 	}
 
 	@Override
-	public void criarUsuario(String login, String nome, String endereco) throws Exception{
+	public synchronized void criarUsuario(String login, String nome, String endereco) throws Exception{
         autenticacao.criarUsuario(login, nome, endereco);
 	}
 
 	@Override
-	public String abrirSessao(String login) throws Exception{
+	public synchronized String abrirSessao(String login) throws Exception{
 	    return autenticacao.abrirSessao(login);
 	}
 	
 	@Override
-	public String abrirSessao(String login, String senha) throws Exception {
+	public synchronized String abrirSessao(String login, String senha) throws Exception {
 		System.out.println("ERRRRRRRRRRRRR");
 		return autenticacao.abrirSessao(login, senha);
 	}
 
 	@Override
-	public String getAtributoUsuario(String login, String atributo) throws Exception{
+	public synchronized String getAtributoUsuario(String login, String atributo) throws Exception{
 		String valor = null;
 		
 			valor = autenticacao.getAtributoUsuario(login, atributo);
@@ -111,7 +106,7 @@ public class Emprestimus implements EmprestimusIF {
 	}
 
 	@Override
-	public String cadastrarItem(String idSessao, String nome, String descricao,
+	public synchronized String cadastrarItem(String idSessao, String nome, String descricao,
 			String categoria) throws Exception {
 		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(), Mensagem.SESSAO_INVALIDA.getMensagem());
 		assertStringNaoVazia(nome, Mensagem.NOME_INVALIDO.getMensagem(), Mensagem.NOME_INVALIDO.getMensagem());
@@ -129,7 +124,7 @@ public class Emprestimus implements EmprestimusIF {
 	}
 
 	@Override
-	public String getAtributoItem( String idItem, String atributo ) throws Exception {
+	public synchronized String getAtributoItem( String idItem, String atributo ) throws Exception {
 		assertStringNaoVazia(idItem, Mensagem.ID_ITEM_INVALIDO.getMensagem(), Mensagem.ID_ITEM_INVALIDO.getMensagem());
 		asserteTrue(itemDao.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
 		//asserteTrue(ItemRepositorio.existeItem(idItem), Mensagem.ID_ITEM_INEXISTENTE.getMensagem());
@@ -143,7 +138,7 @@ public class Emprestimus implements EmprestimusIF {
 	}
 
 	@Override
-	public String localizarUsuario(String idSessao, String chave,
+	public synchronized String localizarUsuario(String idSessao, String chave,
 			String atributo) throws Exception {
 		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(), Mensagem.SESSAO_INVALIDA.getMensagem());
 		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
@@ -180,7 +175,7 @@ public class Emprestimus implements EmprestimusIF {
 	}
 
 	@Override
-	public void requisitarAmizade(String idSessao, String login) throws Exception {
+	public synchronized void requisitarAmizade(String idSessao, String login) throws Exception {
 		Validador.assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(), Mensagem.SESSAO_INVALIDA.getMensagem());
 		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(), Mensagem.LOGIN_INVALIDO.getMensagem());
 		Validador.asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
@@ -192,7 +187,7 @@ public class Emprestimus implements EmprestimusIF {
 	}
 
 	@Override
-	public String getRequisicoesDeAmizade(String idSessao) throws Exception {
+	public synchronized String getRequisicoesDeAmizade(String idSessao) throws Exception {
 		Validador.assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(), Mensagem.SESSAO_INVALIDA.getMensagem());
 		Validador.asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
 		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
@@ -211,7 +206,7 @@ public class Emprestimus implements EmprestimusIF {
 	}
 
 	@Override
-	public void aprovarAmizade(String idSessao, String login) throws Exception {
+	public synchronized void aprovarAmizade(String idSessao, String login) throws Exception {
 		Validador.assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(), Mensagem.SESSAO_INVALIDA.getMensagem());
 		Validador.asserteTrue(autenticacao.existeIdSessao(idSessao.trim()), Mensagem.SESSAO_INEXISTENTE.getMensagem());
 		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(), Mensagem.LOGIN_INVALIDO.getMensagem());
@@ -223,7 +218,7 @@ public class Emprestimus implements EmprestimusIF {
 	}
 
 	@Override
-	public String ehAmigo(String idSessao, String login) throws Exception {
+	public synchronized String ehAmigo(String idSessao, String login) throws Exception {
 		Validador.assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(), Mensagem.SESSAO_INVALIDA.getMensagem());
 		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(), Mensagem.LOGIN_INVALIDO.getMensagem());
 		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
@@ -238,7 +233,7 @@ public class Emprestimus implements EmprestimusIF {
 	}
 
 	@Override
-	public String getAmigos(String idSessao) throws Exception {
+	public synchronized String getAmigos(String idSessao) throws Exception {
 		Validador.assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(), Mensagem.SESSAO_INVALIDA.getMensagem());
 		Validador.asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
 		
@@ -246,7 +241,7 @@ public class Emprestimus implements EmprestimusIF {
 	}
 
 	@Override
-	public String getAmigos(String idSessao, String login) throws Exception {
+	public synchronized String getAmigos(String idSessao, String login) throws Exception {
 		Validador.assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(), Mensagem.SESSAO_INVALIDA.getMensagem());
 		Validador.asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
 		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(), Mensagem.LOGIN_INVALIDO.getMensagem());
@@ -256,7 +251,7 @@ public class Emprestimus implements EmprestimusIF {
 	}
 
 	@Override
-	public String getItens(String idSessao) throws Exception{
+	public synchronized String getItens(String idSessao) throws Exception{
 		Validador.assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(), Mensagem.SESSAO_INVALIDA.getMensagem());
 		Validador.asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
 		
@@ -264,7 +259,7 @@ public class Emprestimus implements EmprestimusIF {
 	}
 
 	@Override
-	public String getItens(String idSessao, String login) throws Exception {
+	public synchronized String getItens(String idSessao, String login) throws Exception {
 		Validador.assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(), Mensagem.SESSAO_INVALIDA.getMensagem());
 		Validador.asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
 		Validador.assertStringNaoVazia(login, Mensagem.LOGIN_INVALIDO.getMensagem(), Mensagem.LOGIN_INVALIDO.getMensagem());
@@ -296,7 +291,7 @@ public class Emprestimus implements EmprestimusIF {
 	}
 
 	@Override
-	public String aprovarEmprestimo(String idSessao, String idRequisicaoEmprestimo) throws Exception {
+	public synchronized String aprovarEmprestimo(String idSessao, String idRequisicaoEmprestimo) throws Exception {
 		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(), Mensagem.SESSAO_INVALIDA.getMensagem());
 		asserteTrue(autenticacao.existeIdSessao(idSessao.trim()), Mensagem.SESSAO_INEXISTENTE.getMensagem());
 		assertStringNaoVazia(idRequisicaoEmprestimo, Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem(), Mensagem.ID_REQUISICAO_EMPRESTIMO_INVALIDO.getMensagem());
@@ -311,7 +306,7 @@ public class Emprestimus implements EmprestimusIF {
 	}
 
 	@Override
-	public String getEmprestimos(String idSessao, String tipo) throws Exception {
+	public synchronized String getEmprestimos(String idSessao, String tipo) throws Exception {
 		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(), Mensagem.SESSAO_INVALIDA.getMensagem());
 		asserteTrue(autenticacao.existeIdSessao(idSessao.trim()), Mensagem.SESSAO_INEXISTENTE.getMensagem());
 		assertStringNaoVazia(tipo, Mensagem.TIPO_INVALIDO.getMensagem(), Mensagem.TIPO_INVALIDO.getMensagem());
@@ -389,7 +384,7 @@ public class Emprestimus implements EmprestimusIF {
 	}
 
 	@Override
-	public void confirmarTerminoEmprestimo(String idSessao, String idEmprestimo) throws Exception {
+	public synchronized void confirmarTerminoEmprestimo(String idSessao, String idEmprestimo) throws Exception {
 
 		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(),
 				Mensagem.SESSAO_INVALIDA.getMensagem());
@@ -426,7 +421,7 @@ public class Emprestimus implements EmprestimusIF {
 	 * @param idEmprestimo 
 	 * @throws Exception 
 	 */
-	private void liberaItem(String idSessao, String idEmprestimo) throws Exception {
+	private synchronized void liberaItem(String idSessao, String idEmprestimo) throws Exception {
 		EmprestimoIF emprestimo = emprestimoDao.recuperarEmprestimo(idEmprestimo);
 		UsuarioIF dono = emprestimo.getEmprestador();
 		ItemIF item = emprestimo.getItem();
@@ -442,7 +437,7 @@ public class Emprestimus implements EmprestimusIF {
 	}
 
 	@Override
-	public String enviarMensagem(String idSessao, String destinatario, String assunto,
+	public synchronized String enviarMensagem(String idSessao, String destinatario, String assunto,
 			String mensagem) throws Exception {
 		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(),
 				Mensagem.SESSAO_INVALIDA.getMensagem());
@@ -461,7 +456,7 @@ public class Emprestimus implements EmprestimusIF {
 	}
 
 	@Override
-	public String enviarMensagem(String idSessao, String destinatario,
+	public synchronized String enviarMensagem(String idSessao, String destinatario,
 			String assunto, String mensagem, String idRequisicaoEmprestimo)
 			throws Exception {
 		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(), Mensagem.SESSAO_INVALIDA.getMensagem());
@@ -501,7 +496,7 @@ public class Emprestimus implements EmprestimusIF {
 	}
 
 	@Override
-	public String lerMensagens(String idSessao, String idTopico) throws Exception {
+	public synchronized String lerMensagens(String idSessao, String idTopico) throws Exception {
 		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(),
 				Mensagem.SESSAO_INVALIDA.getMensagem());
 		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE
@@ -520,7 +515,7 @@ public class Emprestimus implements EmprestimusIF {
 	}
 
 	@Override
-	public void registraInteresse(String idSessao, String idItem)
+	public synchronized void registraInteresse(String idSessao, String idItem)
 			throws Exception {
 		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(), Mensagem.SESSAO_INVALIDA.getMensagem());
 		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
@@ -533,7 +528,7 @@ public class Emprestimus implements EmprestimusIF {
 	}
 	
 	@Override
-	public void zerarSistema() {
+	public synchronized void zerarSistema() {
 		//Zerar o BD
 		autenticacao.zerarSistema();
 		srs.iniciarServico();
@@ -554,7 +549,7 @@ public class Emprestimus implements EmprestimusIF {
 	 * @see iu.EmprestimusIF#encerrarSistema()
 	 */
 	@Override
-	public void encerrarSistema() {
+	public synchronized void encerrarSistema() {
 		// Salva dados em persistencia e encerra.
 		autenticacao.encerrarSistema();
 		srs.pararServico();
@@ -603,7 +598,7 @@ public class Emprestimus implements EmprestimusIF {
 	}
 
 	@Override
-	public void desfazerAmizade(String idSessao, String amigo) throws Exception {
+	public synchronized void desfazerAmizade(String idSessao, String amigo) throws Exception {
 		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(),
 				Mensagem.SESSAO_INVALIDA.getMensagem());
 		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE
@@ -623,7 +618,7 @@ public class Emprestimus implements EmprestimusIF {
 	}
 
 	@Override
-	public void apagarItem(String idSessao, String idItem) throws Exception {
+	public synchronized void apagarItem(String idSessao, String idItem) throws Exception {
 		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(),
 				Mensagem.SESSAO_INVALIDA.getMensagem());
 		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE
@@ -645,7 +640,7 @@ public class Emprestimus implements EmprestimusIF {
 	}
 
 	@Override
-	public String getRanking(String idSessao, String categoria) throws Exception {
+	public synchronized String getRanking(String idSessao, String categoria) throws Exception {
 
 		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(),
 				Mensagem.SESSAO_INVALIDA.getMensagem());
@@ -695,7 +690,7 @@ public class Emprestimus implements EmprestimusIF {
 	}
 
 	@Override
-	public String historicoAtividades(String idSessao) throws Exception {
+	public synchronized String historicoAtividades(String idSessao) throws Exception {
 		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
 		String result = null;
 		try {
@@ -707,7 +702,7 @@ public class Emprestimus implements EmprestimusIF {
 	}
 
 	@Override
-	public String historicoAtividadesConjunto(String idSessao) throws Exception {
+	public synchronized String historicoAtividadesConjunto(String idSessao) throws Exception {
 		return ((GerenciadorDeNotificacoesDAO) new GerenciadorDeNotificacoesFileDAO()).getHistoricoAtividadesConjunto(
 				autenticacao.getUsuarioPeloIDSessao(idSessao));
 	}
@@ -724,7 +719,7 @@ public class Emprestimus implements EmprestimusIF {
 	}
 
 	@Override
-	public void oferecerItem(String idSessao, String idPublicacaoPedido,
+	public synchronized void oferecerItem(String idSessao, String idPublicacaoPedido,
 			String idItem) throws Exception {
 		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(), Mensagem.SESSAO_INVALIDA.getMensagem());
 		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
@@ -743,7 +738,7 @@ public class Emprestimus implements EmprestimusIF {
 	}
 
 	@Override
-	public String localizarUsuario(String idSessao) throws Exception {
+	public synchronized String localizarUsuario(String idSessao) throws Exception {
 		List<UsuarioIF> usuarios = autenticacao.getUsuarios(autenticacao
 				.getUsuarioPeloIDSessao(idSessao));
 		UsuarioIF usuario = autenticacao.getUsuarioPeloIDSessao(idSessao);
@@ -762,7 +757,7 @@ public class Emprestimus implements EmprestimusIF {
 	}
 
 	@Override
-	public void criarUsuario(String login, String senha, String nome,
+	public synchronized void criarUsuario(String login, String senha, String nome,
 			String endereco) throws Exception {
 		autenticacao.criarUsuario(login, senha, nome, endereco);
 		
@@ -770,7 +765,7 @@ public class Emprestimus implements EmprestimusIF {
 
 
 	@Override
-	public void cadastrarEmailRedefinicaoSenha(String idSessao, String email) throws Exception {
+	public synchronized void cadastrarEmailRedefinicaoSenha(String idSessao, String email) throws Exception {
 		
 		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(), Mensagem.SESSAO_INVALIDA.getMensagem());
 		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
@@ -782,7 +777,7 @@ public class Emprestimus implements EmprestimusIF {
 	}
 
 	@Override
-	public void alterarSenha(String idSessao, String senhaAtual,
+	public synchronized void alterarSenha(String idSessao, String senhaAtual,
 			String senhaNova) throws Exception {
 		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(), Mensagem.SESSAO_INVALIDA.getMensagem());
 		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_INEXISTENTE.getMensagem());
@@ -795,7 +790,7 @@ public class Emprestimus implements EmprestimusIF {
 	}
 
 	@Override
-	public void encerrarSessao(String idSessao) throws Exception {
+	public synchronized void encerrarSessao(String idSessao) throws Exception {
 		assertStringNaoVazia(idSessao, Mensagem.SESSAO_INVALIDA.getMensagem(), Mensagem.SESSAO_INVALIDA.getMensagem());
 		asserteTrue(autenticacao.existeIdSessao(idSessao), Mensagem.SESSAO_JAH_ENCERRADA.getMensagem());
 		autenticacao.encerrarSessao(idSessao);	
@@ -817,7 +812,7 @@ public class Emprestimus implements EmprestimusIF {
 	}
 	
 	@Override
-	public void sleepSystemTeste(int milissegundos) throws Exception {
+	public synchronized void sleepSystemTeste(int milissegundos) throws Exception {
 		Thread.sleep(milissegundos);
 	}
 

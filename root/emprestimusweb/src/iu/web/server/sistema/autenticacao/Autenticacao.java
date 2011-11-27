@@ -163,6 +163,7 @@ public class Autenticacao implements AutenticacaoIF {
 			throw new Exception(Mensagem.LOGIN_JAH_CADASTRADO.getMensagem());
 		}
 
+		try{
 		usuariosCadastrados.put(login, novoUsuario);
 		// adicionando caixa postal ao usuario
 		((CorreioDAO) new CorreioFileDAO()).adicionaCaixaPostalAoUsuario(login);
@@ -170,6 +171,11 @@ public class Autenticacao implements AutenticacaoIF {
 		((AcervoDeItensDAO) new AcervoDeItensFileDAO()).adicionaBauhAoUsuario(login);
 		((RelacionamentosUsuariosDAO) new RelacionamentosUsuariosFileDAO()).adicionaCicloDeAmizadeAoUsuario(login);
 		((GerenciadorDeNotificacoesDAO) new GerenciadorDeNotificacoesFileDAO()).adicionaRackAoUsuario(login);
+			
+		}catch(Exception e){
+			System.out.println("AUTENTICACAO CRIAR USUARIO");
+			e.printStackTrace();
+		}
 	}
 
 	@Override
