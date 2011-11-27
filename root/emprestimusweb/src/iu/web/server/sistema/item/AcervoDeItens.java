@@ -71,6 +71,7 @@ public class AcervoDeItens implements Serializable {
 			try {
 				Object[] vetor = new Object[1];
 				vetor[0] =  new TreeMap<String, Bauh>();
+				bauhs = new TreeMap<String, Bauh>();
 				objectOut = new ObjectOutputStream(
 	                    new BufferedOutputStream(new FileOutputStream("./"+conf.getDiretorioBD()+"acervoItens.bd")));
 	                objectOut.writeObject(vetor);

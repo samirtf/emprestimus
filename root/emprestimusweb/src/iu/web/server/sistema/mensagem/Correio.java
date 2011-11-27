@@ -62,6 +62,7 @@ public class Correio implements Serializable{
 			try {
 				Object[] vetor = new Object[1];
 				vetor[0] =  new TreeMap<String, CaixaPostal>();
+				caixasPostais = new TreeMap<String, CaixaPostal>();
 				objectOut = new ObjectOutputStream(
 	                    new BufferedOutputStream(new FileOutputStream("./"+conf.getDiretorioBD()+"correio.bd")));
 	                objectOut.writeObject(vetor);

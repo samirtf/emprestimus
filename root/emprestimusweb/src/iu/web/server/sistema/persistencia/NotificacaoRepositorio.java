@@ -50,6 +50,7 @@ public class NotificacaoRepositorio implements Serializable{
 			try {
 				Object[] vetor = new Object[1];
 				vetor[0] =  new TreeMap<Long, Notificacao>();
+				notificacoesCadastradas = new TreeMap<Long, Notificacao>();
 				objectOut = new ObjectOutputStream(
 	                    new BufferedOutputStream(new FileOutputStream("./"+conf.getDiretorioBD()+"notificacaoRepositorio.bd")));
 	                objectOut.writeObject(vetor);

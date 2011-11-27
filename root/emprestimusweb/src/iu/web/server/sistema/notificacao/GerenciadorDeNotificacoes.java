@@ -61,6 +61,7 @@ public class GerenciadorDeNotificacoes implements Serializable {
 			try {
 				Object[] vetor = new Object[1];
 				vetor[0] =  new TreeMap<String, Rack>();
+				historicos = new TreeMap<String, Rack>();
 				objectOut = new ObjectOutputStream(
 	                    new BufferedOutputStream(new FileOutputStream("./"+conf.getDiretorioBD()+"gerenciadorNotificacoes.bd")));
 	                objectOut.writeObject(vetor);

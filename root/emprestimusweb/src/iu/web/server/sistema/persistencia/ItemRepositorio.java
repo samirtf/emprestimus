@@ -51,6 +51,7 @@ public class ItemRepositorio implements Serializable{
 			try {
 				Object[] vetor = new Object[1];
 				vetor[0] =  new TreeMap<Long, ItemIF>();
+				itensCadastrados = new TreeMap<Long, ItemIF>();
 				objectOut = new ObjectOutputStream(
 	                    new BufferedOutputStream(new FileOutputStream("./"+conf.getDiretorioBD()+"itensRepositorio.bd")));
 	                objectOut.writeObject(vetor);

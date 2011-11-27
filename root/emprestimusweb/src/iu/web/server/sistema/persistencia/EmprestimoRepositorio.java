@@ -49,6 +49,7 @@ public class EmprestimoRepositorio implements Serializable{
 			try {
 				Object[] vetor = new Object[1];
 				vetor[0] =  new TreeMap<Long, EmprestimoIF>();
+				emprestimosRealizados = new TreeMap<Long, EmprestimoIF>();
 				objectOut = new ObjectOutputStream(
 	                    new BufferedOutputStream(new FileOutputStream("./"+conf.getDiretorioBD()+"emprestimoRepositorio.bd")));
 	                objectOut.writeObject(vetor);

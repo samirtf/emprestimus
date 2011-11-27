@@ -46,6 +46,7 @@ public class ChatRepositorio implements Serializable{
 			try {
 				Object[] vetor = new Object[1];
 				vetor[0] =  new TreeMap<Long, ChatIF>();
+				conversas = new TreeMap<Long, ChatIF>();
 				objectOut = new ObjectOutputStream(
 	                    new BufferedOutputStream(new FileOutputStream("./"+conf.getDiretorioBD()+"chatRepositorio.bd")));
 	                objectOut.writeObject(vetor);
