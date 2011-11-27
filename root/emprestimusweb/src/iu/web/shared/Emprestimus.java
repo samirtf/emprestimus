@@ -11,6 +11,7 @@ import iu.web.server.sistema.dao.*;
 import iu.web.server.sistema.emprestimo.EmprestimoIF;
 import iu.web.server.sistema.item.ItemIF;
 import iu.web.server.sistema.mensagem.ChatIF;
+import iu.web.server.sistema.persistencia.PersistenciaInteligente;
 import iu.web.server.sistema.usuario.ReputacaoUsuarioComparator;
 import iu.web.server.sistema.usuario.UsuarioIF;
 import iu.web.server.sistema.utilitarios.Mensagem;
@@ -45,6 +46,7 @@ public class Emprestimus implements EmprestimusIF {
 	private ItemDAO itemDao;
 	private EmprestimoDAO emprestimoDao;
 	private ChatDAO chatDao;
+	private PersistenciaInteligente persistenciaInteligente;
 	
 	private Emprestimus(){
 		autenticacao = Autenticacao.getInstance();
@@ -53,6 +55,7 @@ public class Emprestimus implements EmprestimusIF {
 		itemDao = new ItemFileDAO();
 		emprestimoDao = new EmprestimoFileDAO();
 		chatDao = new ChatFileDAO();
+		persistenciaInteligente.iniciar();
 	}
 	
 	/**
