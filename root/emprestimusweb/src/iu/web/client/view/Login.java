@@ -158,7 +158,7 @@ public class Login extends Composite {
                 painelLogin.add(image_1, 31, 10);
                 image_1.setSize("400px", "127px");
 
-                Image imagem3 = new Image("emprestimusweb/imagens/03.jpg");
+                Image imagem3 = new Image("emprestimusweb/imagens/joeffison/marilynmanson.jpg");
                 painelLogin.add(imagem3, 23, 382);
                 imagem3.setSize("100px", "100px");
                 
@@ -166,7 +166,7 @@ public class Login extends Composite {
                 painelLogin.add(imagem2, 23, 271);
                 imagem2.setSize("100px", "100px");
                 
-                Image imagem1 = new Image("emprestimusweb/imagens/01.jpg");
+                Image imagem1 = new Image("emprestimusweb/imagens/joeffison/Robert_del_Naja_by_shonarain.jpg");
                 painelLogin.add(imagem1, 23, 165);
                 imagem1.setSize("100px", "100px");
                 
@@ -222,6 +222,8 @@ public class Login extends Composite {
                                 public void onSuccess(String idSessao) {
                                         removeFromParent();
                                         controlador.abrirSessao(idSessao);
+                                        Home home = new Home(controlador);
+                                        home.setVisible(true);
                                 }
                         });
                 }
