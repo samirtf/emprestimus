@@ -49,7 +49,7 @@ public class NotificacaoFileDAO implements NotificacaoDAO {
 
 	@Override
 	public synchronized void iniciarDAO() {
-		EmprestimoRepositorio.getInstance();
+		NotificacaoRepositorio.getInstance();
 	}
 	
 	@Override

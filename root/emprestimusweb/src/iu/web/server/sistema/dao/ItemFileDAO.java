@@ -110,7 +110,7 @@ public class ItemFileDAO implements ItemDAO {
 
 	@Override
 	public synchronized void iniciarDAO() {
-		EmprestimoRepositorio.getInstance();
+		ItemRepositorio.getInstance();
 	}
 	
 	@Override

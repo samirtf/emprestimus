@@ -95,7 +95,7 @@ public class GerenciadorDeNotificacoesFileDAO implements GerenciadorDeNotificaco
 
 	@Override
 	public synchronized void iniciarDAO() {
-		EmprestimoRepositorio.getInstance();
+		GerenciadorDeNotificacoes.getInstance();
 	}
 	
 	@Override
