@@ -6,6 +6,7 @@ import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
@@ -91,6 +92,14 @@ public class Home extends Composite {
 		MenuItem mntmMural = new MenuItem("Mural", false, (Command) null);
 		mntmMural.setHTML("<menuItem>Mural</menuItem>");
 		menuBar.addItem(mntmMural);
+		mntmMural.setCommand(new Command() {
+			
+			@Override
+			public void execute() {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		
 		MenuItem mntmPerfil = new MenuItem("Perfil", false, (Command) null);
 		mntmPerfil.setHTML("<menuItem>Perfil</menuItem>");
@@ -140,6 +149,5 @@ public class Home extends Composite {
 			removeFromParent();
 			controlador.fecharSessao();
 		}
-		
 	}
 }
