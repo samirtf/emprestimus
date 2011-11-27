@@ -54,11 +54,15 @@ public class AcervoDeItens {
 		Configuracao conf = Configuracao.getInstance();
 		File arquivo = new File("./"+conf.getDiretorioBD()+"acervoItens.bd");
 		File diretorio = new File("./"+conf.getDiretorioBD());
-		if(!diretorio.exists()){
+		if(!diretorio.exists() || !arquivo.exists()){
 			diretorio.mkdir();
-			ObjectOutputStream objectOut = null;
 			try {
 				arquivo.createNewFile();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			ObjectOutputStream objectOut = null;
+			try {
 				Object[] vetor = new Object[1];
 				vetor[0] =  new TreeMap<String, Bauh>();
 				objectOut = new ObjectOutputStream(

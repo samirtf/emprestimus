@@ -59,11 +59,15 @@ public class Autenticacao implements AutenticacaoIF {
 		Configuracao conf = Configuracao.getInstance();
 		File arquivo = new File("./"+conf.getDiretorioBD()+"autenticacao.bd");
 		File diretorio = new File("./"+conf.getDiretorioBD());
-		if(!diretorio.exists()){
+		if(!diretorio.exists() || !arquivo.exists()){
 			diretorio.mkdir();
-			ObjectOutputStream objectOut = null;
 			try {
 				arquivo.createNewFile();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			ObjectOutputStream objectOut = null;
+			try {
 				Object[] vetor = new Object[2];
 				vetor[0] =  new TreeMap<String, UsuarioIF>();
 				vetor[1] =  new TreeMap<String, UsuarioIF>();
