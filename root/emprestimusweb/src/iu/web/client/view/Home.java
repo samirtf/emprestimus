@@ -106,10 +106,12 @@ public class Home extends Composite {
 		MenuItem mntmAmigos = new MenuItem("Amigos", false, (Command) null);
 		mntmAmigos.setHTML("<menuItem>Amigos</menuItem>");
 		menuBar.addItem(mntmAmigos);
+		mntmPerfil.setCommand(new MyCommandMostraAmigos());
 		
 		MenuItem mntmItens = new MenuItem("Itens", false, (Command) null);
 		mntmItens.setHTML("<menuItem>Itens</menuItem>");
 		menuBar.addItem(mntmItens);
+		mntmPerfil.setCommand(new MyCommandMostraItens());
 	}
 
 	private void inicializaPainelInferior() {
