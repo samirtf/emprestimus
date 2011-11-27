@@ -10,6 +10,7 @@ import iu.web.server.sistema.autenticacao.Autenticacao;
 import iu.web.server.sistema.autenticacao.Configuracao;
 import iu.web.server.sistema.dao.EmprestimoFileDAO;
 import iu.web.server.sistema.dao.ItemFileDAO;
+import iu.web.server.sistema.item.Bauh;
 import iu.web.server.sistema.item.ItemIF;
 import iu.web.server.sistema.usuario.UsuarioIF;
 import iu.web.server.sistema.utilitarios.Mensagem;
@@ -447,8 +448,27 @@ public class BancoDeEmprestimos{
 	}
 
 	public void salvarEmArquivo() {
-		// TODO Auto-generated method stub
-		
+		Configuracao conf = Configuracao.getInstance();
+		File arquivo = new File("./"+conf.getDiretorioBD()+"bancoEmprestimos.bd");
+		File diretorio = new File("./"+conf.getDiretorioBD());
+		ObjectOutputStream objectOut = null;
+		try {
+			arquivo.createNewFile();
+			Object[] vetor = new Object[1];
+			contas = ((TreeMap<String, Conta>) vetor[0]);
+			objectOut = new ObjectOutputStream(
+	            new BufferedOutputStream(new FileOutputStream("./"+conf.getDiretorioBD()+"bancoEmprestimos.bd")));
+			objectOut.reset();
+	           objectOut.writeObject(vetor);
+	                
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				objectOut.close();
+			} catch (IOException e) {}
+		}
+
 	}
 
 }

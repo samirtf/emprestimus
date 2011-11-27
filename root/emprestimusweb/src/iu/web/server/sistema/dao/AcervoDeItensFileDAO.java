@@ -112,8 +112,7 @@ public class AcervoDeItensFileDAO implements AcervoDeItensDAO {
 
 	@Override
 	public void notificaPersistenciaDoSistema() {
-		// TODO Auto-generated method stub
-		
+		AcervoDeItens.getInstance().salvarEmArquivo();
 	}
 
 }

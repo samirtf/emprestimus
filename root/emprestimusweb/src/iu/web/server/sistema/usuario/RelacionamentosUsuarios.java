@@ -11,6 +11,7 @@ import iu.web.server.sistema.item.DataCriacaoItemComparador;
 import iu.web.server.sistema.item.ItemIF;
 import iu.web.server.sistema.item.NomeItemComparador;
 import iu.web.server.sistema.mensagem.CaixaPostal;
+import iu.web.server.sistema.notificacao.Rack;
 import iu.web.server.sistema.persistencia.ItemRepositorio;
 import iu.web.server.sistema.usuario.UsuarioIF;
 import iu.web.server.sistema.utilitarios.Mensagem;
@@ -696,7 +697,26 @@ public class RelacionamentosUsuarios {
 	}
 
 	public void salvarEmArquivo() {
-		// TODO Auto-generated method stub
-		
+		Configuracao conf = Configuracao.getInstance();
+		File arquivo = new File("./"+conf.getDiretorioBD()+"relacionamentosUsuarios.bd");
+		File diretorio = new File("./"+conf.getDiretorioBD());
+		ObjectOutputStream objectOut = null;
+		try {
+			arquivo.createNewFile();
+			Object[] vetor = new Object[1];
+			ciclosDeAmizade = ((TreeMap<String, CicloDeAmizade>) vetor[0]);
+			objectOut = new ObjectOutputStream(
+	            new BufferedOutputStream(new FileOutputStream("./"+conf.getDiretorioBD()+"relacionamentosUsuarios.bd")));
+			objectOut.reset();
+	           objectOut.writeObject(vetor);
+	                
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				objectOut.close();
+			} catch (IOException e) {}
+		}
+
 	}
 }

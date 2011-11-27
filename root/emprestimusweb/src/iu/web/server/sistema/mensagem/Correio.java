@@ -10,6 +10,7 @@ import iu.web.server.sistema.autenticacao.Autenticacao;
 import iu.web.server.sistema.autenticacao.Configuracao;
 import iu.web.server.sistema.dao.ChatFileDAO;
 import iu.web.server.sistema.dao.EmprestimoFileDAO;
+import iu.web.server.sistema.emprestimo.Conta;
 import iu.web.server.sistema.emprestimo.EmprestimoIF;
 import iu.web.server.sistema.item.Bauh;
 import iu.web.server.sistema.usuario.UsuarioIF;
@@ -390,8 +391,27 @@ public class Correio {
 	}
 
 	public void salvarEmArquivo() {
-		// TODO Auto-generated method stub
-		
+		Configuracao conf = Configuracao.getInstance();
+		File arquivo = new File("./"+conf.getDiretorioBD()+"correio.bd");
+		File diretorio = new File("./"+conf.getDiretorioBD());
+		ObjectOutputStream objectOut = null;
+		try {
+			arquivo.createNewFile();
+			Object[] vetor = new Object[1];
+			caixasPostais = ((TreeMap<String, CaixaPostal>) vetor[0]);
+			objectOut = new ObjectOutputStream(
+	            new BufferedOutputStream(new FileOutputStream("./"+conf.getDiretorioBD()+"correio.bd")));
+			objectOut.reset();
+	           objectOut.writeObject(vetor);
+	                
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				objectOut.close();
+			} catch (IOException e) {}
+		}
+
 	}
 
 }

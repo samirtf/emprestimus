@@ -397,8 +397,27 @@ public class GerenciadorDeNotificacoes {
 	}
 
 	public void salvarEmArquivo() {
-		// TODO Auto-generated method stub
-		
+		Configuracao conf = Configuracao.getInstance();
+		File arquivo = new File("./"+conf.getDiretorioBD()+"gerenciadorNotificacoes.bd");
+		File diretorio = new File("./"+conf.getDiretorioBD());
+		ObjectOutputStream objectOut = null;
+		try {
+			arquivo.createNewFile();
+			Object[] vetor = new Object[1];
+			historicos = ((TreeMap<String, Rack>) vetor[0]);
+			objectOut = new ObjectOutputStream(
+	            new BufferedOutputStream(new FileOutputStream("./"+conf.getDiretorioBD()+"gerenciadorNotificacoes.bd")));
+			objectOut.reset();
+	           objectOut.writeObject(vetor);
+	                
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				objectOut.close();
+			} catch (IOException e) {}
+		}
+
 	}
 
 }

@@ -342,41 +342,34 @@ public class Autenticacao implements AutenticacaoIF {
 			throw new Exception(Mensagem.SESSAO_JAH_ENCERRADA.getMensagem());
 		}
 	}
-
-	@Override
-	public void notificaPersistenciaDoSistema() {
-
+	
+	private void salvarEmArquivo() {
 		Configuracao conf = Configuracao.getInstance();
 		File arquivo = new File("./"+conf.getDiretorioBD()+"autenticacao.bd");
 		File diretorio = new File("./"+conf.getDiretorioBD());
-		if(!diretorio.exists()){
-			diretorio.mkdir();
-			ObjectOutputStream objectOut = null;
-			try {
-				arquivo.createNewFile();
-				Object[] vetor = new Object[2];
-				vetor[0] =  usuariosCadastrados;
-				vetor[1] =  sessoes;
-				objectOut = new ObjectOutputStream(
-	                    new BufferedOutputStream(new FileOutputStream("./"+conf.getDiretorioBD()+"autenticacao.bd")));
-				objectOut.reset();
-	            objectOut.writeObject(vetor);
+		ObjectOutputStream objectOut = null;
+		try {
+			arquivo.createNewFile();
+			Object[] vetor = new Object[2];
+			vetor[0] =  usuariosCadastrados;
+			vetor[1] =  sessoes;
+			objectOut = new ObjectOutputStream(
+	            new BufferedOutputStream(new FileOutputStream("./"+conf.getDiretorioBD()+"autenticacao.bd")));
+			objectOut.reset();
+	           objectOut.writeObject(vetor);
 	                
-			} catch (IOException e) {
-				e.printStackTrace();
-			}finally{
-				try {
-					objectOut.close();
-				} catch (IOException e) {}
-			}
-			
-		}else{
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally{
 			try {
-				inicializarDados();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+				objectOut.close();
+			} catch (IOException e) {}
 		}
-		
+
+	}
+
+	@Override
+	public void notificaPersistenciaDoSistema() {
+		salvarEmArquivo();
 	}
 }
