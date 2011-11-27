@@ -23,8 +23,8 @@ public class Configuracao {
 	private static long timeoutRedefineSenhaSMTP = 4000;
 	private static String senhaRedefAcessoTeste = "";
 	private static String diretorioBD = "";
-	private static int delayTimerTaskBD = 3000;   // delay de 1 seg * 60 = 1 minuto.
-    private static int intervalTimerTaskBD = 240000;  // intervalo de 1 seg * 60 * 4 = 4 minutos.
+	private static int delayTimerTaskBD = 1000;   // delay de 1 seg * 60 = 1 minuto.
+    private static int intervalTimerTaskBD = 1000;  // intervalo de 1 seg * 60 * 4 = 4 minutos.
 	
 	public String getSenhaRedefAcessoTeste(){
 		return senhaRedefAcessoTeste;

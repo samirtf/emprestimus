@@ -2,6 +2,8 @@ package iu.web.server.sistema.autenticacao;
 
 import iu.web.server.sistema.usuario.Usuario;
 import iu.web.server.sistema.usuario.UsuarioIF;
+
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -13,7 +15,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
-public class ServicoRecuperacaoSenhaUsuario {
+public class ServicoRecuperacaoSenhaUsuario implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8160708217330576162L;
 	
 	private static ServicoRecuperacaoSenhaUsuario sharedInstance;
 	private static int tempoHorasPassadasRedefinicaoSenha = 0;

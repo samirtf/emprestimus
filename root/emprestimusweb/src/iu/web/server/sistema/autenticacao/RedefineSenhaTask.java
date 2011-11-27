@@ -3,6 +3,7 @@ package iu.web.server.sistema.autenticacao;
 import iu.web.server.sistema.usuario.UsuarioIF;
 import iu.web.server.sistema.utilitarios.Validador;
 
+import java.io.Serializable;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -14,8 +15,13 @@ import javax.mail.internet.MimeMessage;
 import org.apache.commons.lang.RandomStringUtils;
 
 
-public class RedefineSenhaTask implements Runnable {
+public class RedefineSenhaTask implements Runnable, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4506226829984457305L;
+	
 	private UsuarioIF usuario;
 	
 	public RedefineSenhaTask(UsuarioIF usuario) throws Exception {

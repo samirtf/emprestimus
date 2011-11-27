@@ -71,6 +71,9 @@ public class Autenticacao implements AutenticacaoIF {
 				Object[] vetor = new Object[2];
 				vetor[0] =  new TreeMap<String, UsuarioIF>();
 				vetor[1] =  new TreeMap<String, UsuarioIF>();
+				usuariosCadastrados =  new TreeMap<String, UsuarioIF>();
+				sessoes =  new TreeMap<String, UsuarioIF>();
+				System.out.println("AQUIIIIIIIIIIIIIIIIIIIIII");
 				objectOut = new ObjectOutputStream(
 	                    new BufferedOutputStream(new FileOutputStream("./"+conf.getDiretorioBD()+"autenticacao.bd")));
 	                objectOut.writeObject(vetor);

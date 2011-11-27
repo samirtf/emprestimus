@@ -4,11 +4,12 @@ import iu.web.server.sistema.item.ItemIF;
 import iu.web.server.sistema.persistencia.PersistenciaListener;
 import iu.web.server.sistema.usuario.UsuarioIF;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
 
-public interface AutenticacaoIF extends PersistenciaListener {
+public interface AutenticacaoIF extends PersistenciaListener, Serializable {
 	
 	/**
 	 * Reseta o sistema para as configurações iniciais
