@@ -45,7 +45,6 @@ public class Emprestimus implements EmprestimusIF {
 	private ItemDAO itemDao;
 	private EmprestimoDAO emprestimoDao;
 	private ChatDAO chatDao;
-	private GerenciadorDeNotificacoesDAO gerenciadorNotificacoesDao;
 	
 	private Emprestimus(){
 		autenticacao = Autenticacao.getInstance();
@@ -54,7 +53,6 @@ public class Emprestimus implements EmprestimusIF {
 		itemDao = new ItemFileDAO();
 		emprestimoDao = new EmprestimoFileDAO();
 		chatDao = new ChatFileDAO();
-		gerenciadorNotificacoesDao = new GerenciadorDeNotificacoesFileDAO();
 	}
 	
 	/**

@@ -115,5 +115,10 @@ public class RelacionamentosUsuariosFileDAO implements RelacionamentosUsuariosDA
 	public void iniciarDAO() {
 		EmprestimoRepositorio.getInstance();
 	}
+	
+	@Override
+	public void iniciarListener() {
+		iniciarDAO();
+	}
 
 }

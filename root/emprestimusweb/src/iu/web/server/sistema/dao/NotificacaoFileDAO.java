@@ -51,5 +51,10 @@ public class NotificacaoFileDAO implements NotificacaoDAO {
 	public void iniciarDAO() {
 		EmprestimoRepositorio.getInstance();
 	}
+	
+	@Override
+	public void iniciarListener() {
+		iniciarDAO();
+	}
 
 }

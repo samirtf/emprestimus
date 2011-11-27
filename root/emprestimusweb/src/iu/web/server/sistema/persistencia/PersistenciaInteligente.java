@@ -48,9 +48,16 @@ public class PersistenciaInteligente {
     	persistenciaListeners.add(new GerenciadorDeNotificacoesFileDAO());
     	persistenciaListeners.add(new RelacionamentosUsuariosFileDAO());
     	
+    	for(PersistenciaListener listenersDao : persistenciaListeners){
+    		listenersDao.iniciarListener();
+    	}
+    	
+    	
         timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
-                // colocar tarefas aqui ...
+            	for(PersistenciaListener listenersDao : persistenciaListeners){
+            		listenersDao.notificaPersistenciaDoSistema();
+            	}
             }
         }, delay, interval);
     

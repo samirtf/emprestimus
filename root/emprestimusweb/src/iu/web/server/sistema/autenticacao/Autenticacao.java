@@ -372,4 +372,12 @@ public class Autenticacao implements AutenticacaoIF {
 	public void notificaPersistenciaDoSistema() {
 		salvarEmArquivo();
 	}
+
+	@Override
+	public void iniciarListener() {
+		// TODO Posteriormente, separar o bd desta classe e iniciar o DAO.
+		// Este, por sinal, já é inicializado ao chamar getInstance() em PersistenciaInteligente.
+		// Método dumb.
+		
+	}
 }

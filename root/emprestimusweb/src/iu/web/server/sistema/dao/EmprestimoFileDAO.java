@@ -56,5 +56,10 @@ public class EmprestimoFileDAO implements EmprestimoDAO {
 	public void iniciarDAO() {
 		EmprestimoRepositorio.getInstance();
 	}
+	
+	@Override
+	public void iniciarListener() {
+		iniciarDAO();
+	}
 
 }

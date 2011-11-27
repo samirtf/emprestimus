@@ -120,4 +120,9 @@ public class AcervoDeItensFileDAO implements AcervoDeItensDAO {
 		AcervoDeItens.getInstance();
 	}
 
+	@Override
+	public void iniciarListener() {
+		iniciarDAO();
+	}
+
 }

@@ -7,4 +7,9 @@ public interface PersistenciaListener {
 	 */
 	void notificaPersistenciaDoSistema();
 	
+	/**
+	 * Inicia o listener.
+	 */
+	void iniciarListener();
+	
 }

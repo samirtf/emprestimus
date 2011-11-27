@@ -113,5 +113,10 @@ public class ItemFileDAO implements ItemDAO {
 		EmprestimoRepositorio.getInstance();
 	}
 	
+	@Override
+	public void iniciarListener() {
+		iniciarDAO();
+	}
+	
 
 }

@@ -66,5 +66,10 @@ public class CorreioFileDAO implements CorreioDAO{
 	public void iniciarDAO() {
 		Correio.getInstance();
 	}
+	
+	@Override
+	public void iniciarListener() {
+		iniciarDAO();
+	}
 
 }

@@ -91,5 +91,10 @@ public class BancoDeEmprestimosFileDAO implements BancoDeEmprestimosDAO {
 	public void iniciarDAO() {
 		BancoDeEmprestimos.getInstance();
 	}
+	
+	@Override
+	public void iniciarListener() {
+		iniciarDAO();
+	}
 
 }

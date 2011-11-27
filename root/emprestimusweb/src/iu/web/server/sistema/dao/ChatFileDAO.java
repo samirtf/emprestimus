@@ -57,5 +57,10 @@ public class ChatFileDAO implements ChatDAO{
 	public void iniciarDAO() {
 		ChatRepositorio.getInstance();
 	}
+	
+	@Override
+	public void iniciarListener() {
+		iniciarDAO();
+	}
 
 }
