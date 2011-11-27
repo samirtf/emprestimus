@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.regex.Pattern;
 
 public class Configuracao {
@@ -21,7 +23,7 @@ public class Configuracao {
 	private static long timeoutRedefineSenhaSMTP = 4000;
 	private static String senhaRedefAcessoTeste = "";
 	private static String diretorioBD = "";
-	private static int delayTimerTaskBD = 60000;   // delay de 1 seg * 60 = 1 minuto.
+	private static int delayTimerTaskBD = 3000;   // delay de 1 seg * 60 = 1 minuto.
     private static int intervalTimerTaskBD = 240000;  // intervalo de 1 seg * 60 * 4 = 4 minutos.
 	
 	public String getSenhaRedefAcessoTeste(){
@@ -152,9 +154,6 @@ public class Configuracao {
 		Configuracao.diretorioBD = diretorioBD;
 	}
 	
-	public static void main(String[] args){
-		System.out.println(Integer.valueOf("1000"));
-	}
 
 	public int getDelayTimerTaskBD() {
 		return delayTimerTaskBD;
@@ -172,5 +171,29 @@ public class Configuracao {
 		Configuracao.intervalTimerTaskBD = intervalTimerTaskBD;
 	}
 
+	
+	public static void main(String[] args){
+		int delay = 5000;   // delay for 5 sec.
+	    int interval = 4000;  // iterate every sec.
+	    Timer timer = new Timer();
+	    Long i = (long) 0;
+	    timer.scheduleAtFixedRate(new TimerTask() {
+	            public void run() {
+	                System.out.println("OLAAAA");
+	                
+	            }
+	        }, delay, interval);
+	    
+	    while(i < 100){
+	    	System.out.println(i);
+	    	try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    	i++;
+	    }
+	}
 
 }

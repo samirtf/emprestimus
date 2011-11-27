@@ -32,7 +32,7 @@ public class PersistenciaInteligente {
 	
 	private List<PersistenciaListener> persistenciaListeners;
 	
-	int delay = 1000 * 60;   // delay de 1 seg * 60 = 1 minuto.
+	int delay = 1000;   // delay de 1 seg * 60 = 1 minuto.
     int interval = 1000 * 60 * 4;  // intervalo de 1 seg * 60 * 4 = 4 minutos.
     Timer timer = new Timer();
     
