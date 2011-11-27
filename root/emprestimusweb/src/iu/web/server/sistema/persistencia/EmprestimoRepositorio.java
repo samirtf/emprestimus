@@ -226,7 +226,6 @@ public class EmprestimoRepositorio {
 		File diretorio = new File("./"+conf.getDiretorioBD());
 		ObjectOutputStream objectOut = null;
 		try {
-			arquivo.createNewFile();
 			Object[] vetor = new Object[1];
 			emprestimosRealizados = ((TreeMap<Long, EmprestimoIF>) vetor[0]);
 			objectOut = new ObjectOutputStream(

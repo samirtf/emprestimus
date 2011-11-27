@@ -257,7 +257,6 @@ public class ChatRepositorio {
 		File diretorio = new File("./"+conf.getDiretorioBD());
 		ObjectOutputStream objectOut = null;
 		try {
-			arquivo.createNewFile();
 			Object[] vetor = new Object[1];
 			conversas = ((TreeMap<Long, ChatIF>) vetor[0]);
 			objectOut = new ObjectOutputStream(

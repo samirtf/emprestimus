@@ -232,7 +232,6 @@ public class ItemRepositorio {
 		File diretorio = new File("./"+conf.getDiretorioBD());
 		ObjectOutputStream objectOut = null;
 		try {
-			arquivo.createNewFile();
 			Object[] vetor = new Object[1];
 			itensCadastrados = ((TreeMap<Long, ItemIF>) vetor[0]);
 			objectOut = new ObjectOutputStream(

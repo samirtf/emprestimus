@@ -113,7 +113,7 @@ public class RelacionamentosUsuariosFileDAO implements RelacionamentosUsuariosDA
 
 	@Override
 	public synchronized void iniciarDAO() {
-		EmprestimoRepositorio.getInstance();
+		RelacionamentosUsuarios.getInstance();
 	}
 	
 	@Override

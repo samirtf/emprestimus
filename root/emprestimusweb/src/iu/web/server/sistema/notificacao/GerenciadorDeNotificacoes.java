@@ -400,7 +400,6 @@ public class GerenciadorDeNotificacoes {
 		File arquivo = new File("./"+conf.getDiretorioBD()+"gerenciadorNotificacoes.bd");
 		ObjectOutputStream objectOut = null;
 		try {
-			arquivo.createNewFile();
 			Object[] vetor = new Object[1];
 			historicos = ((TreeMap<String, Rack>) vetor[0]);
 			objectOut = new ObjectOutputStream(

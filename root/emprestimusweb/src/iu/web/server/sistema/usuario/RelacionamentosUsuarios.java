@@ -698,7 +698,6 @@ public class RelacionamentosUsuarios {
 
 		ObjectOutputStream objectOut = null;
 		try {
-			arquivo.createNewFile();
 			Object[] vetor = new Object[1];
 			ciclosDeAmizade = ((TreeMap<String, CicloDeAmizade>) vetor[0]);
 			objectOut = new ObjectOutputStream(

@@ -524,7 +524,6 @@ public class AcervoDeItens {
 
 		ObjectOutputStream objectOut = null;
 		try {
-			arquivo.createNewFile();
 			Object[] vetor = new Object[1];
 			bauhs = ((TreeMap<String, Bauh>) vetor[0]);
 			objectOut = new ObjectOutputStream(

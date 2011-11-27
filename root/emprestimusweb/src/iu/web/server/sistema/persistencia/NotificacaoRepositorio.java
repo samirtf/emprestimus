@@ -202,7 +202,6 @@ public class NotificacaoRepositorio {
 		File diretorio = new File("./"+conf.getDiretorioBD());
 		ObjectOutputStream objectOut = null;
 		try {
-			arquivo.createNewFile();
 			Object[] vetor = new Object[1];
 			notificacoesCadastradas = ((TreeMap<Long, Notificacao>) vetor[0]);
 			objectOut = new ObjectOutputStream(

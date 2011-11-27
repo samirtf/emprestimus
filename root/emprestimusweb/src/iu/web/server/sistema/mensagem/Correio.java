@@ -395,7 +395,6 @@ public class Correio {
 		File arquivo = new File("./"+conf.getDiretorioBD()+"correio.bd");
 		ObjectOutputStream objectOut = null;
 		try {
-			arquivo.createNewFile();
 			Object[] vetor = new Object[1];
 			caixasPostais = ((TreeMap<String, CaixaPostal>) vetor[0]);
 			objectOut = new ObjectOutputStream(
