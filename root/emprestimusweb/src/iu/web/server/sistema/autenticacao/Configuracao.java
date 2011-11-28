@@ -73,12 +73,6 @@ public class Configuracao {
         }else{
         	String[] configuracoes = new String[9];
         	File f = new File("./");
-        	try {
-				System.out.println(f.getCanonicalPath());
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
             BufferedReader in = null;
             try {
                 in = new BufferedReader(new FileReader(caminhoArquivo));
@@ -87,21 +81,12 @@ public class Configuracao {
                 while (in.ready()) {
                     str = in.readLine();
                     String[] valores = str.split(Pattern.quote("|"));
-                    //System.out.println("temp0"+valores[0]+"  "+"temp1"+valores[1]);
                     configuracoes[contador] = valores[1].trim();
                     contador++;
-//                    tempoHorasPrazoRedefinicao | 48
-//                    emailSMTP | email.com
-//                    usernameSMTP | email
-//                    passwordSMTP | umasenha
-//                    timeoutRedefineSenhaSMTP | 4000
-//                    senhaRedefAcessoTeste | 
-//                    diretorioBD | emprestimusweb/bd/
+
                 }
                 contador = 0;
-//                for(String s : configuracoes){
-//                	System.out.println(":"+s+":");
-//                }
+
             } catch (IOException e) {
             	e.printStackTrace();
             }finally{
@@ -178,13 +163,11 @@ public class Configuracao {
 	    Long i = (long) 0;
 	    timer.scheduleAtFixedRate(new TimerTask() {
 	            public void run() {
-	                System.out.println("OLAAAA");
 	                
 	            }
 	        }, delay, interval);
 	    
 	    while(i < 100){
-	    	System.out.println(i);
 	    	try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {

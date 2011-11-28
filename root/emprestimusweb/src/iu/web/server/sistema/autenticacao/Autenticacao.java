@@ -73,7 +73,6 @@ public class Autenticacao implements AutenticacaoIF {
 				vetor[1] =  new TreeMap<String, UsuarioIF>();
 				usuariosCadastrados =  new TreeMap<String, UsuarioIF>();
 				sessoes =  new TreeMap<String, UsuarioIF>();
-				System.out.println("AQUIIIIIIIIIIIIIIIIIIIIII");
 				objectOut = new ObjectOutputStream(
 	                    new BufferedOutputStream(new FileOutputStream("./"+conf.getDiretorioBD()+"autenticacao.bd")));
 	                objectOut.writeObject(vetor);
@@ -173,7 +172,6 @@ public class Autenticacao implements AutenticacaoIF {
 		((GerenciadorDeNotificacoesDAO) new GerenciadorDeNotificacoesFileDAO()).adicionaRackAoUsuario(login);
 			
 		}catch(Exception e){
-			System.out.println("AUTENTICACAO CRIAR USUARIO");
 			e.printStackTrace();
 		}
 	}

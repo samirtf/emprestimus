@@ -91,18 +91,6 @@ public class ServicoRecuperacaoSenhaUsuario implements Serializable {
 	}
 	
 	
-	public static void main(String[] args) throws Exception{
-		
-	    
-		ServicoRecuperacaoSenhaUsuario srs = new ServicoRecuperacaoSenhaUsuario();
-		UsuarioIF usuario = new Usuario("login", "Samir Trajano FEitosa", "endereco");
-		usuario.cadastrarEmailRedefinicaoSenha("samircc20092@gmail.com");
-		srs.acionaRedefinicaoSenha(usuario);
-		
-		Thread.sleep(6000);
-		System.out.println(usuario.getCartaoAcessoRedefSenha());
-		System.out.println(usuario.logar("senhaAleatoria()"));
-		System.out.println(usuariosRedefinicoesRequisitadas.size());
-	}
+	
 
 }

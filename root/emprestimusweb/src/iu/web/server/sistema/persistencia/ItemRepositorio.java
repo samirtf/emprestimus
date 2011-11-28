@@ -261,12 +261,6 @@ public class ItemRepositorio implements Serializable{
 
 	}
 	
-//	public void main(String [] args){
-//		List<String> lista =  new ArrayList<String>();
-//		lista.add("samir");
-////		lista.add("trajano");
-////		lista.add("feitosa");
-//		System.out.println(lista);
-//	}
+
 
 }

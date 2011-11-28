@@ -102,7 +102,6 @@ public class GerenciadorDeNotificacoes implements Serializable {
                     new BufferedInputStream(new FileInputStream("./"+conf.getDiretorioBD()+"gerenciadorNotificacoes.bd")));
             Object[] vetor = ((Object[])objectIn.readObject());
             historicos = ((TreeMap<String, Rack>) vetor[0]);
-            System.out.println("TAMANHO HISTORICOS: "+historicos.size());
         
         }catch(Exception e){
             e.printStackTrace();
@@ -248,8 +247,7 @@ public class GerenciadorDeNotificacoes implements Serializable {
 		UsuarioIF usuario = Autenticacao.getUsuarioPorLogin(seuLogin);
 
 		StringBuffer sb = new StringBuffer();
-		System.out.println("HISTORICOS = NULL???" + historicos);
-		System.out.println("LOGIN :"+seuLogin+":");
+		
 		Iterator<Notificacao> iterador = historicos.get(seuLogin).iterador();
 		while (iterador.hasNext()) {
 			sb.append(iterador.next().getMensagem(usuario));
