@@ -17,4 +17,6 @@ public interface GreetingService extends RemoteService {
 	UsuarioSimples getUsuarioSimples(String idSessao) throws Exception;
 	
 	String encerraSessao(String idSessao) throws Exception;
+	
+	String trocaSenha(String idSessao, String senha) throws Exception;
 }

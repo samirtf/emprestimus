@@ -62,6 +62,12 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements Greetin
 		return "";
 	}
 
+	@Override
+	public String trocaSenha(String idSessao, String senha) throws Exception {
+		Autenticacao.getInstance().getUsuarioPeloIDSessao(idSessao).setSenha(senha);
+		return "Senha trocada com sucesso";
+	}
+
 	/**
 	 * Escape an html string. Escaping data received from the client helps to
 	 * prevent cross-site script vulnerabilities.

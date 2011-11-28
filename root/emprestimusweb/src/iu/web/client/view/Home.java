@@ -5,6 +5,10 @@ import iu.web.client.Controlador;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.MouseOutEvent;
+import com.google.gwt.event.dom.client.MouseOutHandler;
+import com.google.gwt.event.dom.client.MouseOverEvent;
+import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.AbsolutePanel;
@@ -31,6 +35,10 @@ public class Home extends Composite {
 	private AbsolutePanel painelInferior;
 	private Image foto;
 	private HTML htmlCentral;
+	
+	private Image imgCogumelo;
+	private Image imgFitaDeck;
+	private Image imgNew;
 
 	public Home(Controlador controlador) {
 		this.controlador = controlador;
@@ -54,17 +62,19 @@ public class Home extends Composite {
 		painelSuperior.add(imgEmprestimus, 10, 10);
 		imgEmprestimus.setSize("311px", "105px");
 		
-		Image imgCogumelo = new Image("emprestimusweb/imagens/09.png");
+		imgCogumelo = new Image("emprestimusweb/imagens/09.png");
 		painelSuperior.add(imgCogumelo, 447, 59);
 		imgCogumelo.setSize("30", "26px");
 		
-		Image imgFitaDeck = new Image("emprestimusweb/imagens/06.png");
+		imgFitaDeck = new Image("emprestimusweb/imagens/06.png");
 		painelSuperior.add(imgFitaDeck, 545, 59);
 		imgFitaDeck.setSize("33px", "26");
 		
-		Image imgNew = new Image("emprestimusweb/imagens/05.png");
+		imgNew = new Image("emprestimusweb/imagens/05.png");
 		painelSuperior.add(imgNew, 651, 63);
 		imgNew.setSize("33px", "22px");
+		imgNew.addMouseOverHandler(new MyHandlerBrilhaImgNew());
+		imgNew.addMouseOutHandler(new MyHandlerVoltaImgNew());
 		
 		Hyperlink hprlnkEditarPerfil = new Hyperlink("Editar Perfil", false, "newHistoryToken");
 		painelSuperior.add(hprlnkEditarPerfil, 777, 10);
@@ -168,6 +178,20 @@ public class Home extends Composite {
 		@Override
 		public void execute() {
 			htmlCentral.setHTML("<h2><br><br>Itens</h2>");
+		}
+	}
+	
+	class MyHandlerBrilhaImgNew implements MouseOverHandler{
+
+		@Override
+		public void onMouseOver(MouseOverEvent event) {
+			imgNew.setSize("66px", "44px");
+		}
+	}	class MyHandlerVoltaImgNew implements MouseOutHandler{
+
+		@Override
+		public void onMouseOut(MouseOutEvent event) {
+			imgNew.setSize("33px", "22px");
 		}
 	}
 }

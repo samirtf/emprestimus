@@ -16,4 +16,6 @@ public interface GreetingServiceAsync {
 	void getUsuarioSimples(String idSessao, AsyncCallback<UsuarioSimples> callback) throws Exception;
 	
 	void encerraSessao(String idSessao, AsyncCallback<String> callback);
+
+	void trocaSenha(String idSessao, String senha, AsyncCallback<String> callback);
 }

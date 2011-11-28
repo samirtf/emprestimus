@@ -133,9 +133,20 @@ public class Controlador implements IsSerializable{
 	/**
 	 * @param senha
 	 */
-	public void trocaSenha(String senha) {
-		// TODO Auto-generated method stub
-		
+	public void trocaSenha(final String senha) {
+		greetingService.trocaSenha(idSessao, senha, new AsyncCallback<String>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+				trocaSenha(senha);
+			}
+
+			@Override
+			public void onSuccess(String result) {
+				// TODO Auto-generated method stub
+			}
+		});
 	}
 
 }
