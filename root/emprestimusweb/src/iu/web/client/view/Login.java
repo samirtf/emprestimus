@@ -327,7 +327,6 @@ public class Login extends Composite {
 							btnCadastrar.setEnabled(true);
 							txtNomeCompleto.selectAll();
 							txtNomeCompleto.setFocus(true);
-							System.out.println("NAO CADASTROU - GREETING SERVICE CADASTRA");
 						}
 
 						public void onSuccess(String result) {
