@@ -130,4 +130,12 @@ public class Controlador implements IsSerializable{
 		usuario = null;
 	}
 
+	/**
+	 * @param senha
+	 */
+	public void trocaSenha(String senha) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

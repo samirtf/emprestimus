@@ -16,6 +16,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineHTML;
 import com.google.gwt.user.client.ui.Label;
@@ -67,13 +68,15 @@ public class Login extends Composite {
 		iniciaComponentesDoLogin();
 		iniciaComponentesDoCadastro();
 		iniciaComponentesDoLadoEsquerdo();
-
+		
 		// Eventos do login
 		MyHandlerLogin handlerLogin = new MyHandlerLogin();
 		btnLogin.addClickHandler(handlerLogin);
 		btnLogin.addKeyUpHandler(handlerLogin);
 		txtLoginNick.addKeyUpHandler(handlerLogin);
 		ptbLoginSenha.addKeyUpHandler(handlerLogin);
+		
+		
 
 		// Eventos do cadastro
 		MyHandlerCadastro handlerCadastro = new MyHandlerCadastro();
@@ -108,11 +111,10 @@ public class Login extends Composite {
 		btnLogin = new Button("Login");
 		painelLogin.add(btnLogin, 777, 93);
 
-//		Hyperlink hprlnkEsqueceuASenha = new Hyperlink("Esqueceu a senha", false,
-//				"newHistoryToken");
-//		hprlnkEsqueceuASenha
-//				.setHTML("<a href=\"esquecimento.html\">\rEsqueceu a senha?</a> ");
-//		painelLogin.add(hprlnkEsqueceuASenha, 488, 95);
+		Hyperlink hprlnkEsqueceuASenha = new Hyperlink("Esqueceu sua senha?", false,
+				"newHistoryToken");
+		painelLogin.add(hprlnkEsqueceuASenha, 488, 95);
+		hprlnkEsqueceuASenha.addClickHandler(new MyHandlerEsqueceuASenha());
 
 		lblErro = new Label("");
 		lblErro.setWordWrap(false);
@@ -345,6 +347,20 @@ public class Login extends Composite {
 							txtLoginNick.setFocus(true);
 						}
 					});
+		}
+	}
+	
+	/**
+	 * Cria uma handler para o login
+	 * 
+	 * @author José Nathaniel L de Abrante - nathaniel.una@gmail.com
+	 * 
+	 */
+	class MyHandlerEsqueceuASenha implements ClickHandler {
+		public void onClick(ClickEvent event) {
+			DialogoTrocarSenha dialogo = new DialogoTrocarSenha(controlador);
+			dialogo.setVisible(true);
+			painelLogin.add(dialogo, 150, 30);
 		}
 	}
 }
