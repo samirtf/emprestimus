@@ -92,7 +92,6 @@ public class Emprestimus implements EmprestimusIF {
 	
 	@Override
 	public synchronized String abrirSessao(String login, String senha) throws Exception {
-		System.out.println("ERRRRRRRRRRRRR");
 		return autenticacao.abrirSessao(login, senha);
 	}
 

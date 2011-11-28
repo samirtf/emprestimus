@@ -33,7 +33,6 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements Greetin
 		try{
 		Emprestimus.getInstance().criarUsuario(login, senha, nome, endereco);
 		}catch(Exception e){
-			System.out.println("CADASTRA - GREETING SERVICE IMPL");
 			e.printStackTrace();
 		}
 		return login(login, senha);
