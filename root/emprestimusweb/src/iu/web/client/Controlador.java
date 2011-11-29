@@ -17,13 +17,15 @@ public class Controlador implements IsSerializable{
 	private Emprestimusweb entryPoint;
 	
 	private String nome;
-	private String endereco; //TODO: Falta pegar o endereço
+	private String endereco;
 	private String foto;
 	private String historico;
 	private String amigos;
 	private String itens;
 	private String mensagens;
-	private String emprestimos;
+	private String emprestimosTodos;
+	private String emprestimosBeneficiador;
+	private String emprestimosEmprestador;
 	
 	public Controlador(Emprestimusweb entryPoint) {
 		this.entryPoint = entryPoint;
@@ -44,6 +46,20 @@ public class Controlador implements IsSerializable{
 					try {
 						historico = result;
 						entryPoint.historicoFoiAtualizado();
+					} catch (Exception e) {}
+				}
+			});
+		} catch (Exception e) {}
+	}
+	
+	public void atualizaEndereco() {
+		try {
+			greetingService.getEndereco(idSessao, new AsyncCallback<String>() {
+				public void onFailure(Throwable caught) {}
+				public void onSuccess(String result) {
+					try {
+						endereco = result;
+						entryPoint.enderecoFoiAtualizado();
 					} catch (Exception e) {}
 				}
 			});
@@ -107,7 +123,35 @@ public class Controlador implements IsSerializable{
 	}
 	
 	public void atualizaEmprestimos() {
-		// TODO Implemente isto!
+		try {
+			greetingService.getEmprestimosTodos(idSessao, new AsyncCallback<String>() {
+				public void onFailure(Throwable caught) {}
+				public void onSuccess(String result) {
+					try {
+						emprestimosTodos = result;
+						entryPoint.emprestimosFoiAtualizado();
+					} catch (Exception e) {}
+				}
+			});
+			greetingService.getEmprestimosBeneficiador(idSessao, new AsyncCallback<String>() {
+				public void onFailure(Throwable caught) {}
+				public void onSuccess(String result) {
+					try {
+						emprestimosTodos = result;
+						entryPoint.emprestimosFoiAtualizado();
+					} catch (Exception e) {}
+				}
+			});
+			greetingService.getEmprestimosEmprestador(idSessao, new AsyncCallback<String>() {
+				public void onFailure(Throwable caught) {}
+				public void onSuccess(String result) {
+					try {
+						emprestimosTodos = result;
+						entryPoint.emprestimosFoiAtualizado();
+					} catch (Exception e) {}
+				}
+			});
+		} catch (Exception e) {}
 	}
 	
 	public void atualizaItens() {
@@ -162,10 +206,10 @@ public class Controlador implements IsSerializable{
 		return itens;
 	}
 	
-	public String getEmprestimos() {
-		if (emprestimos == null)
+	public String getEmprestimosTodos() {
+		if (emprestimosTodos == null)
 			return "Não há empréstimos realizados";
-		return emprestimos;
+		return emprestimosTodos;
 	}
 	
 	public String getMensagens() {
@@ -192,5 +236,17 @@ public class Controlador implements IsSerializable{
 			public void onFailure(Throwable caught) {}
 			public void onSuccess(String result) {}
 		});
+	}
+
+	public String getEmprestimosTipoEmprestador() {
+		if (emprestimosEmprestador == null)
+			return "Não há empréstimos do tipo emprestador realizados";
+		return emprestimosEmprestador;
+	}
+
+	public String getEmprestimosTipoBeneficiador() {
+		if (emprestimosBeneficiador == null)
+			return "Não há empréstimos do tipo beneficiador realizados";
+		return emprestimosBeneficiador;
 	}
 }

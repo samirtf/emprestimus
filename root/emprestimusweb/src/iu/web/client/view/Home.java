@@ -51,7 +51,9 @@ public class Home extends Composite {
 	private String htmlMensagens = "Carregando...";
 	private String htmlAmigos = "Carregando...";
 	private String htmlItens = "Carregando...";
-	private String htmlEmprestimos = "Carregando...";
+	private String htmlEmprestimosTipoEmprestador = "Carregando...";
+	private String htmlEmprestimosTipoBeneficiador = "Carregando...";
+	private String htmlEmprestimosTipoTodos = "Carregando...";
 
 	public Home(Controlador controlador) {
 		this.controlador = controlador;
@@ -236,7 +238,7 @@ public class Home extends Composite {
 	private void setPainelEmprestimos() {
 		painelCentral.clear();
 		//TODO: Implemente isto!
-		htmlCentral.setHTML(htmlEmprestimos);
+		htmlCentral.setHTML(htmlEmprestimosTipoTodos);
 	}
 	
 	private void setPainelItens() {
@@ -279,7 +281,9 @@ public class Home extends Composite {
 	}
 	
 	public void atualizaEmprestimos() {
-		htmlItens = controlador.getEmprestimos();
+		htmlEmprestimosTipoTodos = controlador.getEmprestimosTodos();
+		htmlEmprestimosTipoEmprestador = controlador.getEmprestimosTipoEmprestador();
+		htmlEmprestimosTipoBeneficiador = controlador.getEmprestimosTipoBeneficiador();
 		setPainelEmprestimos();
 	}
 

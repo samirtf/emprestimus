@@ -26,4 +26,14 @@ public interface GreetingServiceAsync {
 	void getMensagens(String idSessao, AsyncCallback<String> asyncCallback);
 
 	void getItens(String idSessao, AsyncCallback<String> asyncCallback);
+
+	void getEndereco(String idSessao, AsyncCallback<String> asyncCallback);
+
+	void getEmprestimosTodos(String idSessao, AsyncCallback<String> asyncCallback);
+
+	void getEmprestimosBeneficiador(String idSessao,
+			AsyncCallback<String> callback);
+
+	void getEmprestimosEmprestador(String idSessao,
+			AsyncCallback<String> asyncCallback);
 }

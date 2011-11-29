@@ -70,5 +70,15 @@ public class Emprestimusweb implements EntryPoint {
 	public void itensFoiAtualizado() {
 		compositeHome.atualizaItens();
 	}
+
+	public void enderecoFoiAtualizado() {
+		compositeHome.atualizaPerfil();
+		
+	}
+
+	public void emprestimosFoiAtualizado() {
+		compositeHome.atualizaEmprestimos();
+		
+	}
 	
 }

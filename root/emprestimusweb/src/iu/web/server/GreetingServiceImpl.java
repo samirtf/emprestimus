@@ -92,4 +92,25 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements Greetin
 		return html.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">",
 				"&gt;");
 	}
+
+	@Override
+	public String getEndereco(String idSessao) throws Exception {
+		return escapeHtml(Autenticacao.getInstance().getUsuarioPeloIDSessao(idSessao).getEndereco());
+	}
+
+	@Override
+	public String getEmprestimosTodos(String idSessao) throws Exception {
+		return escapeHtml(Autenticacao.getInstance().getUsuarioPeloIDSessao(idSessao).getEmprestimos("todos"));
+	}
+	
+	@Override
+	public String getEmprestimosBeneficiador(String idSessao) throws Exception {
+		return escapeHtml(Autenticacao.getInstance().getUsuarioPeloIDSessao(idSessao).getEmprestimos("beneficiador"));
+	}
+	
+	@Override
+	public String getEmprestimosEmprestador(String idSessao) throws Exception {
+		return escapeHtml(Autenticacao.getInstance().getUsuarioPeloIDSessao(idSessao).getEmprestimos("emprestador"));
+	}
+	
 }
