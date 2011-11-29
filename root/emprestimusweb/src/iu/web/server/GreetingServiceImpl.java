@@ -2,10 +2,8 @@ package iu.web.server;
 
 import iu.web.client.GreetingService;
 import iu.web.server.sistema.autenticacao.Autenticacao;
-import iu.web.server.sistema.usuario.UsuarioIF;
 import iu.web.shared.Emprestimus;
 import iu.web.shared.MensagensWeb;
-import iu.web.shared.UsuarioSimples;
 import iu.web.shared.VerificadorDeCampos;
 
 import java.io.Serializable;
@@ -36,24 +34,6 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements Greetin
 			e.printStackTrace();
 		}
 		return escapeHtml(login(login, senha));
-	}
-
-	@Override
-	public UsuarioSimples getUsuarioSimples(String idSessao) throws Exception {
-		UsuarioIF usuario = null;
-		UsuarioSimples usuarioSimples = null;
-		try{
-		usuario = Autenticacao.getInstance().getUsuarioPeloIDSessao(idSessao);
-		
-		usuarioSimples = new UsuarioSimples();
-		usuarioSimples.setNome(usuario.getNome());
-		usuarioSimples.setFoto(usuario.getCaminhaImagemPerfil());
-		usuarioSimples.setHistorico(usuario.getHistoricoToString());
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		
-		return usuarioSimples;
 	}
 
 	@Override

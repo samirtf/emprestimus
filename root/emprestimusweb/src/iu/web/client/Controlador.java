@@ -1,13 +1,8 @@
 package iu.web.client;
 
-import java.util.List;
-
-import iu.web.shared.UsuarioSimples;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.IsSerializable;
-import com.google.gwt.user.client.ui.Image;
 
 
 
@@ -28,10 +23,6 @@ public class Controlador implements IsSerializable{
 	private String itens;
 	private String mensagens;
 	
-	
-	
-	private UsuarioSimples usuario;
-
 	public Controlador(Emprestimusweb entryPoint) {
 		this.entryPoint = entryPoint;
 	}
@@ -98,35 +89,6 @@ public class Controlador implements IsSerializable{
 			});
 		} catch (Exception e) {}
 	}
-	
-//	private void criaUsuarioSimples() {
-//		try {
-//			greetingService.getUsuarioSimples(idSessao, new AsyncCallback<UsuarioSimples>() {
-//				@Override
-//				public void onFailure(Throwable caught) {
-//					
-//					// TODO Auto-generated method stub
-//					caught.printStackTrace();
-//					
-//				}
-//				@Override
-//				public void onSuccess(UsuarioSimples result) {
-//					try {
-//						usuario = result;
-//						entryPoint.usuarioFoiAtualizado();
-//					} catch (Exception e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
-//				}
-//			});
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		
-//		}
-//	}
-
 
 	/**
 	 * @return idSessao
@@ -160,40 +122,20 @@ public class Controlador implements IsSerializable{
 	public void fecharSessao() {
 		try {
 			greetingService.encerraSessao(idSessao, new AsyncCallback<String>() {
-				@Override
-				public void onFailure(Throwable caught) {
-					
-					// TODO Auto-generated method stub
-					caught.printStackTrace();
-					
-				}
-				@Override
+				public void onFailure(Throwable caught) {}
 				public void onSuccess(String result) {
 					entryPoint.onModuleLoad();
 				}
 			});
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (Exception e) {}
 		
-		}
 		idSessao = null;
-		usuario = null;
 	}
 
 	public void trocaSenha(final String senha) {
 		greetingService.trocaSenha(idSessao, senha, new AsyncCallback<String>() {
-
-			@Override
-			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-				trocaSenha(senha);
-			}
-
-			@Override
-			public void onSuccess(String result) {
-				// TODO Auto-generated method stub
-			}
+			public void onFailure(Throwable caught) {}
+			public void onSuccess(String result) {}
 		});
 	}
 }
