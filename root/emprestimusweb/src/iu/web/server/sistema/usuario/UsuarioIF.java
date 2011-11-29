@@ -5,10 +5,10 @@ import iu.web.server.sistema.emprestimo.EmprestimoIF;
 import iu.web.server.sistema.excecoes.ArgumentoInvalidoException;
 import iu.web.server.sistema.item.ItemIF;
 import iu.web.server.sistema.mensagem.ChatIF;
-import iu.web.server.sistema.utilitarios.Criptografia;
 
 import java.io.Serializable;
 import java.util.List;
+
 import maps.Coordenadas;
 
 /**

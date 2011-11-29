@@ -5,6 +5,7 @@ import iu.web.shared.UsuarioSimples;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.IsSerializable;
+import com.google.gwt.user.client.ui.Image;
 
 
 
@@ -18,13 +19,19 @@ public class Controlador implements IsSerializable{
 	private String idSessao;
 	private Emprestimusweb entryPoint;
 	
+	private String nome;
+	private String foto;
+	private String historico;
+	
+	
+	
 	private UsuarioSimples usuario;
 
 	/**
 	 * @param emprestimusweb
 	 */
 	public Controlador(Emprestimusweb entryPoint) {
-		this.entryPoint = entryPoint;			
+		this.entryPoint = entryPoint;
 	}
 
 	/**
@@ -33,43 +40,84 @@ public class Controlador implements IsSerializable{
 	 */
 	public void abrirSessao(String idSessao) {
 		this.idSessao = idSessao;
-		entryPoint.abrirSessao(idSessao);			
-		criaUsuarioSimples();
+		entryPoint.abrirSessao(idSessao);
+		atualizaFoto();
+		atualizaHistorico();
 		
+		
+//		criaUsuarioSimples();
 	}
-	
-	/**
-	 * 
-	 */
-	private void criaUsuarioSimples() {
+
+	public void atualizaHistorico() {
 		try {
-			greetingService.getUsuarioSimples(idSessao, new AsyncCallback<UsuarioSimples>() {
-				@Override
-				public void onFailure(Throwable caught) {
-					
-					// TODO Auto-generated method stub
-					System.err.println("CILADA BINOOOO");
-					caught.printStackTrace();
-					
-				}
-				@Override
-				public void onSuccess(UsuarioSimples result) {
+			greetingService.getHistoricoConjunto(idSessao, new AsyncCallback<String>() {
+				public void onFailure(Throwable caught) {}
+				public void onSuccess(String result) {
 					try {
-						usuario = result;
-						entryPoint.usuarioFoiAtualizado();
-//						notifyAll();
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+						historico = result;
+						entryPoint.historicoFoiAtualizado();
+					} catch (Exception e) {}
 				}
 			});
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		
-		}
+		} catch (Exception e) {}
 	}
+
+	public void atualizaFoto() {
+		try {
+			greetingService.getImagem(idSessao, new AsyncCallback<String>() {
+				public void onFailure(Throwable caught) {}
+				public void onSuccess(String result) {
+					try {
+						foto = result;
+						entryPoint.fotoFoiAtualizada();
+					} catch (Exception e) {}
+				}
+			});
+		} catch (Exception e) {}
+	}
+
+	public void atualizaNome() {
+		try {
+			greetingService.getNome(idSessao, new AsyncCallback<String>() {
+				public void onFailure(Throwable caught) {}
+				public void onSuccess(String result) {
+					try {
+						nome = result;
+						entryPoint.nomeFoiAtualizado();
+					} catch (Exception e) {}
+				}
+			});
+		} catch (Exception e) {}
+	}
+	
+//	private void criaUsuarioSimples() {
+//		try {
+//			greetingService.getUsuarioSimples(idSessao, new AsyncCallback<UsuarioSimples>() {
+//				@Override
+//				public void onFailure(Throwable caught) {
+//					
+//					// TODO Auto-generated method stub
+//					caught.printStackTrace();
+//					
+//				}
+//				@Override
+//				public void onSuccess(UsuarioSimples result) {
+//					try {
+//						usuario = result;
+//						entryPoint.usuarioFoiAtualizado();
+//					} catch (Exception e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//				}
+//			});
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		
+//		}
+//	}
+
 
 	/**
 	 * @return idSessao
@@ -77,30 +125,30 @@ public class Controlador implements IsSerializable{
 	public String getIdSessao() {
 		return idSessao;
 	}
-	
-//	public synchronized UsuarioSimples getUsuarioSimples() {
-//		return usuario;
-//	}
 
 	/**
 	 * @return
 	 */
 	public String getNome() {
-		return usuario.getNome();
+		if (nome == null)
+			return "Carregando...";
+		return nome;
 	}
 
 	/**
 	 * @return
 	 */
 	public String getHistorico() {
-		return usuario.getHistorico();
+		if (historico == null)
+			return "Carregando...";
+		return historico;
 	}
 
 	/**
 	 * @return
 	 */
 	public String getFoto() {
-		return usuario.getFoto();
+		return foto;
 	}
 
 	/**

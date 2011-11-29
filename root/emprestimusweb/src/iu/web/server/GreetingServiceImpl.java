@@ -10,6 +10,7 @@ import iu.web.shared.MensagensWeb;
 import iu.web.shared.UsuarioSimples;
 import iu.web.shared.VerificadorDeCampos;
 
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 /**
@@ -66,6 +67,21 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements Greetin
 	public String trocaSenha(String idSessao, String senha) throws Exception {
 		Autenticacao.getInstance().getUsuarioPeloIDSessao(idSessao).setSenha(senha);
 		return "Senha trocada com sucesso";
+	}
+
+	@Override
+	public String getNome(String idSessao) throws Exception {
+		return Autenticacao.getInstance().getUsuarioPeloIDSessao(idSessao).getNome();
+	}
+
+	@Override
+	public String getImagem(String idSessao) throws Exception {
+		return Autenticacao.getInstance().getUsuarioPeloIDSessao(idSessao).getCaminhaImagemPerfil();
+	}
+
+	@Override
+	public String getHistoricoConjunto(String idSessao) throws Exception {
+		return Emprestimus.getInstance().historicoAtividadesConjunto(idSessao);
 	}
 
 	/**

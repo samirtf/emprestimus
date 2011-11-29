@@ -15,6 +15,7 @@ public class UsuarioSimples implements IsSerializable{
 	private String nome;
 	private String foto;
 	private String historico;
+	private String endereco;
 
 	/**
 	 * 

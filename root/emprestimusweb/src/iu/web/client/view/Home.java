@@ -40,6 +40,12 @@ public class Home extends Composite {
 	private Image imgFitaDeck;
 	private Image imgNew;
 
+	private String htmlMural = "<h2><br><br>Mural</h2>";
+	private String htmlPerfil = "<h2><br><br>Pefil</h2>";
+	private String htmlMensagens = "<h2><br><br>Mensagens</h2>";
+	private String htmlAmigos = "<h2><br><br>Amigos</h2>";
+	private String htmlItens = "<h2><br><br>Itens</h2>";
+
 	public Home(Controlador controlador) {
 		this.controlador = controlador;
 		
@@ -124,22 +130,43 @@ public class Home extends Composite {
 	}
 	
 	private void inicializaHtmlCentral() {
-		htmlCentral = new HTML("<br><br><h2>Carregando...</h2>", true);
+		htmlCentral = new HTML(htmlMural, true);
 		painelGlobal.add(htmlCentral);
 		
 	}
 	
-	public void inicializaAtributosDoUsiario() {
+	public void atualizaFoto() {
 		String caminhoFoto = controlador.getFoto();
 		if (caminhoFoto == null) {
 			foto = new Image(fotoPerfilDefault);
 		} else {
 			foto = new Image(caminhoFoto);
 		}
-		
-		htmlCentral.setHTML("<h2>Bemvindo, "+controlador.getNome()+"</h2><br>Histórico de atualizações:<br>"
-				+controlador.getHistorico());
 	}
+
+	public void atualizaMural() {
+		htmlMural = "<h2>Histórico de atualizações:</h2><br>"
+				+controlador.getHistorico();
+		htmlCentral.setHTML(htmlMural);
+	}
+
+	public void atualizaPerfil() {
+		htmlPerfil = "<h2>"+controlador.getNome()+"</h2>";
+		htmlCentral.setHTML(htmlPerfil);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	class MyHandlerSair implements ClickHandler {
 		@Override
@@ -152,32 +179,34 @@ public class Home extends Composite {
 	class MyCommandMostraMural implements Command {
 		@Override
 		public void execute() {
-			htmlCentral.setHTML("<h2><br><br>Mural</h2>");
+			controlador.atualizaHistorico();
+			htmlCentral.setHTML(htmlMural);
 			
 		}
 	}
 	class MyCommandMostraPerfil implements Command {
 		@Override
 		public void execute() {
-			htmlCentral.setHTML("<h2><br><br>Pefil</h2>");
+			controlador.atualizaNome();
+			htmlCentral.setHTML(htmlPerfil);
 		}
 	}
 	class MyCommandMostraMensagens implements Command {
 		@Override
 		public void execute() {
-			htmlCentral.setHTML("<h2><br><br>Mensagens</h2>");
+			htmlCentral.setHTML(htmlMensagens);
 		}
 	}
 	class MyCommandMostraAmigos implements Command {
 		@Override
 		public void execute() {
-			htmlCentral.setHTML("<h2><br><br>Amigos</h2>");
+			htmlCentral.setHTML(htmlAmigos);
 		}
 	}
 	class MyCommandMostraItens implements Command {
 		@Override
 		public void execute() {
-			htmlCentral.setHTML("<h2><br><br>Itens</h2>");
+			htmlCentral.setHTML(htmlItens);
 		}
 	}
 	

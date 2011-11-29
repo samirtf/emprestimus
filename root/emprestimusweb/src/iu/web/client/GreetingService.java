@@ -4,6 +4,7 @@ import iu.web.shared.UsuarioSimples;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+import com.google.gwt.user.client.ui.Image;
 
 /**
  * The client side stub for the RPC service.
@@ -19,4 +20,10 @@ public interface GreetingService extends RemoteService {
 	String encerraSessao(String idSessao) throws Exception;
 	
 	String trocaSenha(String idSessao, String senha) throws Exception;
+	
+	String getNome(String idSessao) throws Exception;
+	
+	String getImagem(String idSessao) throws Exception;
+	
+	String getHistoricoConjunto(String idSessao) throws Exception;
 }

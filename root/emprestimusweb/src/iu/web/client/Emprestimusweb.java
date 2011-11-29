@@ -32,8 +32,16 @@ public class Emprestimusweb implements EntryPoint {
 		RootPanel.get("nameFieldContainer").add(compositeHome);
 	}
 	
-	public void usuarioFoiAtualizado() {
-		compositeHome.inicializaAtributosDoUsiario();
+	public void fotoFoiAtualizada() {
+		compositeHome.atualizaFoto();
+	}
+
+	public void historicoFoiAtualizado() {
+		compositeHome.atualizaMural();
+	}
+
+	public void nomeFoiAtualizado() {
+		compositeHome.atualizaPerfil();
 	}
 	
 }
