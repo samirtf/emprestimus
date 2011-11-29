@@ -70,10 +70,14 @@ public class Home extends Composite {
 		imgCogumelo = new Image("emprestimusweb/imagens/09.png");
 		painelSuperior.add(imgCogumelo, 447, 59);
 		imgCogumelo.setSize("30", "26px");
+		imgCogumelo.addMouseOverHandler(new MyHandlerBrilhaImgCogumelo());
+		imgCogumelo.addMouseOutHandler(new MyHandlerVoltaImgCogumelo());
 		
 		imgFitaDeck = new Image("emprestimusweb/imagens/06.png");
 		painelSuperior.add(imgFitaDeck, 545, 59);
 		imgFitaDeck.setSize("33px", "26");
+		imgFitaDeck.addMouseOverHandler(new MyHandlerBrilhaImgFita());
+		imgFitaDeck.addMouseOutHandler(new MyHandlerVoltaImgFita());
 		
 		imgNew = new Image("emprestimusweb/imagens/05.png");
 		painelSuperior.add(imgNew, 651, 63);
@@ -234,26 +238,26 @@ public class Home extends Composite {
 
 		@Override
 		public void onMouseOver(MouseOverEvent event) {
-			imgFitaDeck.setSize("66px", "44px");
+			imgFitaDeck.setSize("66px", "52px");
 		}
 	}class MyHandlerVoltaImgFita implements MouseOutHandler{
 
 		@Override
 		public void onMouseOut(MouseOutEvent event) {
-			imgFitaDeck.setSize("33px", "22px");
+			imgFitaDeck.setSize("33px", "26px");
 		}
 	}
 	class MyHandlerBrilhaImgCogumelo implements MouseOverHandler{
 
 		@Override
 		public void onMouseOver(MouseOverEvent event) {
-			imgCogumelo.setSize("66px", "44px");
+			imgCogumelo.setSize("60px", "52px");
 		}
 	}class MyHandlerVoltaImgCogumelo implements MouseOutHandler{
 
 		@Override
 		public void onMouseOut(MouseOutEvent event) {
-			imgCogumelo.setSize("33px", "22px");
+			imgCogumelo.setSize("30px", "26px");
 		}
 	}
 }
