@@ -1,5 +1,7 @@
 package iu.web.client;
 
+import java.util.List;
+
 import iu.web.shared.UsuarioSimples;
 
 import com.google.gwt.core.client.GWT;
@@ -22,30 +24,23 @@ public class Controlador implements IsSerializable{
 	private String nome;
 	private String foto;
 	private String historico;
+	private String amigos;
+	private String itens;
+	private String mensagens;
 	
 	
 	
 	private UsuarioSimples usuario;
 
-	/**
-	 * @param emprestimusweb
-	 */
 	public Controlador(Emprestimusweb entryPoint) {
 		this.entryPoint = entryPoint;
 	}
 
-	/**
-	 * @param idSessao
-	 * @throws Exception 
-	 */
 	public void abrirSessao(String idSessao) {
 		this.idSessao = idSessao;
 		entryPoint.abrirSessao(idSessao);
 		atualizaFoto();
 		atualizaHistorico();
-		
-		
-//		criaUsuarioSimples();
 	}
 
 	public void atualizaHistorico() {
@@ -89,6 +84,20 @@ public class Controlador implements IsSerializable{
 			});
 		} catch (Exception e) {}
 	}
+
+	public void atualizaAmigos() {
+		try {
+			greetingService.getAmigos(idSessao, new AsyncCallback<String>() {
+				public void onFailure(Throwable caught) {}
+				public void onSuccess(String result) {
+					try {
+						amigos = result;
+						entryPoint.amigosFoiAtualizado();
+					} catch (Exception e) {}
+				}
+			});
+		} catch (Exception e) {}
+	}
 	
 //	private void criaUsuarioSimples() {
 //		try {
@@ -126,34 +135,28 @@ public class Controlador implements IsSerializable{
 		return idSessao;
 	}
 
-	/**
-	 * @return
-	 */
 	public String getNome() {
 		if (nome == null)
 			return "Carregando...";
 		return nome;
 	}
 
-	/**
-	 * @return
-	 */
 	public String getHistorico() {
 		if (historico == null)
 			return "Carregando...";
 		return historico;
 	}
 
-	/**
-	 * @return
-	 */
 	public String getFoto() {
 		return foto;
 	}
 
-	/**
-	 * 
-	 */
+	public String getAmigos() {
+		if (amigos == null)
+			return "Carregando...";
+		return amigos;
+	}
+
 	public void fecharSessao() {
 		try {
 			greetingService.encerraSessao(idSessao, new AsyncCallback<String>() {
@@ -178,9 +181,6 @@ public class Controlador implements IsSerializable{
 		usuario = null;
 	}
 
-	/**
-	 * @param senha
-	 */
 	public void trocaSenha(final String senha) {
 		greetingService.trocaSenha(idSessao, senha, new AsyncCallback<String>() {
 
@@ -196,5 +196,4 @@ public class Controlador implements IsSerializable{
 			}
 		});
 	}
-
 }

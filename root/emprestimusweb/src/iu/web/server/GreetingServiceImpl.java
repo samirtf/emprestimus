@@ -1,7 +1,5 @@
 package iu.web.server;
 
-import java.io.Serializable;
-
 import iu.web.client.GreetingService;
 import iu.web.server.sistema.autenticacao.Autenticacao;
 import iu.web.server.sistema.usuario.UsuarioIF;
@@ -10,7 +8,8 @@ import iu.web.shared.MensagensWeb;
 import iu.web.shared.UsuarioSimples;
 import iu.web.shared.VerificadorDeCampos;
 
-import com.google.gwt.user.client.ui.Image;
+import java.io.Serializable;
+
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 /**
@@ -26,7 +25,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements Greetin
 		} else if (!VerificadorDeCampos.ehSenhaValida(senha)) {
 			throw new IllegalArgumentException(MensagensWeb.SENHA_CURTA.getMensagem());
 		}
-		return Emprestimus.getInstance().abrirSessao(login, senha);
+		return escapeHtml(Emprestimus.getInstance().abrirSessao(login, senha));
 	}
 
 	@Override
@@ -36,7 +35,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements Greetin
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		return login(login, senha);
+		return escapeHtml(login(login, senha));
 	}
 
 	@Override
@@ -71,17 +70,22 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements Greetin
 
 	@Override
 	public String getNome(String idSessao) throws Exception {
-		return Autenticacao.getInstance().getUsuarioPeloIDSessao(idSessao).getNome();
+		return escapeHtml(Autenticacao.getInstance().getUsuarioPeloIDSessao(idSessao).getNome());
 	}
 
 	@Override
 	public String getImagem(String idSessao) throws Exception {
-		return Autenticacao.getInstance().getUsuarioPeloIDSessao(idSessao).getCaminhaImagemPerfil();
+		return escapeHtml(Autenticacao.getInstance().getUsuarioPeloIDSessao(idSessao).getCaminhaImagemPerfil());
 	}
 
 	@Override
 	public String getHistoricoConjunto(String idSessao) throws Exception {
-		return Emprestimus.getInstance().historicoAtividadesConjunto(idSessao);
+		return escapeHtml(Emprestimus.getInstance().historicoAtividadesConjunto(idSessao));
+	}
+
+	@Override
+	public String getAmigos(String idSessao) throws Exception {
+		return escapeHtml(Emprestimus.getInstance().getAmigos(idSessao));
 	}
 
 	/**
@@ -91,11 +95,11 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements Greetin
 	 * @param html the html string to escape
 	 * @return the escaped string
 	 */
-//	private String escapeHtml(String html) {
-//		if (html == null) {
-//			return null;
-//		}
-//		return html.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">",
-//				"&gt;");
-//	}
+	private String escapeHtml(String html) {
+		if (html == null) {
+			return null;
+		}
+		return html.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">",
+				"&gt;");
+	}
 }

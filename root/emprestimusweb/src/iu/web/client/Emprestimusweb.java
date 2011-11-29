@@ -43,5 +43,12 @@ public class Emprestimusweb implements EntryPoint {
 	public void nomeFoiAtualizado() {
 		compositeHome.atualizaPerfil();
 	}
+
+	/**
+	 * 
+	 */
+	public void amigosFoiAtualizado() {
+		compositeHome.atualizaAmigos();
+	}
 	
 }

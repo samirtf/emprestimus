@@ -26,4 +26,6 @@ public interface GreetingService extends RemoteService {
 	String getImagem(String idSessao) throws Exception;
 	
 	String getHistoricoConjunto(String idSessao) throws Exception;
+	
+	String getAmigos(String idSessao) throws Exception;
 }

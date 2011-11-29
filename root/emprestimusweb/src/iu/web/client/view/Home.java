@@ -40,11 +40,11 @@ public class Home extends Composite {
 	private Image imgFitaDeck;
 	private Image imgNew;
 
-	private String htmlMural = "<h2><br><br>Mural</h2>";
-	private String htmlPerfil = "<h2><br><br>Pefil</h2>";
-	private String htmlMensagens = "<h2><br><br>Mensagens</h2>";
-	private String htmlAmigos = "<h2><br><br>Amigos</h2>";
-	private String htmlItens = "<h2><br><br>Itens</h2>";
+	private String htmlMural = "Carregando...";
+	private String htmlPerfil = "Carregando...";
+	private String htmlMensagens = "Carregando...";
+	private String htmlAmigos = "Carregando...";
+	private String htmlItens = "Carregando...";
 
 	public Home(Controlador controlador) {
 		this.controlador = controlador;
@@ -154,6 +154,14 @@ public class Home extends Composite {
 		htmlPerfil = "<h2>"+controlador.getNome()+"</h2>";
 		htmlCentral.setHTML(htmlPerfil);
 	}
+
+	public void atualizaAmigos() {
+		htmlAmigos = "";
+		for (String amigo : controlador.getAmigos().split("; ")) {
+			htmlAmigos += "<a href=\"" + amigo + "\">" + amigo + "</a><br>";
+		}
+		htmlCentral.setHTML(htmlAmigos);
+	}
 	
 	
 	
@@ -216,11 +224,37 @@ public class Home extends Composite {
 		public void onMouseOver(MouseOverEvent event) {
 			imgNew.setSize("66px", "44px");
 		}
-	}	class MyHandlerVoltaImgNew implements MouseOutHandler{
+	}class MyHandlerVoltaImgNew implements MouseOutHandler{
 
 		@Override
 		public void onMouseOut(MouseOutEvent event) {
 			imgNew.setSize("33px", "22px");
+		}
+	}
+	class MyHandlerBrilhaImgFita implements MouseOverHandler{
+
+		@Override
+		public void onMouseOver(MouseOverEvent event) {
+			imgFitaDeck.setSize("66px", "44px");
+		}
+	}class MyHandlerVoltaImgFita implements MouseOutHandler{
+
+		@Override
+		public void onMouseOut(MouseOutEvent event) {
+			imgFitaDeck.setSize("33px", "22px");
+		}
+	}
+	class MyHandlerBrilhaImgCogumelo implements MouseOverHandler{
+
+		@Override
+		public void onMouseOver(MouseOverEvent event) {
+			imgCogumelo.setSize("66px", "44px");
+		}
+	}class MyHandlerVoltaImgCogumelo implements MouseOutHandler{
+
+		@Override
+		public void onMouseOut(MouseOutEvent event) {
+			imgCogumelo.setSize("33px", "22px");
 		}
 	}
 }
