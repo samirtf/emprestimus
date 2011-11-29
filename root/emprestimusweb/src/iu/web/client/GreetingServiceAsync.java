@@ -22,4 +22,8 @@ public interface GreetingServiceAsync {
 	void getHistoricoConjunto(String idSessao, AsyncCallback<String> callback);
 
 	void getAmigos(String idSessao, AsyncCallback<String> callback);
+
+	void getMensagens(String idSessao, AsyncCallback<String> asyncCallback);
+
+	void getItens(String idSessao, AsyncCallback<String> asyncCallback);
 }

@@ -50,5 +50,19 @@ public class Emprestimusweb implements EntryPoint {
 	public void amigosFoiAtualizado() {
 		compositeHome.atualizaAmigos();
 	}
+
+	/**
+	 * 
+	 */
+	public void mensagensFoiAtualizado() {
+		compositeHome.atualizaMensagens();
+	}
+
+	/**
+	 * 
+	 */
+	public void itensFoiAtualizado() {
+		compositeHome.atualizaItens();
+	}
 	
 }

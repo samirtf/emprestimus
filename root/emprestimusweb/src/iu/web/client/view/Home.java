@@ -166,6 +166,15 @@ public class Home extends Composite {
 		htmlCentral.setHTML(htmlAmigos);
 	}
 	
+	public void atualizaMensagens() {
+		htmlMensagens = controlador.getMensagens();
+		htmlCentral.setHTML(htmlMensagens);
+	}
+
+	public void atualizaItens() {
+		htmlItens = controlador.getItens();
+		htmlCentral.setHTML(htmlItens);
+	}
 	
 	
 	
@@ -205,18 +214,21 @@ public class Home extends Composite {
 	class MyCommandMostraMensagens implements Command {
 		@Override
 		public void execute() {
+			controlador.atualizaMensagens();
 			htmlCentral.setHTML(htmlMensagens);
 		}
 	}
 	class MyCommandMostraAmigos implements Command {
 		@Override
 		public void execute() {
+			controlador.atualizaAmigos();
 			htmlCentral.setHTML(htmlAmigos);
 		}
 	}
 	class MyCommandMostraItens implements Command {
 		@Override
 		public void execute() {
+			controlador.atualizaItens();
 			htmlCentral.setHTML(htmlItens);
 		}
 	}

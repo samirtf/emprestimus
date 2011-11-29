@@ -68,6 +68,16 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements Greetin
 		return escapeHtml(Emprestimus.getInstance().getAmigos(idSessao));
 	}
 
+	@Override
+	public String getMensagens(String idSessao) throws Exception {
+		return escapeHtml(Emprestimus.getInstance().lerTopicos(idSessao, "todos"));
+	}
+
+	@Override
+	public String getItens(String idSessao) throws Exception {
+		return escapeHtml(Emprestimus.getInstance().getItens(idSessao));
+	}
+
 	/**
 	 * Escape an html string. Escaping data received from the client helps to
 	 * prevent cross-site script vulnerabilities.

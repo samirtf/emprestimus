@@ -89,6 +89,34 @@ public class Controlador implements IsSerializable{
 			});
 		} catch (Exception e) {}
 	}
+	
+	public void atualizaMensagens() {
+		try {
+			greetingService.getMensagens(idSessao, new AsyncCallback<String>() {
+				public void onFailure(Throwable caught) {}
+				public void onSuccess(String result) {
+					try {
+						mensagens = result;
+						entryPoint.mensagensFoiAtualizado();
+					} catch (Exception e) {}
+				}
+			});
+		} catch (Exception e) {}
+	}
+	
+	public void atualizaItens() {
+		try {
+			greetingService.getItens(idSessao, new AsyncCallback<String>() {
+				public void onFailure(Throwable caught) {}
+				public void onSuccess(String result) {
+					try {
+						itens = result;
+						entryPoint.itensFoiAtualizado();
+					} catch (Exception e) {}
+				}
+			});
+		} catch (Exception e) {}
+	}
 
 	/**
 	 * @return idSessao
@@ -99,13 +127,13 @@ public class Controlador implements IsSerializable{
 
 	public String getNome() {
 		if (nome == null)
-			return "Carregando...";
+			return "Lendo informações do perfil...";
 		return nome;
 	}
 
 	public String getHistorico() {
 		if (historico == null)
-			return "Carregando...";
+			return "Não há atividades";
 		return historico;
 	}
 
@@ -115,8 +143,20 @@ public class Controlador implements IsSerializable{
 
 	public String getAmigos() {
 		if (amigos == null)
-			return "Carregando...";
+			return "Você não tem nenhum amigo";
 		return amigos;
+	}
+	
+	public String getItens() {
+		if (itens == null)
+			return "Você não possue nenhum ítem";
+		return itens;
+	}
+	
+	public String getMensagens() {
+		if (mensagens == null)
+			return "Não há mensagens";
+		return mensagens;
 	}
 
 	public void fecharSessao() {
