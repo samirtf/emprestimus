@@ -39,7 +39,6 @@ h2 {
   margin: 15px 6px 6px;
 }
 .nathaniel1 {
-	color: Gray;
 	font-size: 18px;
 	font-weight: bold;
 }
@@ -62,4 +61,14 @@ menuItem {
 	color: #006699;
 	font-size: 18px;
 	font-weight: normal;
+}
+.gwt-MenuBar gwt-MenuBar-vertical {
+	text-align: center;
+}
+menuItemCenter {
+	color: gray;
+	margin: 20px 0px;
+	font-size: 12px;
+	font-weight: bold;
+	text-align: center;
 }

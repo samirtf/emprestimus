@@ -17,11 +17,13 @@ public class Controlador implements IsSerializable{
 	private Emprestimusweb entryPoint;
 	
 	private String nome;
+	private String endereco; //TODO: Falta pegar o endereço
 	private String foto;
 	private String historico;
 	private String amigos;
 	private String itens;
 	private String mensagens;
+	private String emprestimos;
 	
 	public Controlador(Emprestimusweb entryPoint) {
 		this.entryPoint = entryPoint;
@@ -104,6 +106,10 @@ public class Controlador implements IsSerializable{
 		} catch (Exception e) {}
 	}
 	
+	public void atualizaEmprestimos() {
+		// TODO Implemente isto!
+	}
+	
 	public void atualizaItens() {
 		try {
 			greetingService.getItens(idSessao, new AsyncCallback<String>() {
@@ -118,9 +124,6 @@ public class Controlador implements IsSerializable{
 		} catch (Exception e) {}
 	}
 
-	/**
-	 * @return idSessao
-	 */
 	public String getIdSessao() {
 		return idSessao;
 	}
@@ -129,6 +132,12 @@ public class Controlador implements IsSerializable{
 		if (nome == null)
 			return "Lendo informações do perfil...";
 		return nome;
+	}
+
+	public String getEndereco() {
+		if (endereco == null)
+			return "Lendo informações do perfil...";
+		return endereco;
 	}
 
 	public String getHistorico() {
@@ -151,6 +160,12 @@ public class Controlador implements IsSerializable{
 		if (itens == null)
 			return "Você não possue nenhum ítem";
 		return itens;
+	}
+	
+	public String getEmprestimos() {
+		if (emprestimos == null)
+			return "Não há empréstimos realizados";
+		return emprestimos;
 	}
 	
 	public String getMensagens() {

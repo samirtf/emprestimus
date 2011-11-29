@@ -4,6 +4,10 @@ import iu.web.client.view.Home;
 import iu.web.client.view.Login;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.MenuBar;
+import com.google.gwt.user.client.ui.MenuItem;
 import com.google.gwt.user.client.ui.RootPanel;
 
 /**
@@ -12,6 +16,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 public class Emprestimusweb implements EntryPoint {
 	Controlador controlador = new Controlador(this);
 	String idSessao;
+	private AbsolutePanel painelInferior;
 	
 	Home compositeHome;
 
@@ -21,7 +26,7 @@ public class Emprestimusweb implements EntryPoint {
 	public void onModuleLoad() {
 		Login compositeLogin = new Login(controlador);
 		compositeLogin.setVisible(true);
-		RootPanel.get("nameFieldContainer").add(compositeLogin);
+		RootPanel.get("centro").add(compositeLogin);
 
 //		new Image("emprestimusweb/gwt/clean/imagens/mj.jpg")
 	}
@@ -29,7 +34,8 @@ public class Emprestimusweb implements EntryPoint {
 	public void abrirSessao(String idSessao) {
 		compositeHome = new Home(controlador);
 		compositeHome.setVisible(true);
-		RootPanel.get("nameFieldContainer").add(compositeHome);
+		RootPanel.get("centro").add(compositeHome);
+		//nameFieldContainer
 	}
 	
 	public void fotoFoiAtualizada() {
