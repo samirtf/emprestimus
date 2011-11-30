@@ -1,12 +1,12 @@
 package iu.web.server.sistema.autenticacao;
 
-import java.io.BufferedReader;
+/*import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Timer;
+*/import java.util.Timer;
 import java.util.TimerTask;
-import java.util.regex.Pattern;
+/*import java.util.regex.Pattern;*/
 
 public class Configuracao {
 	
@@ -45,7 +45,7 @@ public class Configuracao {
 	}
 	
 	private static void verificarConsistencia() {
-        File arquivo = new File(caminhoArquivo);
+        /*File arquivo = new File(caminhoArquivo);
         if(!new File(caminhoDiretorio).exists())
                 new File(caminhoDiretorio).mkdirs();
             if(!arquivo.exists()){
@@ -57,7 +57,7 @@ public class Configuracao {
 					e.printStackTrace();
 				}
 
-            }
+            }*/
     }
 
 	private static void inicializaConfiguracao() {
@@ -67,7 +67,7 @@ public class Configuracao {
 		usernameSMTP = "emprestimuswebsi";
 		passwordSMTP = "Roguespear";
 	
-        File arquivo = new File(caminhoArquivo);
+        /*File arquivo = new File(caminhoArquivo);
         if(!arquivo.exists() || !arquivo.canRead()){
             verificarConsistencia();
         }else{
@@ -99,14 +99,17 @@ public class Configuracao {
             tempoHorasPrazoRedefinicao = Integer.valueOf(configuracoes[0]);
             emailSMTP = configuracoes[1];
             usernameSMTP = configuracoes[2];
-            passwordSMTP = configuracoes[3];
-            timeoutRedefineSenhaSMTP = Integer.valueOf(configuracoes[4]);
-            senhaRedefAcessoTeste = configuracoes[5];
-            setDiretorioBD(configuracoes[6]);
-            setDelayTimerTaskBD(Integer.valueOf(configuracoes[7]));
-            setIntervalTimerTaskBD(Integer.valueOf(configuracoes[8]));
+            passwordSMTP = configuracoes[3];*/
+		tempoHorasPrazoRedefinicao = 48;
+		emailSMTP = "email.com";
+		usernameSMTP = "email";
+		passwordSMTP = "umasenha";
+		timeoutRedefineSenhaSMTP = 4000;
+		senhaRedefAcessoTeste =""; 
+            setDiretorioBD("emprestimusweb/bd/");
+            setDelayTimerTaskBD(1000);
+            setIntervalTimerTaskBD(3000);
             
-        }
     }
     
 	

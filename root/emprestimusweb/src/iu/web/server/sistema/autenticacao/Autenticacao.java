@@ -17,7 +17,7 @@ import iu.web.server.sistema.usuario.UsuarioIF;
 import iu.web.server.sistema.utilitarios.Mensagem;
 import iu.web.server.sistema.utilitarios.Validador;
 
-import java.io.BufferedInputStream;
+/*import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,7 +26,7 @@ import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
+import java.io.OutputStream;*/
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -53,11 +53,11 @@ public class Autenticacao implements AutenticacaoIF {
 																// sessoes.
 
 	private Autenticacao() {
-//		usuariosCadastrados = new TreeMap<String, UsuarioIF>();
-//		sessoes = new TreeMap<String, UsuarioIF>();
+		usuariosCadastrados = new TreeMap<String, UsuarioIF>();
+		sessoes = new TreeMap<String, UsuarioIF>();
 		
 		Configuracao conf = Configuracao.getInstance();
-		File arquivo = new File("./"+conf.getDiretorioBD()+"autenticacao.bd");
+		/*File arquivo = new File("./"+conf.getDiretorioBD()+"autenticacao.bd");
 		File diretorio = new File("./"+conf.getDiretorioBD());
 		if(!diretorio.exists() || !arquivo.exists()){
 			diretorio.mkdir();
@@ -91,7 +91,7 @@ public class Autenticacao implements AutenticacaoIF {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
+		}*/
 		
 		
 	}
@@ -108,7 +108,7 @@ public class Autenticacao implements AutenticacaoIF {
 	private static void inicializarDados() throws Exception {
 		Configuracao conf = Configuracao.getInstance();
         
-        ObjectInputStream objectIn = null;
+        /*ObjectInputStream objectIn = null;
         try{
         	objectIn = new ObjectInputStream(
                     new BufferedInputStream(new FileInputStream("./"+conf.getDiretorioBD()+"autenticacao.bd")));
@@ -120,8 +120,11 @@ public class Autenticacao implements AutenticacaoIF {
             e.printStackTrace();
         }finally{
             objectIn.close();
-        }
+        }*/
         
+		usuariosCadastrados = new TreeMap<String, UsuarioIF> ();
+		sessoes = new TreeMap<String, UsuarioIF>();
+		
     }
 
 	
@@ -356,7 +359,7 @@ public class Autenticacao implements AutenticacaoIF {
 	
 	private void salvarEmArquivo() {
 		Configuracao conf = Configuracao.getInstance();
-		File arquivo = new File("./"+conf.getDiretorioBD()+"autenticacao.bd");
+		/*File arquivo = new File("./"+conf.getDiretorioBD()+"autenticacao.bd");
 
 		ObjectOutputStream objectOut = null;
 		try {
@@ -375,7 +378,7 @@ public class Autenticacao implements AutenticacaoIF {
 			try {
 				objectOut.close();
 			} catch (IOException e) {}
-		}
+		}*/
 
 	}
 

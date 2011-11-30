@@ -16,14 +16,14 @@ import iu.web.server.sistema.usuario.UsuarioIF;
 import iu.web.server.sistema.utilitarios.Mensagem;
 import iu.web.server.sistema.utilitarios.Validador;
 
-import java.io.BufferedInputStream;
+/*import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.ObjectOutputStream;*/
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -49,7 +49,7 @@ public class BancoDeEmprestimos implements Serializable{
 		//contas = new TreeMap<String, Conta>();
 		
 		Configuracao conf = Configuracao.getInstance();
-		File arquivo = new File("./"+conf.getDiretorioBD()+"bancoEmprestimos.bd");
+		/*File arquivo = new File("./"+conf.getDiretorioBD()+"bancoEmprestimos.bd");
 		File diretorio = new File("./"+conf.getDiretorioBD());
 		if(!diretorio.exists() || !arquivo.exists()){
 			diretorio.mkdir();
@@ -81,6 +81,13 @@ public class BancoDeEmprestimos implements Serializable{
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}*/
+		
+		try {
+			inicializarDados();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 	}
@@ -88,19 +95,16 @@ public class BancoDeEmprestimos implements Serializable{
 	/**
 	 * @return BancoDeEmprestimos
 	 */
-	public static BancoDeEmprestimos getInstance() {
-		if (bancoDeEmprestimos == null) {
+	public synchronized static BancoDeEmprestimos getInstance() {
+		if (bancoDeEmprestimos == null)
 			bancoDeEmprestimos = new BancoDeEmprestimos();
-
-			return bancoDeEmprestimos;
-		}
 		return bancoDeEmprestimos;
 	}
 	
 	private static void inicializarDados() throws Exception {
 		Configuracao conf = Configuracao.getInstance();
         
-        ObjectInputStream objectIn = null;
+        /*ObjectInputStream objectIn = null;
         try{
         	objectIn = new ObjectInputStream(
                     new BufferedInputStream(new FileInputStream("./"+conf.getDiretorioBD()+"bancoEmprestimos.bd")));
@@ -111,8 +115,10 @@ public class BancoDeEmprestimos implements Serializable{
             e.printStackTrace();
         }finally{
             objectIn.close();
-        }
+        }*/
         
+		contas = new TreeMap<String, Conta>();
+		
     }
 
 	/**
@@ -459,7 +465,7 @@ public class BancoDeEmprestimos implements Serializable{
 
 	public void salvarEmArquivo() {
 		Configuracao conf = Configuracao.getInstance();
-		File arquivo = new File("./"+conf.getDiretorioBD()+"bancoEmprestimos.bd");
+		/*File arquivo = new File("./"+conf.getDiretorioBD()+"bancoEmprestimos.bd");
 
 		ObjectOutputStream objectOut = null;
 		try {
@@ -476,8 +482,7 @@ public class BancoDeEmprestimos implements Serializable{
 			try {
 				objectOut.close();
 			} catch (IOException e) {}
-		}
-
+		}*/
 	}
 
 }

@@ -26,14 +26,14 @@ import iu.web.server.sistema.usuario.UsuarioIF;
 import iu.web.server.sistema.utilitarios.Mensagem;
 import iu.web.server.sistema.utilitarios.Validador;
 
-import java.io.BufferedInputStream;
+/*import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.ObjectOutputStream;*/
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.Iterator;
@@ -55,10 +55,10 @@ public class AcervoDeItens implements Serializable {
 	private static Map<String, Bauh> bauhs;
 
 	private AcervoDeItens() {
-//		bauhs = new TreeMap<String, Bauh>();
+		bauhs = new TreeMap<String, Bauh>();
 		
 		Configuracao conf = Configuracao.getInstance();
-		File arquivo = new File("./"+conf.getDiretorioBD()+"acervoItens.bd");
+		/*File arquivo = new File("./"+conf.getDiretorioBD()+"acervoItens.bd");
 		File diretorio = new File("./"+conf.getDiretorioBD());
 		if(!diretorio.exists() || !arquivo.exists()){
 			diretorio.mkdir();
@@ -90,22 +90,27 @@ public class AcervoDeItens implements Serializable {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}*/
+		
+		try {
+			inicializarDados();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
 	}
 
 	public static AcervoDeItens getInstance() {
-		if (acervoDeItens == null) {
+		if (acervoDeItens == null)
 			acervoDeItens = new AcervoDeItens();
-
-			return acervoDeItens;
-		}
 		return acervoDeItens;
 	}
 	
 	private static void inicializarDados() throws Exception {
 		Configuracao conf = Configuracao.getInstance();
         
-        ObjectInputStream objectIn = null;
+        /*ObjectInputStream objectIn = null;
         try{
         	objectIn = new ObjectInputStream(
                     new BufferedInputStream(new FileInputStream("./"+conf.getDiretorioBD()+"acervoItens.bd")));
@@ -116,8 +121,8 @@ public class AcervoDeItens implements Serializable {
             e.printStackTrace();
         }finally{
             objectIn.close();
-        }
-        
+        }*/
+		bauhs = new TreeMap<String, Bauh>();
     }
 
 	/**
@@ -531,7 +536,7 @@ public class AcervoDeItens implements Serializable {
 
 	public void salvarEmArquivo() {
 		Configuracao conf = Configuracao.getInstance();
-		File arquivo = new File("./"+conf.getDiretorioBD()+"acervoItens.bd");
+		/*File arquivo = new File("./"+conf.getDiretorioBD()+"acervoItens.bd");
 
 		ObjectOutputStream objectOut = null;
 		try {
@@ -548,8 +553,7 @@ public class AcervoDeItens implements Serializable {
 			try {
 				objectOut.close();
 			} catch (IOException e) {}
-		}
-
+		}*/
 	}
 
 }

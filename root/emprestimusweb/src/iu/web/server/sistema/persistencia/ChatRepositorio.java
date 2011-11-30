@@ -6,14 +6,14 @@ import iu.web.server.sistema.item.Bauh;
 import iu.web.server.sistema.mensagem.ChatIF;
 import iu.web.server.sistema.utilitarios.Mensagem;
 
-import java.io.BufferedInputStream;
+/*import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.ObjectOutputStream;*/
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.Iterator;
@@ -33,7 +33,7 @@ public class ChatRepositorio implements Serializable{
 	private ChatRepositorio() {
 		
 		Configuracao conf = Configuracao.getInstance();
-		File arquivo = new File("./"+conf.getDiretorioBD()+"chatRepositorio.bd");
+		/*File arquivo = new File("./"+conf.getDiretorioBD()+"chatRepositorio.bd");
 		File diretorio = new File("./"+conf.getDiretorioBD());
 		if(!diretorio.exists() || !arquivo.exists()){
 			diretorio.mkdir();
@@ -65,8 +65,14 @@ public class ChatRepositorio implements Serializable{
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}*/
+		conversas = new TreeMap<Long, ChatIF>();
+		try {
+			inicializarDados();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
 	}
 
 	public static ChatRepositorio getInstance() {
@@ -79,7 +85,7 @@ public class ChatRepositorio implements Serializable{
 	private static void inicializarDados() throws Exception {
 		Configuracao conf = Configuracao.getInstance();
         
-        ObjectInputStream objectIn = null;
+        /*ObjectInputStream objectIn = null;
         try{
         	objectIn = new ObjectInputStream(
                     new BufferedInputStream(new FileInputStream("./"+conf.getDiretorioBD()+"chatRepositorio.bd")));
@@ -91,8 +97,8 @@ public class ChatRepositorio implements Serializable{
             e.printStackTrace();
         }finally{
             objectIn.close();
-        }
-        
+        }*/
+        conversas = new TreeMap<Long, ChatIF>();
     }
 
 	/**
@@ -258,7 +264,7 @@ public class ChatRepositorio implements Serializable{
 
 	public void salvarEmArquivo() {
 		Configuracao conf = Configuracao.getInstance();
-		File arquivo = new File("./"+conf.getDiretorioBD()+"chatRepositorio.bd");
+		/*File arquivo = new File("./"+conf.getDiretorioBD()+"chatRepositorio.bd");
 		File diretorio = new File("./"+conf.getDiretorioBD());
 		ObjectOutputStream objectOut = null;
 		try {
@@ -275,7 +281,7 @@ public class ChatRepositorio implements Serializable{
 			try {
 				objectOut.close();
 			} catch (IOException e) {}
-		}
+		}*/
 
 	}
 

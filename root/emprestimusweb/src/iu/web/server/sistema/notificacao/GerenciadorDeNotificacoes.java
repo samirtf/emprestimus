@@ -14,14 +14,14 @@ import iu.web.server.sistema.usuario.UsuarioIF;
 import iu.web.server.sistema.utilitarios.Mensagem;
 import iu.web.server.sistema.utilitarios.Validador;
 
-import java.io.BufferedInputStream;
+/*import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.ObjectOutputStream;*/
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,10 +45,10 @@ public class GerenciadorDeNotificacoes implements Serializable {
 	private static Map<String, Rack> historicos;
 
 	private GerenciadorDeNotificacoes() {
-		//historicos = new TreeMap<String, Rack>();
+		historicos = new TreeMap<String, Rack>();
 		
 		Configuracao conf = Configuracao.getInstance();
-		File arquivo = new File("./"+conf.getDiretorioBD()+"gerenciadorNotificacoes.bd");
+		/*File arquivo = new File("./"+conf.getDiretorioBD()+"gerenciadorNotificacoes.bd");
 		File diretorio = new File("./"+conf.getDiretorioBD());
 		if(!diretorio.exists() || !arquivo.exists()){
 			diretorio.mkdir();
@@ -80,23 +80,25 @@ public class GerenciadorDeNotificacoes implements Serializable {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}*/
+		try {
+			inicializarDados();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
 	}
 
 	public synchronized static GerenciadorDeNotificacoes getInstance() {
-		if (gerenciadorDeNotificacoes == null) {
+		if (gerenciadorDeNotificacoes == null)
 			gerenciadorDeNotificacoes = new GerenciadorDeNotificacoes();
-
-			return gerenciadorDeNotificacoes;
-		}
 		return gerenciadorDeNotificacoes;
 	}
 	
 	private synchronized static void inicializarDados() throws Exception {
 		Configuracao conf = Configuracao.getInstance();
         
-        ObjectInputStream objectIn = null;
+       /* ObjectInputStream objectIn = null;
         try{
         	objectIn = new ObjectInputStream(
                     new BufferedInputStream(new FileInputStream("./"+conf.getDiretorioBD()+"gerenciadorNotificacoes.bd")));
@@ -107,8 +109,8 @@ public class GerenciadorDeNotificacoes implements Serializable {
             e.printStackTrace();
         }finally{
             objectIn.close();
-        }
-        
+        }*/
+        historicos = new TreeMap<String, Rack>();
     }
 
 	/**
@@ -408,7 +410,7 @@ public class GerenciadorDeNotificacoes implements Serializable {
 
 	public synchronized void salvarEmArquivo() {
 		Configuracao conf = Configuracao.getInstance();
-		File arquivo = new File("./"+conf.getDiretorioBD()+"gerenciadorNotificacoes.bd");
+		/*File arquivo = new File("./"+conf.getDiretorioBD()+"gerenciadorNotificacoes.bd");
 		ObjectOutputStream objectOut = null;
 		try {
 			Object[] vetor = new Object[1];
@@ -424,7 +426,7 @@ public class GerenciadorDeNotificacoes implements Serializable {
 			try {
 				objectOut.close();
 			} catch (IOException e) {}
-		}
+		}*/
 
 	}
 

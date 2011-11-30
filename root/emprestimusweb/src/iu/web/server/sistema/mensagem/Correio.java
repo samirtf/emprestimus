@@ -16,14 +16,14 @@ import iu.web.server.sistema.item.Bauh;
 import iu.web.server.sistema.usuario.UsuarioIF;
 import iu.web.server.sistema.utilitarios.Mensagem;
 
-import java.io.BufferedInputStream;
+/*import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.ObjectOutputStream;*/
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -49,7 +49,7 @@ public class Correio implements Serializable{
 		//caixasPostais = new TreeMap<String, CaixaPostal>();
 		
 		Configuracao conf = Configuracao.getInstance();
-		File arquivo = new File("./"+conf.getDiretorioBD()+"correio.bd");
+		/*File arquivo = new File("./"+conf.getDiretorioBD()+"correio.bd");
 		File diretorio = new File("./"+conf.getDiretorioBD());
 		if(!diretorio.exists() || !arquivo.exists()){
 			diretorio.mkdir();
@@ -81,23 +81,26 @@ public class Correio implements Serializable{
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}*/
+		caixasPostais = new TreeMap<String, CaixaPostal>();
+		try {
+			inicializarDados();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
 	}
 
 	public static Correio getInstance() {
-		if (correio == null) {
+		if (correio == null)
 			correio = new Correio();
-
-			return correio;
-		}
 		return correio;
 	}
 	
 	private static void inicializarDados() throws Exception {
 		Configuracao conf = Configuracao.getInstance();
         
-        ObjectInputStream objectIn = null;
+        /*ObjectInputStream objectIn = null;
         try{
         	objectIn = new ObjectInputStream(
                     new BufferedInputStream(new FileInputStream("./"+conf.getDiretorioBD()+"correio.bd")));
@@ -108,8 +111,8 @@ public class Correio implements Serializable{
             e.printStackTrace();
         }finally{
             objectIn.close();
-        }
-        
+        }*/
+		caixasPostais = new TreeMap<String, CaixaPostal>();
     }
 
 	public void adicionaCaixaPostalAoUsuario(String usuario) throws Exception {
@@ -402,7 +405,7 @@ public class Correio implements Serializable{
 
 	public void salvarEmArquivo() {
 		Configuracao conf = Configuracao.getInstance();
-		File arquivo = new File("./"+conf.getDiretorioBD()+"correio.bd");
+		/*File arquivo = new File("./"+conf.getDiretorioBD()+"correio.bd");
 		ObjectOutputStream objectOut = null;
 		try {
 			Object[] vetor = new Object[1];
@@ -418,7 +421,7 @@ public class Correio implements Serializable{
 			try {
 				objectOut.close();
 			} catch (IOException e) {}
-		}
+		}*/
 
 	}
 

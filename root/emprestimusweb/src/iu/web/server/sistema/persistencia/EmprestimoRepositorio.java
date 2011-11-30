@@ -6,14 +6,14 @@ import iu.web.server.sistema.emprestimo.EmprestimoIF;
 import iu.web.server.sistema.mensagem.ChatIF;
 import iu.web.server.sistema.utilitarios.Mensagem;
 
-import java.io.BufferedInputStream;
+/*import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.ObjectOutputStream;*/
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.Map;
@@ -36,7 +36,7 @@ public class EmprestimoRepositorio implements Serializable{
 	private EmprestimoRepositorio() {
 		
 		Configuracao conf = Configuracao.getInstance();
-		File arquivo = new File("./"+conf.getDiretorioBD()+"emprestimoRepositorio.bd");
+		/*File arquivo = new File("./"+conf.getDiretorioBD()+"emprestimoRepositorio.bd");
 		File diretorio = new File("./"+conf.getDiretorioBD());
 		if(!diretorio.exists() || !arquivo.exists()){
 			diretorio.mkdir();
@@ -68,8 +68,14 @@ public class EmprestimoRepositorio implements Serializable{
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}*/
+		emprestimosRealizados = new TreeMap<Long, EmprestimoIF>();
+		try {
+			inicializarDados();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
 	}
 
 	public static EmprestimoRepositorio getInstance() {
@@ -82,7 +88,7 @@ public class EmprestimoRepositorio implements Serializable{
 	private static void inicializarDados() throws Exception {
 		Configuracao conf = Configuracao.getInstance();
         
-        ObjectInputStream objectIn = null;
+        /*ObjectInputStream objectIn = null;
         try{
         	objectIn = new ObjectInputStream(
                     new BufferedInputStream(new FileInputStream("./"+conf.getDiretorioBD()+"emprestimoRepositorio.bd")));
@@ -94,9 +100,9 @@ public class EmprestimoRepositorio implements Serializable{
             e.printStackTrace();
         }finally{
             objectIn.close();
-        }
-
-        
+        }*/
+        emprestimosRealizados = new TreeMap<Long, EmprestimoIF>();
+        contadorID = emprestimosRealizados.size();
     }
 
 	/**
@@ -234,7 +240,7 @@ public class EmprestimoRepositorio implements Serializable{
 
 	public void salvarEmArquivo() {
 		Configuracao conf = Configuracao.getInstance();
-		File arquivo = new File("./"+conf.getDiretorioBD()+"emprestimoRepositorio.bd");
+		/*File arquivo = new File("./"+conf.getDiretorioBD()+"emprestimoRepositorio.bd");
 		File diretorio = new File("./"+conf.getDiretorioBD());
 		ObjectOutputStream objectOut = null;
 		try {
@@ -251,7 +257,7 @@ public class EmprestimoRepositorio implements Serializable{
 			try {
 				objectOut.close();
 			} catch (IOException e) {}
-		}
+		}*/
 
 	}
 }

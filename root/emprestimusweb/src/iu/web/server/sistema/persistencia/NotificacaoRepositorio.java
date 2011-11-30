@@ -5,14 +5,14 @@ import iu.web.server.sistema.item.ItemIF;
 import iu.web.server.sistema.notificacao.Notificacao;
 import iu.web.server.sistema.utilitarios.Mensagem;
 
-import java.io.BufferedInputStream;
+/*import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.ObjectOutputStream;*/
 import java.io.Serializable;
 import java.util.Map;
 import java.util.TreeMap;
@@ -37,7 +37,7 @@ public class NotificacaoRepositorio implements Serializable{
 	private NotificacaoRepositorio() {
 		
 		Configuracao conf = Configuracao.getInstance();
-		File arquivo = new File("./"+conf.getDiretorioBD()+"notificacaoRepositorio.bd");
+		/*File arquivo = new File("./"+conf.getDiretorioBD()+"notificacaoRepositorio.bd");
 		File diretorio = new File("./"+conf.getDiretorioBD());
 		if(!diretorio.exists() || !arquivo.exists()){
 			diretorio.mkdir();
@@ -69,6 +69,14 @@ public class NotificacaoRepositorio implements Serializable{
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}*/
+		
+		notificacoesCadastradas = new TreeMap<Long, Notificacao>();
+		try {
+			inicializarDados();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 	}
@@ -83,7 +91,7 @@ public class NotificacaoRepositorio implements Serializable{
 	private static void inicializarDados() throws Exception {
 		Configuracao conf = Configuracao.getInstance();
         
-        ObjectInputStream objectIn = null;
+        /*ObjectInputStream objectIn = null;
         try{
         	objectIn = new ObjectInputStream(
                     new BufferedInputStream(new FileInputStream("./"+conf.getDiretorioBD()+"notificacaoRepositorio.bd")));
@@ -95,9 +103,9 @@ public class NotificacaoRepositorio implements Serializable{
             e.printStackTrace();
         }finally{
             objectIn.close();
-        }
-        
-
+        }*/
+		notificacoesCadastradas = new TreeMap<Long, Notificacao>();
+		contadorID = notificacoesCadastradas.size();
         
     }
 
@@ -209,7 +217,7 @@ public class NotificacaoRepositorio implements Serializable{
 
 	public void salvarEmArquivo() {
 		Configuracao conf = Configuracao.getInstance();
-		File arquivo = new File("./"+conf.getDiretorioBD()+"notificacaoRepositorio.bd");
+		/*File arquivo = new File("./"+conf.getDiretorioBD()+"notificacaoRepositorio.bd");
 		File diretorio = new File("./"+conf.getDiretorioBD());
 		ObjectOutputStream objectOut = null;
 		try {
@@ -226,7 +234,7 @@ public class NotificacaoRepositorio implements Serializable{
 			try {
 				objectOut.close();
 			} catch (IOException e) {}
-		}
+		}*/
 
 	}
 	
