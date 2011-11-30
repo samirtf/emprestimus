@@ -19,13 +19,12 @@ import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.MenuItem;
 import com.google.gwt.user.client.ui.TextBox;
 
-
 /**
  * @author José Nathaniel L de Abrante - nathaniel.una@gmail.com
  *
  */
-public class Home extends Composite {
-	private static final String fotoPerfilDefault = "emprestimusweb/imagens/default-profile.png";
+public class PainelAmigo extends Composite {
+private static final String fotoPerfilDefault = "emprestimusweb/imagens/default-profile.png";
 	
 	private Controlador controlador;
 	private DockLayoutPanel painelGlobal;
@@ -41,61 +40,21 @@ public class Home extends Composite {
 
 	private String htmlMural = "Carregando...";
 	private String htmlPerfil = "Carregando...";
-	private String htmlMensagens = "Carregando...";
 	private String htmlAmigos = "Carregando...";
 	private String htmlItens = "Carregando...";
 	private String htmlEmprestimosTipoEmprestador = "Carregando...";
 	private String htmlEmprestimosTipoBeneficiador = "Carregando...";
 	private String htmlEmprestimosTipoTodos = "Carregando...";
 
-	public Home(Controlador controlador) {
+	public PainelAmigo(Controlador controlador) {
 		this.controlador = controlador;
 		
 		painelGlobal = new DockLayoutPanel(Unit.EM);
 		initWidget(painelGlobal);
 		painelGlobal.setSize("900px", "522px");
 		
-		inicializaPainelSuperior();
 		inicializaPainelLateral();
 		inicializaHtmlCentral();
-		
-	}
-	
-	private void inicializaPainelSuperior() {
-		painelSuperior = new AbsolutePanel();
-		painelGlobal.addNorth(painelSuperior, 9.1);
-		
-		Image imgEmprestimus = new Image(Login.IMAGEM_Emprestimus.getUrl());
-		painelSuperior.add(imgEmprestimus, 10, 10);
-		imgEmprestimus.setSize("311px", "105px");
-		
-		imgSolicitacoes = new Image("emprestimusweb/imagens/09.png");
-		painelSuperior.add(imgSolicitacoes, 447, 59);
-		imgSolicitacoes.setSize("30", "26px");
-		
-		imgRequisicoes = new Image("emprestimusweb/imagens/06.png");
-		painelSuperior.add(imgRequisicoes, 545, 59);
-		imgRequisicoes.setSize("33px", "26");
-		
-		imgNovaMensagem = new Image("emprestimusweb/imagens/05.png");
-		painelSuperior.add(imgNovaMensagem, 651, 63);
-		imgNovaMensagem.setSize("33px", "22px");
-		
-		Hyperlink hprlnkSair = new Hyperlink("Sair", false, "newHistoryToken");
-		hprlnkSair.addClickHandler(new MyHandlerSair());
-		painelSuperior.add(hprlnkSair, 867, 10);
-		
-		Hyperlink hprlnkNumSolicitacoesAmizade = new Hyperlink("", false, "newHistoryToken");
-		hprlnkNumSolicitacoesAmizade.setStyleName("nathaniel1");
-		painelSuperior.add(hprlnkNumSolicitacoesAmizade, 477, 59);
-		
-		Hyperlink hprlnkNumRequisicoesItens = new Hyperlink("", false, "newHistoryToken");
-		hprlnkNumRequisicoesItens.setStyleName("nathaniel1");
-		painelSuperior.add(hprlnkNumRequisicoesItens, 584, 59);
-		
-		Hyperlink hprlnkNumNovasMensagens = new Hyperlink("", false, "newHistoryToken");
-		hprlnkNumNovasMensagens.setStyleName("nathaniel1");
-		painelSuperior.add(hprlnkNumNovasMensagens, 690, 59);
 		
 	}
 	
@@ -119,10 +78,6 @@ public class Home extends Composite {
 		MenuItem mntmPerfil = new MenuItem("Perfil", false, new MyCommandMostraPerfil());
 		mntmPerfil.setHTML("<menuItem>Perfil</menuItem>");
 		menuBar.addItem(mntmPerfil);
-		
-		MenuItem mntmMensagens = new MenuItem("Mensagens", false, new MyCommandMostraMensagens());
-		mntmMensagens.setHTML("<menuItem>Mensagens</menuItem>");
-		menuBar.addItem(mntmMensagens);
 		
 		MenuItem mntmAmigos = new MenuItem("Amigos", false, new MyCommandMostraAmigos());
 		mntmAmigos.setHTML("<menuItem>Amigos</menuItem>");
@@ -151,7 +106,7 @@ public class Home extends Composite {
 		absolutePanel.setSize("691px", "108px");
 		
 		
-//		setPainelMural(); //FIXME: lemrar de descomentar isso!
+		setPainelMural();
 	}
 	
 	private void setPainelMural() {
@@ -188,28 +143,6 @@ public class Home extends Composite {
 		painelPerfil.add(btnEditarPerfil, 600, 10);
 		
 		htmlCentral.setHTML(htmlPerfil);
-	}
-	
-	private void setPainelMensagens() {
-		AbsolutePanel absolutePanel = new AbsolutePanel();
-		painelCentral.add(absolutePanel, 0, 0);
-		absolutePanel.setSize("691px", "108px");
-		
-		Label lblFiltrar = new Label("Filtrar:");
-		absolutePanel.add(lblFiltrar, 22, 41);
-		
-		ListBox comboBoxFiltro = new ListBox();
-		comboBoxFiltro.addItem("Todas as Mensagens");
-		comboBoxFiltro.addItem("Mensagens de Negociação");
-		comboBoxFiltro.addItem("Mensagens Off-Topic");
-		comboBoxFiltro.setSelectedIndex(0);
-		absolutePanel.add(comboBoxFiltro, 65, 41);
-		comboBoxFiltro.setSize("236px", "22px");
-		
-		Button btnNovaMensagem = new Button("Nova mensagem");
-		absolutePanel.add(btnNovaMensagem, 378, 36);
-		
-		htmlCentral.setHTML(htmlMensagens);
 	}
 	
 	private void setPainelAmigos() {
@@ -275,11 +208,6 @@ public class Home extends Composite {
 		setPainelAmigos();
 	}
 	
-	public void atualizaMensagens() {
-		htmlMensagens = controlador.getMensagens();
-		setPainelMensagens();
-	}
-	
 	public void atualizaEmprestimos() {
 		htmlEmprestimosTipoTodos = controlador.getEmprestimosTodos();
 		htmlEmprestimosTipoEmprestador = controlador.getEmprestimosTipoEmprestador();
@@ -336,13 +264,6 @@ public class Home extends Composite {
 		public void execute() {
 			controlador.atualizaNome();
 			setPainelPerfil();
-		}
-	}
-	class MyCommandMostraMensagens implements Command {
-		@Override
-		public void execute() {
-			controlador.atualizaMensagens();
-			setPainelMensagens();
 		}
 	}
 	class MyCommandMostraAmigos implements Command {
