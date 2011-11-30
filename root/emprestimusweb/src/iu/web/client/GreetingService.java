@@ -35,4 +35,20 @@ public interface GreetingService extends RemoteService {
 	String getEmprestimosBeneficiador(String idSessao) throws Exception;
 
 	String getEmprestimosEmprestador(String idSessao) throws Exception;
+
+	String localizarUsuario(String idSessao) throws Exception;
+
+	String localizarUsuario(String idSessao, String chave, String atributo)
+			throws Exception;
+
+	String getNomeAmigo(String loginAmigo) throws Exception;
+
+	String getImagemAmigo(String loginAmigo) throws Exception;
+
+	String getHistorico(String idSessao, String loginAmigo) throws Exception;
+
+	String getAmigosDoAmigo(String idSessao, String loginAmigo)
+			throws Exception;
+	
+	
 }

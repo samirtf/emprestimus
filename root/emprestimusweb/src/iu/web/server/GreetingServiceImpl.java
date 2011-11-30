@@ -52,20 +52,48 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements Greetin
 	public String getNome(String idSessao) throws Exception {
 		return escapeHtml(Autenticacao.getInstance().getUsuarioPeloIDSessao(idSessao).getNome());
 	}
+	
+	@Override
+	public String getNomeAmigo(String loginAmigo) throws Exception {
+		return escapeHtml(Autenticacao.getUsuarioPorLogin(loginAmigo).getNome());
+	}
 
 	@Override
 	public String getImagem(String idSessao) throws Exception {
 		return escapeHtml(Autenticacao.getInstance().getUsuarioPeloIDSessao(idSessao).getCaminhaImagemPerfil());
+	}
+	
+	@Override
+	public String getImagemAmigo(String loginAmigo) throws Exception {
+		return escapeHtml(Autenticacao.getUsuarioPorLogin(loginAmigo).getCaminhaImagemPerfil());
 	}
 
 	@Override
 	public String getHistoricoConjunto(String idSessao) throws Exception {
 		return escapeHtml(Emprestimus.getInstance().historicoAtividadesConjunto(idSessao));
 	}
+	
+	@Override
+	public String getHistorico(String idSessao, String loginAmigo) throws Exception {
+		String resultado = null;
+		if(Autenticacao.getInstance().getUsuarioPeloIDSessao(idSessao).ehAmigo(loginAmigo)){
+			resultado = Autenticacao.getUsuarioPorLogin(loginAmigo).getHistoricoToString();
+		}
+		return escapeHtml(resultado);
+	}
 
 	@Override
 	public String getAmigos(String idSessao) throws Exception {
 		return escapeHtml(Emprestimus.getInstance().getAmigos(idSessao));
+	}
+	
+	@Override
+	public String getAmigosDoAmigo(String idSessao, String loginAmigo) throws Exception {
+		String resultado = null;
+		if(Autenticacao.getInstance().getUsuarioPeloIDSessao(idSessao).ehAmigo(loginAmigo)){
+			resultado = Autenticacao.getUsuarioPorLogin(loginAmigo).getAmigos();
+		}
+		return escapeHtml(resultado);
 	}
 
 	@Override
@@ -112,5 +140,16 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements Greetin
 	public String getEmprestimosEmprestador(String idSessao) throws Exception {
 		return escapeHtml(Autenticacao.getInstance().getUsuarioPeloIDSessao(idSessao).getEmprestimos("emprestador"));
 	}
+	
+	@Override
+	public String localizarUsuario(String idSessao) throws Exception {
+		return escapeHtml(Emprestimus.getInstance().localizarUsuario(idSessao));
+	}
+	
+	@Override
+	public String localizarUsuario(String idSessao, String chave, String atributo) throws Exception {
+		return escapeHtml(Emprestimus.getInstance().localizarUsuario(idSessao, chave, atributo));
+	}
+	
 	
 }
