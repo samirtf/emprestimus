@@ -14,7 +14,6 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.MenuItem;
 import com.google.gwt.user.client.ui.TextBox;
@@ -27,7 +26,7 @@ public class PainelAmigo extends Composite {
 private static final String fotoPerfilDefault = "emprestimusweb/imagens/default-profile.png";
 	
 	private Controlador controlador;
-	private DockLayoutPanel painelGlobal;
+	public DockLayoutPanel painelGlobal;
 	private AbsolutePanel painelSuperior;
 	private AbsolutePanel painelLateral;
 	private Image foto;
@@ -46,12 +45,12 @@ private static final String fotoPerfilDefault = "emprestimusweb/imagens/default-
 	private String htmlEmprestimosTipoBeneficiador = "Carregando...";
 	private String htmlEmprestimosTipoTodos = "Carregando...";
 
-	public PainelAmigo(Controlador controlador) {
+	public PainelAmigo(Controlador controlador, String nick) {
 		this.controlador = controlador;
 		
 		painelGlobal = new DockLayoutPanel(Unit.EM);
 		initWidget(painelGlobal);
-		painelGlobal.setSize("900px", "522px");
+		painelGlobal.setSize("900px", "611px");
 		
 		inicializaPainelLateral();
 		inicializaHtmlCentral();
@@ -119,8 +118,6 @@ private static final String fotoPerfilDefault = "emprestimusweb/imagens/default-
 		Label lblMuralDeAtualizaes = new Label("Mural de Atualizações");
 		lblMuralDeAtualizaes.setStyleName("nathaniel2");
 		painelMural.add(lblMuralDeAtualizaes, 10, 25);
-		
-		painelGlobal.setHeight("1000px");
 		htmlCentral.setHTML(htmlMural);
 	}
 	

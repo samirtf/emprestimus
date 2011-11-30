@@ -17,6 +17,8 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.MenuItem;
+import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.StackPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
 
@@ -34,6 +36,8 @@ public class Home extends Composite {
 	private Image foto;
 	private HTML htmlCentral;
 	private AbsolutePanel painelCentral;
+	
+	private PainelAmigo painel;
 	
 	private Image imgSolicitacoes;
 	private Image imgRequisicoes;
@@ -53,7 +57,7 @@ public class Home extends Composite {
 		
 		painelGlobal = new DockLayoutPanel(Unit.EM);
 		initWidget(painelGlobal);
-		painelGlobal.setSize("900px", "522px");
+		painelGlobal.setSize("900px", "1000px");
 		
 		inicializaPainelSuperior();
 		inicializaPainelLateral();
@@ -68,6 +72,7 @@ public class Home extends Composite {
 		Image imgEmprestimus = new Image(Login.IMAGEM_Emprestimus.getUrl());
 		painelSuperior.add(imgEmprestimus, 10, 10);
 		imgEmprestimus.setSize("311px", "105px");
+		imgEmprestimus.addClickHandler(new MyHandlerHome());
 		
 		imgSolicitacoes = new Image("emprestimusweb/imagens/09.png");
 		painelSuperior.add(imgSolicitacoes, 447, 59);
@@ -151,7 +156,7 @@ public class Home extends Composite {
 		absolutePanel.setSize("691px", "108px");
 		
 		
-//		setPainelMural(); //FIXME: lemrar de descomentar isso!
+		setPainelMural(); //FIXME: lemrar de descomentar isso!
 	}
 	
 	private void setPainelMural() {
@@ -164,8 +169,6 @@ public class Home extends Composite {
 		Label lblMuralDeAtualizaes = new Label("Mural de Atualizações");
 		lblMuralDeAtualizaes.setStyleName("nathaniel2");
 		painelMural.add(lblMuralDeAtualizaes, 10, 25);
-		
-		painelGlobal.setHeight("1000px");
 		htmlCentral.setHTML(htmlMural);
 	}
 	
@@ -266,6 +269,7 @@ public class Home extends Composite {
 
 	public void atualizaAmigos() {
 		htmlAmigos = "";
+		
 		for (String amigo : controlador.getAmigos().split("; ")) {
 			Hyperlink link = new Hyperlink();
 			link.setHTML(amigo);
@@ -303,6 +307,24 @@ public class Home extends Composite {
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	class MyHandlerHome implements ClickHandler {
+		@Override
+		public void onClick(ClickEvent event) {
+			painel.setVisible(true);
+			painel.removeFromParent();
+			
+			painelGlobal.setHeight("1000px");
+			painelLateral.setVisible(true);
+			painelCentral.setVisible(true);
+			htmlCentral.setVisible(true);
+		}
+	}
 
 	class MyHandlerAmigo implements ClickHandler {
 		private String nome;
@@ -311,7 +333,14 @@ public class Home extends Composite {
 		}
 		@Override
 		public void onClick(ClickEvent event) {
-			//TODO
+			painelLateral.setVisible(false);
+			painelCentral.setVisible(false);
+			htmlCentral.setVisible(false);
+			painelGlobal.setHeight("118px");
+			
+			painel = new PainelAmigo(controlador, nome);
+			painel.setVisible(true);
+			RootPanel.get("centro").add(painel);
 		}
 	}
 	
