@@ -34,10 +34,10 @@ public class Login extends Composite {
 	private final GreetingServiceAsync greetingService = GWT
 			.create(GreetingService.class);
 
-	public static final Image IMAGEM_Emprestimus = new Image("emprestimusweb/imagens/logo2.png");
-	private Image IMAGEM1 = new Image("emprestimusweb/imagens/01.jpg");
-	private Image IMAGEM2 = new Image("emprestimusweb/imagens/02.jpg");
-	private Image IMAGEM3 = new Image("emprestimusweb/imagens/03.jpg");
+	public static final Image IMAGEM_Emprestimus = new Image(Imagem.LOGO_PRINCIPAL.getEndereco());
+	private Image IMAGEM1 = new Image(Imagem.INICIAL_1.getEndereco());
+	private Image IMAGEM2 = new Image(Imagem.INICIAL_2.getEndereco());
+	private Image IMAGEM3 = new Image(Imagem.INICIAL_3.getEndereco());
 
 	private AbsolutePanel painelLogin;
 
@@ -91,7 +91,7 @@ public class Login extends Composite {
 
 	private void iniciaComponentesDoLogin() {
 
-		Image image = new Image("emprestimusweb/imagens/back.png");
+		Image image = new Image(Imagem.BACK.getEndereco());
 		painelLogin.add(image, 10, 155);
 		image.setSize("857px", "342px");
 

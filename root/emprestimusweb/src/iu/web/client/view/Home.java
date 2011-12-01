@@ -27,7 +27,7 @@ import com.google.gwt.user.client.ui.TextBox;
  *
  */
 public class Home extends Composite {
-	private static final String fotoPerfilDefault = "emprestimusweb/imagens/default-profile.png";
+	private static final String fotoPerfilDefault = Imagem.PERFIL_DEFAULT.getEndereco();
 	
 	private Controlador controlador;
 	private DockLayoutPanel painelGlobal;
@@ -74,15 +74,15 @@ public class Home extends Composite {
 		imgEmprestimus.setSize("311px", "105px");
 		imgEmprestimus.addClickHandler(new MyHandlerHome());
 		
-		imgSolicitacoes = new Image("emprestimusweb/imagens/09.png");
+		imgSolicitacoes = new Image(Imagem.SOLICITACOES.getEndereco());
 		painelSuperior.add(imgSolicitacoes, 447, 59);
 		imgSolicitacoes.setSize("30", "26px");
 		
-		imgRequisicoes = new Image("emprestimusweb/imagens/06.png");
+		imgRequisicoes = new Image(Imagem.REQUISITACOES.getEndereco());
 		painelSuperior.add(imgRequisicoes, 545, 59);
 		imgRequisicoes.setSize("33px", "26");
 		
-		imgNovaMensagem = new Image("emprestimusweb/imagens/05.png");
+		imgNovaMensagem = new Image(Imagem.NOVA_MENSAGEM.getEndereco());
 		painelSuperior.add(imgNovaMensagem, 651, 63);
 		imgNovaMensagem.setSize("33px", "22px");
 		

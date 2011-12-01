@@ -23,7 +23,7 @@ import com.google.gwt.user.client.ui.TextBox;
  *
  */
 public class PainelAmigo extends Composite {
-private static final String fotoPerfilDefault = "emprestimusweb/imagens/default-profile.png";
+private static final String fotoPerfilDefault = Imagem.PERFIL_DEFAULT.getEndereco();
 	
 	private Controlador controlador;
 	public DockLayoutPanel painelGlobal;

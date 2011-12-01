@@ -33,7 +33,7 @@ import com.google.gwt.user.client.ui.TextArea;
  *
  */
 public class MelhorarLocalizacao extends Composite {
-	private static final String fotoPerfilDefault = "emprestimusweb/imagens/default-profile.png";
+	private static final String fotoPerfilDefault = Imagem.PERFIL_DEFAULT.getEndereco();
 	
 	private Controlador controlador;
 	private DockLayoutPanel painelGlobal;
@@ -74,15 +74,15 @@ public class MelhorarLocalizacao extends Composite {
 		painelSuperior.add(imgEmprestimus, 10, 10);
 		imgEmprestimus.setSize("311px", "105px");
 		
-		imgSolicitacoes = new Image("emprestimusweb/imagens/09.png");
+		imgSolicitacoes = new Image(Imagem.SOLICITACOES.getEndereco());
 		painelSuperior.add(imgSolicitacoes, 447, 59);
 		imgSolicitacoes.setSize("30", "26px");
 		
-		imgRequisicoes = new Image("emprestimusweb/imagens/06.png");
+		imgRequisicoes = new Image(Imagem.REQUISITACOES.getEndereco());
 		painelSuperior.add(imgRequisicoes, 545, 59);
 		imgRequisicoes.setSize("33px", "26");
 		
-		imgNovaMensagem = new Image("emprestimusweb/imagens/05.png");
+		imgNovaMensagem = new Image(Imagem.NOVA_MENSAGEM.getEndereco());
 		painelSuperior.add(imgNovaMensagem, 651, 63);
 		imgNovaMensagem.setSize("33px", "22px");
 		
@@ -124,7 +124,7 @@ public class MelhorarLocalizacao extends Composite {
 		painelCentral.add(painelMural, 0, 0);
 		painelMural.setSize("890px", "106px");
 		
-		Image image = new Image("emprestimusweb/imagens/.svn/text-base/09.png.svn-base");
+		Image image = new Image(Imagem.SOLICITACOES.getEndereco());
 		painelMural.add(image, 43, 39);
 		image.setSize("38px", "43px");
 		
@@ -136,7 +136,7 @@ public class MelhorarLocalizacao extends Composite {
 		painelGlobal.setHeight("1000px");
 		htmlCentral.setHTML(htmlMural);
 		
-		Image image_1 = new Image("emprestimusweb/imagens/back-item.png");
+		Image image_1 = new Image(Imagem.BACK_ITEM.getEndereco());
 		painelCentral.add(image_1, 10, 112);
 		image_1.setSize("880px", "59px");
 		
