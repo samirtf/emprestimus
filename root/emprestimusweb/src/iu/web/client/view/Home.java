@@ -194,6 +194,8 @@ public class Home extends Composite {
 	}
 	
 	private void setPainelMensagens() {
+		painelCentral.clear();
+		
 		AbsolutePanel absolutePanel = new AbsolutePanel();
 		painelCentral.add(absolutePanel, 0, 0);
 		absolutePanel.setSize("691px", "108px");
