@@ -15,10 +15,7 @@ import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 
-/**
- * @author José Nathaniel L de Abrante - nathaniel.una@gmail.com
- *
- */
+
 public class DialogoTrocarSenha extends DialogBox {
 	private Controlador controlador;
 	

@@ -23,12 +23,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
 
-/**
- * Painel de login
- * 
- * @author José Nathaniel L de Abrante - nathaniel.una@gmail.com
- * 
- */
+
 public class Login extends Composite {
 
 	private final GreetingServiceAsync greetingService = GWT

@@ -22,10 +22,6 @@ import com.google.gwt.user.client.ui.StackPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
 
-/**
- * @author José Nathaniel L de Abrante - nathaniel.una@gmail.com
- *
- */
 public class Home extends Composite {
 	private static final String fotoPerfilDefault = Imagem.PERFIL_DEFAULT.getEndereco();
 	

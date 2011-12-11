@@ -18,10 +18,6 @@ import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.MenuItem;
 import com.google.gwt.user.client.ui.TextBox;
 
-/**
- * @author José Nathaniel L de Abrante - nathaniel.una@gmail.com
- *
- */
 public class PainelAmigo extends Composite {
 private static final String fotoPerfilDefault = Imagem.PERFIL_DEFAULT.getEndereco();
 	

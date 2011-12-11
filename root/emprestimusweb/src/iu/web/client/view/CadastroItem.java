@@ -28,10 +28,6 @@ import com.google.gwt.user.client.ui.LongBox;
 import com.google.gwt.user.client.ui.TextArea;
 
 
-/**
- * @author Talita Bac
- *
- */
 public class CadastroItem extends Composite {
 	private static final String fotoPerfilDefault = Imagem.PERFIL_DEFAULT.getEndereco();
 	
